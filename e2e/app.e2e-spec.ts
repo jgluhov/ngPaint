@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('native-timer-app App', () => {
+describe('ngPaint App', () => {
   let page: AppPage;
 
   beforeEach(() => {
