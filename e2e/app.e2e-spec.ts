@@ -7,8 +7,8 @@ describe('native-timer-app App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should contain root tag', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getRoot()).toBeDefined();
   });
 });
