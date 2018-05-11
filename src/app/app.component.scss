@@ -10,7 +10,7 @@
   display: grid;
   height: 100vh;
   grid-gap: 5px;
-  grid-template-columns: 200px;
+  grid-template-columns: 100px auto;
   grid-template-areas:
     "dashboard plot"
 }
