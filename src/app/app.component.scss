@@ -1,0 +1,16 @@
+.dashboard {
+  grid-area: dashboard;
+}
+
+.plot {
+  grid-area: plot;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+  grid-gap: 5px;
+  grid-template-columns: 200px;
+  grid-template-areas:
+    "dashboard plot"
+}
