@@ -5,6 +5,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/app-store.module';
 import { MastheadComponent } from './components/masthead/masthead.component';
+import { ToolsModule } from './modules/tools/tools.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { MastheadComponent } from './components/masthead/masthead.component';
   ],
   imports: [
     BrowserModule,
-    AppStoreModule
+    AppStoreModule,
+    ToolsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

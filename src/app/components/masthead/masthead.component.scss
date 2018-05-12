@@ -1,5 +1,7 @@
+@import '../../../sass/variables.scss';
+
 :host {
-  background-color: rgb(45, 45, 61);
+  background-color: $color-dark-metal;
   display: flex;
   align-items: center;
   justify-content: flex-start;
