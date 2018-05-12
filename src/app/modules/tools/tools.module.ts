@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolsComponent } from './components/tools/tools.component';
-import { PanelComponent } from './../../components/panel/panel.component';
+import { GeneralModule } from '../general/general.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    GeneralModule
   ],
   declarations: [
-    ToolsComponent,
-    PanelComponent
+    ToolsComponent
   ],
   exports: [ToolsComponent]
 })
