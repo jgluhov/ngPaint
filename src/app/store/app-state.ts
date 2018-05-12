@@ -1,3 +1,6 @@
 export interface AppState {
-  message: string;
+  common: {
+    selectedColor: string;
+    selectedTool: string;
+  };
 }

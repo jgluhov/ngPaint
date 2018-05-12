@@ -9,8 +9,10 @@ import { AppState } from './store/app-state';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  message$: Observable<string>;
+  selectedColor$: Observable<string>;
   constructor(private store: Store<AppState>) {
-    this.message$ = store.select('message');
+    this.selectedColor$ = store
+      .select('common')
+      .select('selectedColor');
   }
 }
