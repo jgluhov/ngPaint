@@ -3,14 +3,15 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-
+import { AppStoreModule } from './store/app-store.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppStoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
