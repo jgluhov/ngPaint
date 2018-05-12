@@ -9,6 +9,6 @@ export class PanelComponent implements OnInit {
   @Input() panelTitle: string;
 
   ngOnInit(): void {
-    console.log(this.panelTitle);
+
   }
 }
