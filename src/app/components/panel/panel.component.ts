@@ -10,6 +10,5 @@ export class PanelComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.panelTitle);
-
   }
 }

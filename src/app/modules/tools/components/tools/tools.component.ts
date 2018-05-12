@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent {
-  title = 'Tools';
+  private title = 'Tools';
 }
