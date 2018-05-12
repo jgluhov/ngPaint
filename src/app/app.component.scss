@@ -1,30 +1,33 @@
+app-masthead {
+  grid-area: app-masthead;
+}
+//TODO: remove partially
 app-options-bar {
   grid-area: app-options-bar;
   background-color: yellow;
 }
-
-app-masthead {
-  grid-area: app-masthead;
-  background-color: khaki;
-}
-
+//TODO: remove partially
 app-tools {
   grid-area: app-tools;
   background-color: green;
 }
-
+//TODO: remove partially
 app-user-list {
   grid-area: app-user-list;
   background-color: red;
 }
-
+//TODO: remove partially
 app-canvas {
   grid-area: app-canvas;
   background-color: beige;
 }
 
-.container * {
+//TODO: remove
+.container > * {
   display: flex;
+}
+//TODO: remove
+.container > *.incomplete {
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -34,7 +37,7 @@ app-canvas {
 .container {
   display: grid;
   height: 100vh;
-  grid-template-rows: 60px 50px auto;
+  grid-template-rows: 40px 50px auto;
   grid-template-columns: 50px auto 200px;
   grid-template-areas:
     "app-masthead app-masthead app-masthead"
