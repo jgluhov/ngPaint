@@ -4,11 +4,13 @@ import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/app-store.module';
 import { MastheadComponent } from './components/masthead/masthead.component';
 import { ToolsModule } from './modules/tools/tools.module';
+import { PanelComponent } from './components/panel/panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MastheadComponent
+    MastheadComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,5 @@
+@import '../sass/variables.scss';
+
 app-masthead {
   grid-area: app-masthead;
 }
@@ -42,4 +44,5 @@ app-canvas {
     "app-masthead app-masthead app-masthead"
     "app-tools app-options-bar app-user-list"
     "app-tools app-canvas app-user-list";
+  background-color: $color-dark-metal;
 }

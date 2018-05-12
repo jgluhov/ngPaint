@@ -2,4 +2,7 @@
 
 :host {
   background-color: $color-dark-metal;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
 }
