@@ -1,5 +1,20 @@
 <div class="canvas">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 600">
+    <svg xmlns="http://www.w3.org/2000/svg"
+      id="svg"
+      viewBox="0 0 660 600"
+      width="660"
+      height="660"
+      #svg>
+      <defs>
+          <pattern id="grid"
+            patternUnits="userSpaceOnUse"
+            width="10"
+            height="10">
+              <line x1="5" y1="0" x2="5" y2="10" />
+              <line x1="0" y1="5" x2="10" y2="5" />
+          </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
       <rect x="10" y="50" width="10" height="10" fill="red" />
     </svg>
 </div>
