@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PanelComponent } from './panel/panel.component';
 import { MastheadComponent } from './masthead/masthead.component';
-import { OptionsBarComponent } from './options-bar/options-bar.component';
 
 @NgModule({
+  imports: [
+    CommonModule
+  ],
   declarations: [
     PanelComponent,
-    MastheadComponent,
-    OptionsBarComponent
+    MastheadComponent
   ],
   exports: [
     PanelComponent,
-    MastheadComponent,
-    OptionsBarComponent
+    MastheadComponent
   ]
 })
 export class GeneralModule { }

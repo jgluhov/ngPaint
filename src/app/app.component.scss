@@ -16,22 +16,8 @@ app-users {
   grid-area: app-users;
 }
 
-//TODO: remove partially
 app-canvas {
   grid-area: app-canvas;
-  background-color: beige;
-}
-
-//TODO: remove
-.container > * {
-  display: flex;
-}
-//TODO: remove
-.container > *.incomplete {
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 20px;
 }
 
 .container {

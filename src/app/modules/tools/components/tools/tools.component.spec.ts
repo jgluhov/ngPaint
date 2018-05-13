@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolsComponent } from './tools.component';
-import { PanelComponent } from '../../../../components/panel/panel.component';
+import { GeneralModule } from '../../../../general/general.module';
 
 describe('ToolsComponent', () => {
   let component: ToolsComponent;
@@ -9,9 +9,11 @@ describe('ToolsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        GeneralModule
+      ],
       declarations: [
-        ToolsComponent,
-        PanelComponent
+        ToolsComponent
       ]
     })
     .compileComponents();
