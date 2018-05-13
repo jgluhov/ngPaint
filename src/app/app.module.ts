@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/app-store.module';
 import { MastheadComponent } from './components/masthead/masthead.component';
 import { ToolsModule } from './modules/tools/tools.module';
+import { UsersModule } from './modules/users/users.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ToolsModule } from './modules/tools/tools.module';
   imports: [
     BrowserModule,
     AppStoreModule,
-    ToolsModule
+    ToolsModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -12,11 +12,11 @@ app-options-bar {
 app-tools {
   grid-area: app-tools;
 }
-//TODO: remove partially
-app-user-list {
-  grid-area: app-user-list;
-  background-color: red;
+
+app-users {
+  grid-area: app-users;
 }
+
 //TODO: remove partially
 app-canvas {
   grid-area: app-canvas;
@@ -42,7 +42,7 @@ app-canvas {
   grid-template-columns: 50px auto 200px;
   grid-template-areas:
     "app-masthead app-masthead app-masthead"
-    "app-tools app-options-bar app-user-list"
-    "app-tools app-canvas app-user-list";
+    "app-tools app-options-bar app-users"
+    "app-tools app-canvas app-users";
   background-color: $color-dark-metal;
 }
