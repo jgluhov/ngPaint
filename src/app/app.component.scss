@@ -24,8 +24,8 @@ app-canvas {
   display: grid;
   height: 100vh;
   grid-gap: 1px;
-  grid-template-rows: 40px 40px auto;
-  grid-template-columns: 50px auto 200px;
+  grid-template-rows: 40px 40px minmax(600px, auto);
+  grid-template-columns: 50px minmax(600px, auto) 200px;
   grid-template-areas:
     "app-masthead app-masthead app-masthead"
     "app-tools app-options-bar app-users"
