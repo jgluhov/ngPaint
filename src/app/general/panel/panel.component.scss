@@ -1,15 +1,21 @@
 @import '../../../sass/variables.scss';
 
-:host {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-items: stretch;
+.panel {
   background-color: $color-dark-metal;
   font-size: 12px;
-}
+  min-height: 30px;
+  width: 100%;
+  border-radius: 1px;
+  margin-bottom: 5px;
 
-.panel__title {
-  text-align: center;
-  cursor: default;
+  &__title {
+    padding: 2px 0;
+    text-align: center;
+    cursor: default;
+    border-bottom: 0.01em solid darken($color-white-wash, 50%);
+  }
+
+  &__content {
+    padding: 5px;
+  }
 }

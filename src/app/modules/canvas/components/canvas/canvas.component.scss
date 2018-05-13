@@ -1,11 +1,2 @@
 @import '../../../../../sass/variables.scss';
 
-:host {
-  display: flex
-};
-
-.canvas {
-  overflow: auto;
-  background-color: $color-grey;
-  flex: 1;
-}

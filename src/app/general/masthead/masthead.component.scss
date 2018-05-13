@@ -1,15 +1,16 @@
 @import '../../../sass/variables.scss';
 
-:host {
-  background-color:$color-dark-metal;
+.masthead {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 0 15px;
-}
+  height: 100%;
+  background-color: $color-dark-metal;
 
-.logo {
-  font-size: 15px;
-  font-weight: bold;
-  cursor: default;
+  &__logo {
+    font-size: 15px;
+    font-weight: bold;
+    cursor: default;
+  }
 }

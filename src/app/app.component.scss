@@ -1,23 +1,19 @@
 @import '../sass/variables.scss';
 
-app-masthead {
-  grid-area: app-masthead;
+header {
+  grid-area: header;
 }
 
-app-options-bar {
-  grid-area: app-options-bar;
+aside:nth-of-type(1) {
+  grid-area: aside-1;
 }
 
-app-tools {
-  grid-area: app-tools;
+aside:nth-of-type(2) {
+  grid-area: aside-2;
 }
 
-app-users {
-  grid-area: app-users;
-}
-
-app-canvas {
-  grid-area: app-canvas;
+main {
+  grid-area: main;
 }
 
 .container {
@@ -27,8 +23,8 @@ app-canvas {
   grid-template-rows: 40px 40px minmax(600px, auto);
   grid-template-columns: 50px minmax(600px, auto) 200px;
   grid-template-areas:
-    "app-masthead app-masthead app-masthead"
-    "app-tools app-options-bar app-users"
-    "app-tools app-canvas app-users";
+    "header header header"
+    "aside-1 main aside-2"
+    "aside-1 main aside-2";
   background-color: lighten($color: $color-dark-metal, $amount: 30)
 }
