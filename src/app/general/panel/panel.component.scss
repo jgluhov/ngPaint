@@ -1,12 +1,14 @@
+@import '../../../sass/variables.scss';
+
 :host {
   display: flex;
   flex-direction: column;
   flex: 1;
   align-items: stretch;
+  background-color: $color-dark-metal;
+  font-size: 12px;
 }
 
 .panel__title {
-  color: white;
-  font-size: 12px;
   text-align: center;
 }

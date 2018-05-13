@@ -3,10 +3,9 @@
 app-masthead {
   grid-area: app-masthead;
 }
-//TODO: remove partially
+
 app-options-bar {
   grid-area: app-options-bar;
-  background-color: yellow;
 }
 
 app-tools {
@@ -38,11 +37,12 @@ app-canvas {
 .container {
   display: grid;
   height: 100vh;
-  grid-template-rows: 40px 50px auto;
+  grid-gap: 1px;
+  grid-template-rows: 40px 40px auto;
   grid-template-columns: 50px auto 200px;
   grid-template-areas:
     "app-masthead app-masthead app-masthead"
     "app-tools app-options-bar app-users"
     "app-tools app-canvas app-users";
-  background-color: $color-dark-metal;
+  background-color: lighten($color: $color-dark-metal, $amount: 30)
 }

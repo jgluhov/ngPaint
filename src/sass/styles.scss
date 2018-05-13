@@ -1,5 +1,8 @@
 @import '~reset-scss';
+@import './variables.scss';
 
 body {
+  color: $color-grey;
+  text-transform: uppercase;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
 }
