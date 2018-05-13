@@ -21,10 +21,29 @@ main {
   display: grid;
   height: 100vh;
   grid-gap: 1px;
-  grid-template-rows: $header-height minmax($main-min-height, auto);
-  grid-template-columns: $left-sidebar-width minmax($main-min-width, auto) $right-sidebar-width;
-  grid-template-areas:
-    "header header header"
-    "aside-1 main aside-2";
   @extend %paper;
 }
+
+.container {
+  grid-template-rows:
+    $header-height
+    minmax($section-min-height, auto)
+    minmax($section-min-height, auto)
+    minmax($section-min-height, auto);
+  grid-template-areas:
+    "header"
+    "aside-1"
+    "aside-2"
+    "main";
+}
+
+@media screen and (min-width: 850px) {
+  .container {
+    grid-template-rows: $header-height minmax($main-min-height, auto);
+    grid-template-columns: $left-sidebar-width minmax($main-min-width, auto) $right-sidebar-width;
+    grid-template-areas:
+      "header header header"
+      "aside-1 main aside-2";
+  }
+}
+
