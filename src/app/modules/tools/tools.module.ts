@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToolsComponent } from './components/tools/tools.component';
-import { GeneralModule } from '../general/general.module';
+import { GeneralModule } from '../../general/general.module';
 
 @NgModule({
   imports: [

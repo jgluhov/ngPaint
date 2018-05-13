@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersComponent } from './users.component';
-import { GeneralModule } from '../../../general/general.module';
+import { GeneralModule } from '../../../../general/general.module';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
