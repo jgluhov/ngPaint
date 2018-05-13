@@ -4,7 +4,7 @@
   overflow: auto;
 }
 
-.canvas #svg {
+.canvas svg {
   line {
     stroke: lighten($color-dark-metal, 60%);
   }
