@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./options-bar.component.scss']
 })
 export class OptionsBarComponent implements OnInit {
-
+  title = 'Adjustments';
   constructor() { }
 
   ngOnInit(): void {

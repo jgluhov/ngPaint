@@ -19,15 +19,11 @@ main {
 .container {
   display: grid;
   height: 100vh;
-  grid-gap: 1px;
 }
 
 .container {
-  grid-template-rows:
-    $header-height
-    minmax($section-min-height, auto)
-    minmax($section-min-height, auto)
-    minmax($section-min-height, auto);
+  grid-template-columns: 100%;
+  grid-template-rows: $header-height minmax($section-min-height, auto) minmax($section-min-height, auto) minmax($section-min-height, auto) auto;
   grid-template-areas:
     "header"
     "aside-1"
@@ -53,8 +49,10 @@ main {
   }
 
   .container {
-    grid-template-rows: $header-height auto;
+    grid-template-rows: $header-height calc(100% - #{$header-height});
     grid-template-columns: $left-sidebar-width calc(100% - 250px) $right-sidebar-width;
+    grid-column-gap: 3px;
+    grid-row-gap: 1px;
     grid-template-areas:
       "header header header"
       "aside-1 main aside-2";
