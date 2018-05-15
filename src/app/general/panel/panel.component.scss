@@ -1,21 +1,21 @@
 @import '../../../sass/variables.scss';
 
 .panel {
-  background-color: $color-dark-metal;
+  background-color: white;
   font-size: 12px;
-  min-height: 30px;
-  width: 100%;
   border-radius: 1px;
-  margin-bottom: 5px;
+  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
+  color: $color-ink;
+  padding: 10px;
 
   &__title {
-    padding: 2px 0;
-    text-align: center;
+    font-weight: 600;
     cursor: default;
-    border-bottom: 0.01em solid darken($color-white-wash, 50%);
+    margin-bottom: 10px;
   }
 
   &__content {
-    padding: 5px;
+    overflow: auto;
   }
 }

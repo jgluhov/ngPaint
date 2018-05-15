@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-canvas',
@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./canvas.component.scss']
 })
 export class CanvasComponent implements OnInit {
-  @ViewChild('container') container: ElementRef;
+  title = 'Canvas';
   constructor() { }
 
   ngOnInit(): void {
