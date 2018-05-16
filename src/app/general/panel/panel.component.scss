@@ -1,21 +1,21 @@
 @import '../../../sass/variables.scss';
 
-.panel {
-  background-color: white;
-  font-size: 12px;
-  border-radius: 1px;
-  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 5px;
-  color: $color-ink;
-  padding: 10px;
+// .panel {
+//   background-color: white;
+//   font-size: 12px;
+//   border-radius: 1px;
+//   box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+//   border-radius: 5px;
+//   color: $color-ink;
+//   padding: 10px;
 
-  &__title {
-    font-weight: 600;
-    cursor: default;
-    margin-bottom: 10px;
-  }
+//   &__title {
+//     font-weight: 600;
+//     cursor: default;
+//     margin-bottom: 10px;
+//   }
 
-  &__content {
-    overflow: auto;
-  }
-}
+//   &__content {
+//     overflow: auto;
+//   }
+// }
