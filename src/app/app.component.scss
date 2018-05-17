@@ -1,28 +1,27 @@
 @import '../sass/variables.scss';
+* {
+  box-sizing: border-box;
+}
 
 header {
   grid-area: header;
-  background-color: blanchedalmond;
+  background-color: $color-ink;
 }
 
 section:nth-of-type(1) {
   grid-area: section-1;
-  background-color: forestgreen;
 }
 
 section:nth-of-type(2) {
   grid-area: section-2;
-  background-color: sandybrown;
 }
 
 section:nth-of-type(3) {
   grid-area: section-3;
-  background-color: aquamarine;
 }
 
 main {
   grid-area: main;
-  background-color: silver;
 }
 
 .container {
@@ -31,9 +30,44 @@ main {
   background-color: $color-white-wash;
 }
 
-.container > * {
-  font-size: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.container {
+  grid-template-rows:
+    $header-height
+    repeat(3, minmax($section-height-sm, 10%))
+    calc(70% - #{$header-height});
+  grid-template-columns: 100%;
+  grid-gap: 5px;
+  grid-template-areas:
+    "header"
+    "section-3"
+    "section-1"
+    "section-2"
+    "main";
+}
+
+@media screen and (min-width: 961px) {
+  .container {
+    grid-template-rows: $header-height repeat(2, 1fr);
+    grid-template-columns: $tools-width calc(80% - #{$tools-width}) 20%;
+
+    grid-template-areas:
+      "header header header"
+      "section-1 main section-2"
+      "section-1 main section-3";
+  }
+}
+
+@media screen and (min-width: 761px) and (max-width: 960px) {
+  .container {
+    grid-template-rows:
+      $header-height
+      repeat(2, minmax(auto, 100px))
+      minmax(auto, 500px);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header header"
+      "section-3 section-3"
+      "section-1 section-2"
+      "main main";
+  }
 }
