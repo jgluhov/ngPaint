@@ -1,8 +1,6 @@
-import { Tool } from '@tools/interfaces/tool.interface';
+import { Tool } from '@models/tool';
+import { App } from './reducers/app.reducer';
 
 export interface AppState {
-  common: {
-    selectedColor: string;
-    selectedTool: Tool;
-  };
+  app: App;
 }

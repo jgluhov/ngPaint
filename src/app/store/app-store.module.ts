@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { commonReducer } from './reducers/common.reducer';
+import { appReducer } from './reducers/app.reducer';
 
 @NgModule({
   imports: [
     StoreModule.forRoot({
-      common: commonReducer
+      app: appReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 10

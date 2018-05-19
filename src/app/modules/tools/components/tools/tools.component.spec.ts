@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolsComponent } from './tools.component';
 import { GeneralModule } from '../../../../general/general.module';
 import { TOOL_LIST_TOKEN, toolList } from './tools-list';
+import { AppStoreModule } from '@store/app-store.module';
 
 describe('ToolsComponent', () => {
   let component: ToolsComponent;
@@ -12,7 +13,8 @@ describe('ToolsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         GeneralModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        AppStoreModule
       ],
       declarations: [
         ToolsComponent

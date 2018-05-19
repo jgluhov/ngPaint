@@ -1,7 +1,18 @@
-import { Component, Inject, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  ViewChild
+} from '@angular/core';
 import { TOOL_LIST_TOKEN } from './tools-list';
 import { Tool } from '@models/tool';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { animations } from './tools.animations';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/app-state';
+import * as AppActions from '@store/actions/app.actions';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-tools',
@@ -11,7 +22,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         <li class="list__item"
           *ngFor="let tool of toolList"
           [@toolState]="isActive(tool)"
-          (click)="handleSelect(tool)"
+          (click)="selectTool(tool)"
         >
           <app-svg-icon [name]="tool.name"></app-svg-icon>
         </li>
@@ -20,45 +31,44 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     <ng-container #vcr></ng-container>
   `,
   styleUrls: ['./tools.component.scss'],
-  animations: [
-    trigger('toolState', [
-      state('inactive', style({
-        transform: 'scale(1)'
-      })),
-      state('active', style({
-        transform: 'scale(1.4)'
-      })),
-      transition('inactive => active', animate('200ms ease-in-out')),
-      transition('active => inactive', animate('100ms ease-out'))
-    ])
-  ]
+  animations: [ ...animations ]
 })
-export class ToolsComponent {
+export class ToolsComponent implements OnInit {
+  toolChanges: Observable<Tool>;
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   title = 'Tools';
   selectedTool: Tool;
 
   constructor(
     @Inject(TOOL_LIST_TOKEN) public toolList: Tool[],
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) {
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private store: Store<AppState>
+  ) {}
+
+  ngOnInit(): void {
+    this.toolChanges = this.store.select('app').select('tool');
+    this.toolChanges.subscribe(this.loadComponent);
   }
 
   isActive(tool: Tool): string {
-    return this.selectedTool === tool ?
-      'active' : 'inactive';
+    return this.selectedTool === tool ? 'active' : 'inactive';
   }
 
-  handleSelect(tool: Tool): void {
+  selectTool(tool: Tool): void {
     if (this.selectedTool === tool) {
       return;
     }
 
     this.selectedTool = tool;
-    this.loadComponent(tool);
+
+    this.store.dispatch(new AppActions.SelectTool(tool));
   }
 
-  loadComponent(tool: Tool): void {
+  loadComponent = (tool?: Tool): void => {
+    if (!tool) {
+      return;
+    }
+
     this.vcr.clear();
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(tool.component);
     this.vcr.createComponent(componentFactory);

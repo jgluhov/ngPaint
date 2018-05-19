@@ -66,6 +66,7 @@
       true,
       "ignore-params"
     ],
+    "no-reserved-keywords": false,
     "interface-name": false,
     "no-any": false,
     "no-inner-html": false,

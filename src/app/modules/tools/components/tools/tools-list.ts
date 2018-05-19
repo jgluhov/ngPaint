@@ -8,4 +8,4 @@ export const toolList: Tool[] = [
   new Tool('brush', BrushComponent)
 ];
 
-export const TOOL_LIST_TOKEN = new InjectionToken<Tool[]>('toolList');
+export const TOOL_LIST_TOKEN = new InjectionToken<Tool[]>('ToolList');

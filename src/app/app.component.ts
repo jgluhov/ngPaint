@@ -5,13 +5,13 @@ import { AppState } from './store/app-state';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'  
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   selectedColor$: Observable<string>;
   constructor(private store: Store<AppState>) {
     this.selectedColor$ = store
-      .select('common')
-      .select('selectedColor');
+      .select('app')
+      .select('color');
   }
 }
