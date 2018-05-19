@@ -4,6 +4,7 @@ import { GeneralModule } from '../../general/general.module';
 import { ToolsComponent } from './components/tools/tools.component';
 import { PencilComponent } from './components/pencil/pencil.component';
 import { TOOL_LIST_TOKEN, toolList } from './components/tools/tools-list';
+import { BrushComponent } from './components/brush/brush.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { TOOL_LIST_TOKEN, toolList } from './components/tools/tools-list';
   ],
   declarations: [
     ToolsComponent,
-    PencilComponent
+    PencilComponent,
+    BrushComponent
   ],
   providers: [
     {

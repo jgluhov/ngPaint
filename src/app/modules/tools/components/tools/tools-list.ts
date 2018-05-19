@@ -10,6 +10,10 @@ export const toolList: Tool[] = [
   {
     name: 'pencil',
     component: PencilComponent
+  },
+  {
+    name: 'brush',
+    component: PencilComponent
   }
 ];
 

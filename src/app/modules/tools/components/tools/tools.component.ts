@@ -6,11 +6,8 @@ import { TOOL_LIST_TOKEN, Tool } from './tools-list';
   template: `
     <app-panel [panelTitle]="title">
       <ul class="list">
-        <li class="list__item" (onClick)="handleSelect()">
-          <app-svg-icon name="pencil"></app-svg-icon>
-        </li>
-        <li class="list__item" (onClick)="handleSelect()">
-          <app-svg-icon name="brush"></app-svg-icon>
+        <li class="list__item" *ngFor="let tool of toolList" (onClick)="handleSelect()">
+          <app-svg-icon [name]="tool.name"></app-svg-icon>
         </li>
       </ul>
     </app-panel>
@@ -20,7 +17,7 @@ import { TOOL_LIST_TOKEN, Tool } from './tools-list';
 export class ToolsComponent {
   title = 'Tools';
 
-  constructor(@Inject(TOOL_LIST_TOKEN) private toolList: Tool[]) {
+  constructor(@Inject(TOOL_LIST_TOKEN) public toolList: Tool[]) {
     console.log(toolList);
   }
 
