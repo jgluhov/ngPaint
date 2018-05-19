@@ -1,5 +1,6 @@
 import { Component, Inject, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
-import { TOOL_LIST_TOKEN, Tool } from './tools-list';
+import { TOOL_LIST_TOKEN } from './tools-list';
+import { Tool } from '@models/tool';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
