@@ -34,8 +34,9 @@ import { Observable } from 'rxjs/Observable';
   animations: [ ...animations ]
 })
 export class ToolsComponent implements OnInit {
-  toolChanges: Observable<Tool>;
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
+
+  toolChanges: Observable<Tool>;
   title = 'Tools';
   selectedTool: Tool;
 
