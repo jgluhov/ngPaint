@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ToolsComponent } from './components/tools/tools.component';
 import { GeneralModule } from '../../general/general.module';
+import { ToolsComponent } from './components/tools/tools.component';
+import { ToolItemComponent } from './components/tool-item/tool-item.component';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { GeneralModule } from '../../general/general.module';
     GeneralModule
   ],
   declarations: [
-    ToolsComponent
+    ToolsComponent,
+    ToolItemComponent
   ],
   exports: [ToolsComponent]
 })

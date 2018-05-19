@@ -4,10 +4,14 @@ import { Component } from '@angular/core';
   selector: 'app-tools',
   template: `
     <app-panel [panelTitle]="title">
-      <div>tool</div>
+      <app-tool-item name="pencil" (select)="handleSelect($event)"></app-tool-item>
     </app-panel>
   `
 })
 export class ToolsComponent {
   title = 'Tools';
+
+  handleSelect(toolItem: string): void {
+    console.log(`clicked on ${toolItem}`);
+  }
 }
