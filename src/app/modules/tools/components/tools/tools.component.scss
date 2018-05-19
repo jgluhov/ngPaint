@@ -1,0 +1,13 @@
+@import '../../../../../sass/variables.scss';
+
+.list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  &__item {
+    height: ($tools-width / 2) - 15;
+    width: ($tools-width / 2) - 15;
+    margin-bottom: 10px;
+  }
+}
