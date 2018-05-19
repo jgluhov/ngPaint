@@ -1,14 +1,7 @@
 @import '../../../../../sass/variables.scss';
 
-.list {
+.tools {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-
-
-  &__item {
-    height: ($tools-width / 2) - 15;
-    width: ($tools-width / 2) - 15;
-    margin: 5px;
-  }
 }

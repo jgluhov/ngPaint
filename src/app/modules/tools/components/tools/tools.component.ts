@@ -18,12 +18,14 @@ import * as AppActions from '@store/actions/app.actions';
   selector: 'app-tools',
   template: `
     <app-panel [panelTitle]="title">
+      <div class="tools">
         <app-tool-item
-          *ngFor="let tool of tools"
-          [tool]="tool"
-          [selected]="isSelected(tool)"
-          (select)="handleSelect($event)">
-        </app-tool-item>
+            *ngFor="let tool of tools"
+            [tool]="tool"
+            [selected]="isSelected(tool)"
+            (select)="handleSelect($event)">
+          </app-tool-item>
+      </div>
     </app-panel>
     <ng-container #vcr></ng-container>
   `,

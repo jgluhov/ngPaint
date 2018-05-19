@@ -1,0 +1,7 @@
+@import '../../../../../sass/variables.scss';
+
+.tool-item {
+  height: ($tools-width / 2) - 15;
+  width: ($tools-width / 2) - 15;
+  margin: 5px;
+}

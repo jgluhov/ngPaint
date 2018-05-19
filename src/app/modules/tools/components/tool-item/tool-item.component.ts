@@ -1,8 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Tool } from '@models/tool';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
-import { skip } from 'rxjs/operators';
+import { skip, zip } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import * as AppActions from '@store/actions/app.actions';
 import {
@@ -16,10 +21,11 @@ import {
 @Component({
   selector: 'app-tool-item',
   template: `
-    <app-svg-icon [name]="tool.name"
-      [@toolState]="toolState"
-      (click)="handleClick()">
-    </app-svg-icon>
+    <div class="tool-item" [@toolState]="toolState">
+      <app-svg-icon [name]="tool.name"
+        (click)="handleClick()">
+      </app-svg-icon>
+    </div>
   `,
   animations: [
     trigger('toolState', [
@@ -32,20 +38,16 @@ import {
       transition('inactive => active', animate('200ms ease-in-out')),
       transition('active => inactive', animate('100ms ease-out'))
     ])
-  ]
+  ],
+  styleUrls: [ './tool-item.component.scss' ]
 })
-export class ToolItemComponent implements OnInit {
+export class ToolItemComponent {
   toolState = 'inactive';
   @Output() select: EventEmitter<Tool> = new EventEmitter<Tool>();
   @Input() tool: Tool;
   @Input()
   set selected(isSelected: boolean) {
     this.toolState = isSelected ? 'active' : 'inactive';
-  }
-
-  constructor() {}
-
-  ngOnInit(): void {
   }
 
   handleClick(): void {
