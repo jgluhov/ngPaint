@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToolsComponent } from './tools.component';
 import { GeneralModule } from '../../../../general/general.module';
-import { ToolItemComponent } from '../tool-item/tool-item.component';
 
 describe('ToolsComponent', () => {
   let component: ToolsComponent;
@@ -14,8 +13,7 @@ describe('ToolsComponent', () => {
         GeneralModule
       ],
       declarations: [
-        ToolsComponent,
-        ToolItemComponent
+        ToolsComponent
       ]
     })
     .compileComponents();

@@ -4,7 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-tools',
   template: `
     <app-panel [panelTitle]="title">
-      <app-tool-item name="pencil" (select)="handleSelect($event)"></app-tool-item>
+      <ul class="list">
+        <li class="list__item" (onClick)="handleSelect()"></li>
+      </ul>
     </app-panel>
   `
 })
