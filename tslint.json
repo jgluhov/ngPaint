@@ -66,6 +66,8 @@
       true,
       "ignore-params"
     ],
+    "interface-name": false,
+    "no-any": false,
     "no-inner-html": false,
     "no-multiline-string": false,
     "no-misused-new": true,

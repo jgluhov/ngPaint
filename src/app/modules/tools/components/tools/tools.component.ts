@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { TOOL_LIST_TOKEN, Tool } from './tools-list';
 
 @Component({
   selector: 'app-tools',
@@ -18,6 +19,10 @@ import { Component } from '@angular/core';
 })
 export class ToolsComponent {
   title = 'Tools';
+
+  constructor(@Inject(TOOL_LIST_TOKEN) private toolList: Tool[]) {
+    console.log(toolList);
+  }
 
   handleSelect(toolItem: string): void {
     console.log(`clicked on ${toolItem}`);
