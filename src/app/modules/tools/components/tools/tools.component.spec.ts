@@ -2,8 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolsComponent } from './tools.component';
 import { GeneralModule } from '../../../../general/general.module';
-import { TOOL_LIST_TOKEN, toolList } from './tools-list';
+import { TOOLS_TOKEN, tools } from './tools';
 import { AppStoreModule } from '@store/app-store.module';
+import { ToolItemComponent } from '../tool-item/tool-item.component';
 
 describe('ToolsComponent', () => {
   let component: ToolsComponent;
@@ -17,11 +18,12 @@ describe('ToolsComponent', () => {
         AppStoreModule
       ],
       declarations: [
-        ToolsComponent
+        ToolsComponent,
+        ToolItemComponent
       ],
       providers: [
         {
-          provide: TOOL_LIST_TOKEN, useValue: toolList
+          provide: TOOLS_TOKEN, useValue: tools
         }
       ]
     })

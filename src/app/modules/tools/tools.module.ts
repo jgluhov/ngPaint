@@ -4,8 +4,9 @@ import { GeneralModule } from '../../general/general.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolsComponent } from './components/tools/tools.component';
 import { PencilComponent } from './components/pencil/pencil.component';
-import { TOOL_LIST_TOKEN, toolList } from './components/tools/tools-list';
+import { TOOLS_TOKEN, tools } from './components/tools/tools';
 import { BrushComponent } from './components/brush/brush.component';
+import { ToolItemComponent } from './components/tool-item/tool-item.component';
 
 @NgModule({
   entryComponents: [
@@ -20,11 +21,12 @@ import { BrushComponent } from './components/brush/brush.component';
   declarations: [
     ToolsComponent,
     PencilComponent,
-    BrushComponent
+    BrushComponent,
+    ToolItemComponent
   ],
   providers: [
     {
-      provide: TOOL_LIST_TOKEN, useValue: toolList
+      provide: TOOLS_TOKEN, useValue: tools
     }
   ],
   exports: [ToolsComponent]

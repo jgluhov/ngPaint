@@ -6,32 +6,28 @@ import {
   ViewContainerRef,
   ViewChild
 } from '@angular/core';
-import { TOOL_LIST_TOKEN } from './tools-list';
+import { TOOLS_TOKEN } from './tools';
 import { Tool } from '@models/tool';
-import { animations } from './tools.animations';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
-import * as AppActions from '@store/actions/app.actions';
 import { Observable } from 'rxjs/Observable';
+import { skip } from 'rxjs/operators';
+import * as AppActions from '@store/actions/app.actions';
 
 @Component({
   selector: 'app-tools',
   template: `
     <app-panel [panelTitle]="title">
-      <ul class="list">
-        <li class="list__item"
-          *ngFor="let tool of toolList"
-          [@toolState]="isActive(tool)"
-          (click)="selectTool(tool)"
-        >
-          <app-svg-icon [name]="tool.name"></app-svg-icon>
-        </li>
-      </ul>
+        <app-tool-item
+          *ngFor="let tool of tools"
+          [tool]="tool"
+          [selected]="isSelected(tool)"
+          (select)="handleSelect($event)">
+        </app-tool-item>
     </app-panel>
     <ng-container #vcr></ng-container>
   `,
-  styleUrls: ['./tools.component.scss'],
-  animations: [ ...animations ]
+  styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent implements OnInit {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
@@ -41,37 +37,37 @@ export class ToolsComponent implements OnInit {
   selectedTool: Tool;
 
   constructor(
-    @Inject(TOOL_LIST_TOKEN) public toolList: Tool[],
+    @Inject(TOOLS_TOKEN) public tools: Tool[],
     private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.toolChanges = this.store.select('app').select('tool');
-    this.toolChanges.subscribe(this.loadComponent);
+    this.toolChanges = this.store
+      .select('app')
+      .select('tool');
+
+    this.toolChanges
+      .pipe(skip(1))
+      .subscribe(this.loadComponent);
   }
 
-  isActive(tool: Tool): string {
-    return this.selectedTool === tool ? 'active' : 'inactive';
+  loadComponent = (tool: Tool): void => {
+    this.vcr.clear();
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(tool.component);
+    this.vcr.createComponent(componentFactory);
   }
 
-  selectTool(tool: Tool): void {
+  isSelected(tool: Tool): boolean {
+    return this.selectedTool === tool;
+  }
+
+  handleSelect(tool: Tool): void {
     if (this.selectedTool === tool) {
       return;
     }
 
     this.selectedTool = tool;
-
     this.store.dispatch(new AppActions.SelectTool(tool));
-  }
-
-  loadComponent = (tool?: Tool): void => {
-    if (!tool) {
-      return;
-    }
-
-    this.vcr.clear();
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(tool.component);
-    this.vcr.createComponent(componentFactory);
   }
 }

@@ -1,16 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
+import { ToolItemComponent } from './tool-item.component';
+import { SvgIconComponent } from '../../../../general/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
-import { SvgIconComponent } from './svg-icon.component';
+import { Tool } from '@models/tool';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('SvgIconComponent', () => {
-  let component: SvgIconComponent;
-  let fixture: ComponentFixture<SvgIconComponent>;
+describe('ToolItemComponent', () => {
+  let component: ToolItemComponent;
+  let fixture: ComponentFixture<ToolItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ SvgIconComponent ],
+      imports: [
+        BrowserAnimationsModule
+      ],
+      declarations: [
+        ToolItemComponent,
+        SvgIconComponent
+      ],
       providers: [
         MockBackend,
         BaseRequestOptions,
@@ -28,8 +36,9 @@ describe('SvgIconComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SvgIconComponent);
+    fixture = TestBed.createComponent(ToolItemComponent);
     component = fixture.componentInstance;
+    component.tool = new Tool('some', class {});
     fixture.detectChanges();
   });
 

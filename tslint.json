@@ -66,6 +66,7 @@
       true,
       "ignore-params"
     ],
+    "no-implicit-dependencies": false,
     "no-reserved-keywords": false,
     "interface-name": false,
     "no-any": false,
