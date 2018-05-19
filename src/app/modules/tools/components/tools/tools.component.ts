@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tools',
-  templateUrl: './tools.component.html',
-  styleUrls: ['./tools.component.scss']
+  template: `
+    <app-panel [panelTitle]="title">
+      <div>tool</div>
+    </app-panel>
+  `
 })
 export class ToolsComponent {
   title = 'Tools';

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-canvas',
-  templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss']
+  templateUrl: './canvas.component.html'
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';

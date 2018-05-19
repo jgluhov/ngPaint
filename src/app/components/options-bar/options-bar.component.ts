@@ -2,8 +2,21 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-options-bar',
-  templateUrl: './options-bar.component.html',
-  styleUrls: ['./options-bar.component.scss']
+  template: `
+    <app-panel [panelTitle]="title">
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+      <div>some div</div>
+    </app-panel>
+  `
 })
 export class OptionsBarComponent implements OnInit {
   title = 'Adjustments';
