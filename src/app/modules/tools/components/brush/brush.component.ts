@@ -12,11 +12,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class BrushComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
-    console.log('brush init');
   }
 
   ngOnDestroy(): void {
-    console.log('brush destroy');
   }
 
 }

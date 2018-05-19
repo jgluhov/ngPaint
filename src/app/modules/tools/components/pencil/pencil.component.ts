@@ -11,10 +11,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class PencilComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
-    console.log('pencil init');
   }
 
   ngOnDestroy(): void {
-    console.log('pencil destroy');
   }
 }
