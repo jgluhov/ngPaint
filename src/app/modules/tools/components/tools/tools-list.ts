@@ -1,5 +1,6 @@
 import { InjectionToken, Type } from '@angular/core';
 import { PencilComponent } from '../pencil/pencil.component';
+import { BrushComponent } from '../brush/brush.component';
 
 export interface Tool {
   name: string;
@@ -13,7 +14,7 @@ export const toolList: Tool[] = [
   },
   {
     name: 'brush',
-    component: PencilComponent
+    component: BrushComponent
   }
 ];
 

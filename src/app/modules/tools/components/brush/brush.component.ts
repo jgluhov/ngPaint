@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-brush',
@@ -9,11 +9,14 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: []
 })
-export class BrushComponent implements OnInit {
+export class BrushComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  ngOnInit(): void {
+    console.log('brush init');
+  }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    console.log('brush destroy');
   }
 
 }

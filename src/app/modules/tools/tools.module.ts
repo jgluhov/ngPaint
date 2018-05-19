@@ -7,6 +7,10 @@ import { TOOL_LIST_TOKEN, toolList } from './components/tools/tools-list';
 import { BrushComponent } from './components/brush/brush.component';
 
 @NgModule({
+  entryComponents: [
+    PencilComponent,
+    BrushComponent
+  ],
   imports: [
     CommonModule,
     GeneralModule
