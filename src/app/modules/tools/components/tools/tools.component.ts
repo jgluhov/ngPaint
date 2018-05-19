@@ -21,6 +21,7 @@ import { TOOL_LIST_TOKEN, Tool } from './tools-list';
 export class ToolsComponent {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   title = 'Tools';
+  selectedTool: Tool;
 
   constructor(
     @Inject(TOOL_LIST_TOKEN) public toolList: Tool[],
@@ -29,6 +30,11 @@ export class ToolsComponent {
   }
 
   handleSelect(tool: Tool): void {
+    if (this.selectedTool === tool) {
+      return;
+    }
+
+    this.selectedTool = tool;
     this.loadComponent(tool);
   }
 
