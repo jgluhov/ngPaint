@@ -12,7 +12,9 @@ export class CursorableDirective implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.toolChanges.subscribe(d => {
+      console.log(d);
+    });
   }
 
 }

@@ -7,7 +7,6 @@ import { PencilComponent } from './components/pencil/pencil.component';
 import { TOOLS_TOKEN, tools } from './components/tools/tools';
 import { BrushComponent } from './components/brush/brush.component';
 import { ToolItemComponent } from './components/tool-item/tool-item.component';
-import { CursorableDirective } from './directives/cursorable/cursorable.directive';
 
 @NgModule({
   entryComponents: [
@@ -23,8 +22,7 @@ import { CursorableDirective } from './directives/cursorable/cursorable.directiv
     ToolsComponent,
     PencilComponent,
     BrushComponent,
-    ToolItemComponent,
-    CursorableDirective
+    ToolItemComponent
   ],
   providers: [
     {

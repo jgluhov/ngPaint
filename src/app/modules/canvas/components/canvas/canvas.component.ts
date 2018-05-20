@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from '@store/app-state';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Tool } from '@models/tool';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-canvas',
@@ -6,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
-  constructor() { }
+  toolChanges: Observable<Tool>;
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.toolChanges = this.store
+      .select('app').select('tool').pipe(skip(1));
   }
 
 }

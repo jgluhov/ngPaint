@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { GeneralModule } from '../../general/general.module';
+import { CursorableDirective } from './directives/cursorable/cursorable.directive';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { GeneralModule } from '../../general/general.module';
     GeneralModule
   ],
   declarations: [
-    CanvasComponent
+    CanvasComponent,
+    CursorableDirective
   ],
   exports: [
     CanvasComponent

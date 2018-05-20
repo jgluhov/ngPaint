@@ -17,7 +17,7 @@ import * as AppActions from '@store/actions/app.actions';
 @Component({
   selector: 'app-tools',
   template: `
-    <app-panel [panelTitle]="title" [appCursorable]="toolChanges">
+    <app-panel [panelTitle]="title">
       <div class="tools">
         <app-tool-item
             *ngFor="let tool of tools"
@@ -47,10 +47,10 @@ export class ToolsComponent implements OnInit {
   ngOnInit(): void {
     this.toolChanges = this.store
       .select('app')
-      .select('tool');
+      .select('tool')
+      .pipe(skip(1));
 
     this.toolChanges
-      .pipe(skip(1))
       .subscribe(this.loadComponent);
   }
 
