@@ -5,6 +5,7 @@ import { GeneralModule } from '../../../../general/general.module';
 import { TOOLS_TOKEN, tools } from './tools';
 import { AppStoreModule } from '@store/app-store.module';
 import { ToolItemComponent } from '../tool-item/tool-item.component';
+import { CursorableDirective } from '@tools/directives/cursorable/cursorable.directive';
 
 describe('ToolsComponent', () => {
   let component: ToolsComponent;
@@ -19,7 +20,8 @@ describe('ToolsComponent', () => {
       ],
       declarations: [
         ToolsComponent,
-        ToolItemComponent
+        ToolItemComponent,
+        CursorableDirective
       ],
       providers: [
         {

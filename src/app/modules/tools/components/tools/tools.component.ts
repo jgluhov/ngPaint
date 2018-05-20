@@ -17,7 +17,7 @@ import * as AppActions from '@store/actions/app.actions';
 @Component({
   selector: 'app-tools',
   template: `
-    <app-panel [panelTitle]="title">
+    <app-panel [panelTitle]="title" [appCursorable]="toolChanges">
       <div class="tools">
         <app-tool-item
             *ngFor="let tool of tools"

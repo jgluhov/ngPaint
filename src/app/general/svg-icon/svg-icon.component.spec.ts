@@ -7,7 +7,7 @@ import { SvgIconComponent } from './svg-icon.component';
 describe('SvgIconComponent', () => {
   let component: SvgIconComponent;
   let fixture: ComponentFixture<SvgIconComponent>;
-  let backend: MockBackend;
+  let mockBackend: MockBackend;
   let nativeElement: HTMLElement;
 
   beforeEach(async(() => {
@@ -29,7 +29,7 @@ describe('SvgIconComponent', () => {
     })
     .compileComponents();
 
-    backend = TestBed.get(MockBackend);
+    mockBackend = TestBed.get(MockBackend);
   }));
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe('SvgIconComponent', () => {
     beforeEach(() => {
       const response = new ResponseOptions({ body: '<svg id="pencil"></svg>'});
 
-      backend.connections.subscribe((connection: MockConnection) => {
+      mockBackend.connections.subscribe((connection: MockConnection) => {
         connection.mockRespond(new Response(response));
       });
     });
