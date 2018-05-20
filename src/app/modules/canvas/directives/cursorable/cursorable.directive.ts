@@ -1,4 +1,10 @@
-import { Directive, OnInit, Input } from '@angular/core';
+import {
+  Directive,
+  OnInit,
+  Input,
+  Renderer2,
+  ElementRef
+} from '@angular/core';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models/tool';
@@ -8,12 +14,27 @@ import { Tool } from '@models/tool';
 })
 export class CursorableDirective implements OnInit {
   @Input('appCursorable') toolChanges: Observable<Tool>;
-  constructor() {
-  }
+  selectedTool: Tool;
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
-    this.toolChanges.subscribe(d => {
-      console.log(d);
+    this.toolChanges.subscribe((tool: Tool) => {
+      if (this.selectedTool) {
+        this.renderer.removeClass(
+          this.elementRef.nativeElement,
+          `cursor__${this.selectedTool.name}`
+        );
+      }
+
+      this.renderer.addClass(
+        this.elementRef.nativeElement,
+        `cursor__${tool.name}`
+      );
+
+      this.selectedTool = tool;
     });
   }
 

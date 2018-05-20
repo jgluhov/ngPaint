@@ -22,7 +22,7 @@ import {
   selector: 'app-tool-item',
   template: `
     <div class="tool-item" [@toolState]="toolState">
-      <app-svg-icon [name]="tool.name"
+      <app-svg-icon [imageUrl]="tool.options.imageUrl"
         (click)="handleClick()">
       </app-svg-icon>
     </div>

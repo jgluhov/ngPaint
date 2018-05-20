@@ -7,7 +7,8 @@ import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-canvas',
-  templateUrl: './canvas.component.html'
+  templateUrl: './canvas.component.html',
+  styleUrls: [ './canvas.component.scss' ]
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';

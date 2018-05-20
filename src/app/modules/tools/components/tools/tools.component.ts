@@ -46,8 +46,7 @@ export class ToolsComponent implements OnInit {
 
   ngOnInit(): void {
     this.toolChanges = this.store
-      .select('app')
-      .select('tool')
+      .select('app').select('tool')
       .pipe(skip(1));
 
     this.toolChanges
@@ -56,7 +55,8 @@ export class ToolsComponent implements OnInit {
 
   loadComponent = (tool: Tool): void => {
     this.vcr.clear();
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(tool.component);
+    const componentFactory = this.componentFactoryResolver
+      .resolveComponentFactory(tool.options.component);
     this.vcr.createComponent(componentFactory);
   }
 

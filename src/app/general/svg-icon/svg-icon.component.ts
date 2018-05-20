@@ -14,8 +14,8 @@ import { Http, Response } from '@angular/http';
 })
 export class SvgIconComponent {
   @Input()
-  set name(iconName: string) {
-    this.load(iconName);
+  set imageUrl(imageUrl: string) {
+    this.load(imageUrl);
   }
 
   constructor(
@@ -24,8 +24,8 @@ export class SvgIconComponent {
     private elementRef: ElementRef
   ) {}
 
-  load(iconName: string): void {
-    this.http.get(`assets/icons/${iconName}.svg`)
+  load(imageUrl: string): void {
+    this.http.get(imageUrl)
       .subscribe((response: Response) => {
         const element = <HTMLElement>this.elementRef.nativeElement;
         element.innerHTML = '';
