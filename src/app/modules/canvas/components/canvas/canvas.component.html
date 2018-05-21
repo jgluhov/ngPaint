@@ -1,5 +1,5 @@
 <app-panel [panelTitle]="title" class="canvas__panel" [appCursorable]="toolChanges">
-    <svg xmlns="http://www.w3.org/2000/svg" #svg
+    <svg xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 14000 14000"
       width="14000"
       height="14000">
@@ -13,7 +13,8 @@
           </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)" />
-      <g #vcr></g>
+      <g #workSpace></g>
     </svg>
+    <ng-container #vcr></ng-container>
 </app-panel>
 

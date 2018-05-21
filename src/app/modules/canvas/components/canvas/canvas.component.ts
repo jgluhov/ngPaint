@@ -4,12 +4,17 @@ import {
   ViewChild,
   ViewContainerRef,
   ComponentFactoryResolver,
-  ElementRef
+  ElementRef,
+  ReflectiveInjector
 } from '@angular/core';
 import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models/tool';
+
+export interface WorkSpace {
+  workSpace: ElementRef;
+}
 
 @Component({
   selector: 'app-canvas',
@@ -21,7 +26,7 @@ export class CanvasComponent implements OnInit {
   toolChanges: Observable<Tool>;
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
-  @ViewChild('svg') svgRef: ElementRef;
+  @ViewChild('workSpace') workSpace: ElementRef;
 
   constructor(
     private store: Store<AppState>,
@@ -45,7 +50,15 @@ export class CanvasComponent implements OnInit {
 
     const componentFactory = this.componentFactoryResolver
       .resolveComponentFactory(tool.options.component);
-    this.vcr.createComponent(componentFactory);
+
+    const injector = ReflectiveInjector.resolveAndCreate([
+      {
+        provide: 'WorkSpace',
+        useValue: this.workSpace
+      }
+    ]);
+
+    this.vcr.createComponent(componentFactory, 0, injector);
   }
 
 }

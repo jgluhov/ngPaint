@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ElementRef } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '../../../canvas/components/canvas/canvas.component';
 
@@ -11,6 +11,12 @@ describe('PencilComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PencilComponent
+      ],
+      providers: [
+        {
+          provide: 'WorkSpace',
+          useValue: new ElementRef(document.createElement('svg'))
+        }
       ]
     })
     .compileComponents();

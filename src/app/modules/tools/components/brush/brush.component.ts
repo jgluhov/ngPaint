@@ -1,15 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Inject
+} from '@angular/core';
+import { WorkSpace } from '@canvas/components/canvas/canvas.component';
 
 @Component({
   selector: 'app-brush',
-  template: `
-    <p>
-      brush works!
-    </p>
-  `,
+  template: ``,
   styles: []
 })
 export class BrushComponent implements OnInit, OnDestroy {
+  constructor(@Inject('WorkSpace') private workSpace: WorkSpace) {
+  }
 
   ngOnInit(): void {
   }
