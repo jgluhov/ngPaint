@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
   ViewChild
 } from '@angular/core';
-import { TOOLS_TOKEN } from './tools';
+import { TOOLS_TOKEN } from '@general/tools';
 import { Tool } from '@models/tool';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
@@ -27,37 +27,19 @@ import * as AppActions from '@store/actions/app.actions';
           </app-tool-item>
       </div>
     </app-panel>
-    <ng-container #vcr></ng-container>
   `,
   styleUrls: ['./tools.component.scss']
 })
 export class ToolsComponent implements OnInit {
-  @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
-
-  toolChanges: Observable<Tool>;
   title = 'Tools';
   selectedTool: Tool;
 
   constructor(
     @Inject(TOOLS_TOKEN) public tools: Tool[],
-    private componentFactoryResolver: ComponentFactoryResolver,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.toolChanges = this.store
-      .select('app').select('tool')
-      .pipe(skip(1));
-
-    this.toolChanges
-      .subscribe(this.loadComponent);
-  }
-
-  loadComponent = (tool: Tool): void => {
-    this.vcr.clear();
-    const componentFactory = this.componentFactoryResolver
-      .resolveComponentFactory(tool.options.component);
-    this.vcr.createComponent(componentFactory);
   }
 
   isSelected(tool: Tool): boolean {

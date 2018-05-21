@@ -4,6 +4,7 @@ import { PanelComponent } from './panel/panel.component';
 import { MastheadComponent } from './masthead/masthead.component';
 import { SvgIconComponent } from './svg-icon/svg-icon.component';
 import { HttpModule } from '@angular/http';
+import { TOOLS_TOKEN, tools } from './tools';
 
 @NgModule({
   imports: [
@@ -19,6 +20,11 @@ import { HttpModule } from '@angular/http';
     PanelComponent,
     MastheadComponent,
     SvgIconComponent
+  ],
+  providers: [
+    {
+      provide: TOOLS_TOKEN, useValue: tools
+    }
   ]
 })
 export class GeneralModule { }

@@ -21,21 +21,26 @@ export class CursorableDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.toolChanges.subscribe((tool: Tool) => {
-      if (this.selectedTool) {
-        this.renderer.removeClass(
+    this.toolChanges
+      .subscribe((tool: Tool) => {
+        if (this.selectedTool) {
+          this.renderer.removeClass(
+            this.elementRef.nativeElement,
+            `cursor__${this.selectedTool.name}`
+          );
+        }
+
+        if (!tool) {
+          return;
+        }
+
+        this.renderer.addClass(
           this.elementRef.nativeElement,
-          `cursor__${this.selectedTool.name}`
+          `cursor__${tool.name}`
         );
-      }
 
-      this.renderer.addClass(
-        this.elementRef.nativeElement,
-        `cursor__${tool.name}`
-      );
-
-      this.selectedTool = tool;
-    });
+        this.selectedTool = tool;
+      });
   }
 
 }

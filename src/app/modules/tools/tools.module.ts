@@ -4,7 +4,6 @@ import { GeneralModule } from '../../general/general.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolsComponent } from './components/tools/tools.component';
 import { PencilComponent } from './components/pencil/pencil.component';
-import { TOOLS_TOKEN, tools } from './components/tools/tools';
 import { BrushComponent } from './components/brush/brush.component';
 import { ToolItemComponent } from './components/tool-item/tool-item.component';
 
@@ -23,11 +22,6 @@ import { ToolItemComponent } from './components/tool-item/tool-item.component';
     PencilComponent,
     BrushComponent,
     ToolItemComponent
-  ],
-  providers: [
-    {
-      provide: TOOLS_TOKEN, useValue: tools
-    }
   ],
   exports: [ToolsComponent]
 })
