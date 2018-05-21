@@ -1,4 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 
 @Component({
   selector: 'app-pencil',
@@ -11,6 +15,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class PencilComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
+
   }
 
   ngOnDestroy(): void {
