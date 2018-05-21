@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { CanvasModule } from '../../canvas.module';
 
 @Injectable({
-  providedIn: CanvasModule
+  providedIn: 'root'
 })
-export class MouseServiceService {
+export class MouseService {
 
   constructor() { }
 }
