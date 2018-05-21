@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PencilComponent } from './pencil.component';
+import { CanvasComponent } from '../../../canvas/components/canvas/canvas.component';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;
@@ -8,7 +9,9 @@ describe('PencilComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PencilComponent ]
+      declarations: [
+        PencilComponent
+      ]
     })
     .compileComponents();
   }));

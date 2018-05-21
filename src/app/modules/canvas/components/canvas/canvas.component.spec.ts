@@ -6,7 +6,7 @@ import {
 import { CanvasComponent } from './canvas.component';
 import { GeneralModule } from '../../../../general/general.module';
 import { CursorableDirective } from '../../directives/cursorable/cursorable.directive';
-import { AppStoreModule } from '../../../../store/app-store.module';
+import { AppStoreModule } from '@store/app-store.module';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;

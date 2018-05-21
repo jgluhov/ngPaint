@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Observable';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { CanvasComponent } from '../../../canvas/components/canvas/canvas.component';
 import {
   Component,
   OnInit,
@@ -6,16 +9,13 @@ import {
 
 @Component({
   selector: 'app-pencil',
-  template: `
-    <p>
-      pencil works!
-    </p>
-  `,
-  styles: []
+  template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  ngOnInit(): void {
+  constructor() {
+  }
 
+  ngOnInit(): void {
   }
 
   ngOnDestroy(): void {
