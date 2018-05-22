@@ -51,14 +51,14 @@ export class CanvasComponent implements OnInit {
     const componentFactory = this.componentFactoryResolver
       .resolveComponentFactory(tool.options.component);
 
-    const injector = ReflectiveInjector.resolveAndCreate([
+    const componentInjector = ReflectiveInjector.resolveAndCreate([
       {
         provide: 'WorkSpace',
         useValue: this.workSpace
       }
     ]);
 
-    this.vcr.createComponent(componentFactory, 0, injector);
+    this.vcr.createComponent(componentFactory, 0, componentInjector);
   }
 
 }
