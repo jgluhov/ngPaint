@@ -10,7 +10,7 @@ import {
 import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@models/tool';
+import { Tool } from '@models';
 
 export interface WorkSpace {
   workSpace: ElementRef;

@@ -32,8 +32,14 @@
       "@components": [
         "app/components"
       ],
-      "@canvas/*": [
-        "app/modules/canvas/*"
+      "@directives": [
+        "app/directives"
+      ],
+      "@directives/*": [
+        "app/directives/*"
+      ],
+      "@models": [
+        "app/models"
       ],
       "@models/*": [
         "app/models/*"

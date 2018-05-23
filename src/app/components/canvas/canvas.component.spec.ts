@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { CanvasComponent } from './canvas.component';
-import { CursorableDirective } from '@modules/canvas/directives/cursorable/cursorable.directive';
+import { CursorableDirective } from '@directives/cursorable/cursorable.directive';
 import { AppStoreModule } from '@store/app-store.module';
 import { PanelComponent } from '@components/panel/panel.component';
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
 import { PencilComponent } from './pencil.component';
-import { CanvasComponent } from '../../../canvas/components/canvas/canvas.component';
+import { CanvasComponent } from '@components/canvas/canvas.component';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;

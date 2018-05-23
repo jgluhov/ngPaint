@@ -4,7 +4,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Tool } from '@models/tool';
+import { Tool } from '@models';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { skip, zip } from 'rxjs/operators';

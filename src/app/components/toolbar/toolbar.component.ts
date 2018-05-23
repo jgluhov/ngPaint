@@ -3,7 +3,7 @@ import { TOOLS_TOKEN } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@models/tool';
+import { Tool } from '@models';
 import * as AppActions from '@store/actions/app.actions';
 
 @Component({
