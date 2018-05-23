@@ -1,0 +1,6 @@
+@import '../../../sass/variables.scss';
+
+.tool-item {
+  height: $toolbar-width - 20;
+  width: $toolbar-width - 20;
+}

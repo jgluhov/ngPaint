@@ -20,8 +20,17 @@
       "@tools/*": [
         "app/modules/tools/*"
       ],
-      "@general/*": [
-        "app/general/*"
+      "@modules": [
+        "app/modules"
+      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+      "@components/*": [
+        "app/components/*"
+      ],
+      "@components": [
+        "app/components"
       ],
       "@canvas/*": [
         "app/modules/canvas/*"

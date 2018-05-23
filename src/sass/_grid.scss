@@ -1,24 +1,24 @@
 @import './variables.scss';
 
-header {
-  grid-area: header;
+app-masthead {
+  grid-area: masthead;
   background-color: $color-ink;
 }
 
-section:nth-of-type(1) {
-  grid-area: section-1;
+app-toolbar {
+  grid-area: toolbar;
 }
 
-section:nth-of-type(2) {
-  grid-area: section-2;
+app-options-bar {
+  grid-area: options-bar;
 }
 
-section:nth-of-type(3) {
-  grid-area: section-3;
+app-users {
+  grid-area: users;
 }
 
-main {
-  grid-area: main;
+app-canvas {
+  grid-area: canvas;
 }
 
 .container {
@@ -35,22 +35,22 @@ main {
   grid-template-columns: 100%;
   grid-gap: 5px;
   grid-template-areas:
-    "header"
-    "section-3"
-    "section-1"
-    "section-2"
-    "main";
+    "masthead"
+    "users"
+    "toolbar"
+    "options-bar"
+    "canvas";
 }
 
 @media screen and (min-width: 961px) {
   .container {
     grid-template:
       $header-height repeat(2, 1fr) /
-      $tools-width calc(80% - #{$tools-width + 2 * $grid-gap}) 20%;
+      $toolbar-width calc(80% - #{$toolbar-width + $grid-gap}) 20%;
     grid-template-areas:
-      "header header header"
-      "section-1 main section-2"
-      "section-1 main section-3";
+      "masthead masthead masthead"
+      "toolbar canvas options-bar"
+      "toolbar canvas users";
   }
 }
 
@@ -61,9 +61,9 @@ main {
       repeat(2, minmax(auto, 100px))
       minmax(auto, 500px) / 1fr 1fr;
     grid-template-areas:
-      "header header"
-      "section-3 section-3"
-      "section-1 section-2"
-      "main main";
+      "masthead masthead"
+      "users users"
+      "toolbar options-bar"
+      "canvas canvas";
   }
 }

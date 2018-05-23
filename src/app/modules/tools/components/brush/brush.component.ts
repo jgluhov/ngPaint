@@ -4,7 +4,7 @@ import {
   OnDestroy,
   Inject
 } from '@angular/core';
-import { WorkSpace } from '@canvas/components/canvas/canvas.component';
+import { WorkSpace } from '@components/canvas/canvas.component';
 
 @Component({
   selector: 'app-brush',

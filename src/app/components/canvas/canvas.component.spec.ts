@@ -1,12 +1,8 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { CanvasComponent } from './canvas.component';
-import { GeneralModule } from '../../../../general/general.module';
-import { CursorableDirective } from '../../directives/cursorable/cursorable.directive';
+import { CursorableDirective } from '@modules/canvas/directives/cursorable/cursorable.directive';
 import { AppStoreModule } from '@store/app-store.module';
+import { PanelComponent } from '@components/panel/panel.component';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -15,10 +11,10 @@ describe('CanvasComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        GeneralModule,
         AppStoreModule
       ],
       declarations: [
+        PanelComponent,
         CanvasComponent,
         CursorableDirective
       ]

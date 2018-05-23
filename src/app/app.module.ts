@@ -1,25 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+import { AppStoreModule } from '@store/app-store.module';
 import { AppComponent } from './app.component';
-import { AppStoreModule } from './store/app-store.module';
-import { ToolsModule } from './modules/tools/tools.module';
-import { UsersModule } from './modules/users/users.module';
-import { GeneralModule } from './general/general.module';
-import { CanvasModule } from './modules/canvas/canvas.module';
-import { OptionsBarComponent } from './components/options-bar/options-bar.component';
+import { ToolsModule } from '@modules';
+import { CursorableDirective } from './directives/cursorable/cursorable.directive';
+import {
+  PanelComponent,
+  CanvasComponent,
+  ToolbarComponent,
+  ToolbarItemComponent,
+  UsersComponent,
+  OptionsBarComponent,
+  MastheadComponent,
+  SvgIconComponent
+} from '@components';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OptionsBarComponent
+    OptionsBarComponent,
+    ToolbarComponent,
+    ToolbarItemComponent,
+    UsersComponent,
+    MastheadComponent,
+    PanelComponent,
+    CursorableDirective,
+    CanvasComponent,
+    SvgIconComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AppStoreModule,
-    ToolsModule,
-    UsersModule,
-    GeneralModule,
-    CanvasModule
+    ToolsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

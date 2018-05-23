@@ -1,43 +1,32 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-  ComponentFactoryResolver,
-  ViewContainerRef,
-  ViewChild
-} from '@angular/core';
-import { TOOLS_TOKEN } from '@general/tools';
-import { Tool } from '@models/tool';
+import { Component, OnInit, Inject } from '@angular/core';
+import { TOOLS_TOKEN } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
-import { skip } from 'rxjs/operators';
+import { Tool } from '@models/tool';
 import * as AppActions from '@store/actions/app.actions';
 
 @Component({
-  selector: 'app-tools',
+  selector: 'app-toolbar',
   template: `
     <app-panel [panelTitle]="title">
-      <div class="tools">
-        <app-tool-item
-            *ngFor="let tool of tools"
-            [tool]="tool"
-            [selected]="isSelected(tool)"
-            (select)="handleSelect($event)">
-          </app-tool-item>
-      </div>
+      <app-toolbar-item
+        *ngFor="let tool of tools"
+        [tool]="tool"
+        [selected]="isSelected(tool)"
+        (select)="handleSelect($event)">
+      </app-toolbar-item>
     </app-panel>
   `,
-  styleUrls: ['./tools.component.scss']
+  styles: [ './toolbar.component.scss' ]
 })
-export class ToolsComponent implements OnInit {
+export class ToolbarComponent implements OnInit {
   title = 'Tools';
   selectedTool: Tool;
-
   constructor(
     @Inject(TOOLS_TOKEN) public tools: Tool[],
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
@@ -54,4 +43,5 @@ export class ToolsComponent implements OnInit {
     this.selectedTool = tool;
     this.store.dispatch(new AppActions.SelectTool(tool));
   }
+
 }

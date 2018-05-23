@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-options-bar',
+  selector: 'app-users',
   template: `
     <app-panel [panelTitle]="title">
     </app-panel>
   `
 })
-export class OptionsBarComponent implements OnInit {
-  title = 'Adjustments';
-  constructor() { }
+export class UsersComponent implements OnInit {
+  title = 'Users';
 
   ngOnInit(): void {
   }

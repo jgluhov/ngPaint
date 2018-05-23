@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OptionsBarComponent } from './options-bar.component';
-import { GeneralModule } from '../../general/general.module';
+import { PanelComponent } from '../panel/panel.component';
 
 describe('OptionsBarComponent', () => {
   let component: OptionsBarComponent;
@@ -9,10 +9,8 @@ describe('OptionsBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        GeneralModule
-      ],
       declarations: [
+        PanelComponent,
         OptionsBarComponent
       ]
     })

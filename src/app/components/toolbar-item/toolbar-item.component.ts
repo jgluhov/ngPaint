@@ -19,7 +19,7 @@ import {
 } from '@angular/animations';
 
 @Component({
-  selector: 'app-tool-item',
+  selector: 'app-toolbar-item',
   template: `
     <div class="tool-item" [@toolState]="toolState">
       <app-svg-icon [imageUrl]="tool.options.imageUrl"
@@ -39,9 +39,9 @@ import {
       transition('active => inactive', animate('100ms ease-out'))
     ])
   ],
-  styleUrls: [ './tool-item.component.scss' ]
+  styleUrls: [ './toolbar-item.component.scss' ]
 })
-export class ToolItemComponent {
+export class ToolbarItemComponent {
   toolState = 'inactive';
   @Output() select: EventEmitter<Tool> = new EventEmitter<Tool>();
   @Input() tool: Tool;
