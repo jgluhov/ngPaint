@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PencilComponent } from './components/pencil/pencil.component';
 import { BrushComponent } from './components/brush/brush.component';
 import { TOOLS_TOKEN, tools } from './tools';
+import { MouseService } from '@tools/services/mouse/mouse.service';
 
 @NgModule({
   entryComponents: [
@@ -19,6 +20,7 @@ import { TOOLS_TOKEN, tools } from './tools';
     BrushComponent
   ],
   providers: [
+    MouseService,
     {
       provide: TOOLS_TOKEN, useValue: tools
     }

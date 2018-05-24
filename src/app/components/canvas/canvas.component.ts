@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
 
 export interface WorkSpace {
-  workSpace: ElementRef;
+  elementRef: ElementRef;
 }
 
 @Component({
@@ -54,7 +54,9 @@ export class CanvasComponent implements OnInit {
     const componentInjector = ReflectiveInjector.resolveAndCreate([
       {
         provide: 'WorkSpace',
-        useValue: this.workSpace
+        useValue: {
+          elementRef: this.workSpace
+        }
       }
     ]);
 

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '@components/canvas/canvas.component';
+import { MouseService } from '@tools/services/mouse/mouse.service';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;
@@ -13,9 +14,12 @@ describe('PencilComponent', () => {
         PencilComponent
       ],
       providers: [
+        MouseService,
         {
           provide: 'WorkSpace',
-          useValue: new ElementRef(document.createElement('svg'))
+          useValue: {
+            elementRef: new ElementRef(document.createElement('div'))
+          }
         }
       ]
     })
