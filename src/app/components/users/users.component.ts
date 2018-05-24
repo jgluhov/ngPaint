@@ -4,6 +4,15 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-users',
   template: `
     <app-panel [panelTitle]="title">
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
+      <div>User 1</div>
     </app-panel>
   `
 })

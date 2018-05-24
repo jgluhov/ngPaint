@@ -1,6 +1,7 @@
 @import '../../../sass/variables.scss';
+@import '../../../sass/_mixins.scss';
+
 
 .tool-item {
-  height: $toolbar-width - 20;
-  width: $toolbar-width - 20;
+  @include size($toolbar-item-size);
 }

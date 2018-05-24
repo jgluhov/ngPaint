@@ -10,15 +10,17 @@ import * as AppActions from '@store/actions/app.actions';
   selector: 'app-toolbar',
   template: `
     <app-panel [panelTitle]="title">
-      <app-toolbar-item
-        *ngFor="let tool of tools"
-        [tool]="tool"
-        [selected]="isSelected(tool)"
-        (select)="handleSelect($event)">
-      </app-toolbar-item>
+      <div class="toolbar-list">
+        <app-toolbar-item
+          *ngFor="let tool of tools"
+          [tool]="tool"
+          [selected]="isSelected(tool)"
+          (select)="handleSelect($event)">
+        </app-toolbar-item>
+      </div>
     </app-panel>
   `,
-  styles: [ './toolbar.component.scss' ]
+  styleUrls: [ './toolbar.component.scss' ]
 })
 export class ToolbarComponent implements OnInit {
   title = 'Tools';
