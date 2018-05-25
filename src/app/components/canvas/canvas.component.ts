@@ -11,7 +11,7 @@ import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
-import { MouseService } from '@services/mouse/mouse.service';
+import { MouseService, provideMouseService } from '@services/mouse/mouse.service';
 
 @Component({
   selector: 'app-canvas',
@@ -23,7 +23,8 @@ export class CanvasComponent implements OnInit {
   toolChanges: Observable<Tool>;
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
-  @ViewChild('workSpace') workSpace: ElementRef;
+  @ViewChild('svg') svgRef: ElementRef;
+  @ViewChild('container') containerRef: ElementRef;
 
   constructor(
     private store: Store<AppState>,
@@ -49,10 +50,7 @@ export class CanvasComponent implements OnInit {
       .resolveComponentFactory(tool.options.component);
 
     const componentInjector = ReflectiveInjector.resolveAndCreate([
-      {
-        provide: MouseService,
-        useFactory: (): MouseService => new MouseService(this.workSpace)
-      }
+      provideMouseService(this.svgRef)
     ]);
 
     this.vcr.createComponent(componentFactory, 0, componentInjector);

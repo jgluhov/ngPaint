@@ -2,22 +2,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '@components/canvas/canvas.component';
-import { MouseService } from '@services/mouse/mouse.service';
+import { MouseService, provideMouseService } from '@services/mouse/mouse.service';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;
   let fixture: ComponentFixture<PencilComponent>;
 
   beforeEach(async(() => {
+    const elRef = new ElementRef(document.createElement('div'));
+    const containerRef = new ElementRef(document.createElement('div'));
     TestBed.configureTestingModule({
       declarations: [
         PencilComponent
       ],
       providers: [
-        {
-          provide: MouseService,
-          useFactory: (): MouseService => new MouseService(new ElementRef(document.createElement('div')))
-        }
+        provideMouseService(elRef)
       ]
     })
     .compileComponents();

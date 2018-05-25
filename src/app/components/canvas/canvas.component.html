@@ -3,7 +3,7 @@
       viewBox="0 0 14000 14000"
       width="14000"
       height="14000"
-      #workSpace
+      #svg
       [appCursorable]="toolChanges">
       <defs>
           <pattern id="grid"
@@ -15,6 +15,7 @@
           </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)" />
+      <g #container></g>
     </svg>
     <ng-container #vcr></ng-container>
 </app-panel>

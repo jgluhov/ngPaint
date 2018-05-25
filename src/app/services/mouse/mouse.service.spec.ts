@@ -1,15 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { MouseService } from './mouse.service';
+import { MouseService, provideMouseService } from './mouse.service';
 import { ElementRef } from '@angular/core';
 
 describe('MouseService', () => {
   beforeEach(() => {
+    const elRef = new ElementRef(document.createElement('div'));
     TestBed.configureTestingModule({
       providers: [
-        {
-          provide: MouseService,
-          useFactory: (): MouseService => new MouseService(new ElementRef(document.createElement('div')))
-        }
+        provideMouseService(elRef)
       ]
     });
   });

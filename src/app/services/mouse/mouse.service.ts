@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, ElementRef, Provider } from '@angular/core';
 import { ToolsModule } from '@modules/tools/tools.module';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -13,6 +13,13 @@ import {
   take,
   takeWhile
 } from 'rxjs/operators';
+
+export function provideMouseService(svgRef: ElementRef): Provider {
+  return {
+    provide: MouseService,
+    useFactory: (): MouseService => new MouseService(svgRef)
+  };
+}
 
 @Injectable()
 export class MouseService {

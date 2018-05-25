@@ -16,7 +16,9 @@ import { MouseService } from '@services/mouse/mouse.service';
 })
 export class PencilComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(private mouseService: MouseService) {
+  constructor(
+    private mouseService: MouseService
+  ) {
   }
 
   ngOnInit(): void {
