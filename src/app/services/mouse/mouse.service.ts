@@ -23,11 +23,13 @@ export function provideMouseService(svgRef: ElementRef): Provider {
 
 @Injectable()
 export class MouseService {
-  constructor(private svgRef: ElementRef) {
+  svg: SVGSVGElement;
+  constructor(private elRef: ElementRef) {
+    this.svg = this.elRef.nativeElement.querySelector('#svg');
   }
 
   fromEvent(name: string): Observable<MouseEvent> {
-    return fromEvent(this.svgRef.nativeElement, name)
+    return fromEvent(this.svg, name)
       .pipe(tap((evt: MouseEvent) => evt.preventDefault()));
   }
 
@@ -46,10 +48,10 @@ export class MouseService {
   }
 
   toCoords = (evt: MouseEvent): SVGPoint => {
-    const p = this.svgRef.nativeElement.createSVGPoint();
+    const p = this.svg.createSVGPoint();
     p.x = evt.clientX;
     p.y = evt.clientY;
 
-    return p.matrixTransform(this.svgRef.nativeElement.getScreenCTM().inverse());
+    return p.matrixTransform(this.svg.getScreenCTM().inverse());
   }
 }

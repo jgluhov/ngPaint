@@ -17,7 +17,7 @@ import { MouseService, provideMouseService } from '@services/mouse/mouse.service
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: [ './canvas.component.scss' ],
-  providers: [MouseService]
+  providers: [ MouseService ]
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
