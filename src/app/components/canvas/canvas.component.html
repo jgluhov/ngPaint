@@ -1,9 +1,10 @@
-<app-panel [panelTitle]="title" class="canvas__panel" [appCursorable]="toolChanges">
+<app-panel [panelTitle]="title" class="canvas__panel">
     <svg xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 14000 14000"
       width="14000"
       height="14000"
-      #workSpace>
+      #workSpace
+      [appCursorable]="toolChanges">
       <defs>
           <pattern id="grid"
             patternUnits="userSpaceOnUse"

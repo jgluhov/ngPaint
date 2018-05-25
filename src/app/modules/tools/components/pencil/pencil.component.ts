@@ -28,7 +28,7 @@ export class PencilComponent implements OnInit, OnDestroy {
 
     this.subscription = this.tracker$
       .subscribe((p: SVGPoint) => {
-        console.log(SVGPoint);
+        console.log(p.x, p.y);
       });
   }
 
