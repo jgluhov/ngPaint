@@ -44,6 +44,12 @@
       "@models/*": [
         "app/models/*"
       ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@services": [
+        "app/services"
+      ],
       "@store/*": [
         "app/store/*"
       ]

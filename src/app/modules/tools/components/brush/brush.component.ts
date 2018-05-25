@@ -4,7 +4,6 @@ import {
   OnDestroy,
   Inject
 } from '@angular/core';
-import { WorkSpace } from '@components/canvas/canvas.component';
 
 @Component({
   selector: 'app-brush',
@@ -12,7 +11,7 @@ import { WorkSpace } from '@components/canvas/canvas.component';
   styles: []
 })
 export class BrushComponent implements OnInit, OnDestroy {
-  constructor(@Inject('WorkSpace') private workSpace: WorkSpace) {
+  constructor() {
   }
 
   ngOnInit(): void {

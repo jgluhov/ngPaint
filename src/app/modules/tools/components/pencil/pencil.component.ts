@@ -1,40 +1,38 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { WorkSpace } from '@components/canvas/canvas.component';
-import { MouseService } from '@tools/services/mouse/mouse.service';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 import {
   Component,
   OnInit,
   OnDestroy,
   Inject
 } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { MouseService } from '@services/mouse/mouse.service';
 
 @Component({
   selector: 'app-pencil',
   template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  tracker$: Observable<SVGPoint>;
-  subscription: Subscription;
-  constructor(
-    private mouseService: MouseService,
-    @Inject('WorkSpace') private workSpace: WorkSpace
-  ) {}
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private mouseService: MouseService) {
+  }
 
   ngOnInit(): void {
-    this.tracker$ = this.mouseService
-      .trackMouse(this.workSpace.elementRef);
+    this.mouseService.fromEvent('mousedown')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(this.onStart);
+  }
 
-    this.subscription = this.tracker$
-      .subscribe(
-        (p: SVGPoint) => {
-          console.log(p.x, p.y);
-        }
-      );
+  onStart = (evt: MouseEvent): void => {
+    this.mouseService.trackMouse(evt)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(console.log);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

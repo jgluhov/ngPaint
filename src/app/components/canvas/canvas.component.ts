@@ -11,10 +11,7 @@ import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
-
-export interface WorkSpace {
-  elementRef: ElementRef;
-}
+import { MouseService } from '@services/mouse/mouse.service';
 
 @Component({
   selector: 'app-canvas',
@@ -53,10 +50,8 @@ export class CanvasComponent implements OnInit {
 
     const componentInjector = ReflectiveInjector.resolveAndCreate([
       {
-        provide: 'WorkSpace',
-        useValue: {
-          elementRef: this.workSpace
-        }
+        provide: MouseService,
+        useFactory: (): MouseService => new MouseService(this.workSpace)
       }
     ]);
 

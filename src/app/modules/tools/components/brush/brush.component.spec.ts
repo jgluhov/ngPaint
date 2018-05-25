@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ElementRef } from '@angular/core';
 import { BrushComponent } from './brush.component';
 
 describe('BrushComponent', () => {
@@ -8,13 +7,7 @@ describe('BrushComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BrushComponent ],
-      providers: [
-        {
-          provide: 'WorkSpace',
-          useValue: new ElementRef(document.createElement('svg'))
-        }
-      ]
+      declarations: [ BrushComponent ]
     })
     .compileComponents();
   }));
