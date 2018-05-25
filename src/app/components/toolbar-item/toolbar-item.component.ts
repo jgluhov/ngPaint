@@ -23,7 +23,7 @@ import {
   template: `
     <div class="tool-item" [@toolState]="toolState">
       <app-svg-icon [imageUrl]="tool.options.imageUrl"
-        (click)="handleClick()">
+        (click)="handleClick($event)">
       </app-svg-icon>
     </div>
   `,
@@ -50,7 +50,8 @@ export class ToolbarItemComponent {
     this.toolState = isSelected ? 'active' : 'inactive';
   }
 
-  handleClick(): void {
+  handleClick(evt: MouseEvent): void {
+    evt.stopPropagation();
     this.select.emit(this.tool);
   }
 }

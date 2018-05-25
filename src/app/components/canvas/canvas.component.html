@@ -1,5 +1,6 @@
 <app-panel [panelTitle]="title" class="canvas__panel">
     <svg xmlns="http://www.w3.org/2000/svg"
+      id="svg"
       viewBox="0 0 14000 14000"
       width="14000"
       height="14000"
@@ -15,8 +16,7 @@
           </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)" />
-      <g #container></g>
+      <ng-container #vcr></ng-container>
     </svg>
-    <ng-container #vcr></ng-container>
 </app-panel>
 

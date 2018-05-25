@@ -1,10 +1,18 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  HostListener,
+  OnDestroy
+} from '@angular/core';
 import { TOOLS_TOKEN } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
 import * as AppActions from '@store/actions/app.actions';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,15 +30,33 @@ import * as AppActions from '@store/actions/app.actions';
   `,
   styleUrls: [ './toolbar.component.scss' ]
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnDestroy {
   title = 'Tools';
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  selectedTool$: Observable<Tool>;
   selectedTool: Tool;
+
+  @HostListener('document:click', ['$event', '$event.target'])
+  public handleClick(evt: MouseEvent, target: HTMLElement): void {
+    if (!target.closest('#svg')) {
+      this.store.dispatch(new AppActions.SelectTool(null));
+    }
+  }
+
   constructor(
     @Inject(TOOLS_TOKEN) public tools: Tool[],
     private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
+    this.selectedTool$ = this.store
+      .select('app')
+      .select('tool')
+      .pipe(takeUntil(this.destroy$));
+
+    this.selectedTool$.subscribe((tool: Tool) => {
+      this.selectedTool = tool;
+    });
   }
 
   isSelected(tool: Tool): boolean {
@@ -38,12 +64,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   handleSelect(tool: Tool): void {
-    if (this.selectedTool === tool) {
-      return;
-    }
-
-    this.selectedTool = tool;
     this.store.dispatch(new AppActions.SelectTool(tool));
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

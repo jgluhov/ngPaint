@@ -10,7 +10,6 @@ describe('PencilComponent', () => {
 
   beforeEach(async(() => {
     const elRef = new ElementRef(document.createElement('div'));
-    const containerRef = new ElementRef(document.createElement('div'));
     TestBed.configureTestingModule({
       declarations: [
         PencilComponent
