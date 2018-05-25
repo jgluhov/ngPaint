@@ -11,7 +11,7 @@ import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
-import { MouseService, provideMouseService } from '@services/mouse/mouse.service';
+import { MouseService } from '@services/mouse';
 
 @Component({
   selector: 'app-canvas',

@@ -14,13 +14,6 @@ import {
   takeWhile
 } from 'rxjs/operators';
 
-export function provideMouseService(svgRef: ElementRef): Provider {
-  return {
-    provide: MouseService,
-    useFactory: (): MouseService => new MouseService(svgRef)
-  };
-}
-
 @Injectable()
 export class MouseService {
   svg: SVGSVGElement;
