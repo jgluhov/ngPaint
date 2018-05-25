@@ -25,7 +25,6 @@ export class CanvasComponent implements OnInit {
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;
-  @ViewChild('container') containerRef: ElementRef;
 
   constructor(
     private store: Store<AppState>,

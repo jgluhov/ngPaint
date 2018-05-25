@@ -6,6 +6,7 @@ import { Http, BaseRequestOptions } from '@angular/http';
 import { Tool, ToolOptions } from '@models/tool';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '../panel/panel.component';
+import { Polyline } from '../../models/polyline';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -42,6 +43,7 @@ describe('ToolItemComponent', () => {
     component = fixture.componentInstance;
     component.tool = new Tool('some', {
       component: class SomeComponent {},
+      shape: Polyline,
       imageUrl: ''
     });
     fixture.detectChanges();
