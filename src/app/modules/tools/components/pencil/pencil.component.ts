@@ -27,9 +27,11 @@ export class PencilComponent implements OnInit, OnDestroy {
       .trackMouse(this.workSpace.elementRef);
 
     this.subscription = this.tracker$
-      .subscribe((p: SVGPoint) => {
-        console.log(p.x, p.y);
-      });
+      .subscribe(
+        (p: SVGPoint) => {
+          console.log(p.x, p.y);
+        }
+      );
   }
 
   ngOnDestroy(): void {

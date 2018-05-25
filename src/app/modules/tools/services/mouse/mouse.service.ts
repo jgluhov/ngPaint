@@ -2,11 +2,16 @@ import { Injectable, ElementRef } from '@angular/core';
 import { ToolsModule } from '@modules/tools/tools.module';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { merge } from 'rxjs/observable/merge';
 import {
   switchMap,
   takeUntil,
   startWith,
-  map
+  map,
+  tap,
+  mapTo,
+  take,
+  takeWhile
 } from 'rxjs/operators';
 
 @Injectable()
@@ -14,16 +19,26 @@ export class MouseService {
   constructor() {
   }
 
+  fromEvent(el: ElementRef, evtName: string): Observable<MouseEvent> {
+    return fromEvent(el.nativeElement, evtName)
+      .pipe(tap((evt: MouseEvent) => evt.preventDefault()));
+  }
+
   trackMouse(el: ElementRef): Observable<SVGPoint> {
-    const up$ = fromEvent(el.nativeElement, 'mouseup');
-    const down$ = <Observable<MouseEvent>>fromEvent(el.nativeElement, 'mousedown');
-    const mousemove$ = fromEvent(el.nativeElement, 'mousemove');
+    const down$ = this.fromEvent(el, 'mousedown');
+    const move$ = this.fromEvent(el, 'mousemove');
+    const end$ = merge(
+      this.fromEvent(el, 'mouseup'),
+      this.fromEvent(el, 'mouseleave')
+    );
+
+    end$.pipe(mapTo('ends')).subscribe(console.log);
 
     return down$.pipe(
       switchMap((evt: MouseEvent) => {
-        return mousemove$.pipe(
+        return move$.pipe(
           startWith(evt),
-          takeUntil(up$)
+          takeUntil(end$)
         );
       }),
       map((evt: MouseEvent) => {
