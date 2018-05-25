@@ -8,7 +8,7 @@ describe('MouseService', () => {
       providers: [
         {
           provide: MouseService,
-          useFactory: (): MouseService => new MouseService(new ElementRef(document.createElement('div')));
+          useFactory: (): MouseService => new MouseService(new ElementRef(document.createElement('div')))
         }
       ]
     });
