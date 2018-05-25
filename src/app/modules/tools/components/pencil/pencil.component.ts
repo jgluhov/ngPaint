@@ -6,7 +6,8 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Inject
+  Inject,
+  ViewContainerRef
 } from '@angular/core';
 import { MouseService } from '@services/mouse/mouse.service';
 
@@ -19,6 +20,7 @@ export class PencilComponent implements OnInit, OnDestroy {
   constructor(
     private mouseService: MouseService
   ) {
+
   }
 
   ngOnInit(): void {
