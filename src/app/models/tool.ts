@@ -2,6 +2,7 @@ import { Type } from '@angular/core';
 
 export interface ToolOptions {
   component: Type<any>;
+  shape: Type<any>;
   imageUrl: string;
 }
 

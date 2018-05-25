@@ -16,7 +16,8 @@ import { MouseService, provideMouseService } from '@services/mouse/mouse.service
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: [ './canvas.component.scss' ]
+  styleUrls: [ './canvas.component.scss' ],
+  providers: [MouseService]
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
@@ -49,11 +50,7 @@ export class CanvasComponent implements OnInit {
     const componentFactory = this.componentFactoryResolver
       .resolveComponentFactory(tool.options.component);
 
-    const componentInjector = ReflectiveInjector.resolveAndCreate([
-      provideMouseService(this.svgRef)
-    ]);
-
-    this.vcr.createComponent(componentFactory, 0, componentInjector);
+    this.vcr.createComponent(componentFactory);
   }
 
 }

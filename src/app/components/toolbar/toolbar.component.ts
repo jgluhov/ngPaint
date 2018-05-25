@@ -5,12 +5,12 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
+import * as AppActions from '@store/actions/app.actions';
 import { TOOLS_TOKEN } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@models';
-import * as AppActions from '@store/actions/app.actions';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 
@@ -32,15 +32,17 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   title = 'Tools';
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  selectedTool$: Observable<Tool>;
   selectedTool: Tool;
+  selectedTool$: Observable<Tool>;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @HostListener('document:click', ['$event', '$event.target'])
   public handleClick(evt: MouseEvent, target: HTMLElement): void {
-    if (!target.closest('#svg')) {
-      this.store.dispatch(new AppActions.SelectTool(null));
+    if (target.closest('#svg')) {
+      return;
     }
+
+    this.store.dispatch(new AppActions.SelectTool(null));
   }
 
   constructor(

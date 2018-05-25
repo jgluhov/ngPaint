@@ -2,12 +2,14 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { Tool } from '@models';
 import {
   Component,
   OnInit,
   OnDestroy,
   Inject,
-  ViewContainerRef
+  ViewContainerRef,
+  Host
 } from '@angular/core';
 import { MouseService } from '@services/mouse/mouse.service';
 
@@ -16,12 +18,11 @@ import { MouseService } from '@services/mouse/mouse.service';
   template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(
-    private mouseService: MouseService
-  ) {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  }
+  constructor(
+    @Host() private mouseService: MouseService
+  ) {}
 
   ngOnInit(): void {
     this.mouseService.fromEvent('mousedown')
