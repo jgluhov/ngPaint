@@ -1,5 +1,4 @@
-import { Injectable, ElementRef, Provider } from '@angular/core';
-import { ToolsModule } from '@modules/tools/tools.module';
+import { Directive, Injectable, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -14,15 +13,15 @@ import {
   takeWhile
 } from 'rxjs/operators';
 
-@Injectable()
-export class MouseService {
-  svg: SVGSVGElement;
+@Directive({
+  selector: '[appMouseTracker]'
+})
+export class MouseTrackerDirective {
   constructor(private elRef: ElementRef) {
-    this.svg = this.elRef.nativeElement.querySelector('#svg');
   }
 
   fromEvent(name: string): Observable<MouseEvent> {
-    return fromEvent(this.svg, name)
+    return fromEvent(this.elRef.nativeElement, name)
       .pipe(tap((evt: MouseEvent) => evt.preventDefault()));
   }
 
@@ -41,10 +40,11 @@ export class MouseService {
   }
 
   toCoords = (evt: MouseEvent): SVGPoint => {
-    const p = this.svg.createSVGPoint();
+    const p = this.elRef.nativeElement.createSVGPoint();
     p.x = evt.clientX;
     p.y = evt.clientY;
 
-    return p.matrixTransform(this.svg.getScreenCTM().inverse());
+    return p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
   }
+
 }

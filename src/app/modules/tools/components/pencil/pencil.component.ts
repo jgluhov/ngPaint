@@ -9,9 +9,10 @@ import {
   OnDestroy,
   Inject,
   ViewContainerRef,
-  Host
+  Host,
+  Optional
 } from '@angular/core';
-import { MouseService } from '@services/mouse/mouse.service';
+import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 
 @Component({
   selector: 'app-pencil',
@@ -21,17 +22,17 @@ export class PencilComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    @Host() private mouseService: MouseService
+    private mouseTracker: MouseTrackerDirective
   ) {}
 
   ngOnInit(): void {
-    this.mouseService.fromEvent('mousedown')
+    this.mouseTracker.fromEvent('mousedown')
       .pipe(takeUntil(this.destroy$))
       .subscribe(this.onStart);
   }
 
   onStart = (evt: MouseEvent): void => {
-    this.mouseService.trackMouse(evt)
+    this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
       .subscribe(console.log);
   }

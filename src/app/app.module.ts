@@ -15,6 +15,7 @@ import {
   MastheadComponent,
   SvgIconComponent
 } from '@components';
+import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {
     PanelComponent,
     CursorableDirective,
     CanvasComponent,
-    SvgIconComponent
+    SvgIconComponent,
+    MouseTrackerDirective
   ],
   imports: [
     BrowserModule,
