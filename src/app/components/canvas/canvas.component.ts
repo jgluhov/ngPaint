@@ -12,6 +12,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@tools/tools';
 import { Shape } from '@tools/shapes/shape';
+import { of } from 'rxjs/observable/of';
+import { filter, switchMap, map } from 'rxjs/operators';
+import { PolylineShape } from '@tools/shapes/polyline-shape';
 
 @Component({
   selector: 'app-canvas',
@@ -22,6 +25,7 @@ export class CanvasComponent implements OnInit {
   title = 'Canvas';
   tool$: Observable<Tool>;
   shapes$: Observable<Shape[]>;
+  polylines$: Observable<Shape[]>;
   shapes: Shape[];
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
@@ -42,9 +46,11 @@ export class CanvasComponent implements OnInit {
     this.tool$
       .subscribe(this.loadComponent);
 
-    this.shapes$.subscribe((shapes: Shape[]) => {
-      this.shapes = shapes;
-    });
+    this.polylines$ = this.shapes$
+      .pipe(
+        map((shapes: Shape[]) =>
+          shapes.filter((shape: Shape) => shape.is('polyline'))
+      ));
   }
 
   loadComponent = (tool: Tool): void => {

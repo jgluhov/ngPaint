@@ -3,4 +3,5 @@ export interface Shape {
   stroke: string;
   fill: string;
   toString(): string;
+  is(type: string): boolean;
 }

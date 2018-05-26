@@ -3,7 +3,6 @@ import { CanvasComponent } from './canvas.component';
 import { CursorableDirective } from '@directives/cursorable/cursorable.directive';
 import { AppStoreModule } from '@store/app-store.module';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ShapeFilterPipe } from '@tools/pipes/shape-filter/shape-filter.pipe';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -17,8 +16,7 @@ describe('CanvasComponent', () => {
       declarations: [
         PanelComponent,
         CanvasComponent,
-        CursorableDirective,
-        ShapeFilterPipe
+        CursorableDirective
       ]
     })
     .compileComponents();

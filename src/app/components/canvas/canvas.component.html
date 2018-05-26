@@ -19,10 +19,12 @@
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)" />
       <g id="shapes">
-        <polyline *ngFor="let shape of shapes | shapeFilter: 'polyline'"
-          [attr.points]="shape.toString()"
-          [attr.fill]="shape.fill"
-          [attr.stroke]="shape.stroke" />
+        <polyline
+          *ngFor="let polyline of polylines$ | async"
+          [attr.points]="polyline.toString()"
+          [attr.fill]="polyline.fill"
+          [attr.stroke]="polyline.stroke"
+        />
       </g>
       <ng-container #vcr></ng-container>
     </svg>

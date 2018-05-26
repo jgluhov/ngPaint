@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PencilComponent } from './components/pencil/pencil.component';
 import { BrushComponent } from './components/brush/brush.component';
 import { TOOLS_TOKEN, tools } from './tools';
-import { ShapeFilterPipe } from './pipes/shape-filter/shape-filter.pipe';
 
 @NgModule({
   entryComponents: [
@@ -17,16 +16,12 @@ import { ShapeFilterPipe } from './pipes/shape-filter/shape-filter.pipe';
   ],
   declarations: [
     PencilComponent,
-    BrushComponent,
-    ShapeFilterPipe
+    BrushComponent
   ],
   providers: [
     {
       provide: TOOLS_TOKEN, useValue: tools
     }
-  ],
-  exports: [
-    ShapeFilterPipe
   ]
 })
 export class ToolsModule { }

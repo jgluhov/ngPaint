@@ -13,4 +13,8 @@ export class PolylineShape implements Shape {
       .map((point: Point2D) => `${point.x},${point.y}`)
       .join(' ');
   }
+
+  is(type: string): boolean {
+    return this.type === type;
+  }
 }
