@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
-import { Tool } from '@models';
+import { Tool } from '@tools/tools';
 import {
   Component,
   OnInit,
@@ -19,20 +19,27 @@ import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.d
   template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private complete$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private mouseTracker: MouseTrackerDirective
   ) {}
 
   ngOnInit(): void {
-    this.mouseTracker.mousedown$
-      .subscribe(this.onStart);
+    this.mouseTracker.onStart()
+      .subscribe(this.onStart.bind(this));
   }
 
-  onStart = (evt: MouseEvent): void => {
+  onStart(evt: MouseEvent): void {
     this.mouseTracker.trackMouse(evt)
-      .subscribe(console.log);
+      .subscribe((p: SVGPoint) => {
+        console.log(p);
+      });
+
+    this.mouseTracker.bufferMouse(evt)
+      .subscribe((points: SVGPoint[]) => {
+        console.log(points);
+      });
   }
 
   ngOnDestroy(): void {

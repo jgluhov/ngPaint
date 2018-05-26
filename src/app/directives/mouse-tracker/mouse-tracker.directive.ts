@@ -1,17 +1,19 @@
 import { Directive, Injectable, ElementRef, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import {
-  switchMap,
+  buffer,
   takeUntil,
   startWith,
   map,
   tap,
   mapTo,
   take,
-  takeWhile
+  takeWhile,
+  mergeMap
 } from 'rxjs/operators';
 
 @Directive({
@@ -19,8 +21,15 @@ import {
 })
 export class MouseTrackerDirective implements OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
-  public mousedown$: Observable<MouseEvent> = this.fromEvent('mousedown');
+  private start$: Observable<MouseEvent>;
+  private end$: Observable<MouseEvent>;
+
   constructor(private elRef: ElementRef) {
+    this.start$ = this.fromEvent('mousedown');
+    this.end$ = merge(
+      this.fromEvent('mouseup'),
+      this.fromEvent('mouseleave')
+    );
   }
 
   fromEvent(name: string): Observable<MouseEvent> {
@@ -31,20 +40,22 @@ export class MouseTrackerDirective implements OnDestroy {
       );
   }
 
-  trackMouse(evt: MouseEvent): Observable<SVGPoint> {
-    const mousemove$ = this.fromEvent('mousemove');
-    const end$ = merge(
-      this.fromEvent('mouseup'),
-      this.fromEvent('mouseleave'),
-      this.destroy$
-    );
+  onStart(): Observable<MouseEvent> {
+    return this.fromEvent('mousedown');
+  }
 
-    return mousemove$
+  trackMouse(evt: MouseEvent): Observable<SVGPoint> {
+    return this.fromEvent('mousemove')
       .pipe(
         startWith(evt),
-        takeUntil(end$),
-        map(this.toCoords)
+        map(this.toCoords),
+        takeUntil(this.end$)
       );
+  }
+
+  bufferMouse(evt: MouseEvent): Observable<SVGPoint[]> {
+    return this.trackMouse(evt)
+      .pipe(buffer(this.end$));
   }
 
   toCoords = (evt: MouseEvent): SVGPoint => {

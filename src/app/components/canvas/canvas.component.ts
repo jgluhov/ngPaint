@@ -10,7 +10,7 @@ import {
 import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@models';
+import { Tool } from '@tools/tools';
 
 @Component({
   selector: 'app-canvas',
@@ -43,7 +43,7 @@ export class CanvasComponent implements OnInit {
     }
 
     const componentFactory = this.componentFactoryResolver
-      .resolveComponentFactory(tool.options.component);
+      .resolveComponentFactory(tool.component);
 
     this.vcr.createComponent(componentFactory);
   }

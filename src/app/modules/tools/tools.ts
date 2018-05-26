@@ -1,20 +1,29 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Type } from '@angular/core';
 import { PencilComponent } from '@tools/components/pencil/pencil.component';
 import { BrushComponent } from '@tools/components/brush/brush.component';
-import { Tool } from '@models/tool';
-import { Polyline } from '@models';
+import { Shape } from './shapes';
+import { PolylineShape } from './shapes/polyline-shape';
+
+export interface Tool {
+  name: string;
+  component: Type<any>;
+  shape: Shape;
+  imageUrl: string;
+}
 
 export const tools: Tool[] = [
-  new Tool('pencil', {
+  {
+    name: 'pencil',
     component: PencilComponent,
-    shape: Polyline,
+    shape: PolylineShape,
     imageUrl: 'assets/icons/pencil.svg'
-  }),
-  new Tool('brush', {
+  },
+  {
+    name: 'brush',
     component: BrushComponent,
-    shape: Polyline,
+    shape: PolylineShape,
     imageUrl: 'assets/icons/brush.svg'
-  })
+  }
 ];
 
 export const TOOLS_TOKEN = new InjectionToken<Tool[]>('tools');

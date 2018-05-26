@@ -6,11 +6,10 @@ import {
   OnDestroy
 } from '@angular/core';
 import * as AppActions from '@store/actions/app.actions';
-import { TOOLS_TOKEN } from '@tools/tools';
+import { TOOLS_TOKEN, Tool } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@models';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 
@@ -48,7 +47,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(TOOLS_TOKEN) public tools: Tool[],
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.selectedTool$ = this.store

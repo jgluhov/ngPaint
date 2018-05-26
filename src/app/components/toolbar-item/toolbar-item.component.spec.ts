@@ -3,10 +3,10 @@ import { MockBackend } from '@angular/http/testing';
 import { ToolbarItemComponent } from './toolbar-item.component';
 import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
-import { Tool, ToolOptions } from '@models/tool';
+import { Tool } from '@tools/tools';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '../panel/panel.component';
-import { Polyline } from '../../models/polyline';
+import { PolylineShape } from '@tools/shapes/polyline-shape';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -41,11 +41,12 @@ describe('ToolItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ToolbarItemComponent);
     component = fixture.componentInstance;
-    component.tool = new Tool('some', {
+    component.tool = {
+      name: 'pencil',
       component: class SomeComponent {},
-      shape: Polyline,
+      shape: PolylineShape,
       imageUrl: ''
-    });
+    };
     fixture.detectChanges();
   });
 

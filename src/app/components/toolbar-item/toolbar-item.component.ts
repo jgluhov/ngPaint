@@ -4,7 +4,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Tool } from '@models';
+import { Tool } from '@tools/tools';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { skip, zip } from 'rxjs/operators';
@@ -22,7 +22,7 @@ import {
   selector: 'app-toolbar-item',
   template: `
     <div class="tool-item" [@toolState]="toolState">
-      <app-svg-icon [imageUrl]="tool.options.imageUrl"
+      <app-svg-icon [imageUrl]="tool.imageUrl"
         (click)="handleClick($event)">
       </app-svg-icon>
     </div>

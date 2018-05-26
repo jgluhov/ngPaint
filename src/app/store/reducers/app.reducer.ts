@@ -1,8 +1,7 @@
 import { AppState } from '../app-state';
-import { Tool, Polyline } from '@models';
+import { Tool } from '@tools/tools';
+import { Shape } from '@tools/shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
-
-type Shape = Polyline;
 
 export interface App {
   tool: Tool;

@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { Tool, Polyline } from '@models';
+import { Tool } from '@tools/tools';
+import { PolylineShape } from '@tools/shapes/polyline-shape';
 
 export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
@@ -20,7 +21,7 @@ export class SelectTool implements Action {
 export class CreatePolyline implements Action {
   readonly type = CREATE_POLYLINE;
 
-  constructor(public payload: Polyline) {}
+  constructor(public payload: PolylineShape) {}
 }
 
 export type All = SelectColor | SelectTool | CreatePolyline;
