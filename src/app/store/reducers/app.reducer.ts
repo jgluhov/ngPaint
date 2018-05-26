@@ -2,6 +2,7 @@ import { AppState } from '../app-state';
 import { Tool } from '@tools/tools';
 import { Shape } from '@tools/shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
+import { PolylineShape } from '@tools/shapes/polyline-shape';
 
 export interface App {
   tool: Tool;
@@ -14,7 +15,12 @@ const defaultState: App = {
   tool: null,
   color: '#ffffff',
   fontSize: 13,
-  shapes: []
+  shapes: [
+    new PolylineShape([
+      {x: 5, y: 10},
+      {x: 500, y: 500}
+    ])
+  ]
 };
 
 export function appReducer(state: App = defaultState, action: AppActions.All): App {

@@ -4,6 +4,7 @@ import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
+import { Point2D } from '../../modules/tools/shapes/point2d';
 import {
   buffer,
   takeUntil,
@@ -42,7 +43,7 @@ export class MouseTrackerDirective {
     return this.fromEvent('mousedown');
   }
 
-  trackMouse(evt: MouseEvent): Observable<SVGPoint> {
+  trackMouse(evt: MouseEvent): Observable<Point2D> {
     return this.fromEvent('mousemove')
       .pipe(
         startWith(evt),
@@ -51,16 +52,16 @@ export class MouseTrackerDirective {
       );
   }
 
-  bufferMouse(evt: MouseEvent): Observable<SVGPoint[]> {
+  bufferMouse(evt: MouseEvent): Observable<Point2D[]> {
     return this.trackMouse(evt)
       .pipe(buffer(this.end$));
   }
 
-  toCoords = (evt: MouseEvent): SVGPoint => {
+  toCoords = (evt: MouseEvent): Point2D => {
     const p = this.elRef.nativeElement.createSVGPoint();
     p.x = evt.clientX;
     p.y = evt.clientY;
 
-    return p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
+    return <Point2D>p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
   }
 }

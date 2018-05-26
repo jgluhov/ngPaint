@@ -1,4 +1,6 @@
-export abstract class Shape {
-  constructor() {
-  }
+export interface Shape {
+  readonly type: string;
+  stroke: string;
+  fill: string;
+  toString(): string;
 }

@@ -20,11 +20,8 @@
       "@tools/*": [
         "app/modules/tools/*"
       ],
-      "@modules": [
-        "app/modules"
-      ],
-      "@modules/*": [
-        "app/modules/*"
+      "@tools": [
+        "app/modules/tools"
       ],
       "@components/*": [
         "app/components/*"
@@ -37,12 +34,6 @@
       ],
       "@directives/*": [
         "app/directives/*"
-      ],
-      "@models": [
-        "app/models"
-      ],
-      "@models/*": [
-        "app/models/*"
       ],
       "@services/*": [
         "app/services/*"

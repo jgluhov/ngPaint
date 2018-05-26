@@ -13,6 +13,7 @@ import {
   Optional
 } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
+import { Point2D } from '@tools/shapes/point2d';
 
 @Component({
   selector: 'app-pencil',
@@ -33,13 +34,13 @@ export class PencilComponent implements OnInit, OnDestroy {
   onStart(evt: MouseEvent): void {
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((p: SVGPoint) => {
+      .subscribe((p: Point2D) => {
         console.log(p);
       });
 
     this.mouseTracker.bufferMouse(evt)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((points: SVGPoint[]) => {
+      .subscribe((points: Point2D[]) => {
         console.log(points);
       });
   }

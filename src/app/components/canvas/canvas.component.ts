@@ -11,6 +11,7 @@ import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Tool } from '@tools/tools';
+import { Shape } from '@tools/shapes/shape';
 
 @Component({
   selector: 'app-canvas',
@@ -19,7 +20,9 @@ import { Tool } from '@tools/tools';
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
-  toolChanges: Observable<Tool>;
+  tool$: Observable<Tool>;
+  shapes$: Observable<Shape[]>;
+  shapes: Shape[];
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;
@@ -30,11 +33,18 @@ export class CanvasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.toolChanges = this.store
+    this.tool$ = this.store
       .select('app').select('tool');
 
-    this.toolChanges
+    this.shapes$ = this.store
+      .select('app').select('shapes');
+
+    this.tool$
       .subscribe(this.loadComponent);
+
+    this.shapes$.subscribe((shapes: Shape[]) => {
+      this.shapes = shapes;
+    });
   }
 
   loadComponent = (tool: Tool): void => {

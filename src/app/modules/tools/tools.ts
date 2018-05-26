@@ -7,7 +7,7 @@ import { PolylineShape } from './shapes/polyline-shape';
 export interface Tool {
   name: string;
   component: Type<any>;
-  shape: Shape;
+  shape: Type<Shape>;
   imageUrl: string;
 }
 

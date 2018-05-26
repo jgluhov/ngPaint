@@ -5,8 +5,9 @@
       width="14000"
       height="14000"
       #svg
-      [appCursorable]="toolChanges"
-      appMouseTracker>
+      [appCursorable]="tool$"
+      appMouseTracker
+    >
       <defs>
           <pattern id="grid"
             patternUnits="userSpaceOnUse"
@@ -17,7 +18,12 @@
           </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#grid)" />
+      <g id="shapes">
+        <polyline *ngFor="let shape of shapes | shapeFilter: 'polyline'"
+          [attr.points]="shape.toString()"
+          [attr.fill]="shape.fill"
+          [attr.stroke]="shape.stroke" />
+      </g>
       <ng-container #vcr></ng-container>
     </svg>
 </app-panel>
-
