@@ -1,5 +1,6 @@
-import { Directive, Injectable, ElementRef } from '@angular/core';
+import { Directive, Injectable, ElementRef, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import {
@@ -16,24 +17,31 @@ import {
 @Directive({
   selector: '[appMouseTracker]'
 })
-export class MouseTrackerDirective {
+export class MouseTrackerDirective implements OnDestroy {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  public mousedown$: Observable<MouseEvent> = this.fromEvent('mousedown');
   constructor(private elRef: ElementRef) {
   }
 
   fromEvent(name: string): Observable<MouseEvent> {
     return fromEvent(this.elRef.nativeElement, name)
-      .pipe(tap((evt: MouseEvent) => evt.preventDefault()));
+      .pipe(
+        tap((evt: MouseEvent) => evt.preventDefault()),
+        takeUntil(this.destroy$)
+      );
   }
 
   trackMouse(evt: MouseEvent): Observable<SVGPoint> {
-    const move$ = this.fromEvent('mousemove');
+    const mousemove$ = this.fromEvent('mousemove');
     const end$ = merge(
       this.fromEvent('mouseup'),
-      this.fromEvent('mouseleave')
+      this.fromEvent('mouseleave'),
+      this.destroy$
     );
 
-    return move$
+    return mousemove$
       .pipe(
+        startWith(evt),
         takeUntil(end$),
         map(this.toCoords)
       );
@@ -47,4 +55,8 @@ export class MouseTrackerDirective {
     return p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

@@ -26,19 +26,15 @@ export class PencilComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mouseTracker.fromEvent('mousedown')
-      .pipe(takeUntil(this.destroy$))
+    this.mouseTracker.mousedown$
       .subscribe(this.onStart);
   }
 
   onStart = (evt: MouseEvent): void => {
     this.mouseTracker.trackMouse(evt)
-      .pipe(takeUntil(this.destroy$))
       .subscribe(console.log);
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }
