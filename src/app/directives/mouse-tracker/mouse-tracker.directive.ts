@@ -52,11 +52,6 @@ export class MouseTrackerDirective {
       );
   }
 
-  bufferMouse(evt: MouseEvent): Observable<Point2D[]> {
-    return this.trackMouse(evt)
-      .pipe(buffer(this.end$));
-  }
-
   toCoords = (evt: MouseEvent): Point2D => {
     const p = this.elRef.nativeElement.createSVGPoint();
     p.x = evt.clientX;

@@ -2,10 +2,10 @@ import { Shape } from './shape';
 import { Point2D } from './point2d';
 
 export class PolylineShape implements Shape {
-  readonly type = 'polyline';
+  public readonly type = 'polyline';
   public fill = 'none';
   public stroke = 'black';
-  constructor(private points: Point2D[] = []) {
+  constructor(public points: Point2D[] = []) {
   }
 
   public toString(): string {
@@ -16,9 +16,5 @@ export class PolylineShape implements Shape {
 
   public is(type: string): boolean {
     return this.type === type;
-  }
-
-  public create(): PolylineShape {
-    return new PolylineShape();
   }
 }

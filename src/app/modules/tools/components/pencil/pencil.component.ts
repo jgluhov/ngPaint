@@ -12,6 +12,7 @@ import {
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@tools/shapes/point2d';
 import { Tool } from '@tools/tools';
+import { PolylineShape } from '../../shapes/polyline-shape';
 
 @Component({
   selector: 'app-pencil',
@@ -32,19 +33,18 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new this.tool.createShape();
+    const polyline = <PolylineShape>new this.tool.constructor();
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((p: Point2D) => {
-        console.log(p);
+      .subscribe({
+        next: (p: Point2D): void => {
+          polyline.points = polyline.points.concat(p);
+        },
+        complete: (): void => {}
       });
 
-    this.mouseTracker.bufferMouse(evt)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((points: Point2D[]) => {
-        console.log(points);
-      });
+    this.shapeService.add(polyline);
   }
 
   ngOnDestroy(): void {

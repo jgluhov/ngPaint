@@ -8,13 +8,9 @@ export class Tool {
   constructor(
     public name: string,
     public component: Type<any>,
-    public constructor: any,
+    public constructor: Type<Shape>,
     public imageUrl: string
   ) {}
-
-  createShape(): Shape {
-    return this.constructor.create();
-  }
 }
 
 export const tools: Tool[] = [
