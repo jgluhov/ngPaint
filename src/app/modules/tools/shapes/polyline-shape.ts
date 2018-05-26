@@ -14,7 +14,11 @@ export class PolylineShape implements Shape {
       .join(' ');
   }
 
-  is(type: string): boolean {
+  public is(type: string): boolean {
     return this.type === type;
+  }
+
+  public create(): PolylineShape {
+    return new PolylineShape();
   }
 }

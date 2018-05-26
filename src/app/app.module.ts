@@ -3,33 +3,18 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AppStoreModule } from '@store/app-store.module';
 import { AppComponent } from './app.component';
-import { ToolsModule } from '@modules';
+import { ToolsModule } from '@tools/tools.module';
 import { CursorableDirective } from './directives/cursorable/cursorable.directive';
-import {
-  PanelComponent,
-  CanvasComponent,
-  ToolbarComponent,
-  ToolbarItemComponent,
-  UsersComponent,
-  OptionsBarComponent,
-  MastheadComponent,
-  SvgIconComponent
-} from '@components';
+import { components } from '@components';
 import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.directive';
+import { ShapeService } from '@services/shape/shape.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OptionsBarComponent,
-    ToolbarComponent,
-    ToolbarItemComponent,
-    UsersComponent,
-    MastheadComponent,
-    PanelComponent,
     CursorableDirective,
-    CanvasComponent,
-    SvgIconComponent,
-    MouseTrackerDirective
+    MouseTrackerDirective,
+    ...components
   ],
   imports: [
     BrowserModule,
@@ -37,7 +22,7 @@ import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.
     AppStoreModule,
     ToolsModule
   ],
-  providers: [],
+  providers: [ShapeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

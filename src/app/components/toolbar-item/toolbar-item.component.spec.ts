@@ -41,12 +41,12 @@ describe('ToolItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ToolbarItemComponent);
     component = fixture.componentInstance;
-    component.tool = {
-      name: 'pencil',
-      component: class SomeComponent {},
-      shape: PolylineShape,
-      imageUrl: ''
-    };
+    component.tool = new Tool(
+      'pencil',
+      class SomeComponent {},
+      PolylineShape,
+      ''
+    );
     fixture.detectChanges();
   });
 

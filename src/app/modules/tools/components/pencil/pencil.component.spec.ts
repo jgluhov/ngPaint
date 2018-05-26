@@ -3,6 +3,8 @@ import { ElementRef, Provider } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '@components/canvas/canvas.component';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
+import { ShapeService } from '@services/shape/shape.service';
+import { AppStoreModule } from '../../../../store/app-store.module';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;
@@ -11,13 +13,19 @@ describe('PencilComponent', () => {
   beforeEach(async(() => {
     const svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
     TestBed.configureTestingModule({
+      imports: [
+        AppStoreModule
+      ],
       declarations: [
         PencilComponent
       ],
-      providers: [{
-        provide: MouseTrackerDirective,
-        useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)
-      }]
+      providers: [
+        ShapeService,
+        {
+          provide: MouseTrackerDirective,
+          useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)
+        }
+      ]
     })
     .compileComponents();
   }));

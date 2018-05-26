@@ -15,6 +15,7 @@ import { Shape } from '@tools/shapes/shape';
 import { of } from 'rxjs/observable/of';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
+import { ShapeService } from '@services/shape/shape.service';
 
 @Component({
   selector: 'app-canvas',
@@ -23,34 +24,24 @@ import { PolylineShape } from '@tools/shapes/polyline-shape';
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
-  tool$: Observable<Tool>;
-  shapes$: Observable<Shape[]>;
-  polylines$: Observable<Shape[]>;
-  shapes: Shape[];
+  toolChange: Observable<Tool>;
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;
 
   constructor(
     private store: Store<AppState>,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private shapeService: ShapeService
   ) { }
 
   ngOnInit(): void {
-    this.tool$ = this.store
-      .select('app').select('tool');
+    this.toolChange = this.store
+      .select('app')
+      .select('tool');
 
-    this.shapes$ = this.store
-      .select('app').select('shapes');
-
-    this.tool$
+    this.toolChange
       .subscribe(this.loadComponent);
-
-    this.polylines$ = this.shapes$
-      .pipe(
-        map((shapes: Shape[]) =>
-          shapes.filter((shape: Shape) => shape.is('polyline'))
-      ));
   }
 
   loadComponent = (tool: Tool): void => {
@@ -61,7 +52,8 @@ export class CanvasComponent implements OnInit {
     const componentFactory = this.componentFactoryResolver
       .resolveComponentFactory(tool.component);
 
-    this.vcr.createComponent(componentFactory);
+    const componentRef = this.vcr.createComponent(componentFactory);
+    componentRef.instance.tool = tool;
   }
 
 }

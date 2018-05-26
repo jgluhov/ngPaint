@@ -3,6 +3,7 @@ import { CanvasComponent } from './canvas.component';
 import { CursorableDirective } from '@directives/cursorable/cursorable.directive';
 import { AppStoreModule } from '@store/app-store.module';
 import { PanelComponent } from '@components/panel/panel.component';
+import { ShapeService } from '@services/shape/shape.service';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -17,6 +18,9 @@ describe('CanvasComponent', () => {
         PanelComponent,
         CanvasComponent,
         CursorableDirective
+      ],
+      providers: [
+        ShapeService
       ]
     })
     .compileComponents();

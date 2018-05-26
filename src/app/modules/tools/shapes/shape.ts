@@ -4,4 +4,5 @@ export interface Shape {
   fill: string;
   toString(): string;
   is(type: string): boolean;
+  create(): Shape;
 }

@@ -4,26 +4,22 @@ import { BrushComponent } from '@tools/components/brush/brush.component';
 import { Shape } from './shapes';
 import { PolylineShape } from './shapes/polyline-shape';
 
-export interface Tool {
-  name: string;
-  component: Type<any>;
-  shape: Type<Shape>;
-  imageUrl: string;
+export class Tool {
+  constructor(
+    public name: string,
+    public component: Type<any>,
+    public constructor: any,
+    public imageUrl: string
+  ) {}
+
+  createShape(): Shape {
+    return this.constructor.create();
+  }
 }
 
 export const tools: Tool[] = [
-  {
-    name: 'pencil',
-    component: PencilComponent,
-    shape: PolylineShape,
-    imageUrl: 'assets/icons/pencil.svg'
-  },
-  {
-    name: 'brush',
-    component: BrushComponent,
-    shape: PolylineShape,
-    imageUrl: 'assets/icons/brush.svg'
-  }
+  new Tool('pencil', PencilComponent, PolylineShape, 'assets/icons/pencil.svg'),
+  new Tool('brush', BrushComponent, PolylineShape, 'assets/icons/brush.svg')
 ];
 
 export const TOOLS_TOKEN = new InjectionToken<Tool[]>('tools');

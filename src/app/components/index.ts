@@ -7,7 +7,7 @@ import { ToolbarItemComponent } from './toolbar-item/toolbar-item.component';
 import { UsersComponent } from './users/users.component';
 import { CanvasComponent } from './canvas/canvas.component';
 
-export {
+export const components = [
   MastheadComponent,
   OptionsBarComponent,
   PanelComponent,
@@ -16,4 +16,4 @@ export {
   ToolbarItemComponent,
   UsersComponent,
   CanvasComponent
-};
+];
