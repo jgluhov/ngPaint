@@ -1,4 +1,4 @@
-import { Directive, Injectable, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, Injectable, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Subject } from 'rxjs/Subject';
@@ -19,8 +19,7 @@ import {
 @Directive({
   selector: '[appMouseTracker]'
 })
-export class MouseTrackerDirective implements OnDestroy {
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+export class MouseTrackerDirective {
   private start$: Observable<MouseEvent>;
   private end$: Observable<MouseEvent>;
 
@@ -35,8 +34,7 @@ export class MouseTrackerDirective implements OnDestroy {
   fromEvent(name: string): Observable<MouseEvent> {
     return fromEvent(this.elRef.nativeElement, name)
       .pipe(
-        tap((evt: MouseEvent) => evt.preventDefault()),
-        takeUntil(this.destroy$)
+        tap((evt: MouseEvent) => evt.preventDefault())
       );
   }
 
@@ -64,10 +62,5 @@ export class MouseTrackerDirective implements OnDestroy {
     p.y = evt.clientY;
 
     return p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

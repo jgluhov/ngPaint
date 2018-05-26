@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   selectedTool$: Observable<Tool>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  @HostListener('document:click', ['$event', '$event.target'])
+  @HostListener('document:mousedown', ['$event', '$event.target'])
   public handleClick(evt: MouseEvent, target: HTMLElement): void {
     if (target.closest('#svg')) {
       return;

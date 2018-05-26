@@ -19,29 +19,33 @@ import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.d
   template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  private complete$: Subject<boolean> = new Subject<boolean>();
-
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private mouseTracker: MouseTrackerDirective
   ) {}
 
   ngOnInit(): void {
     this.mouseTracker.onStart()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onStart.bind(this));
   }
 
   onStart(evt: MouseEvent): void {
     this.mouseTracker.trackMouse(evt)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((p: SVGPoint) => {
         console.log(p);
       });
 
     this.mouseTracker.bufferMouse(evt)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((points: SVGPoint[]) => {
         console.log(points);
       });
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
