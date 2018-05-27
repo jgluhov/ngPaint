@@ -1,32 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { OptionsBarComponent } from './options-bar.component';
-import { PanelComponent } from '../panel/panel.component';
-import { ColorPickerComponent } from '../color-picker/color-picker.component';
 import { FormsModule } from '@angular/forms';
+import { ColorPickerComponent } from './color-picker.component';
 import { AppStoreModule } from '@store/app-store.module';
 
-describe('OptionsBarComponent', () => {
-  let component: OptionsBarComponent;
-  let fixture: ComponentFixture<OptionsBarComponent>;
+describe('ColorPickerComponent', () => {
+  let component: ColorPickerComponent;
+  let fixture: ComponentFixture<ColorPickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        PanelComponent,
-        OptionsBarComponent,
-        ColorPickerComponent
-      ],
       imports: [
         FormsModule,
         AppStoreModule
-      ]
+      ],
+      declarations: [ ColorPickerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OptionsBarComponent);
+    fixture = TestBed.createComponent(ColorPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

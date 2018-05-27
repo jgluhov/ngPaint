@@ -14,7 +14,7 @@ export interface App {
 
 const defaultState: App = {
   tool: null,
-  color: '#ffffff',
+  color: '#000000',
   fontSize: 13,
   shapes: []
 };

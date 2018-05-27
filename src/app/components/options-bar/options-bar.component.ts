@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-options-bar',
   template: `
     <app-panel [panelTitle]="title">
+      <app-color-picker></app-color-picker>
     </app-panel>
   `
 })

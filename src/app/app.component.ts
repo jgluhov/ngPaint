@@ -9,9 +9,6 @@ import { AppState } from './store/app-state';
 })
 export class AppComponent {
   selectedColor$: Observable<string>;
-  constructor(private store: Store<AppState>) {
-    this.selectedColor$ = store
-      .select('app')
-      .select('color');
+  constructor() {
   }
 }

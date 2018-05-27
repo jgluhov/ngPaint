@@ -39,7 +39,7 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape();
+    const polyline = new PolylineShape([], 'black', 1);
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
