@@ -9,6 +9,10 @@ import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/types/tool';
 import { PolylineShape } from '@shapes/polyline-shape';
 import { Shape } from '@shapes/shape';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/app-state';
+import { ShapeFactory } from '@tools/shapes/shape';
+import * as AppActions from '@store/actions/app.actions';
 
 @Component({
   selector: 'app-brush',
@@ -16,21 +20,29 @@ import { Shape } from '@shapes/shape';
   styles: []
 })
 export class BrushComponent implements OnInit, OnDestroy {
-  @Output() createShape: EventEmitter<Shape> = new EventEmitter<Shape>();
+  tool: Tool;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private store: Store<AppState>,
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService
+    private shapeService: ShapeService,
+    private shapeFactory: ShapeFactory
   ) {}
 
   ngOnInit(): void {
     this.mouseTracker.onStart()
       .pipe(takeUntil(this.destroy$))
       .subscribe(this.onStart.bind(this));
+
+    this.store
+      .select('app')
+      .select('tool')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((tool: Tool) => this.tool = tool);
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape();
+    const polyline = this.shapeFactory.createShape(this.tool.shapeType);
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
@@ -39,7 +51,7 @@ export class BrushComponent implements OnInit, OnDestroy {
           polyline.points.push(p);
         },
         complete: (): void => {
-          this.createShape.emit(polyline);
+          this.store.dispatch(new AppActions.CreateShape(polyline));
         }
       });
 
