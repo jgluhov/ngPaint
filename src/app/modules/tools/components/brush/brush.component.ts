@@ -20,6 +20,7 @@ import * as AppActions from '@store/actions/app.actions';
 })
 export class BrushComponent implements OnInit, OnDestroy {
   tool: Tool;
+  selectedColor: string;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private store: Store<AppState>,
@@ -37,10 +38,16 @@ export class BrushComponent implements OnInit, OnDestroy {
       .select('tool')
       .pipe(takeUntil(this.destroy$))
       .subscribe((tool: Tool) => this.tool = tool);
+
+    this.store
+      .select('app')
+      .select('color')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((color: string) => this.selectedColor = color);
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape([], 'black', 8);
+    const polyline = new PolylineShape([], this.selectedColor, 8);
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))

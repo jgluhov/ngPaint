@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
+import * as AppActions from '@store/actions/app.actions';
+import { SelectColor } from '../../store/actions/app.actions';
 
 @Component({
   selector: 'app-color-picker',
@@ -23,6 +25,6 @@ export class ColorPickerComponent implements OnInit {
   }
 
   handleChange(color: string): void {
-    console.log(color);
+    this.store.dispatch(new AppActions.SelectColor(color));
   }
 }

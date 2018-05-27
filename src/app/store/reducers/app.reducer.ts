@@ -27,6 +27,12 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
         tool: action.payload
       };
     }
+    case AppActions.SELECT_COLOR: {
+      return {
+        ...state,
+        color: action.payload
+      };
+    }
     case AppActions.CREATE_SHAPE: {
       return state;
     }
