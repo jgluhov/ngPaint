@@ -1,5 +1,5 @@
 import { AppState } from '../app-state';
-import { Tool } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 import { Shape } from '@tools/shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
@@ -28,13 +28,7 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       };
     }
     case AppActions.CREATE_SHAPE: {
-      return {
-        ...state,
-        shapes: [
-          ...state.shapes,
-          action.payload
-        ]
-      };
+      return state;
     }
     default:
       return state;

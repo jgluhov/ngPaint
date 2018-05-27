@@ -10,7 +10,7 @@ import {
 import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 import { Shape } from '@tools/shapes/shape';
 import { of } from 'rxjs/observable/of';
 import { filter, switchMap, map } from 'rxjs/operators';

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 
 @Directive({
   selector: '[appCursorable]'

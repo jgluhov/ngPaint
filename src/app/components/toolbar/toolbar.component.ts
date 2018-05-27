@@ -6,7 +6,8 @@ import {
   OnDestroy
 } from '@angular/core';
 import * as AppActions from '@store/actions/app.actions';
-import { TOOLS_TOKEN, Tool } from '@tools/tools';
+import { TOOLS_TOKEN } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';

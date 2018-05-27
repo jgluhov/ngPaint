@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Tool } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 import { Shape } from '@tools/shapes/shape';
 
 export const SELECT_COLOR = '[Tools] Select color';

@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PencilComponent } from './components/pencil/pencil.component';
 import { BrushComponent } from './components/brush/brush.component';
 import { TOOLS_TOKEN, tools } from './tools';
+import { ShapeFactory } from '@tools/shapes/shape';
 
 @NgModule({
   entryComponents: [
@@ -21,6 +22,9 @@ import { TOOLS_TOKEN, tools } from './tools';
   providers: [
     {
       provide: TOOLS_TOKEN, useValue: tools
+    },
+    {
+      provide: ShapeFactory, useValue: ShapeFactory
     }
   ]
 })

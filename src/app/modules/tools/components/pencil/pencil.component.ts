@@ -6,21 +6,22 @@ import { ShapeService } from '@tools/services/shape/shape.service';
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@shapes/point2d';
-import { Tool } from '@tools/tools';
+import { Tool } from '@tools/types/tool';
 import { PolylineShape } from '@shapes/polyline-shape';
-import { Shape } from '@shapes/shape';
+import { Shape, ShapeFactory } from '@shapes/shape';
 
 @Component({
   selector: 'app-pencil',
   template: ''
 })
 export class PencilComponent implements OnInit, OnDestroy {
-  @Input() tool;
+  @Input() tool: Tool;
   @Output() createShape: EventEmitter<Shape> = new EventEmitter<Shape>();
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService
+    private shapeService: ShapeService,
+    private shapeFactory: ShapeFactory
   ) {}
 
   ngOnInit(): void {
@@ -30,20 +31,20 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = <PolylineShape>new this.tool.constructor();
+    // const polyline = this.shapeFactory. this.tool.shapeType;
 
-    this.mouseTracker.trackMouse(evt)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (p: Point2D): void => {
-          polyline.points.push(p);
-        },
-        complete: (): void => {
-          this.createShape.emit(polyline);
-        }
-      });
+    // this.mouseTracker.trackMouse(evt)
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe({
+    //     next: (p: Point2D): void => {
+    //       polyline.points.push(p);
+    //     },
+    //     complete: (): void => {
+    //       this.createShape.emit(polyline);
+    //     }
+    //   });
 
-    this.shapeService.add(polyline);
+    // this.shapeService.add(polyline);
   }
 
   ngOnDestroy(): void {
