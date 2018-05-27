@@ -5,7 +5,7 @@ import { ToolbarComponent } from './toolbar.component';
 import { ToolbarItemComponent } from '../toolbar-item/toolbar-item.component';
 import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 import { PanelComponent } from '../panel/panel.component';
-import { ToolsModule } from '@modules';
+import { ToolsModule } from '@tools';
 import { AppStoreModule } from '@store/app-store.module';
 
 describe('ToolbarComponent', () => {

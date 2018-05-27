@@ -3,8 +3,8 @@ import { ElementRef, Provider } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '@components/canvas/canvas.component';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
-import { ShapeService } from '@services/shape/shape.service';
-import { AppStoreModule } from '../../../../store/app-store.module';
+import { ShapeService } from '@tools/services/shape/shape.service';
+import { AppStoreModule } from '@store/app-store.module';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;

@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 import { Tool } from '@tools/tools';
-import { PolylineShape } from '@tools/shapes/polyline-shape';
+import { Shape } from '@tools/shapes/shape';
 
 export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
-export const CREATE_POLYLINE = '[Canvas] Create polyline';
+export const CREATE_SHAPE = '[Canvas] Create polyline';
 
 export class SelectColor implements Action {
   readonly type = SELECT_COLOR;
@@ -18,10 +18,10 @@ export class SelectTool implements Action {
   constructor(public payload: Tool) {}
 }
 
-export class CreatePolyline implements Action {
-  readonly type = CREATE_POLYLINE;
+export class CreateShape implements Action {
+  readonly type = CREATE_SHAPE;
 
-  constructor(public payload: PolylineShape) {}
+  constructor(public payload: Shape) {}
 }
 
-export type All = SelectColor | SelectTool | CreatePolyline;
+export type All = SelectColor | SelectTool | CreateShape;

@@ -16,6 +16,7 @@ import { of } from 'rxjs/observable/of';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
 import { ShapeService } from '@tools/services/shape/shape.service';
+import * as AppActions from '@store/actions/app.actions';
 
 @Component({
   selector: 'app-canvas',
@@ -54,6 +55,9 @@ export class CanvasComponent implements OnInit {
 
     const componentRef = this.vcr.createComponent(componentFactory);
     componentRef.instance.tool = tool;
+    componentRef.instance.createShape.subscribe((shape: Shape) => {
+      this.store.dispatch(new AppActions.CreateShape(shape));
+    });
   }
 
 }

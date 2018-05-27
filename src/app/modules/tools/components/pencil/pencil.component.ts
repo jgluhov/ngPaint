@@ -3,16 +3,12 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 import { ShapeService } from '@tools/services/shape/shape.service';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Input
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
-import { Point2D } from '@tools/shapes/point2d';
+import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/tools';
-import { PolylineShape } from '../../shapes/polyline-shape';
+import { PolylineShape } from '@shapes/polyline-shape';
+import { Shape } from '@shapes/shape';
 
 @Component({
   selector: 'app-pencil',
@@ -20,6 +16,7 @@ import { PolylineShape } from '../../shapes/polyline-shape';
 })
 export class PencilComponent implements OnInit, OnDestroy {
   @Input() tool;
+  @Output() createShape: EventEmitter<Shape> = new EventEmitter<Shape>();
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private mouseTracker: MouseTrackerDirective,
@@ -39,9 +36,11 @@ export class PencilComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (p: Point2D): void => {
-          polyline.points = polyline.points.concat(p);
+          polyline.points.push(p);
         },
-        complete: (): void => {}
+        complete: (): void => {
+          this.createShape.emit(polyline);
+        }
       });
 
     this.shapeService.add(polyline);

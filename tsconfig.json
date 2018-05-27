@@ -20,6 +20,9 @@
       "@tools/*": [
         "app/modules/tools/*"
       ],
+      "@shapes/*": [
+        "app/modules/tools/shapes/*"
+      ],
       "@tools": [
         "app/modules/tools"
       ],

@@ -3,6 +3,7 @@ import { Tool } from '@tools/tools';
 import { Shape } from '@tools/shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
+import { CreateShape } from '../actions/app.actions';
 
 export interface App {
   tool: Tool;
@@ -15,12 +16,7 @@ const defaultState: App = {
   tool: null,
   color: '#ffffff',
   fontSize: 13,
-  shapes: [
-    new PolylineShape([
-      {x: 5, y: 10},
-      {x: 500, y: 500}
-    ])
-  ]
+  shapes: []
 };
 
 export function appReducer(state: App = defaultState, action: AppActions.All): App {
@@ -31,7 +27,7 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
         tool: action.payload
       };
     }
-    case AppActions.CREATE_POLYLINE: {
+    case AppActions.CREATE_SHAPE: {
       return {
         ...state,
         shapes: [
