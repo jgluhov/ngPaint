@@ -40,7 +40,7 @@ export class BrushComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape();
+    const polyline = new PolylineShape([], 'black', 8);
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))

@@ -3,10 +3,11 @@ import { Point2D } from './point2d';
 
 export class PolylineShape implements Shape {
   public readonly type = 'polyline';
+  public fill = 'none';
   constructor(
     public points: Point2D[] = [],
-    public fill: string = 'none',
-    public stroke: string = 'black'
+    public stroke: string = 'black',
+    public strokeWidth: number = 1
   ) {}
 
   public toString(): string {
