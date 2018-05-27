@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
-import { ShapeService } from '@services/shape/shape.service';
+import { ShapeService } from '@tools/services/shape/shape.service';
 import {
   Component,
   OnInit,

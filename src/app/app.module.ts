@@ -7,7 +7,7 @@ import { ToolsModule } from '@tools/tools.module';
 import { CursorableDirective } from './directives/cursorable/cursorable.directive';
 import { components } from '@components';
 import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.directive';
-import { ShapeService } from '@services/shape/shape.service';
+import { ShapeService } from '@tools/services/shape/shape.service';
 
 @NgModule({
   declarations: [

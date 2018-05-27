@@ -15,7 +15,7 @@ import { Shape } from '@tools/shapes/shape';
 import { of } from 'rxjs/observable/of';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
-import { ShapeService } from '@services/shape/shape.service';
+import { ShapeService } from '@tools/services/shape/shape.service';
 
 @Component({
   selector: 'app-canvas',
