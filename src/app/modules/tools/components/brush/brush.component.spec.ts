@@ -4,7 +4,6 @@ import { ElementRef } from '@angular/core';
 import { AppStoreModule } from '@store/app-store.module';
 import { ShapeService } from '@tools/services/shape/shape.service';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
-import { ShapeFactory } from '@shapes/shape';
 
 describe('BrushComponent', () => {
   let component: BrushComponent;
@@ -18,7 +17,6 @@ describe('BrushComponent', () => {
       ],
       declarations: [ BrushComponent ],
       providers: [
-        ShapeFactory,
         ShapeService,
         {
           provide: MouseTrackerDirective,

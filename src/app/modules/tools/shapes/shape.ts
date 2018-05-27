@@ -9,15 +9,3 @@ export interface Shape {
   toString(): string;
   is(type: string): boolean;
 }
-
-export class ShapeFactory {
-  public static polyline(points: Point2D): PolylineShape {
-    return new PolylineShape();
-  }
-
-  public createShape(shapeType: string): Shape {
-    const constr = shapeType;
-
-    return new ShapeFactory[constr]();
-  }
-}

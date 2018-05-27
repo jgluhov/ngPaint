@@ -11,7 +11,6 @@ import { PolylineShape } from '@shapes/polyline-shape';
 import { Shape } from '@shapes/shape';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
-import { ShapeFactory } from '@tools/shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
 
 @Component({
@@ -25,8 +24,7 @@ export class BrushComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService,
-    private shapeFactory: ShapeFactory
+    private shapeService: ShapeService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +40,7 @@ export class BrushComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = this.shapeFactory.createShape(this.tool.shapeType);
+    const polyline = new PolylineShape();
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))

@@ -8,7 +8,7 @@ import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.d
 import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/types/tool';
 import { PolylineShape } from '@shapes/polyline-shape';
-import { Shape, ShapeFactory } from '@shapes/shape';
+import { Shape } from '@shapes/shape';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import * as AppActions from '@store/actions/app.actions';
@@ -23,8 +23,7 @@ export class PencilComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService,
-    private shapeFactory: ShapeFactory
+    private shapeService: ShapeService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +39,7 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = this.shapeFactory.createShape(this.tool.shapeType);
+    const polyline = new PolylineShape();
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))

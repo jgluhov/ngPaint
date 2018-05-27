@@ -5,7 +5,6 @@ import { CanvasComponent } from '@components/canvas/canvas.component';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { ShapeService } from '@tools/services/shape/shape.service';
 import { AppStoreModule } from '@store/app-store.module';
-import { ShapeFactory } from '@tools/shapes/shape';
 
 describe('PencilComponent', () => {
   let component: PencilComponent;
@@ -22,7 +21,6 @@ describe('PencilComponent', () => {
       ],
       providers: [
         ShapeService,
-        ShapeFactory,
         {
           provide: MouseTrackerDirective,
           useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)
