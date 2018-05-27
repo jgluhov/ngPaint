@@ -46,8 +46,10 @@ export class CanvasComponent implements OnInit {
   }
 
   loadComponent = (tool: Tool): void => {
+    this.vcr.clear();
+
     if (!tool) {
-      return this.vcr.clear();
+      return;
     }
 
     const componentFactory = this.componentFactoryResolver

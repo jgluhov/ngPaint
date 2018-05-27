@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import * as AppActions from '@store/actions/app.actions';
-import { SelectColor } from '../../store/actions/app.actions';
+import { SelectColor, SelectTool } from '../../store/actions/app.actions';
 
 @Component({
   selector: 'app-color-picker',
   template: `
     <input type="color"
+      #colorPicker
+      (click)="handleOpen()"
       [ngModel]="selectedColor$ | async"
       (ngModelChange)="handleChange($event)">
   `,
@@ -16,7 +18,11 @@ import { SelectColor } from '../../store/actions/app.actions';
 })
 export class ColorPickerComponent implements OnInit {
   selectedColor$: Observable<string>;
-  constructor(private store: Store<AppState>) { }
+  @ViewChild('colorPicker') colorPicker: ElementRef;
+  constructor(
+    private store: Store<AppState>,
+    private renderer: Renderer2
+  ) { }
 
   ngOnInit(): void {
     this.selectedColor$ = this.store
@@ -26,5 +32,9 @@ export class ColorPickerComponent implements OnInit {
 
   handleChange(color: string): void {
     this.store.dispatch(new AppActions.SelectColor(color));
+  }
+
+  handleOpen(): void {
+    this.store.dispatch(new AppActions.SelectTool(null));
   }
 }
