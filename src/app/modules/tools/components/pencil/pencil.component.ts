@@ -35,9 +35,8 @@ export class PencilComponent implements OnInit, OnDestroy {
     this.store
       .select('app')
       .select('tool')
-      .subscribe((tool: Tool) => {
-        this.tool = tool;
-      });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((tool: Tool) => this.tool = tool);
   }
 
   onStart(evt: MouseEvent): void {
