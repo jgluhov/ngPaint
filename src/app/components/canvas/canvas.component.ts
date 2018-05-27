@@ -54,10 +54,6 @@ export class CanvasComponent implements OnInit {
       .resolveComponentFactory(tool.component);
 
     const componentRef = this.vcr.createComponent(componentFactory);
-    componentRef.instance.tool = tool;
-    componentRef.instance.createShape.subscribe((shape: Shape) => {
-      this.store.dispatch(new AppActions.CreateShape(shape));
-    });
   }
 
 }
