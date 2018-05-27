@@ -58,17 +58,19 @@ export class PencilComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.shapeService.add(shape);
+    this.shapeService.add([shape]);
   }
 
   handleTransformShape(shape: Shape): void {
-    if (shape.points.length > 1) {
-      this.store.dispatch(new AppActions.CreateShape(shape));
+    if (shape.points.length > 2) {
+      return this.store.dispatch(new AppActions.CreateShape(shape.complete()));
     }
 
     const point: Point2D = shape.points[0];
     const circle = new CircleShape(point.x, point.y);
-    this.store.dispatch(new AppActions.CreateShape(circle));
+    this.store.dispatch(new AppActions.CreateShape(circle.complete()));
+
+    this.shapeService.clean();
   }
 
   ngOnDestroy(): void {

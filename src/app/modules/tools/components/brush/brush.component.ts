@@ -60,7 +60,7 @@ export class BrushComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.shapeService.add(polyline);
+    this.shapeService.add([polyline]);
   }
 
   ngOnDestroy(): void {

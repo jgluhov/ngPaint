@@ -4,7 +4,7 @@ import { Shape } from '@tools/shapes/shape';
 
 export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
-export const CREATE_SHAPE = '[Canvas] Create polyline';
+export const CREATE_SHAPE = '[Canvas] Create shape';
 
 export class SelectColor implements Action {
   readonly type = SELECT_COLOR;

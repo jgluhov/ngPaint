@@ -4,36 +4,58 @@ import { AppState } from '@store/app-state';
 import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { scan, filter, map, switchMap, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
+import { scan, filter, map, switchMap, tap, share, mergeMap, withLatestFrom, startWith } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 
 @Injectable()
 export class ShapeService {
-  private shapesStore$: ReplaySubject<Shape[]> = new ReplaySubject<Shape[]>();
-  public shapes$: Observable<Shape[]>;
+  private shapeChanger$: Subject<Function> = new Subject<Function>();
+  private shapeChanges: Observable<Shape[]>;
+  private storeShapeChanges: Observable<Shape[]>;
+  private newbie$: Observable<Shape[]>;
   public polylines$: Observable<Shape[]>;
   public circles$: Observable<Shape[]>;
 
   constructor(private store: Store<AppState>) {
-    this.store
+    this.storeShapeChanges = this.store
       .select('app')
-      .select('shapes')
-      .subscribe(this.shapesStore$);
+      .select('shapes');
 
-    this.shapes$ = this.shapesStore$
+    this.shapeChanges = this.shapeChanger$
       .pipe(
         scan(
-          (shapes: Shape[], updatedShapes: Shape[]) => {
-            return shapes.concat(updatedShapes);
+          (shapes: Shape[], updatedFn: Function) => {
+            return updatedFn(shapes);
           },
           []
-        )
+        ),
+        startWith([]),
+        share()
       );
 
-    this.polylines$ = this.shapes$.pipe(this.filterBy('polyline'));
-    this.circles$ = this.shapes$.pipe(this.filterBy('circle'));
+    this.newbie$ = this.storeShapeChanges
+      .pipe(
+        withLatestFrom(this.shapeChanges),
+        map(([storeShapes, shapes]: [Shape[], Shape[]]) => {
+          return storeShapes.filter((shape: Shape) => {
+            return !shapes.find((s: Shape) => s.id === shape.id);
+          });
+        })
+      );
+
+    this.newbie$.subscribe(this.add);
+    this.polylines$ = this.shapeChanges.pipe(this.filterBy('polyline'));
+    this.circles$ = this.shapeChanges.pipe(this.filterBy('circle'));
+  }
+
+  add = (shapes: Shape[]): void => {
+    this.shapeChanger$.next((shapeStore: Shape[]) => shapeStore.concat(shapes));
+  }
+
+  clean = (): void => {
+    this.shapeChanger$.next((shapeStore: Shape[]) => shapeStore.filter((shape: Shape) => !shape.temporary));
   }
 
   filterBy(shapeType: string): OperatorFunction<Shape[], Shape[]> {
@@ -44,9 +66,5 @@ export class ShapeService {
         })
       );
     };
-  }
-
-  add(shape: Shape): void {
-    this.shapesStore$.next([shape]);
   }
 }

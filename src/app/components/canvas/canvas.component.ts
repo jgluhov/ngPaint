@@ -58,4 +58,8 @@ export class CanvasComponent implements OnInit {
     const componentRef = this.vcr.createComponent(componentFactory);
   }
 
+  trackByFn(index: number, item: Shape): string {
+    return item.id;
+  }
+
 }
