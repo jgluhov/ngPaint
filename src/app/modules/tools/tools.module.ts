@@ -20,11 +20,9 @@ import { ShapeFactory } from '@tools/shapes/shape';
     BrushComponent
   ],
   providers: [
+    ShapeFactory,
     {
       provide: TOOLS_TOKEN, useValue: tools
-    },
-    {
-      provide: ShapeFactory, useValue: ShapeFactory
     }
   ]
 })

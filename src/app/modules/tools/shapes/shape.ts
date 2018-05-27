@@ -11,13 +11,13 @@ export interface Shape {
 }
 
 export class ShapeFactory {
-  public static factory(shapeType: string): Shape {
+  public static polyline(points: Point2D): PolylineShape {
+    return new PolylineShape();
+  }
+
+  public createShape(shapeType: string): Shape {
     const constr = shapeType;
 
     return new ShapeFactory[constr]();
-  }
-
-  public static polyline(): PolylineShape {
-    return new PolylineShape();
   }
 }

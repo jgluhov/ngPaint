@@ -31,20 +31,20 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    // const polyline = this.shapeFactory. this.tool.shapeType;
+    const polyline = this.shapeFactory.createShape(this.tool.shapeType);
 
-    // this.mouseTracker.trackMouse(evt)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe({
-    //     next: (p: Point2D): void => {
-    //       polyline.points.push(p);
-    //     },
-    //     complete: (): void => {
-    //       this.createShape.emit(polyline);
-    //     }
-    //   });
+    this.mouseTracker.trackMouse(evt)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (p: Point2D): void => {
+          polyline.points.push(p);
+        },
+        complete: (): void => {
+          this.createShape.emit(polyline);
+        }
+      });
 
-    // this.shapeService.add(polyline);
+    this.shapeService.add(polyline);
   }
 
   ngOnDestroy(): void {
