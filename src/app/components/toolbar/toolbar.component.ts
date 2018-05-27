@@ -38,7 +38,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   @HostListener('document:mousedown', ['$event', '$event.target'])
   public handleClick(evt: MouseEvent, target: HTMLElement): void {
-    if (target.closest('#svg')) {
+    if (target.closest('app-panel')) {
       return;
     }
 
