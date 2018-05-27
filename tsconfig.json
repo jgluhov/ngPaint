@@ -23,6 +23,9 @@
       "@shapes/*": [
         "app/modules/tools/shapes/*"
       ],
+      "@shapes": [
+        "app/modules/tools/shapes"
+      ],
       "@tools": [
         "app/modules/tools"
       ],

@@ -7,8 +7,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/types/tool';
-import { PolylineShape } from '@shapes/polyline-shape';
-import { Shape } from '@shapes/shape';
+import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import * as AppActions from '@store/actions/app.actions';
@@ -46,20 +45,30 @@ export class PencilComponent implements OnInit, OnDestroy {
   }
 
   onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape([], this.selectedColor, 1);
+    const shape = new PolylineShape([], this.selectedColor, 1);
 
     this.mouseTracker.trackMouse(evt)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (p: Point2D): void => {
-          polyline.points.push(p);
+          shape.points.push(p);
         },
         complete: (): void => {
-          this.store.dispatch(new AppActions.CreateShape(polyline));
+          this.handleTransformShape(shape);
         }
       });
 
-    this.shapeService.add(polyline);
+    this.shapeService.add(shape);
+  }
+
+  handleTransformShape(shape: Shape): void {
+    if (shape.points.length > 1) {
+      this.store.dispatch(new AppActions.CreateShape(shape));
+    }
+
+    const point: Point2D = shape.points[0];
+    const circle = new CircleShape(point.x, point.y);
+    this.store.dispatch(new AppActions.CreateShape(circle));
   }
 
   ngOnDestroy(): void {

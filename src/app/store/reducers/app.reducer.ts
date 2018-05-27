@@ -34,7 +34,13 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       };
     }
     case AppActions.CREATE_SHAPE: {
-      return state;
+      return {
+        ...state,
+        shapes: [
+          ...state.shapes,
+          action.payload
+        ]
+      };
     }
     default:
       return state;
