@@ -1,12 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
-import { ToolbarItemComponent } from './toolbar-item.component';
+import { ToolbarItemComponent } from '@components/toolbar-item/toolbar-item.component';
 import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
-import { Tool } from '@tools/types/tool';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PanelComponent } from '../panel/panel.component';
-import { PolylineShape } from '@tools/shapes/polyline-shape';
+import { PanelComponent } from '@components/panel/panel.component';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;

@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+
+import { PanelComponent } from '@components';
+import { ColorPickerComponent } from '@components/color-picker/color-picker.component';
+import { AppStoreModule } from '@store/app-store.module';
 
 import { OptionsBarComponent } from './options-bar.component';
-import { PanelComponent } from '../panel/panel.component';
-import { ColorPickerComponent } from '../color-picker/color-picker.component';
-import { FormsModule } from '@angular/forms';
-import { AppStoreModule } from '@store/app-store.module';
 
 describe('OptionsBarComponent', () => {
   let component: OptionsBarComponent;

@@ -6,8 +6,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { ToolbarItemComponent } from './toolbar-item/toolbar-item.component';
 import { UsersComponent } from './users/users.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { ColorPickerComponent } from './color-picker/color-picker.component';
 
-export const components = [
+export const commonComponents = [
   MastheadComponent,
   OptionsBarComponent,
   PanelComponent,
@@ -15,5 +16,18 @@ export const components = [
   ToolbarComponent,
   ToolbarItemComponent,
   UsersComponent,
-  CanvasComponent
+  CanvasComponent,
+  ColorPickerComponent
 ];
+
+export {
+  MastheadComponent,
+  OptionsBarComponent,
+  PanelComponent,
+  SvgIconComponent,
+  ToolbarComponent,
+  ToolbarItemComponent,
+  UsersComponent,
+  CanvasComponent,
+  ColorPickerComponent
+};

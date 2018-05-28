@@ -1,21 +1,8 @@
-import { Directive, Injectable, ElementRef } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
 import { Point2D } from '../../modules/tools/shapes/point2d';
-import {
-  buffer,
-  takeUntil,
-  startWith,
-  map,
-  tap,
-  mapTo,
-  take,
-  takeWhile,
-  mergeMap
-} from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[appMouseService]'
