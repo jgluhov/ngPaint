@@ -15,10 +15,10 @@ import { CanvasService } from '@services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
 
 @Component({
-  selector: 'app-pencil',
+  selector: 'app-drawing-tool',
   template: ''
 })
-export class PencilComponent implements OnInit, OnDestroy {
+export class DrawingToolComponent implements OnInit, OnDestroy {
   tool: Tool;
   selectedColor: string;
   private destroy$: Subject<boolean> = new Subject<boolean>();

@@ -7,6 +7,7 @@ import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 import { PanelComponent } from '../panel/panel.component';
 import { ToolsModule } from '@tools';
 import { AppStoreModule } from '@store/app-store.module';
+import { DrawingToolComponent } from '../../modules/tools/components/drawing-tool/drawing-tool.component';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -18,7 +19,8 @@ describe('ToolbarComponent', () => {
         PanelComponent,
         ToolbarComponent,
         ToolbarItemComponent,
-        SvgIconComponent
+        SvgIconComponent,
+        DrawingToolComponent
       ],
       imports: [
         ToolsModule,

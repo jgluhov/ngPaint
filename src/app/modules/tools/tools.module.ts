@@ -1,23 +1,18 @@
 import { NgModule, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PencilComponent } from './components/pencil/pencil.component';
-import { BrushComponent } from './components/brush/brush.component';
 import { TOOLS_TOKEN, tools } from './tools';
+import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
 
 @NgModule({
   entryComponents: [
-    PencilComponent,
-    BrushComponent
+    DrawingToolComponent
   ],
   imports: [
     CommonModule,
     BrowserAnimationsModule
   ],
-  declarations: [
-    PencilComponent,
-    BrushComponent
-  ],
+  declarations: [],
   providers: [
     {
       provide: TOOLS_TOKEN, useValue: tools
