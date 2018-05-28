@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrushComponent } from './brush.component';
 import { ElementRef } from '@angular/core';
 import { AppStoreModule } from '@store/app-store.module';
-import { ShapeService } from '@tools/services/shape/shape.service';
+import { CanvasService } from '@services/canvas/canvas.service';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 
 describe('BrushComponent', () => {
@@ -17,7 +17,7 @@ describe('BrushComponent', () => {
       ],
       declarations: [ BrushComponent ],
       providers: [
-        ShapeService,
+        CanvasService,
         {
           provide: MouseTrackerDirective,
           useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)

@@ -3,7 +3,7 @@ import { ElementRef, Provider } from '@angular/core';
 import { PencilComponent } from './pencil.component';
 import { CanvasComponent } from '@components/canvas/canvas.component';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
-import { ShapeService } from '@tools/services/shape/shape.service';
+import { CanvasService } from '@services/canvas/canvas.service';
 import { AppStoreModule } from '@store/app-store.module';
 
 describe('PencilComponent', () => {
@@ -20,7 +20,7 @@ describe('PencilComponent', () => {
         PencilComponent
       ],
       providers: [
-        ShapeService,
+        CanvasService,
         {
           provide: MouseTrackerDirective,
           useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)

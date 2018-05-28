@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ShapeService } from './shape.service';
+import { CanvasService } from './canvas.service';
 import { AppStoreModule } from '@store/app-store.module';
 
 describe('ShapeService', () => {
@@ -8,12 +8,12 @@ describe('ShapeService', () => {
     TestBed.configureTestingModule({
       imports: [ AppStoreModule ],
       providers: [
-        ShapeService
+        CanvasService
       ]
     });
   });
 
-  it('should be created', inject([ShapeService], (service: ShapeService) => {
+  it('should be created', inject([CanvasService], (service: CanvasService) => {
     expect(service).toBeTruthy();
   }));
 });

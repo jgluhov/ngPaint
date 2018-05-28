@@ -15,7 +15,7 @@ import { Shape } from '@tools/shapes/shape';
 import { of } from 'rxjs/observable/of';
 import { filter, switchMap, map } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes/polyline-shape';
-import { ShapeService } from '@tools/services/shape/shape.service';
+import { CanvasService } from '@services/canvas/canvas.service';
 import * as AppActions from '@store/actions/app.actions';
 
 @Component({
@@ -33,7 +33,7 @@ export class CanvasComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
-    public shapeService: ShapeService
+    public shapeService: CanvasService
   ) { }
 
   ngOnInit(): void {

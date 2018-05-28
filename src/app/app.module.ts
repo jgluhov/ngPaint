@@ -8,7 +8,7 @@ import { ToolsModule } from '@tools/tools.module';
 import { CursorableDirective } from './directives/cursorable/cursorable.directive';
 import { components } from '@components';
 import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.directive';
-import { ShapeService } from '@tools/services/shape/shape.service';
+import { CanvasService } from '@services/canvas/canvas.service';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
     ToolsModule,
     FormsModule
   ],
-  providers: [ShapeService],
+  providers: [CanvasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

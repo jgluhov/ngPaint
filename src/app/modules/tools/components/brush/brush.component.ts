@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
-import { ShapeService } from '@tools/services/shape/shape.service';
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@shapes/point2d';
@@ -12,11 +11,11 @@ import { Shape } from '@shapes/shape';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import * as AppActions from '@store/actions/app.actions';
+import { CanvasService } from '@services/canvas/canvas.service';
 
 @Component({
   selector: 'app-brush',
-  template: ``,
-  styles: []
+  template: ``
 })
 export class BrushComponent implements OnInit, OnDestroy {
   tool: Tool;
@@ -25,7 +24,7 @@ export class BrushComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService
+    private canvasService: CanvasService
   ) {}
 
   ngOnInit(): void {

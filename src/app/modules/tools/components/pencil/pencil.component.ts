@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, switchMap, mergeMap } from 'rxjs/operators';
-import { ShapeService } from '@tools/services/shape/shape.service';
+import { takeUntil, switchMap, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@shapes/point2d';
@@ -12,6 +11,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import * as AppActions from '@store/actions/app.actions';
 import { of } from 'rxjs/observable/of';
+import { CanvasService } from '@services/canvas/canvas.service';
+import { PartialObserver } from 'rxjs/Observer';
 
 @Component({
   selector: 'app-pencil',
@@ -24,7 +25,7 @@ export class PencilComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private mouseTracker: MouseTrackerDirective,
-    private shapeService: ShapeService
+    private canvasService: CanvasService
   ) {}
 
   ngOnInit(): void {
@@ -52,25 +53,33 @@ export class PencilComponent implements OnInit, OnDestroy {
     of(p)
       .pipe(
         mergeMap(() => this.mouseTracker.onMouseMove()),
-        takeUntil(this.mouseTracker.onMouseUp())
+        takeUntil(this.mouseTracker.onMouseUp()),
+        withLatestFrom(this.canvasService.canvasShapes$)
       )
-      .subscribe(
-        (pt: Point2D) => {
-          if (!polyline.rendered) {
-            this.shapeService.render(polyline);
-          }
-          polyline.points.push(pt);
-        },
-        null,
-        () => {
-          if (polyline.points.length > 1) {
-            console.warn('CREATE POLYLINE');
-          }
-        }
-      );
+      .subscribe(this.polylineObserver(polyline));
 
-    console.warn('CREATE CIRCLE');
-    this.shapeService.render(circle);
+    this.canvasService.add(circle);
+  }
+
+  polylineObserver(polyline: PolylineShape): PartialObserver<[Point2D, Shape[]]> {
+    return {
+      next: ([pt, canvasShapes]: [Point2D, Shape[]]): void => {
+        if (!canvasShapes.includes(polyline)) {
+          this.canvasService.add(polyline);
+        }
+        polyline.points.push(pt);
+      },
+      complete: (): void => {
+        if (!this.shouldPolylineCreate(polyline)) {
+          return;
+        }
+        console.warn('CREATE POLYLINE');
+      }
+    };
+  }
+
+  shouldPolylineCreate(polyline: PolylineShape): boolean {
+    return polyline.points.length > 1;
   }
 
   ngOnDestroy(): void {

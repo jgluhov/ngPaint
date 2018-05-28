@@ -3,11 +3,17 @@ import { PolylineShape } from '@tools/shapes';
 
 export interface Shape {
   readonly type: string;
-  rendered: boolean;
+  _rendered: boolean;
   stroke: string;
   fill: string;
   strokeWidth: number;
   points?: Point2D[];
   toString(): string;
-  is(type: string): boolean;
+  ofType(type: string): boolean;
+}
+
+export class Shape {
+  public ofType(type: string): boolean {
+    return this.type === type;
+  }
 }
