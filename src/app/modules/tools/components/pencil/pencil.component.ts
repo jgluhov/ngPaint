@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap, mergeMap } from 'rxjs/operators';
 import { ShapeService } from '@tools/services/shape/shape.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
@@ -11,6 +11,7 @@ import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import * as AppActions from '@store/actions/app.actions';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-pencil',
@@ -27,9 +28,9 @@ export class PencilComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mouseTracker.onStart()
+    this.mouseTracker.onMouseDown()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onStart.bind(this));
+      .subscribe(this.handleMouseDown);
 
     this.store
       .select('app')
@@ -44,33 +45,32 @@ export class PencilComponent implements OnInit, OnDestroy {
       .subscribe((color: string) => this.selectedColor = color);
   }
 
-  onStart(evt: MouseEvent): void {
-    const shape = new PolylineShape([], this.selectedColor, 1);
+  handleMouseDown = (p: Point2D): void => {
+    const circle = new CircleShape(p);
+    const polyline = new PolylineShape([p]);
 
-    this.mouseTracker.trackMouse(evt)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (p: Point2D): void => {
-          shape.points.push(p);
+    of(p)
+      .pipe(
+        mergeMap(() => this.mouseTracker.onMouseMove()),
+        takeUntil(this.mouseTracker.onMouseUp())
+      )
+      .subscribe(
+        (pt: Point2D) => {
+          if (!polyline.rendered) {
+            this.shapeService.render(polyline);
+          }
+          polyline.points.push(pt);
         },
-        complete: (): void => {
-          this.handleTransformShape(shape);
+        null,
+        () => {
+          if (polyline.points.length > 1) {
+            console.warn('CREATE POLYLINE');
+          }
         }
-      });
+      );
 
-    this.shapeService.add([shape]);
-  }
-
-  handleTransformShape(shape: Shape): void {
-    if (shape.points.length > 2) {
-      return this.store.dispatch(new AppActions.CreateShape(shape.complete()));
-    }
-
-    const point: Point2D = shape.points[0];
-    const circle = new CircleShape(point.x, point.y);
-    this.store.dispatch(new AppActions.CreateShape(circle.complete()));
-
-    this.shapeService.clean();
+    console.warn('CREATE CIRCLE');
+    this.shapeService.render(circle);
   }
 
   ngOnDestroy(): void {

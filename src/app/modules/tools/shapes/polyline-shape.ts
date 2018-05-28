@@ -1,16 +1,14 @@
 import { Shape } from './shape';
 import { Point2D } from './point2d';
-import uuid from 'uuid';
 
 export class PolylineShape implements Shape {
-  public readonly id = uuid();
   public readonly type = 'polyline';
   public fill = 'none';
-  public temporary = true;
+  public rendered = false;
   constructor(
     public points: Point2D[] = [],
     public stroke: string = 'black',
-    public strokeWidth: number = 2
+    public strokeWidth: number = 3
   ) {}
 
   public toString(): string {
@@ -21,11 +19,5 @@ export class PolylineShape implements Shape {
 
   public is(type: string): boolean {
     return this.type === type;
-  }
-
-  public complete(): this {
-    this.temporary = false;
-
-    return this;
   }
 }

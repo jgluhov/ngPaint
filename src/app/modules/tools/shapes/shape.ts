@@ -3,13 +3,11 @@ import { PolylineShape } from '@tools/shapes';
 
 export interface Shape {
   readonly type: string;
-  readonly id: string;
-  temporary: boolean;
+  rendered: boolean;
   stroke: string;
   fill: string;
   strokeWidth: number;
   points?: Point2D[];
   toString(): string;
   is(type: string): boolean;
-  complete(): this;
 }

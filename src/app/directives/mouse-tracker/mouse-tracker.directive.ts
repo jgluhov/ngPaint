@@ -21,35 +21,27 @@ import {
   selector: '[appMouseTracker]'
 })
 export class MouseTrackerDirective {
-  private start$: Observable<MouseEvent>;
-  private end$: Observable<MouseEvent>;
-
   constructor(private elRef: ElementRef) {
-    this.start$ = this.fromEvent('mousedown');
-    this.end$ = merge(
-      this.fromEvent('mouseup'),
-      this.fromEvent('mouseleave')
-    );
   }
 
-  fromEvent(name: string): Observable<MouseEvent> {
+  fromEvent(name: string): Observable<Point2D> {
     return fromEvent(this.elRef.nativeElement, name)
       .pipe(
-        tap((evt: MouseEvent) => evt.preventDefault())
+        tap((evt: MouseEvent) => evt.preventDefault()),
+        map(this.toCoords)
       );
   }
 
-  onStart(): Observable<MouseEvent> {
+  onMouseUp(): Observable<Point2D> {
+    return this.fromEvent('mouseup');
+  }
+
+  onMouseDown(): Observable<Point2D> {
     return this.fromEvent('mousedown');
   }
 
-  trackMouse(evt: MouseEvent): Observable<Point2D> {
-    return this.fromEvent('mousemove')
-      .pipe(
-        startWith(evt),
-        map(this.toCoords),
-        takeUntil(this.end$)
-      );
+  onMouseMove(): Observable<Point2D> {
+    return this.fromEvent('mousemove');
   }
 
   toCoords = (evt: MouseEvent): Point2D => {
@@ -57,6 +49,8 @@ export class MouseTrackerDirective {
     p.x = evt.clientX;
     p.y = evt.clientY;
 
-    return <Point2D>p.matrixTransform(this.elRef.nativeElement.getScreenCTM().inverse());
+    return <Point2D>p.matrixTransform(
+      this.elRef.nativeElement.getScreenCTM().inverse()
+    );
   }
 }

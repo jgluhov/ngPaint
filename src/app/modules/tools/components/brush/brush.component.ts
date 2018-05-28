@@ -29,10 +29,6 @@ export class BrushComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mouseTracker.onStart()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onStart.bind(this));
-
     this.store
       .select('app')
       .select('tool')
@@ -44,23 +40,6 @@ export class BrushComponent implements OnInit, OnDestroy {
       .select('color')
       .pipe(takeUntil(this.destroy$))
       .subscribe((color: string) => this.selectedColor = color);
-  }
-
-  onStart(evt: MouseEvent): void {
-    const polyline = new PolylineShape([], this.selectedColor, 8);
-
-    this.mouseTracker.trackMouse(evt)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (p: Point2D): void => {
-          polyline.points.push(p);
-        },
-        complete: (): void => {
-          this.store.dispatch(new AppActions.CreateShape(polyline));
-        }
-      });
-
-    this.shapeService.add([polyline]);
   }
 
   ngOnDestroy(): void {
