@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { ToolsModule } from '@tools/tools.module';
 import { CursorableDirective } from './directives/cursorable/cursorable.directive';
 import { components } from '@components';
-import { MouseTrackerDirective } from './directives/mouse-tracker/mouse-tracker.directive';
+import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 
@@ -15,7 +15,7 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
   declarations: [
     AppComponent,
     CursorableDirective,
-    MouseTrackerDirective,
+    MouseServiceDirective,
     ...components,
     ColorPickerComponent
   ],

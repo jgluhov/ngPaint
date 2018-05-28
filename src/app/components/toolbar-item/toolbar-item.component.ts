@@ -5,11 +5,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { Tool } from '@tools/types/tool';
-import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { skip, zip } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import * as AppActions from '@store/actions/app.actions';
 import {
   trigger,
   state,

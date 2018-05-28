@@ -18,9 +18,9 @@ import {
 } from 'rxjs/operators';
 
 @Directive({
-  selector: '[appMouseTracker]'
+  selector: '[appMouseService]'
 })
-export class MouseTrackerDirective {
+export class MouseServiceDirective {
   constructor(private elRef: ElementRef) {
   }
 

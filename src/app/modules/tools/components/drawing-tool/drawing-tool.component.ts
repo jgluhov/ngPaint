@@ -1,18 +1,17 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, switchMap, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
 import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/types/tool';
 import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
-import * as AppActions from '@store/actions/app.actions';
 import { of } from 'rxjs/observable/of';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
+import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -24,14 +23,14 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private store: Store<AppState>,
-    private mouseTracker: MouseTrackerDirective,
+    private mouseService: MouseServiceDirective,
     private canvasService: CanvasService
   ) {}
 
   ngOnInit(): void {
-    this.mouseTracker.onMouseDown()
+    this.mouseService.onMouseDown()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(this.handleMouseDown);
+      .subscribe();
 
     this.store
       .select('app')
@@ -52,8 +51,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
 
     of(p)
       .pipe(
-        mergeMap(() => this.mouseTracker.onMouseMove()),
-        takeUntil(this.mouseTracker.onMouseUp()),
+        mergeMap(() => this.mouseService.onMouseMove()),
+        takeUntil(this.mouseService.onMouseUp()),
         withLatestFrom(this.canvasService.canvasShapes$)
       )
       .subscribe(this.polylineObserver(polyline));

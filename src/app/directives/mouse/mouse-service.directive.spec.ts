@@ -1,4 +1,4 @@
-import { MouseTrackerDirective } from './mouse-tracker.directive';
+import { MouseServiceDirective } from './mouse-service.directive';
 import { ElementRef } from '@angular/core';
 
 describe('MouseTrackerDirective', () => {
@@ -9,7 +9,7 @@ describe('MouseTrackerDirective', () => {
   });
 
   it('should create an instance', () => {
-    const directive = new MouseTrackerDirective(svgRef);
+    const directive = new MouseServiceDirective(svgRef);
     expect(directive).toBeTruthy();
   });
 });

@@ -19,8 +19,7 @@ describe('ToolbarComponent', () => {
         PanelComponent,
         ToolbarComponent,
         ToolbarItemComponent,
-        SvgIconComponent,
-        DrawingToolComponent
+        SvgIconComponent
       ],
       imports: [
         ToolsModule,

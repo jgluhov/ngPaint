@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ElementRef, Provider } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { DrawingToolComponent } from './drawing-tool.component';
-import { CanvasComponent } from '@components/canvas/canvas.component';
-import { MouseTrackerDirective } from '@directives/mouse-tracker/mouse-tracker.directive';
+import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { AppStoreModule } from '@store/app-store.module';
 
@@ -22,8 +21,8 @@ describe('DrawingToolComponent', () => {
       providers: [
         CanvasService,
         {
-          provide: MouseTrackerDirective,
-          useFactory: (): MouseTrackerDirective => new MouseTrackerDirective(svgRef)
+          provide: MouseServiceDirective,
+          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef)
         }
       ]
     })

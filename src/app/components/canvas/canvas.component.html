@@ -6,7 +6,7 @@
       height="14000"
       #svg
       [appCursorable]="toolChange"
-      appMouseTracker
+      appMouseService
     >
       <defs>
           <pattern id="grid"
@@ -20,7 +20,7 @@
       <rect width="100%" height="100%" fill="url(#grid)" />
       <g id="polylines">
         <polyline
-          *ngFor="let polyline of shapeService.polylines$ | async"
+          *ngFor="let polyline of canvasService.polylines$ | async"
           [attr.points]="polyline.toString()"
           [attr.fill]="polyline.fill"
           [attr.stroke]="polyline.stroke"
@@ -29,7 +29,7 @@
       </g>
       <g id="circles">
         <circle
-          *ngFor="let circle of shapeService.circles$ | async"
+          *ngFor="let circle of canvasService.circles$ | async"
           [attr.cx]="circle.cx"
           [attr.cy]="circle.cy"
           [attr.r]="circle.r"

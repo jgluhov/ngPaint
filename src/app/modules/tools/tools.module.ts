@@ -12,7 +12,9 @@ import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.com
     CommonModule,
     BrowserAnimationsModule
   ],
-  declarations: [],
+  declarations: [
+    DrawingToolComponent
+  ],
   providers: [
     {
       provide: TOOLS_TOKEN, useValue: tools

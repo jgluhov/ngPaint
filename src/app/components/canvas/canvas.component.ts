@@ -33,7 +33,7 @@ export class CanvasComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
-    public shapeService: CanvasService
+    public canvasService: CanvasService
   ) { }
 
   ngOnInit(): void {
