@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom, tap } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@shapes/point2d';
 import { Tool } from '@tools/types/tool';
@@ -30,7 +30,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mouseService.onMouseDown()
       .pipe(takeUntil(this.destroy$))
-      .subscribe();
+      .subscribe(this.handleMouseDown);
 
     this.store
       .select('app')
@@ -72,7 +72,6 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         if (!this.shouldPolylineCreate(polyline)) {
           return;
         }
-        console.warn('CREATE POLYLINE');
       }
     };
   }

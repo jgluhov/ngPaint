@@ -5,7 +5,7 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, switchMap, tap, share, mergeMap, withLatestFrom, startWith } from 'rxjs/operators';
+import { scan, filter, map, share } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle';
@@ -43,6 +43,8 @@ export class CanvasService {
   }
 
   add = (shape: Shape): void => {
+    console.warn(`Shape: ${shape.type.toUpperCase()} added`);
+
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
   }
 
