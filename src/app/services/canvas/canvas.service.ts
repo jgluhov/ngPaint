@@ -12,11 +12,10 @@ import { CircleShape } from '@shapes/circle';
 
 @Injectable()
 export class CanvasService {
-  public canvasShapes$: Observable<Shape[]>;
-
   private canvasHandler: Subject<Function> = new Subject<Function>();
   private storeChanges$: Observable<Shape[]>;
 
+  public canvasShapes$: Observable<Shape[]>;
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
 
@@ -27,12 +26,7 @@ export class CanvasService {
 
     this.canvasShapes$ = this.canvasHandler
       .pipe(
-        scan(
-          (shapes: Shape[], updatedFn: Function) => {
-            return updatedFn(shapes);
-          },
-          []
-        ),
+        scan((shapes: Shape[], fn: Function) => fn(shapes), []),
         share()
       );
 
@@ -42,9 +36,7 @@ export class CanvasService {
       .pipe(this.filterBy('circle'));
   }
 
-  add = (shape: Shape): void => {
-    console.warn(`Shape: ${shape.type.toUpperCase()} added`);
-
+  render = (shape: Shape): void => {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
   }
 

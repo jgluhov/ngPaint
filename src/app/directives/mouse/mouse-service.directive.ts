@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Point2D } from '../../modules/tools/shapes/point2d';
 import { map, tap } from 'rxjs/operators';
+import { merge } from 'rxjs/observable/merge';
 
 @Directive({
   selector: '[appMouseService]'
@@ -30,6 +31,13 @@ export class MouseServiceDirective {
 
   onMouseLeave(): Observable<MouseEvent> {
     return this.fromEvent('mouseleave');
+  }
+
+  onEnd(): Observable<MouseEvent> {
+    return merge(
+      this.fromEvent('mouseup'),
+      this.fromEvent('mouseleave')
+    );
   }
 
   toCoords = (evt: MouseEvent): Point2D => {

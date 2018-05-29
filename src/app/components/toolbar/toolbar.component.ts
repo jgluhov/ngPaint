@@ -36,15 +36,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   selectedTool$: Observable<Tool>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  // @HostListener('document:mousedown', ['$event', '$event.target'])
-  // public handleClick(evt: MouseEvent, target: HTMLElement): void {
-  //   if (target.closest('app-panel')) {
-  //     return;
-  //   }
-
-  //   this.store.dispatch(new AppActions.SelectTool(null));
-  // }
-
   constructor(
     @Inject(TOOLS_TOKEN) public tools: Tool[],
     private store: Store<AppState>
@@ -55,9 +46,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       .select('app')
       .select('selectedTool')
       .pipe(takeUntil(this.destroy$))
-      .subscribe((tool: Tool) => {
-        this.selectedTool = tool;
-      });
+      .subscribe((tool: Tool) => this.selectedTool = tool);
   }
 
   isSelected(tool: Tool): boolean {

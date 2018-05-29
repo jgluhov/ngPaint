@@ -21,7 +21,7 @@ export class PolylineShape extends Shape {
       .join(' ');
   }
 
-  public add(p: Point2D): void {
+  public append(p: Point2D): void {
     this.points.push(p);
   }
 

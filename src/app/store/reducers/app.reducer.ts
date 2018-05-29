@@ -5,6 +5,7 @@ import * as AppActions from '@store/actions/app.actions';
 export interface App {
   selectedTool: Tool;
   selectedColor: string;
+  thickness: number;
   fontSize: number;
   shapes: Shape[];
 }
@@ -12,6 +13,7 @@ export interface App {
 const defaultState: App = {
   selectedTool: null,
   selectedColor: '#000000',
+  thickness: 2,
   fontSize: 13,
   shapes: []
 };
@@ -37,6 +39,12 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
           ...state.shapes,
           action.payload
         ]
+      };
+    }
+    case AppActions.CHANGE_THICKNESS: {
+      return {
+        ...state,
+        thickness: action.payload
       };
     }
     default:

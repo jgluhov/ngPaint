@@ -137,6 +137,7 @@
       "app",
       "kebab-case"
     ],
+    "max-classes-per-file": false,
     "no-unnecessary-callback-wrapper": false,
     "function-name": false,
     "no-http-string": false,
