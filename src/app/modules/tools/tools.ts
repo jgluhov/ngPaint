@@ -1,8 +1,7 @@
 import { InjectionToken } from '@angular/core';
-import { Shape } from './shapes';
-import { PolylineShape } from './shapes/polyline-shape';
 import { Tool } from '@tools/types/tool';
 import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
+import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
 
 export const tools: Tool[] = [
   {
@@ -16,6 +15,12 @@ export const tools: Tool[] = [
     component: DrawingToolComponent,
     shapeType: 'polyline',
     imageUrl: 'assets/icons/brush.svg'
+  },
+  {
+    name: 'rect',
+    component: GeometryToolComponent,
+    shapeType: 'rect',
+    imageUrl: 'assets/icons/rect.svg'
   }
 ];
 
