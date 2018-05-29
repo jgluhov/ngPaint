@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,4 @@ import { Observable } from 'rxjs/Observable';
   `
 })
 export class AppComponent {
-  selectedColor$: Observable<string>;
-  constructor() {
-  }
 }
