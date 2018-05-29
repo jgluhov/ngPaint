@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppState } from './store/app-state';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  template: `
+    <div class="container">
+      <app-masthead></app-masthead>
+      <app-toolbar></app-toolbar>
+      <app-options-bar></app-options-bar>
+      <app-users></app-users>
+      <app-canvas></app-canvas>
+    </div>
+  `
 })
 export class AppComponent {
   selectedColor$: Observable<string>;
