@@ -12,11 +12,13 @@ export class CircleShape extends Shape {
 
   constructor(
     public center: Point2D,
-    public r: number = 2
+    public r: number,
+    color: string
   ) {
     super();
 
     this.cx = center.x;
     this.cy = center.y;
+    this.fill = color;
   }
 }

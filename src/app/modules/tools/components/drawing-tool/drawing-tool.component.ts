@@ -9,6 +9,7 @@ import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { of } from 'rxjs/observable/of';
+import { merge } from 'rxjs/observable/merge';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
@@ -19,7 +20,7 @@ import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
   tool: Tool;
-  selectedColor: string;
+  selectedColor$: Observable<string>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private store: Store<AppState>,
@@ -28,31 +29,31 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.selectedColor$ = this.store
+      .select('app')
+      .select('selectedColor');
+
     this.mouseService.onMouseDown()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        withLatestFrom(this.selectedColor$),
+        takeUntil(this.destroy$)
+      )
       .subscribe(this.handleMouseDown);
-
-    this.store
-      .select('app')
-      .select('selectedTool')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((tool: Tool) => this.tool = tool);
-
-    this.store
-      .select('app')
-      .select('selectedColor')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((color: string) => this.selectedColor = color);
   }
 
-  handleMouseDown = (p: Point2D): void => {
-    const circle = new CircleShape(p);
-    const polyline = new PolylineShape([p]);
+  handleMouseDown = ([p, selectedColor]: [Point2D, string]): void => {
+    const circle = new CircleShape(p, 10, selectedColor);
+    const polyline = new PolylineShape([p], 10, selectedColor);
 
     of(p)
       .pipe(
         mergeMap(() => this.mouseService.onMouseMove()),
-        takeUntil(this.mouseService.onMouseUp()),
+        takeUntil(
+          merge(
+            this.mouseService.onMouseUp(),
+            this.mouseService.onMouseLeave()
+          )
+        ),
         withLatestFrom(this.canvasService.canvasShapes$)
       )
       .subscribe(this.polylineObserver(polyline));

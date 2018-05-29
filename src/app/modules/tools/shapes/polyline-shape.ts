@@ -4,10 +4,15 @@ import { Point2D } from './point2d';
 export class PolylineShape extends Shape {
   public readonly type = 'polyline';
   public fill = 'none';
-  public strokeWidth = 3;
 
-  constructor(private points: Point2D[] = []) {
+  constructor(
+    private points: Point2D[] = [],
+    public strokeWidth: number,
+    color: string
+  ) {
     super();
+
+    this.stroke = color;
   }
 
   public toString(): string {

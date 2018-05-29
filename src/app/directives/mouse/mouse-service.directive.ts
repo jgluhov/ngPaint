@@ -11,24 +11,25 @@ export class MouseServiceDirective {
   constructor(private elRef: ElementRef) {
   }
 
-  fromEvent(name: string): Observable<Point2D> {
+  fromEvent(name: string): Observable<MouseEvent> {
     return fromEvent(this.elRef.nativeElement, name)
-      .pipe(
-        tap((evt: MouseEvent) => evt.preventDefault()),
-        map(this.toCoords)
-      );
+      .pipe(tap((evt: MouseEvent) => evt.preventDefault()));
   }
 
   onMouseUp(): Observable<Point2D> {
-    return this.fromEvent('mouseup');
+    return this.fromEvent('mouseup').pipe(map(this.toCoords));
   }
 
   onMouseDown(): Observable<Point2D> {
-    return this.fromEvent('mousedown');
+    return this.fromEvent('mousedown').pipe(map(this.toCoords));
   }
 
   onMouseMove(): Observable<Point2D> {
-    return this.fromEvent('mousemove');
+    return this.fromEvent('mousemove').pipe(map(this.toCoords));
+  }
+
+  onMouseLeave(): Observable<MouseEvent> {
+    return this.fromEvent('mouseleave');
   }
 
   toCoords = (evt: MouseEvent): Point2D => {
