@@ -35,7 +35,7 @@ export class CanvasComponent implements OnInit {
   ngOnInit(): void {
     this.toolChange = this.store
       .select('app')
-      .select('tool');
+      .select('selectedTool');
 
     this.toolChange
       .subscribe(this.loadComponent);

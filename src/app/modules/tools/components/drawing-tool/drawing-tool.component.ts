@@ -34,13 +34,13 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
 
     this.store
       .select('app')
-      .select('tool')
+      .select('selectedTool')
       .pipe(takeUntil(this.destroy$))
       .subscribe((tool: Tool) => this.tool = tool);
 
     this.store
       .select('app')
-      .select('color')
+      .select('selectedColor')
       .pipe(takeUntil(this.destroy$))
       .subscribe((color: string) => this.selectedColor = color);
   }
@@ -66,7 +66,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         if (!canvasShapes.includes(polyline)) {
           this.canvasService.add(polyline);
         }
-        polyline.points.push(pt);
+        polyline.add(pt);
       },
       complete: (): void => {
         if (!this.shouldPolylineCreate(polyline)) {
@@ -77,7 +77,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   }
 
   shouldPolylineCreate(polyline: PolylineShape): boolean {
-    return polyline.points.length > 1;
+    return polyline.length() > 1;
   }
 
   ngOnDestroy(): void {

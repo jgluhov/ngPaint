@@ -4,12 +4,9 @@ import { Point2D } from './point2d';
 export class PolylineShape extends Shape {
   public readonly type = 'polyline';
   public fill = 'none';
-  public rendered = false;
-  constructor(
-    public points: Point2D[] = [],
-    public stroke: string = 'black',
-    public strokeWidth: number = 3
-  ) {
+  public strokeWidth = 3;
+
+  constructor(private points: Point2D[] = []) {
     super();
   }
 
@@ -17,5 +14,13 @@ export class PolylineShape extends Shape {
     return this.points
       .map((point: Point2D) => `${point.x},${point.y}`)
       .join(' ');
+  }
+
+  public add(p: Point2D): void {
+    this.points.push(p);
+  }
+
+  public length(): number {
+    return this.points.length;
   }
 }

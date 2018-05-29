@@ -53,7 +53,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select('app')
-      .select('tool')
+      .select('selectedTool')
       .pipe(takeUntil(this.destroy$))
       .subscribe((tool: Tool) => {
         this.selectedTool = tool;

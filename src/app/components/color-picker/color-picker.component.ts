@@ -27,7 +27,7 @@ export class ColorPickerComponent implements OnInit {
   ngOnInit(): void {
     this.selectedColor$ = this.store
       .select('app')
-      .select('color');
+      .select('selectedColor');
   }
 
   handleChange(color: string): void {
