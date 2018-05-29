@@ -4,7 +4,6 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil, mergeMap, withLatestFrom, tap } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@shapes/point2d';
-import { Tool } from '@tools/types/tool';
 import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
@@ -19,8 +18,8 @@ import * as AppActions from '@store/actions/app.actions';
   template: ''
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
-  selectedTool$: Observable<Tool>;
   selectedColor$: Observable<string>;
+  thickness$: Observable<number>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private store: Store<AppState>,
@@ -33,21 +32,21 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .select('app')
       .select('selectedColor');
 
-    this.selectedTool$ = this.store
+    this.thickness$ = this.store
       .select('app')
-      .select('selectedTool');
+      .select('thickness');
 
     this.mouseService.onMouseDown()
       .pipe(
-        withLatestFrom(this.selectedTool$, this.selectedColor$),
+        withLatestFrom(this.thickness$, this.selectedColor$),
         takeUntil(this.destroy$)
       )
       .subscribe(this.handleMouseDown);
   }
 
-  handleMouseDown = ([p, selectedTool, selectedColor]: [Point2D, Tool, string]): void => {
-    const circle = new CircleShape(p, 10, selectedColor);
-    const polyline = new PolylineShape([p], 10, selectedColor);
+  handleMouseDown = ([p, thickness, selectedColor]: [Point2D, number, string]): void => {
+    const circle = new CircleShape(p, thickness, selectedColor);
+    const polyline = new PolylineShape([p], thickness * 2, selectedColor);
 
     of(p)
       .pipe(

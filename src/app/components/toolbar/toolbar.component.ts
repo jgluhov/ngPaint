@@ -55,6 +55,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   handleSelect(tool: Tool): void {
     this.store.dispatch(new AppActions.SelectTool(tool));
+
+    const thickness = tool.name === 'pencil' ? 2 : 10;
+    this.store.dispatch(new AppActions.ChangeThickness(thickness));
   }
 
   ngOnDestroy(): void {
