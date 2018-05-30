@@ -20,7 +20,7 @@
       <rect width="100%" height="100%" fill="url(#grid)" />
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
-            polyline.editing {{polyline.editing}}
+          <g id="complete-group" [appPolyline]="polyline" *ngIf="!polyline.editing"></g>
           <ng-container *ngIf="polyline.editing">
             <polyline
               [attr.points]="polyline.toString()"
