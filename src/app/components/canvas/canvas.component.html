@@ -37,6 +37,15 @@
           [attr.stroke]="circle.stroke"
           [attr.stroke-width]="circle.strokeWidth"
         />
+        <rect
+          *ngFor="let rect of canvasService.rects$ | async"
+          [attr.x]="rect.x"
+          [attr.y]="rect.y"
+          [attr.width]="rect.width"
+          [attr.height]="rect.height"
+          [attr.fill]="rect.fill"
+          [attr.stroke]="rect.stroke"
+        />
       </g>
       <ng-container #vcr></ng-container>
     </svg>

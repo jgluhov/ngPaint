@@ -6,7 +6,9 @@ import { AppStoreModule } from '@store/app-store.module';
 describe('ShapeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ AppStoreModule ],
+      imports: [
+        AppStoreModule
+      ],
       providers: [
         CanvasService
       ]

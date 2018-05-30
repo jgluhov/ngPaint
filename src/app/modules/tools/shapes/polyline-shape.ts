@@ -8,11 +8,9 @@ export class PolylineShape extends Shape {
   constructor(
     private points: Point2D[] = [],
     public strokeWidth: number,
-    color: string
+    public stroke: string
   ) {
     super();
-
-    this.stroke = color;
   }
 
   public toString(): string {

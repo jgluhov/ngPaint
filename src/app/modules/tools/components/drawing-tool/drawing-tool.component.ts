@@ -18,8 +18,8 @@ import * as AppActions from '@store/actions/app.actions';
   template: ''
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
-  selectedColor$: Observable<string>;
-  thickness$: Observable<number>;
+  private selectedColor$: Observable<string>;
+  private thickness$: Observable<number>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private store: Store<AppState>,
