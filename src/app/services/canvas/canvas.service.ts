@@ -5,7 +5,7 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, share } from 'rxjs/operators';
+import { scan, filter, map, share, tap } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle';
@@ -29,6 +29,9 @@ export class CanvasService {
     this.canvasShapes$ = this.canvasHandler
       .pipe(
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
+        tap((shapes: Shape[]) => {
+          console.log(shapes);
+        }),
         share()
       );
 
@@ -44,6 +47,10 @@ export class CanvasService {
 
   render = (shape: Shape): void => {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
+  }
+
+  complete(shape: Shape): void {
+    shape.editing = false;
   }
 
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
