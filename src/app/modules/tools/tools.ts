@@ -21,6 +21,12 @@ export const tools: Tool[] = [
     component: GeometryToolComponent,
     shapeType: 'rect',
     imageUrl: 'assets/icons/rect.svg'
+  },
+  {
+    name: 'circle',
+    component: GeometryToolComponent,
+    shapeType: 'circle',
+    imageUrl: 'assets/icons/circle.svg'
   }
 ];
 

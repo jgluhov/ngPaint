@@ -4,6 +4,7 @@ import { Point2D } from '@math/point2d';
 export class PolylineShape extends Shape {
   public readonly type = 'polyline';
   public fill = 'none';
+  public strokeLinecap = 'round';
 
   constructor(
     private points: Point2D[] = [],

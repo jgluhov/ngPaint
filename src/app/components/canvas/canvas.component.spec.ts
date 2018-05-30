@@ -4,6 +4,7 @@ import { CursorableDirective } from '@directives/cursorable/cursorable.directive
 import { AppStoreModule } from '@store/app-store.module';
 import { PanelComponent } from '@components/panel/panel.component';
 import { CanvasService } from '@services/canvas/canvas.service';
+import { PolylineComponent } from '@components/polyline/polyline.component';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -17,7 +18,8 @@ describe('CanvasComponent', () => {
       declarations: [
         PanelComponent,
         CanvasComponent,
-        CursorableDirective
+        CursorableDirective,
+        PolylineComponent
       ],
       providers: [
         CanvasService

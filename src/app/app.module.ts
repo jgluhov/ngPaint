@@ -9,13 +9,15 @@ import { CursorableDirective } from './directives/cursorable/cursorable.directiv
 import { commonComponents } from '@components';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import { CanvasService } from '@services/canvas/canvas.service';
+import { PolylineComponent } from './components/polyline/polyline.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CursorableDirective,
     MouseServiceDirective,
-    ...commonComponents
+    ...commonComponents,
+    PolylineComponent
   ],
   imports: [
     BrowserModule,
