@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { takeUntil, mergeMap, debounceTime } from 'rxjs/operators';
+import { takeUntil, mergeMap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { Point2D } from '../../shapes/point2d';
-import { RectShape, BoundingRect } from '@shapes/rect';
+import { Point2D } from '@math/point2d';
+import { RectShape } from '@shapes/rect/rect';
 import { of } from 'rxjs/observable/of';
 import { CanvasService } from '../../../../services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
@@ -44,51 +44,12 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   rectObserver(start: Point2D, rect: RectShape): PartialObserver<Point2D> {
     return {
       next: (end: Point2D): void => {
-        const boundingRect = this.getBoundingRect(start, end);
-        rect.transform(boundingRect);
+        rect.transform(start, end);
       },
       complete: (): void => {
 
       }
     };
-  }
-
-  getBoundingRect(start: Point2D, end: Point2D): BoundingRect {
-    if (start.x <= end.x && start.y <= end.y) {
-      return {
-        x: start.x,
-        y: start.y,
-        width: end.x - start.x,
-        height: end.y - start.y
-      };
-    }
-
-    if (start.x <= end.x && start.y > end.y) {
-      return {
-        x: start.x,
-        y: end.y,
-        width: end.x - start.x,
-        height: start.y - end.y
-      };
-    }
-
-    if (start.x >= end.x && start.y > end.y) {
-      return {
-        x: end.x,
-        y: end.y,
-        width: start.x - end.x,
-        height: start.y - end.y
-      };
-    }
-
-    if (start.x >= end.x && start.y <= end.y) {
-      return {
-        x: end.x,
-        y: start.y,
-        width: start.x - end.x,
-        height: end.y - start.y
-      };
-    }
   }
 
   ngOnDestroy(): void {

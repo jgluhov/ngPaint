@@ -37,6 +37,8 @@
           [attr.stroke]="circle.stroke"
           [attr.stroke-width]="circle.strokeWidth"
         />
+      </g>
+      <g id="rects">
         <rect
           *ngFor="let rect of canvasService.rects$ | async"
           [attr.x]="rect.x"
@@ -45,6 +47,9 @@
           [attr.height]="rect.height"
           [attr.fill]="rect.fill"
           [attr.stroke]="rect.stroke"
+          [attr.rx]="rect.rx"
+          [attr.ry]="rect.ry"
+          [attr.strokeWidth]="rect.strokeWidth"
         />
       </g>
       <ng-container #vcr></ng-container>

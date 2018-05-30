@@ -9,7 +9,7 @@ import { scan, filter, map, share } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle';
-import { RectShape } from '@shapes/rect';
+import { RectShape } from '@shapes/rect/rect';
 
 @Injectable()
 export class CanvasService {
@@ -36,7 +36,6 @@ export class CanvasService {
       .pipe(this.filterBy('polyline'));
     this.circles$ = <Observable<CircleShape[]>>this.canvasShapes$
       .pipe(this.filterBy('circle'));
-
     this.rects$ = <Observable<RectShape[]>>this.canvasShapes$
       .pipe(this.filterBy('rect'));
   }

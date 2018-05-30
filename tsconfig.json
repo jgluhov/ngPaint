@@ -49,6 +49,9 @@
       ],
       "@store/*": [
         "app/store/*"
+      ],
+      "@math/*": [
+        "app/math/*"
       ]
     }
   }
