@@ -32,23 +32,25 @@ export class CanvasService {
         share()
       );
 
-    this.polylines$ = <Observable<PolylineShape[]>>this.canvasShapes$
-      .pipe(this.filterBy('polyline'));
-    this.circles$ = <Observable<CircleShape[]>>this.canvasShapes$
-      .pipe(this.filterBy('circle'));
-    this.rects$ = <Observable<RectShape[]>>this.canvasShapes$
-      .pipe(this.filterBy('rect'));
+    this.polylines$ = this.getShapes$('polyline');
+    this.circles$ = this.getShapes$('circle');
+    this.rects$ = this.getShapes$('rect');
+  }
+
+  getShapes$<T extends Shape>(type: string): Observable<T[]> {
+    return <Observable<T[]>>this.canvasShapes$
+      .pipe(this.filterBy(((shape: T): boolean => shape.ofType(type))));
   }
 
   render = (shape: Shape): void => {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
   }
 
-  filterBy(shapeType: string): OperatorFunction<Shape[], Shape[]> {
+  filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
     return (source$: Observable<Shape[]>): Observable<Shape[]> => {
       return source$.pipe(
         map((shapes: Shape[]) => {
-          return shapes.filter((shape: Shape) => shape.ofType(shapeType));
+          return shapes.filter((shape: Shape) => fn(shape));
         })
       );
     };
