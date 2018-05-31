@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Point2D } from '@math/point2d';
 import { RectShape } from '@shapes/rect/rect';
 import { of } from 'rxjs/observable/of';
-import { CanvasService } from '../../../../services/canvas/canvas.service';
+import { CanvasService } from '@services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
 import * as AppActions from '@store/actions/app.actions';
 import { Shape } from '@shapes/shape';
