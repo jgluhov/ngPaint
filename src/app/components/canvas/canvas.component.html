@@ -21,7 +21,7 @@
 
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
-          <g id="complete-group" [appPolyline]="polyline" *ngIf="!polyline.editing"></g>
+          <g [appPolyline]="polyline" *ngIf="!polyline.editing"></g>
           <polyline *ngIf="polyline.editing"
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"
@@ -31,30 +31,36 @@
       </g>
 
       <g id="circles">
-        <circle
-          *ngFor="let circle of canvasService.circles$ | async"
-          [attr.cx]="circle.cx"
-          [attr.cy]="circle.cy"
-          [attr.r]="circle.r"
-          [attr.fill]="circle.fill"
-          [attr.stroke]="circle.stroke"
-          [attr.stroke-width]="circle.strokeWidth"
-        />
+        <ng-container *ngFor="let circle of canvasService.circles$ | async">
+          <g [appCircle]="circle" *ngIf="!circle.editing"></g>
+          <circle
+            [attr.cx]="circle.cx"
+            [attr.cy]="circle.cy"
+            [attr.r]="circle.r"
+            [attr.fill]="circle.fill"
+            [attr.stroke]="circle.stroke"
+            [attr.stroke-width]="circle.strokeWidth"
+          />
+        </ng-container>
       </g>
+
       <g id="rects">
-        <rect
-          *ngFor="let rect of canvasService.rects$ | async"
-          [attr.x]="rect.x"
-          [attr.y]="rect.y"
-          [attr.width]="rect.width"
-          [attr.height]="rect.height"
-          [attr.fill]="rect.fill"
-          [attr.stroke]="rect.stroke"
-          [attr.rx]="rect.rx"
-          [attr.ry]="rect.ry"
-          [attr.stroke-width]="rect.strokeWidth"
-        />
+        <ng-container *ngFor="let rect of canvasService.rects$ | async">
+          <g [appCircle]="rect" *ngIf="!rect.editing"></g>
+          <rect
+            [attr.x]="rect.x"
+            [attr.y]="rect.y"
+            [attr.width]="rect.width"
+            [attr.height]="rect.height"
+            [attr.fill]="rect.fill"
+            [attr.stroke]="rect.stroke"
+            [attr.rx]="rect.rx"
+            [attr.ry]="rect.ry"
+            [attr.stroke-width]="rect.strokeWidth"
+          />
+        </ng-container>
       </g>
+
       <ng-container #vcr></ng-container>
     </svg>
 </app-panel>

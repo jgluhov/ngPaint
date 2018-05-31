@@ -7,6 +7,10 @@ import { RectShape } from '@shapes/rect/rect';
 import { of } from 'rxjs/observable/of';
 import { CanvasService } from '../../../../services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
+import * as AppActions from '@store/actions/app.actions';
+import { Shape } from '@shapes/shape';
+import { Store } from '@ngrx/store';
+import { AppState } from '@store/app-state';
 
 @Component({
   selector: 'app-geometry-tool',
@@ -15,6 +19,7 @@ import { PartialObserver } from 'rxjs/Observer';
 export class GeometryToolComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
+    private store: Store<AppState>,
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService
   ) { }
@@ -47,9 +52,14 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
         rect.transform(start, end);
       },
       complete: (): void => {
-
+        this.flushShape(rect);
       }
     };
+  }
+
+  flushShape(shape: Shape): void {
+    this.canvasService.complete(shape);
+    this.store.dispatch(new AppActions.CreateShape(shape));
   }
 
   ngOnDestroy(): void {

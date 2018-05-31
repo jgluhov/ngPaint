@@ -5,6 +5,8 @@ import { AppStoreModule } from '@store/app-store.module';
 import { PanelComponent } from '@components/panel/panel.component';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { PolylineComponent } from '@components/polyline/polyline.component';
+import { CircleComponent } from '../circle/circle.component';
+import { RectComponent } from '../rect/rect.component';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -19,7 +21,9 @@ describe('CanvasComponent', () => {
         PanelComponent,
         CanvasComponent,
         CursorableDirective,
-        PolylineComponent
+        PolylineComponent,
+        CircleComponent,
+        RectComponent
       ],
       providers: [
         CanvasService
