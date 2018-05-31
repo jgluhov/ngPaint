@@ -22,13 +22,11 @@
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
           <g id="complete-group" [appPolyline]="polyline" *ngIf="!polyline.editing"></g>
-          <ng-container *ngIf="polyline.editing">
-            <polyline
-              [attr.points]="polyline.toString()"
-              [attr.fill]="polyline.fill"
-              [attr.stroke]="polyline.stroke"
-              [attr.stroke-width]="polyline.strokeWidth"/>
-          </ng-container>
+          <polyline *ngIf="polyline.editing"
+            [attr.points]="polyline.toString()"
+            [attr.fill]="polyline.fill"
+            [attr.stroke]="polyline.stroke"
+            [attr.stroke-width]="polyline.strokeWidth"/>
         </ng-container>
       </g>
 

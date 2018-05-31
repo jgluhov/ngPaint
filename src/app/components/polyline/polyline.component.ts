@@ -1,12 +1,7 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy,
-  OnInit,
-  HostBinding,
-  OnChanges,
-  SimpleChanges,
-  SimpleChange
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { PolylineShape } from '@tools/shapes';
 
@@ -22,16 +17,6 @@ import { PolylineShape } from '@tools/shapes';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PolylineComponent implements OnInit, OnChanges {
+export class PolylineComponent {
   @Input('appPolyline') polyline: PolylineShape;
-
-  constructor() {}
-
-  ngOnInit(): void {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
 }
