@@ -27,15 +27,13 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.mouseService.onMouseDown()
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.handleMouseDown);
 
   }
 
   handleMouseDown = (start: Point2D): void => {
-    const rect = new RectShape(start);
+    const rect = new RectShape(start.x, start.y);
 
     of(start)
       .pipe(

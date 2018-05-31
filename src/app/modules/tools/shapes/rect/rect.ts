@@ -10,10 +10,10 @@ export interface BoundingRect {
 
 export class RectShape extends Shape {
   public readonly type = 'rect';
-  public x: number;
-  public y: number;
+
   constructor(
-    start: Point2D,
+    public x: number = 0,
+    public y: number = 0,
     public width: number = 0,
     public height: number = 0,
     public rx: number = 2,
@@ -22,9 +22,6 @@ export class RectShape extends Shape {
     public strokeWidth: number = 2
   ) {
     super();
-
-    this.x = start.x;
-    this.y = start.y;
   }
 
   getBoundingRect(start: Point2D, end: Point2D): BoundingRect {

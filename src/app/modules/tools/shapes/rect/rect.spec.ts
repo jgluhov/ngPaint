@@ -4,10 +4,7 @@ describe('RectShape', () => {
   let rect: RectShape;
 
   beforeEach(() => {
-    rect = new RectShape({
-      x: 0,
-      y: 0
-    });
+    rect = new RectShape();
   });
 
   describe('#getBoundingRect()', () => {
