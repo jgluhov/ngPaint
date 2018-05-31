@@ -3,7 +3,7 @@ import {
   Input,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { CircleShape } from '@shapes/circle';
+import { CircleShape } from '@shapes/circle/circle';
 
 @Component({
   selector: '[appCircle]',

@@ -27,4 +27,7 @@ export class PolylineShape extends Shape {
   public length(): number {
     return this.points.length;
   }
+
+  public transform(): void {
+  }
 }

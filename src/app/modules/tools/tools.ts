@@ -2,28 +2,29 @@ import { InjectionToken } from '@angular/core';
 import { Tool } from '@tools/types/tool';
 import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
 import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
+import { Tools } from './types/tools';
 
 export const tools: Tool[] = [
   {
-    name: 'pencil',
+    name: Tools.Pencil,
     component: DrawingToolComponent,
     shapeType: 'polyline',
     imageUrl: 'assets/icons/pencil.svg'
   },
   {
-    name: 'brush',
+    name: Tools.Brush,
     component: DrawingToolComponent,
     shapeType: 'polyline',
     imageUrl: 'assets/icons/brush.svg'
   },
   {
-    name: 'rect',
+    name: Tools.Rect,
     component: GeometryToolComponent,
     shapeType: 'rect',
     imageUrl: 'assets/icons/rect.svg'
   },
   {
-    name: 'circle',
+    name: Tools.Circle,
     component: GeometryToolComponent,
     shapeType: 'circle',
     imageUrl: 'assets/icons/circle.svg'

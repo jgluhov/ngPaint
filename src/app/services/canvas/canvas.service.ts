@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { scan, filter, map, share, tap } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
-import { CircleShape } from '@shapes/circle';
+import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
 
 @Injectable()
