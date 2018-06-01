@@ -12,7 +12,7 @@ import { Shape } from '@shapes/shape';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
-import { Tool } from '../../types/tool';
+import { Tool } from '@tools/types/tool';
 import { Tools } from '@tools/types/tools';
 import { CircleShape } from '@shapes';
 
@@ -74,7 +74,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   createShape(start: Point2D, selectedTool: Tool): Shape {
     switch (selectedTool.name) {
       case Tools.Rect: {
-        return new RectShape(start.x, start.y)
+        return new RectShape(start.x, start.y);
       }
       case Tools.Circle: {
         return new CircleShape(start);

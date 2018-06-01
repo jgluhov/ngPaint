@@ -15,11 +15,11 @@ describe('CircleShape', () => {
   describe('#getRadius()', () => {
     describe('when start is less then end', () => {
       it('should return correct radius', () => {
-        start = new Point2D(80, 80);
-        end = new Point2D(100, 100);
+        start = new Point2D(0, 0);
+        end = new Point2D(0, -6);
 
         expect(circle.getRadius(start, end))
-          .toBeCloseTo(28.28427124);
+          .toBeCloseTo(3);
       });
     });
 
@@ -28,9 +28,20 @@ describe('CircleShape', () => {
         start = new Point2D(140, 80);
         end = new Point2D(100, 100);
 
-        expect(circle.getRadius(start, end)).toBeCloseTo(44.721359);
+        expect(circle.getRadius(start, end)).toBeCloseTo(22.3606);
       });
     });
   });
 
+  describe('#getCenter()', () => {
+    describe('when start is less then end', () => {
+      it('should return correct center point', () => {
+        start = new Point2D(0, 0);
+        end = new Point2D(0, -6);
+
+        expect(circle.getCenter(start, end))
+          .toEqual(new Point2D(0, -3));
+      });
+    });
+  });
 });

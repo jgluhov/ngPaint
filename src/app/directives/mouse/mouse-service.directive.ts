@@ -45,8 +45,10 @@ export class MouseServiceDirective {
     p.x = evt.clientX;
     p.y = evt.clientY;
 
-    return <Point2D>p.matrixTransform(
+    const point = p.matrixTransform(
       this.elRef.nativeElement.getScreenCTM().inverse()
     );
+
+    return new Point2D(point.x, point.y);
   }
 }
