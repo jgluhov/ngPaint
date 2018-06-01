@@ -32,16 +32,4 @@ describe('CircleShape', () => {
       });
     });
   });
-
-  describe('#getCenter()', () => {
-    describe('when start is less then end', () => {
-      it('should return correct center point', () => {
-        start = new Point2D(0, 0);
-        end = new Point2D(0, -6);
-
-        expect(circle.getCenter(start, end))
-          .toEqual(new Point2D(0, -3));
-      });
-    });
-  });
 });
