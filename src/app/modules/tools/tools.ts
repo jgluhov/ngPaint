@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { Tool } from '@tools/types/tool';
 import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
 import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
+import { ControlToolComponent } from './components/control-tool/control-tool.component';
 import { Tools } from './types/tools';
 
 export const tools: Tool[] = [
@@ -28,6 +29,12 @@ export const tools: Tool[] = [
     component: GeometryToolComponent,
     shapeType: 'circle',
     imageUrl: 'assets/icons/circle.svg'
+  },
+  {
+    name: Tools.Hand,
+    component: ControlToolComponent,
+    shapeType: 'none',
+    imageUrl: 'assets/icons/hand.svg'
   }
 ];
 

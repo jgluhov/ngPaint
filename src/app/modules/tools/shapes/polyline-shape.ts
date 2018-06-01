@@ -30,4 +30,8 @@ export class PolylineShape extends Shape {
 
   public transform(): void {
   }
+
+  public isOver(p: Point2D): boolean {
+    return false;
+  }
 }

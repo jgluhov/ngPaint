@@ -71,4 +71,8 @@ export class RectShape extends Shape {
     this.width = width;
     this.height = height;
   }
+
+  isOver(p: Point2D): boolean {
+    return false;
+  }
 }

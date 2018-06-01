@@ -11,4 +11,5 @@ export abstract class Shape {
   }
 
   abstract transform(start: Point2D, end: Point2D): void;
+  abstract isOver(p: Point2D): boolean;
 }

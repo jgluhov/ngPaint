@@ -37,4 +37,8 @@ export class CircleShape extends Shape {
     this.r = radius;
     this.moveTo(midpoint);
   }
+
+  isOver(p: Point2D): boolean {
+    return false;
+  }
 }

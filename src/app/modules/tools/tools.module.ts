@@ -4,11 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TOOLS_TOKEN, tools } from './tools';
 import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
 import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
+import { ControlToolComponent } from './components/control-tool/control-tool.component';
 
 @NgModule({
   entryComponents: [
     DrawingToolComponent,
-    GeometryToolComponent
+    GeometryToolComponent,
+    ControlToolComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.
   ],
   declarations: [
     DrawingToolComponent,
-    GeometryToolComponent
+    GeometryToolComponent,
+    ControlToolComponent
   ],
   providers: [
     {

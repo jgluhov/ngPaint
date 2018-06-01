@@ -5,11 +5,13 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, share, tap } from 'rxjs/operators';
+import { scan, filter, map, share, tap, withLatestFrom, switchMap, startWith } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
+import { Point2D } from '../../math/point2d';
+import { SOURCE } from '@angular/core/src/di/injector';
 
 @Injectable()
 export class CanvasService {
@@ -29,8 +31,8 @@ export class CanvasService {
     this.canvasShapes$ = this.canvasHandler
       .pipe(
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
-        tap((shapes: Shape[]) => {
-          console.log(shapes);
+        tap(() => {
+          console.log('add');
         }),
         share()
       );
@@ -58,6 +60,17 @@ export class CanvasService {
       return source$.pipe(
         map((shapes: Shape[]) => {
           return shapes.filter((shape: Shape) => fn(shape));
+        })
+      );
+    };
+  }
+
+  isOverShape(p: Point2D): OperatorFunction<Point2D, Shape[]> {
+    return (source$: Observable<Point2D>): Observable<Shape[]> => {
+      return source$.pipe(
+        switchMap(() => this.storeChanges$),
+        filter((shapes: Shape[]) => {
+          return shapes.some((shape: Shape) => shape.isOver(p));
         })
       );
     };
