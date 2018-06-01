@@ -4,13 +4,12 @@ export class CircleShape extends Shape {
   public readonly type = 'circle';
   cx: number;
   cy: number;
-  strokeWidth = 2;
-  fill = 'none';
 
   constructor(
     private center: Point2D,
-    public r: number = 2,
-    public stroke: string = 'black'
+    public r: number = 0,
+    public fill: string = 'none',
+    public strokeWidth: number = 2
   ) {
     super();
 
