@@ -21,8 +21,7 @@
 
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
-          <g [appPolyline]="polyline" *ngIf="!polyline.editing">
-          </g>
+          <g [appPolyline]="polyline" *ngIf="!polyline.editing"></g>
           <polyline *ngIf="polyline.editing"
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"

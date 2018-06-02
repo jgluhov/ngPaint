@@ -17,8 +17,6 @@ import { CanvasService } from '@services/canvas/canvas.service';
       [attr.fill]="polyline.fill"
       [attr.stroke]="polyline.stroke"
       [attr.stroke-width]="polyline.strokeWidth"
-      (mouseenter)="polyline.hover()"
-      (mouseleave)="polyline.blur()"
     />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
