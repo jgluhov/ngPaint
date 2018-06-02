@@ -45,7 +45,9 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .subscribe(this.handleMouseDown);
   }
 
-  handleMouseDown = ([p, thickness, selectedColor]: [Point2D, number, string]): void => {
+  handleMouseDown = (
+    [p, thickness, selectedColor]: [Point2D, number, string]
+  ): void => {
     const circle = new CircleShape(p, thickness / 2, selectedColor);
     const polyline = new PolylineShape([p], thickness, selectedColor);
 
