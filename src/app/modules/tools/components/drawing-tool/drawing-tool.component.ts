@@ -57,7 +57,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .subscribe(this.polylineObserver(polyline));
 
     this.canvasService.render(circle);
-    this.flushShape(circle);
+    this.store.dispatch(new AppActions.CreateShape(circle));
   }
 
   polylineObserver(polyline: PolylineShape): PartialObserver<[Point2D, Shape[]]> {
@@ -72,14 +72,10 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         if (!this.shouldPolylineCreate(polyline)) {
           return;
         }
-        this.flushShape(polyline);
+
+        this.store.dispatch(new AppActions.CreateShape(polyline));
       }
     };
-  }
-
-  flushShape(shape: Shape): void {
-    this.canvasService.complete(shape);
-    this.store.dispatch(new AppActions.CreateShape(shape));
   }
 
   shouldPolylineCreate(polyline: PolylineShape): boolean {

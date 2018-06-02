@@ -33,11 +33,14 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       };
     }
     case AppActions.CREATE_SHAPE: {
+      const shape = action.payload;
+      shape.editing = false;
+
       return {
         ...state,
         shapes: [
           ...state.shapes,
-          action.payload
+          shape
         ]
       };
     }

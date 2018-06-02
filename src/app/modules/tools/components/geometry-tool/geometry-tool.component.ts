@@ -61,14 +61,9 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
         rect.transform(start, end);
       },
       complete: (): void => {
-        this.flushShape(rect);
+        this.store.dispatch(new AppActions.CreateShape(rect));
       }
     };
-  }
-
-  flushShape(shape: Shape): void {
-    this.canvasService.complete(shape);
-    this.store.dispatch(new AppActions.CreateShape(shape));
   }
 
   createShape(start: Point2D, selectedTool: Tool): Shape {

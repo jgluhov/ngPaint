@@ -51,10 +51,6 @@ export class CanvasService {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
   }
 
-  complete(shape: Shape): void {
-    shape.editing = false;
-  }
-
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
     return (source$: Observable<Shape[]>): Observable<Shape[]> => {
       return source$.pipe(
