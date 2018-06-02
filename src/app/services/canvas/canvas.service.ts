@@ -5,13 +5,11 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, share, tap, withLatestFrom, switchMap, startWith } from 'rxjs/operators';
+import { scan, filter, map, share } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
-import { Point2D } from '../../math/point2d';
-import { SOURCE } from '@angular/core/src/di/injector';
 import { App } from '@store/reducers/app.reducer';
 
 @Injectable()
