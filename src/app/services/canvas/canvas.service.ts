@@ -32,9 +32,6 @@ export class CanvasService {
     this.canvasShapes$ = this.canvasHandler
       .pipe(
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
-        tap(() => {
-          console.log('add');
-        }),
         share()
       );
 
@@ -57,17 +54,6 @@ export class CanvasService {
       return source$.pipe(
         map((shapes: Shape[]) => {
           return shapes.filter((shape: Shape) => fn(shape));
-        })
-      );
-    };
-  }
-
-  isOverShape(p: Point2D): OperatorFunction<Point2D, Shape[]> {
-    return (source$: Observable<Point2D>): Observable<Shape[]> => {
-      return source$.pipe(
-        switchMap(() => this.storeChanges$),
-        filter((shapes: Shape[]) => {
-          return shapes.some((shape: Shape) => shape.isOver(p));
         })
       );
     };

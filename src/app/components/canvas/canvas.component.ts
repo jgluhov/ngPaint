@@ -15,6 +15,8 @@ import { of } from 'rxjs/observable/of';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { map } from 'rxjs/operators';
 import { App } from '../../store/reducers/app.reducer';
+import { Shape } from '@shapes/shape';
+import * as AppActions from '@store/actions/app.actions';
 
 @Component({
   selector: 'app-canvas',

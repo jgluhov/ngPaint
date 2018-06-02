@@ -28,7 +28,6 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   handleMouseDown = (p: Point2D): void => {
     of(p)
       .pipe(
-        this.canvasService.isOverShape(p),
         takeUntil(this.destroy$)
       )
       .subscribe();
