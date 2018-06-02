@@ -12,6 +12,7 @@ import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
 import { Point2D } from '../../math/point2d';
 import { SOURCE } from '@angular/core/src/di/injector';
+import { App } from '@store/reducers/app.reducer';
 
 @Injectable()
 export class CanvasService {
@@ -26,7 +27,7 @@ export class CanvasService {
   constructor(private store: Store<AppState>) {
     this.storeChanges$ = this.store
       .select('app')
-      .select('shapes');
+      .pipe(map((app: App) => app.shapes));
 
     this.canvasShapes$ = this.canvasHandler
       .pipe(

@@ -12,7 +12,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
+import { SelectTool } from '../../store/actions/app.actions';
+import { App } from '../../store/reducers/app.reducer';
 
 @Component({
   selector: 'app-toolbar',
@@ -44,8 +46,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store
       .select('app')
-      .select('selectedTool')
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        map((app: App) => app.selectedTool),
+        takeUntil(this.destroy$)
+      )
       .subscribe((tool: Tool) => this.selectedTool = tool);
   }
 

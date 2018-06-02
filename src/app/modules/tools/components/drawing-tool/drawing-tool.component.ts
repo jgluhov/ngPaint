@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom, map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@math/point2d';
 import { Shape, CircleShape, PolylineShape } from '@shapes';
@@ -12,6 +12,7 @@ import { CanvasService } from '@services/canvas/canvas.service';
 import { PartialObserver } from 'rxjs/Observer';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import * as AppActions from '@store/actions/app.actions';
+import { App } from '@store/reducers/app.reducer';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -30,11 +31,11 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedColor$ = this.store
       .select('app')
-      .select('selectedColor');
+      .pipe(map((app: App) => app.selectedColor));
 
     this.thickness$ = this.store
       .select('app')
-      .select('thickness');
+      .pipe(map((app: App) => app.thickness));
 
     this.mouseService.onMouseDown()
       .pipe(

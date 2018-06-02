@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { takeUntil, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom, map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Point2D } from '@math/point2d';
 import { RectShape } from '@shapes/rect/rect';
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import { Tool } from '@tools/types/tool';
 import { Tools } from '@tools/types/tools';
 import { CircleShape } from '@shapes';
+import { App } from '@store/reducers/app.reducer';
 
 @Component({
   selector: 'app-geometry-tool',
@@ -32,7 +33,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.selectedTool$ = this.store
       .select('app')
-      .select('selectedTool');
+      .pipe(map((app: App) => app.selectedTool));
 
     this.mouseService.onMouseDown()
       .pipe(

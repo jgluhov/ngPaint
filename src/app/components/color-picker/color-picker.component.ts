@@ -4,6 +4,8 @@ import { AppState } from '@store/app-state';
 import { Observable } from 'rxjs/Observable';
 import * as AppActions from '@store/actions/app.actions';
 import { SelectColor, SelectTool } from '../../store/actions/app.actions';
+import { App } from '../../store/reducers/app.reducer';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-color-picker',
@@ -27,7 +29,7 @@ export class ColorPickerComponent implements OnInit {
   ngOnInit(): void {
     this.selectedColor$ = this.store
       .select('app')
-      .select('selectedColor');
+      .pipe(map((app: App) => app.selectedColor));
   }
 
   handleChange(color: string): void {

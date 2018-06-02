@@ -13,6 +13,8 @@ import { Observable } from 'rxjs/Observable';
 import { Tool } from '@tools/types/tool';
 import { of } from 'rxjs/observable/of';
 import { CanvasService } from '@services/canvas/canvas.service';
+import { map } from 'rxjs/operators';
+import { App } from '../../store/reducers/app.reducer';
 
 @Component({
   selector: 'app-canvas',
@@ -35,7 +37,7 @@ export class CanvasComponent implements OnInit {
   ngOnInit(): void {
     this.toolChange = this.store
       .select('app')
-      .select('selectedTool');
+      .pipe(map((app: App) => app.selectedTool));
 
     this.toolChange
       .subscribe(this.loadComponent);
