@@ -59,7 +59,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       )
       .subscribe(this.polylineObserver(polyline));
 
-    this.canvasService.render(circle);
+    this.canvasService.add(circle);
     this.store.dispatch(new AppActions.CreateShape(circle));
   }
 
@@ -67,7 +67,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     return {
       next: ([pt, canvasShapes]: [Point2D, Shape[]]): void => {
         if (!canvasShapes.includes(polyline)) {
-          this.canvasService.render(polyline);
+          this.canvasService.add(polyline);
         }
         polyline.append(pt);
       },

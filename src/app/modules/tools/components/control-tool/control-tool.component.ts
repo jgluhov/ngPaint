@@ -27,9 +27,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
 
   handleMouseDown = (p: Point2D): void => {
     of(p)
-      .pipe(
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe();
   }
 

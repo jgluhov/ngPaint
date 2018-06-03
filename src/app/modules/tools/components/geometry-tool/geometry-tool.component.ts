@@ -53,7 +53,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
         takeUntil(this.mouseService.onMouseUp())
       ).subscribe(this.rectObserver(start, shape));
 
-    this.canvasService.render(shape);
+    this.canvasService.add(shape);
   }
 
   rectObserver(start: Point2D, rect: Shape): PartialObserver<Point2D> {

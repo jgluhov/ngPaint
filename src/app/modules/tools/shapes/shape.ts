@@ -1,6 +1,7 @@
 import { Point2D } from '@math/point2d';
-
+import randomId from 'random-id';
 export abstract class Shape {
+  public id: string = randomId(10);
   public readonly type: string;
   public stroke = 'black';
   public rendered = false;

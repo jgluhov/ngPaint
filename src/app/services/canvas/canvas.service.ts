@@ -5,25 +5,31 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, share } from 'rxjs/operators';
+import { scan, filter, map, share, pairwise, withLatestFrom, startWith, switchMap } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
 import { App } from '@store/reducers/app.reducer';
-
+import { of } from 'rxjs/observable/of';
+import { difference, length } from 'ramda';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import * as AppActions from '@store/actions/app.actions';
+import { Point2D } from '@math/point2d';
 @Injectable()
 export class CanvasService {
   private canvasHandler: Subject<Function> = new Subject<Function>();
-  private storeChanges$: Observable<Shape[]>;
+  private storeShapes$: Observable<Shape[]>;
+  private newbies$: Observable<Shape[]>;
 
-  public canvasShapes$: Observable<Shape[]>;
+  private canvasShapes$: Observable<Shape[]>;
+  private shapes$: Observable<Shape[]>;
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
   public rects$: Observable<RectShape[]>;
 
   constructor(private store: Store<AppState>) {
-    this.storeChanges$ = this.store
+    this.storeShapes$ = this.store
       .select('app')
       .pipe(map((app: App) => app.shapes));
 
@@ -32,6 +38,17 @@ export class CanvasService {
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
         share()
       );
+
+    this.newbies$ = this.storeShapes$
+      .pipe(
+        pairwise(),
+        map(([previous, next]: [Shape[], Shape[]]) => difference(next, previous)),
+        filter((shapes: Shape[]) => length(shapes))
+      );
+
+    this.newbies$.subscribe((shapes: Shape[]) => {
+      shapes.forEach(this.add);
+    });
 
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
@@ -43,7 +60,7 @@ export class CanvasService {
       .pipe(this.filterBy(((shape: T): boolean => shape.ofType(type))));
   }
 
-  render = (shape: Shape): void => {
+  add = (shape: Shape): void => {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
   }
 
