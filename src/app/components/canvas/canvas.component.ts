@@ -46,8 +46,8 @@ export class CanvasComponent implements OnInit {
       .subscribe(this.loadComponent);
   }
 
-  handleHover(hover: HoverEvent): void {
-    console.log(hover);
+  handleHover(evt: HoverEvent): void {
+    this.store.dispatch(new AppActions.HoverShape(evt));
   }
 
   loadComponent = (tool: Tool): void => {

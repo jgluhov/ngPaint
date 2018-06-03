@@ -1,10 +1,13 @@
 import { Action } from '@ngrx/store';
 import { Tool } from '@tools/types/tool';
 import { Shape } from '@tools/shapes/shape';
+import { HoverEvent } from '../../types/hover-event';
 
 export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
 export const CREATE_SHAPE = '[Canvas] Create shape';
+export const HOVER_SHAPE = '[Canvas] Hover shape';
+export const BLUR_SHAPE = '[Canvas] Blur shape';
 export const CHANGE_THICKNESS = '[Adjustments] Change thickness';
 
 export class SelectColor implements Action {
@@ -25,10 +28,16 @@ export class CreateShape implements Action {
   constructor(public payload: Shape) {}
 }
 
+export class HoverShape implements Action {
+  readonly type = HOVER_SHAPE;
+
+  constructor(public payload: HoverEvent) {}
+}
+
 export class ChangeThickness implements Action {
   readonly type = CHANGE_THICKNESS;
 
   constructor(public payload: number) {}
 }
 
-export type All = SelectColor | SelectTool | CreateShape | ChangeThickness;
+export type All = SelectColor | SelectTool | CreateShape | ChangeThickness | HoverShape;

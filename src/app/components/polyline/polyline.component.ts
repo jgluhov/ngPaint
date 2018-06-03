@@ -28,10 +28,14 @@ export class PolylineComponent {
   @Input('appPolyline') polyline: PolylineShape;
 
   handleMouseEnter(): void {
-    this.hover.emit({ shape: this.polyline, isHovered: true });
+    this.hover.emit({ shape: this.polyline, hovered: true });
   }
 
   handleMouseLeave(): void {
-    this.hover.emit({ shape: this.polyline, isHovered: false });
+    this.hover.emit({ shape: this.polyline, hovered: false });
+  }
+
+  constructor() {
+    console.log('polyline');
   }
 }

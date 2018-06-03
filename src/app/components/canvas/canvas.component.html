@@ -46,7 +46,7 @@
 
       <g id="rects">
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
-          <g [appCircle]="rect" *ngIf="!rect.editing"></g>
+          <g [appRect]="rect" *ngIf="!rect.editing" (hover)="handleHover($event)"></g>
           <rect
             [attr.x]="rect.x"
             [attr.y]="rect.y"

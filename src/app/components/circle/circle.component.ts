@@ -21,4 +21,8 @@ import { CircleShape } from '@shapes/circle/circle';
 })
 export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
+
+  constructor() {
+    console.log('create circle');
+  }
 }
