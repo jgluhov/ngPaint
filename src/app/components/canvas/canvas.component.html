@@ -5,7 +5,7 @@
       width="14000"
       height="14000"
       #svg
-      [appCursorable]="toolChange"
+      [appCursorable]="selectedTool$"
       appMouseService
     >
       <defs>
@@ -21,7 +21,7 @@
 
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
-          <g [appPolyline]="polyline" *ngIf="!polyline.editing" (hover)="handleHover($event)"></g>
+          <g [appPolyline]="polyline" *ngIf="!polyline.editing" (hover)="handleHoverChange($event)"></g>
           <polyline *ngIf="polyline.editing"
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"
@@ -46,7 +46,7 @@
 
       <g id="rects">
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
-          <g [appRect]="rect" *ngIf="!rect.editing" (hover)="handleHover($event)"></g>
+          <g [appRect]="rect" *ngIf="!rect.editing" (hover)="handleHoverChange($event)"></g>
           <rect
             [attr.x]="rect.x"
             [attr.y]="rect.y"

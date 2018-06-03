@@ -52,9 +52,6 @@
       ],
       "@math/*": [
         "app/math/*"
-      ],
-      "@types/*": [
-        "app/types/*"
       ]
     }
   }

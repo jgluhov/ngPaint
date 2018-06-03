@@ -14,33 +14,34 @@ import { Tool } from '@tools/types/tool';
 })
 export class CursorableDirective implements OnInit {
   @Input('appCursorable') toolChanges: Observable<Tool>;
-  selectedTool: Tool;
+  svg: SVGSVGElement;
+  previousTool: Tool;
   constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
+    private elRef: ElementRef,
+    private r: Renderer2
+  ) {
+    this.svg = this.elRef.nativeElement;
+  }
 
   ngOnInit(): void {
     this.toolChanges
-      .subscribe((tool: Tool) => {
-        if (this.selectedTool) {
-          this.renderer.removeClass(
-            this.elementRef.nativeElement,
-            `cursor__${this.selectedTool.name}`
-          );
+      .subscribe((selectedTool: Tool) => {
+        if (this.previousTool) {
+          this.clear(this.previousTool);
         }
 
-        if (!tool) {
+        if (!selectedTool) {
           return;
         }
 
-        this.renderer.addClass(
-          this.elementRef.nativeElement,
-          `cursor__${tool.name}`
-        );
-
-        this.selectedTool = tool;
+        this.r.addClass(this.svg, `cursor__${selectedTool.name}`);
+        this.previousTool = selectedTool;
       });
+  }
+
+  clear(tool: Tool): void {
+    this.r.removeClass(this.svg, `cursor__${tool.name}`);
+    this.r.removeClass(this.svg, `hover`);
   }
 
 }

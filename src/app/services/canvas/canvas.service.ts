@@ -60,24 +60,24 @@ export class CanvasService {
         }))
       .subscribe((shapes: Shape[]) => shapes.forEach(this.add));
 
-    const randomNumber = (min: number, max: number): number => {
-      return Math.floor((Math.random() * (max - min + 1))) + min;
-    };
+    // const randomNumber = (min: number, max: number): number => {
+    //   return Math.floor((Math.random() * (max - min + 1))) + min;
+    // };
 
-    const randomPoint = (): Point2D => {
-      return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
-    };
+    // const randomPoint = (): Point2D => {
+    //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
+    // };
 
-    const randomCircle = (): CircleShape => {
-      return new CircleShape(randomPoint(), randomNumber(2, 10));
-    };
+    // const randomCircle = (): CircleShape => {
+    //   return new CircleShape(randomPoint(), randomNumber(2, 10));
+    // };
 
-    timer(1000, 1000)
-      .pipe(
-        tap(() => {
-          this.store.dispatch(new AppActions.CreateShape(randomCircle()));
-        })
-      ).subscribe();
+    // timer(1000, 1000)
+    //   .pipe(
+    //     tap(() => {
+    //       this.store.dispatch(new AppActions.CreateShape(randomCircle()));
+    //     })
+    //   ).subscribe();
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {

@@ -13,11 +13,14 @@ import { Observable } from 'rxjs/Observable';
 import { Tool } from '@tools/types/tool';
 import { of } from 'rxjs/observable/of';
 import { CanvasService } from '@services/canvas/canvas.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { App } from '../../store/reducers/app.reducer';
 import { Shape } from '@shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
 import { HoverEvent } from '../../types/hover-event';
+import { ChangeHoverStatePayload } from '@store/actions/app.actions';
+import { ofType } from '@ngrx/effects';
+import { Tools } from '@tools/types/tools';
 
 @Component({
   selector: 'app-canvas',
@@ -26,7 +29,7 @@ import { HoverEvent } from '../../types/hover-event';
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
-  toolChange: Observable<Tool>;
+  selectedTool$: Observable<Tool>;
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;
@@ -38,16 +41,16 @@ export class CanvasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.toolChange = this.store
+    this.selectedTool$ = this.store
       .select('app')
       .pipe(map((app: App) => app.selectedTool));
 
-    this.toolChange
+    this.selectedTool$
       .subscribe(this.loadComponent);
   }
 
-  handleHover(evt: HoverEvent): void {
-    this.store.dispatch(new AppActions.HoverShape(evt));
+  handleHoverChange = (evt: ChangeHoverStatePayload): void => {
+    this.store.dispatch(new AppActions.ChangeHoverState({ id: evt.id, state: evt.state }));
   }
 
   loadComponent = (tool: Tool): void => {

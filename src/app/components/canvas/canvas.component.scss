@@ -23,7 +23,9 @@
   }
 
   &__hand {
-    cursor: url("../../../assets/icons/pointer.png") 0 0, auto;
+    &.active {
+      cursor: url("../../../assets/icons/pointer.png") 0 0, auto;
+    }
   }
 }
 

@@ -33,16 +33,21 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       };
     }
     case AppActions.CREATE_SHAPE: {
-      const shape = action.payload;
-      shape.editing = false;
+      action.payload.editing = false;
 
       return {
         ...state,
         shapes: [
           ...state.shapes,
-          shape
+          action.payload
         ]
       };
+    }
+    case AppActions.CHANGE_HOVER_STATE: {
+      const shape = state.shapes.find((item: Shape) => item.id === action.payload.id);
+      shape.hovered = action.payload.state;
+
+      return state;
     }
     case AppActions.CHANGE_THICKNESS: {
       return {
