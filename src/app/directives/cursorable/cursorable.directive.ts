@@ -48,6 +48,7 @@ export class CursorableDirective implements OnInit {
         this.previousTool = selectedTool;
       });
 
+    // TODO: move this logic into separate class tool
     this.hoveredShape$
       .pipe(withLatestFrom(this.selectedTool$))
       .subscribe(([shape, selectedTool]: [Shape, Tool]) => {

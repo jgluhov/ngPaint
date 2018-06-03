@@ -137,6 +137,8 @@
       "app",
       "kebab-case"
     ],
+    "no-output-rename": false,
+    "no-suspicious-comment": false,
     "insecure-random": false,
     "max-classes-per-file": false,
     "no-unnecessary-callback-wrapper": false,
@@ -147,7 +149,6 @@
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
     "no-input-rename": false,
-    "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,

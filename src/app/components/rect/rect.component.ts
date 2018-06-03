@@ -6,7 +6,6 @@ import {
   Output
 } from '@angular/core';
 import { RectShape } from '@shapes/rect/rect';
-import { HoverEvent } from '../../types/hover-event';
 import { ChangeHoverStatePayload } from '@store/actions/app.actions';
 
 @Component({
@@ -26,18 +25,23 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
       (mouseleave)="handleMouseLeave()"
     />
   `,
+  styles: [`
+    rect {
+      pointer-events: all;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;
-  @Output('hover') hover: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
+  @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
 
   handleMouseEnter(): void {
-    this.hover.emit({ id: this.rect.id, state: true });
+    this.hoverer.emit({ id: this.rect.id, state: true });
   }
 
   handleMouseLeave(): void {
-    this.hover.emit({ id: this.rect.id, state: false });
+    this.hoverer.emit({ id: this.rect.id, state: false });
   }
 
   constructor() {

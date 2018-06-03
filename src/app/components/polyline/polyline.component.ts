@@ -21,18 +21,23 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
       (mouseleave)="handleMouseLeave()"
     />
   `,
+  styles: [`
+    polyline {
+      pointer-events: all;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PolylineComponent {
-  @Output('hover') hover: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
+  @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
   @Input('appPolyline') polyline: PolylineShape;
 
   handleMouseEnter(): void {
-    this.hover.emit({ id: this.polyline.id, state: true });
+    this.hoverer.emit({ id: this.polyline.id, state: true });
   }
 
   handleMouseLeave(): void {
-    this.hover.emit({ id: this.polyline.id, state: false });
+    this.hoverer.emit({ id: this.polyline.id, state: false });
   }
 
   constructor() {

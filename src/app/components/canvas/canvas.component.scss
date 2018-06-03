@@ -5,10 +5,6 @@
   stroke-width: 1px;
 }
 
-#grid > rect {
-  pointer-events: all;
-}
-
 .cursor {
   &__pencil {
     cursor: url("../../../assets/icons/pencil.png") 0 15, auto;
@@ -24,7 +20,7 @@
 
   &__hand {
     &.hovered {
-      cursor: url("../../../assets/icons/pointer.png") 8 8, auto;
+      cursor: url("../../../assets/icons/pointer.png") 8 7, auto;
     }
   }
 }
