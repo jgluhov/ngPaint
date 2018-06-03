@@ -17,10 +17,10 @@ import { difference, length } from 'ramda';
 export class CanvasService {
   private canvasHandler: Subject<Function> = new Subject<Function>();
 
-  private canvasShapes$: Observable<Shape[]>;
   private allStoreShapes$: Observable<Shape[]>;
   private newStoreShapes$: Observable<Shape[]>;
 
+  public canvasShapes$: Observable<Shape[]>;
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
   public rects$: Observable<RectShape[]>;

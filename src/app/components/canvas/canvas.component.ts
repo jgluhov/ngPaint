@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { App } from '../../store/reducers/app.reducer';
 import { Shape } from '@shapes/shape';
 import * as AppActions from '@store/actions/app.actions';
+import { HoverEvent } from '../../types/hover-event';
 
 @Component({
   selector: 'app-canvas',
@@ -43,6 +44,10 @@ export class CanvasComponent implements OnInit {
 
     this.toolChange
       .subscribe(this.loadComponent);
+  }
+
+  handleHover(hover: HoverEvent): void {
+    console.log(hover);
   }
 
   loadComponent = (tool: Tool): void => {
