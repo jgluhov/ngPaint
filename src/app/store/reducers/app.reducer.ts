@@ -5,6 +5,7 @@ import * as AppActions from '@store/actions/app.actions';
 export interface App {
   selectedTool: Tool;
   selectedColor: string;
+  hoveredShape: Shape;
   thickness: number;
   fontSize: number;
   shapes: Shape[];
@@ -45,9 +46,12 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
     }
     case AppActions.CHANGE_HOVER_STATE: {
       const shape = state.shapes.find((item: Shape) => item.id === action.payload.id);
-      shape.hovered = action.payload.state;
+      const hoveredShape = action.payload.state ? shape : null;
 
-      return state;
+      return {
+        ...state,
+        hoveredShape
+      };
     }
     case AppActions.CHANGE_THICKNESS: {
       return {

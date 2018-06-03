@@ -42,7 +42,7 @@ describe('ToolItemComponent', () => {
     component.tool = {
       name: 'pencil',
       component: class SomeComponent {},
-      shapeType: 'polyline',
+      type: 'polyline',
       imageUrl: ''
     };
     fixture.detectChanges();

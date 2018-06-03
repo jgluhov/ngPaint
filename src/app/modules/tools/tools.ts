@@ -10,37 +10,37 @@ export const tools: Tool[] = [
   {
     name: Tools.Pointer,
     component: PointerToolComponent,
-    shapeType: 'none',
+    type: 'none',
     imageUrl: 'assets/icons/pointer.svg'
   },
   {
     name: Tools.Pencil,
     component: DrawingToolComponent,
-    shapeType: 'polyline',
+    type: 'polyline',
     imageUrl: 'assets/icons/pencil.svg'
   },
   {
     name: Tools.Brush,
     component: DrawingToolComponent,
-    shapeType: 'polyline',
+    type: 'polyline',
     imageUrl: 'assets/icons/brush.svg'
   },
   {
     name: Tools.Rect,
     component: GeometryToolComponent,
-    shapeType: 'rect',
+    type: 'rect',
     imageUrl: 'assets/icons/rect.svg'
   },
   {
     name: Tools.Circle,
     component: GeometryToolComponent,
-    shapeType: 'circle',
+    type: 'circle',
     imageUrl: 'assets/icons/circle.svg'
   },
   {
     name: Tools.Hand,
     component: ControlToolComponent,
-    shapeType: 'none',
+    type: 'none',
     imageUrl: 'assets/icons/hand.svg'
   }
 ];

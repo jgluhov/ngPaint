@@ -23,8 +23,8 @@
   }
 
   &__hand {
-    &.active {
-      cursor: url("../../../assets/icons/pointer.png") 0 0, auto;
+    &.hovered {
+      cursor: url("../../../assets/icons/pointer.png") 8 8, auto;
     }
   }
 }
