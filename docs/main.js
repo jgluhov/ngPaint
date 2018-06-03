@@ -33,7 +33,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -67,10 +67,10 @@ var AppComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/esm5/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/esm5/http.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _store_app_store_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @store/app-store.module */ "./src/app/store/app-store.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _tools_tools_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @tools/tools.module */ "./src/app/modules/tools/tools.module.ts");
@@ -140,7 +140,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-panel [panelTitle]=\"title\" class=\"canvas__panel\">\n    <svg xmlns=\"http://www.w3.org/2000/svg\"\n      id=\"svg\"\n      viewBox=\"0 0 14000 14000\"\n      width=\"14000\"\n      height=\"14000\"\n      #svg\n      [appCursorable]=\"toolChange\"\n      appMouseService\n    >\n      <defs>\n          <pattern id=\"grid\"\n            patternUnits=\"userSpaceOnUse\"\n            width=\"10\"\n            height=\"10\">\n              <line x1=\"5\" y1=\"0\" x2=\"5\" y2=\"10\" />\n              <line x1=\"0\" y1=\"5\" x2=\"10\" y2=\"5\" />\n          </pattern>\n      </defs>\n      <rect width=\"100%\" height=\"100%\" fill=\"url(#grid)\" />\n\n      <g id=\"polylines\">\n        <ng-container *ngFor=\"let polyline of canvasService.polylines$ | async\">\n          <g [appPolyline]=\"polyline\" *ngIf=\"!polyline.editing\"></g>\n          <polyline *ngIf=\"polyline.editing\"\n            [attr.points]=\"polyline.toString()\"\n            [attr.fill]=\"polyline.fill\"\n            [attr.stroke]=\"polyline.stroke\"\n            [attr.stroke-width]=\"polyline.strokeWidth\"/>\n        </ng-container>\n      </g>\n\n      <g id=\"circles\">\n        <ng-container *ngFor=\"let circle of canvasService.circles$ | async\">\n          <g [appCircle]=\"circle\" *ngIf=\"!circle.editing\"></g>\n          <circle\n            [attr.cx]=\"circle.cx\"\n            [attr.cy]=\"circle.cy\"\n            [attr.r]=\"circle.r\"\n            [attr.fill]=\"circle.fill\"\n            [attr.stroke]=\"circle.stroke\"\n            [attr.stroke-width]=\"circle.strokeWidth\"\n          />\n        </ng-container>\n      </g>\n\n      <g id=\"rects\">\n        <ng-container *ngFor=\"let rect of canvasService.rects$ | async\">\n          <g [appCircle]=\"rect\" *ngIf=\"!rect.editing\"></g>\n          <rect\n            [attr.x]=\"rect.x\"\n            [attr.y]=\"rect.y\"\n            [attr.width]=\"rect.width\"\n            [attr.height]=\"rect.height\"\n            [attr.fill]=\"rect.fill\"\n            [attr.stroke]=\"rect.stroke\"\n            [attr.rx]=\"rect.rx\"\n            [attr.ry]=\"rect.ry\"\n            [attr.stroke-width]=\"rect.strokeWidth\"\n          />\n        </ng-container>\n      </g>\n\n      <ng-container #vcr></ng-container>\n    </svg>\n</app-panel>\n"
+module.exports = "<app-panel [panelTitle]=\"title\" class=\"canvas__panel\">\n    <svg xmlns=\"http://www.w3.org/2000/svg\"\n      id=\"svg\"\n      viewBox=\"0 0 14000 14000\"\n      width=\"14000\"\n      height=\"14000\"\n      #svg\n      [appCursorable]=\"app$\"\n      appMouseService\n    >\n      <defs>\n          <pattern id=\"grid\"\n            patternUnits=\"userSpaceOnUse\"\n            width=\"10\"\n            height=\"10\">\n              <line x1=\"5\" y1=\"0\" x2=\"5\" y2=\"10\" />\n              <line x1=\"0\" y1=\"5\" x2=\"10\" y2=\"5\" />\n          </pattern>\n      </defs>\n      <rect width=\"100%\" height=\"100%\" fill=\"url(#grid)\" />\n\n      <g id=\"polylines\">\n        <ng-container *ngFor=\"let polyline of canvasService.polylines$ | async\">\n          <g [appPolyline]=\"polyline\" *ngIf=\"!polyline.editing\" (hover)=\"handleHoverChange($event)\"></g>\n          <polyline *ngIf=\"polyline.editing\"\n            [attr.points]=\"polyline.toString()\"\n            [attr.fill]=\"polyline.fill\"\n            [attr.stroke]=\"polyline.stroke\"\n            [attr.stroke-width]=\"polyline.strokeWidth\"/>\n        </ng-container>\n      </g>\n\n      <g id=\"circles\">\n        <ng-container *ngFor=\"let circle of canvasService.circles$ | async\">\n          <g [appCircle]=\"circle\" *ngIf=\"!circle.editing\"></g>\n          <circle\n            [attr.cx]=\"circle.cx\"\n            [attr.cy]=\"circle.cy\"\n            [attr.r]=\"circle.r\"\n            [attr.fill]=\"circle.fill\"\n            [attr.stroke]=\"circle.stroke\"\n            [attr.stroke-width]=\"circle.strokeWidth\"\n          />\n        </ng-container>\n      </g>\n\n      <g id=\"rects\">\n        <ng-container *ngFor=\"let rect of canvasService.rects$ | async\">\n          <g [appRect]=\"rect\" *ngIf=\"!rect.editing\" (hover)=\"handleHoverChange($event)\"></g>\n          <rect\n            [attr.x]=\"rect.x\"\n            [attr.y]=\"rect.y\"\n            [attr.width]=\"rect.width\"\n            [attr.height]=\"rect.height\"\n            [attr.fill]=\"rect.fill\"\n            [attr.stroke]=\"rect.stroke\"\n            [attr.rx]=\"rect.rx\"\n            [attr.ry]=\"rect.ry\"\n            [attr.stroke-width]=\"rect.strokeWidth\"\n          />\n        </ng-container>\n      </g>\n\n      <ng-container #vcr></ng-container>\n    </svg>\n</app-panel>\n"
 
 /***/ }),
 
@@ -151,7 +151,7 @@ module.exports = "<app-panel [panelTitle]=\"title\" class=\"canvas__panel\">\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#grid > line {\n  stroke: #e0e3e5;\n  stroke-width: 1px; }\n\n.cursor__pencil {\n  cursor: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUzLjI1NSA1My4yNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUzLjI1NSA1My4yNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPHBhdGggc3R5bGU9ImZpbGw6I0Q3NUE0QTsiIGQ9Ik0zOS41OTgsMi4zNDNjMy4xMjQtMy4xMjQsOC4xOS0zLjEyNCwxMS4zMTQsMHMzLjEyNCw4LjE5LDAsMTEuMzE0TDM5LjU5OCwyLjM0M3oiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VEOEExOTsiIHBvaW50cz0iNDIuNDI2LDE3Ljg5OSAxNi41MTIsNDMuODE0IDE1Ljk4Miw0OC41ODcgNDQuNTQ4LDIwLjAyIDQ0LjU0OCwyMC4wMiAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VEOEExOTsiIHBvaW50cz0iMTAuMzI1LDQyLjkzIDE1LjA5OCw0Mi40IDQxLjAxMiwxNi40ODUgMzYuNzcsMTIuMjQzIDEwLjg1NSwzOC4xNTcgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiNFRDhBMTk7IiBwb2ludHM9IjM1LjM1NiwxMC44MjkgMzMuMjM0LDguNzA3IDMzLjIzNCw4LjcwNyA0LjY2OCwzNy4yNzMgOS40NDEsMzYuNzQzICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojQzdDQUM3OyIgcG9pbnRzPSI0OC43OSwxNS43NzggNDguNzksMTUuNzc4IDUwLjkxMiwxMy42NTcgMzkuNTk4LDIuMzQzIDM3LjQ3Niw0LjQ2NSAzNy40NzcsNC40NjUgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiNDN0NBQzc7IiBwb2ludHM9IjM2LjA2Miw1Ljg3OSAzNi4wNjIsNS44NzkgMzQuNjQ4LDcuMjkzIDM0LjY0OCw3LjI5MyA0NS45NjIsMTguNjA2IDQ1Ljk2MiwxOC42MDYgICA0Ny4zNzYsMTcuMTkyIDQ3LjM3NiwxNy4xOTIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOiNGQkNFOUQ7IiBkPSJNMTQuNDI0LDQ0LjQ4OGwtNS4xMjIsMC41NjljLTAuMDM2LDAuMDA0LTAuMDczLDAuMDA2LTAuMTA5LDAuMDA2YzAsMC0wLjAwMSwwLTAuMDAxLDBIOS4xOTJIOS4xOTIgIGMtMC4wMDEsMC0wLjAwMSwwLTAuMDAxLDBjLTAuMDM2LDAtMC4wNzMtMC4wMDItMC4xMDktMC4wMDZjLTAuMDM5LTAuMDA0LTAuMDcxLTAuMDI2LTAuMTA4LTAuMDM1ICBjLTAuMDcyLTAuMDE3LTAuMTQxLTAuMDM1LTAuMjA3LTAuMDY3Yy0wLjA1LTAuMDI0LTAuMDkzLTAuMDUzLTAuMTM4LTAuMDg0Yy0wLjA1Ny0wLjA0LTAuMTA5LTAuMDgzLTAuMTU3LTAuMTM0ICBjLTAuMDM4LTAuMDQtMC4wNjktMC4wODEtMC4xLTAuMTI3Yy0wLjAzOC0wLjA1Ny0wLjA2OS0wLjExNi0wLjA5NS0wLjE4MWMtMC4wMjItMC4wNTQtMC4wMzgtMC4xMDctMC4wNS0wLjE2NSAgYy0wLjAwNy0wLjAzMi0wLjAyNC0wLjA1OS0wLjAyOC0wLjA5MmMtMC4wMDQtMC4wMzgsMC4wMS0wLjA3MywwLjAxLTAuMTFjMC0wLjAzOC0wLjAxNC0wLjA3Mi0wLjAxLTAuMTFsMC41NjktNS4xMjJsLTUuMTIyLDAuNTY5ICBjLTAuMDM3LDAuMDA0LTAuMDc1LDAuMDA2LTAuMTExLDAuMDA2Yy0wLjA3OSwwLTAuMTUyLTAuMDI0LTAuMjI3LTAuMDQyTDAuNDQyLDUxLjM5OWwyLjEwNi0yLjEwNmMwLjM5MS0wLjM5MSwxLjAyMy0wLjM5MSwxLjQxNCwwICBzMC4zOTEsMS4wMjMsMCwxLjQxNGwtMi4xMDYsMi4xMDZsMTIuMDMtMi44NjRjLTAuMDI2LTAuMTA5LTAuMDQzLTAuMjIyLTAuMDMtMC4zMzlMMTQuNDI0LDQ0LjQ4OHoiLz4KPHBhdGggc3R5bGU9ImZpbGw6IzM4NDU0RjsiIGQ9Ik0zLjk2Miw0OS4yOTNjLTAuMzkxLTAuMzkxLTEuMDIzLTAuMzkxLTEuNDE0LDBsLTIuMTA2LDIuMTA2TDAsNTMuMjU1bDEuODU2LTAuNDQybDIuMTA2LTIuMTA2ICBDNC4zNTIsNTAuMzE2LDQuMzUyLDQ5LjY4NCwzLjk2Miw0OS4yOTN6Ii8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiNGMkVDQkY7IiBwb2ludHM9IjQ4Ljc5LDE1Ljc3OCAzNy40NzcsNC40NjUgMzcuNDc2LDQuNDY1IDM2LjA2Miw1Ljg3OSAzNi4wNjIsNS44NzkgNDcuMzc2LDE3LjE5MiAgIDQ3LjM3NiwxNy4xOTIgNDguNzksMTUuNzc4ICIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRUJCQTE2OyIgZD0iTTQxLjAxMiwxNi40ODVMMTUuMDk4LDQyLjRsLTQuNzczLDAuNTNsMC41My00Ljc3M0wzNi43NywxMi4yNDNsLTEuNDE0LTEuNDE0TDkuNDQxLDM2Ljc0MyAgbC00Ljc3MywwLjUzbC0xLjEzMywxLjEzM2wtMC4yMjgsMC45NTdjMC4wNzUsMC4wMTgsMC4xNDcsMC4wNDIsMC4yMjcsMC4wNDJjMC4wMzYsMCwwLjA3NC0wLjAwMiwwLjExMS0wLjAwNmw1LjEyMi0wLjU2OSAgbC0wLjU2OSw1LjEyMmMtMC4wMDQsMC4wMzgsMC4wMSwwLjA3MywwLjAxLDAuMTFjMCwwLjAzOC0wLjAxNCwwLjA3Mi0wLjAxLDAuMTFjMC4wMDQsMC4wMzMsMC4wMjEsMC4wNiwwLjAyOCwwLjA5MiAgYzAuMDEyLDAuMDU3LDAuMDI5LDAuMTEyLDAuMDUsMC4xNjVjMC4wMjYsMC4wNjQsMC4wNTcsMC4xMjQsMC4wOTUsMC4xODFjMC4wMywwLjA0NSwwLjA2MywwLjA4OCwwLjEsMC4xMjcgIGMwLjA0NywwLjA1LDAuMSwwLjA5NCwwLjE1NywwLjEzNGMwLjA0NCwwLjAzMSwwLjA4OSwwLjA2MSwwLjEzOCwwLjA4NGMwLjA2NSwwLjAzMSwwLjEzNSwwLjA1LDAuMjA3LDAuMDY3ICBjMC4wMzgsMC4wMDksMC4wNjksMC4wMywwLjEwOCwwLjAzNWMwLjAzNiwwLjAwNCwwLjA3MiwwLjAwNiwwLjEwOSwwLjAwNmgwLjAwMWgwaDAuMDAxaDAuMDAxYzAsMCwwLjAwMSwwLDAuMDAxLDBoMCAgYzAuMDM1LDAsMC4wNzItMC4wMDIsMC4xMDktMC4wMDZsNS4xMjItMC41NjlsLTAuNTY5LDUuMTIyYy0wLjAxMywwLjExOCwwLjAwNCwwLjIzLDAuMDMsMC4zMzlsMC45NjMtMC4yMjlsMS4xMzMtMS4xMzJsMC41My00Ljc3MyAgbDI1LjkxNC0yNS45MTVMNDEuMDEyLDE2LjQ4NXoiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0YyRUNCRjsiIHBvaW50cz0iNDUuOTYyLDE4LjYwNiAzNC42NDgsNy4yOTMgMzQuNjQ4LDcuMjkzIDMzLjIzNCw4LjcwNyAzMy4yMzQsOC43MDcgMzUuMzU2LDEwLjgyOSAgIDM2Ljc3LDEyLjI0MyA0MS4wMTIsMTYuNDg1IDQyLjQyNiwxNy44OTkgNDQuNTQ4LDIwLjAyIDQ0LjU0OCwyMC4wMiA0NS45NjIsMTguNjA2ICIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K) 0 15, auto; }\n\n.cursor__brush {\n  cursor: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMjU2LDBDMTE0LjgzMywwLDAsMTE0Ljg0NCwwLDI1NnMxMTQuODMzLDI1NiwyNTYsMjU2czI1Ni0xMTQuODQ0LDI1Ni0yNTZTMzk3LjE2NywwLDI1NiwweiBNMjU2LDQ5MC42NjcgICAgQzEyNi42MDQsNDkwLjY2NywyMS4zMzMsMzg1LjM5NiwyMS4zMzMsMjU2UzEyNi42MDQsMjEuMzMzLDI1NiwyMS4zMzNTNDkwLjY2NywxMjYuNjA0LDQ5MC42NjcsMjU2UzM4NS4zOTYsNDkwLjY2NywyNTYsNDkwLjY2N3ogICAgIiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==) 8 8, auto; }\n\n.cursor__rect {\n  cursor: crosshair; }\n"
+module.exports = "#grid > line {\n  stroke: #e0e3e5;\n  stroke-width: 1px; }\n\n.cursor__pencil {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAc9JREFUOI210z9IG2EYx/HfvXdnkiMGJRIRFNqqZ0Ap4r9FUJDqIEIphcqhmaSQIYJOhYppBxcJiIOCooNLgiBeK3TJ4FA6FDo0pQVpC05y/kONlzNRz8u9LibYVsU76zO/z4cvPLzAfx7G7uJkLFaqa5kApUbiVTC4eidwfGauVxCcMcKyBADU5MH061AoBADEKrabTDa4HPwUYVlCAWgpFaeZ4+CbSMRnGdxeeSuZX6OfnnX3CFnD0I5UFcfpDEAIm+U4ryVQkcOS8eN91Pw4ITi+R4XW+iYXNc11AICJxNjQ0M9bg4oclrC2EiV6igEAdWkU/LtBrvlxfWWxp/AzqNEDhqHALY6SwxhdYwAgvbWHk2QKAJBtfGryzyNNtaKYyL3n7GLE6YSjpDwgXsJuLFTkEQlrH67F+PaBPvHldOzvvStBuxhwxVEUeUSiNrF/CnMYsYn9UajI4TtjAMACwP6+VgdvxTLzO+7C6ZFtLF94Ro1Otqi8iHsxj/ShbhvLFwreh8Mej7tWB48DdyVcv+IgPG8Zy4MtbV39MwuLfkIYlFXVgT5oMdy+soBVDLj4KZyTi/urHlVvbO6cdD8p/lLg65gVawa+WcXuZc4BzFf0O30cAKIAAAAASUVORK5CYII=\") 0 15, auto; }\n\n.cursor__brush {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAN5JREFUOI2l0r1OAkEUBeDPtRNqKnsMoTKBhB4rI6+i+BY2/sCbQMsTUNgRsTOx4AWIhYVazGxcddcdwunmzpxzz9x72BMHFfUmztCO5zUW2NYJZLhCCzOsYr2LETaY4KOsa4YHnP7juIf7+PYPrmvIOfoYF7sS/tzCY4LAEsdowGEsnkfya4IAvKOD59xB2/fAUrDCCRXD2AW5wFpYVSq6eCoWmrjZQeAWR0UHWyEkvQTyAC94+32RCSHp15DvFBJcFuVLYc9zP6N8ETtP8VklkKOBobgqYWCLMtt74wuWPiOg5kawFgAAAABJRU5ErkJggg==\") 8 8, auto; }\n\n.cursor__rect {\n  cursor: crosshair; }\n\n.cursor__hand.hovered {\n  cursor: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA1ElEQVQ4je3TP0pDQRCA8Z9/0SRqm06IBHKD4B0sAqntBS28QZIr5A6p0toqCYHcIF2w9QL2pphXPCKb956KIPjBsrNbfDuzO8tfZx8tLHGJDppflY0xRw8fuMEaExyjncogRQtXW3sN1PGAFc6qCHdxjqNM/iPCJL8uPEE3i+/EnR2IRymkhuvc+km87q7xqYXyGfZFvw3LnJ7iMBdPcYvBd4TbnOJZlPOuuOSLMtIaZiVkr1UyrWNRIBxVERIt8pKQzcVPqcwe7jPBWzY/il78J9gAK+o7HJx0FEoAAAAASUVORK5CYII=\") 8 7, auto; }\n"
 
 /***/ }),
 
@@ -165,9 +165,11 @@ module.exports = "#grid > line {\n  stroke: #e0e3e5;\n  stroke-width: 1px; }\n\n
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasComponent", function() { return CanvasComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/canvas/canvas.service */ "./src/app/services/canvas/canvas.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -180,6 +182,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var CanvasComponent = /** @class */ (function () {
     function CanvasComponent(store, componentFactoryResolver, canvasService) {
         var _this = this;
@@ -187,6 +191,9 @@ var CanvasComponent = /** @class */ (function () {
         this.componentFactoryResolver = componentFactoryResolver;
         this.canvasService = canvasService;
         this.title = 'Canvas';
+        this.handleHoverChange = function (evt) {
+            _this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_4__["ChangeHoverState"]({ id: evt.id, state: evt.state }));
+        };
         this.loadComponent = function (tool) {
             _this.vcr.clear();
             if (!tool) {
@@ -198,10 +205,11 @@ var CanvasComponent = /** @class */ (function () {
         };
     }
     CanvasComponent.prototype.ngOnInit = function () {
-        this.toolChange = this.store
+        this.app$ = this.store.select('app');
+        this.selectedTool$ = this.store
             .select('app')
-            .select('selectedTool');
-        this.toolChange
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (app) { return app.selectedTool; }));
+        this.selectedTool$
             .subscribe(this.loadComponent);
     };
     __decorate([
@@ -239,7 +247,7 @@ var CanvasComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CircleComponent", function() { return CircleComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shapes_circle_circle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @shapes/circle/circle */ "./src/app/modules/tools/shapes/circle/circle.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -254,15 +262,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var CircleComponent = /** @class */ (function () {
     function CircleComponent() {
+        this.hoverer = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
+    CircleComponent.prototype.handleMouseEnter = function (state) {
+        this.hoverer.emit({ id: this.circle.id, state: state });
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('appCircle'),
         __metadata("design:type", _shapes_circle_circle__WEBPACK_IMPORTED_MODULE_1__["CircleShape"])
     ], CircleComponent.prototype, "circle", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('hover'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], CircleComponent.prototype, "hoverer", void 0);
     CircleComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: '[appCircle]',
-            template: "\n    <svg:circle\n      [attr.cx]=\"circle.cx\"\n      [attr.cy]=\"circle.cy\"\n      [attr.r]=\"circle.r\"\n      [attr.fill]=\"circle.fill\"\n      [attr.stroke]=\"circle.stroke\"\n      [attr.stroke-width]=\"circle.strokeWidth\"\n    />\n  ",
+            template: "\n    <svg:circle\n      [attr.cx]=\"circle.cx\"\n      [attr.cy]=\"circle.cy\"\n      [attr.r]=\"circle.r\"\n      [attr.fill]=\"circle.fill\"\n      [attr.stroke]=\"circle.stroke\"\n      [attr.stroke-width]=\"circle.strokeWidth\"\n      (mouseenter)=\"handleMouseEvent(true)\"\n      (mouseleave)=\"handleMouseEvent(false)\"\n    />\n  ",
+            styles: ["\n    circle {\n      pointer-events: all;\n    }\n  "],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
         })
     ], CircleComponent);
@@ -283,9 +300,10 @@ var CircleComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColorPickerComponent", function() { return ColorPickerComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -298,6 +316,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ColorPickerComponent = /** @class */ (function () {
     function ColorPickerComponent(store, renderer) {
         this.store = store;
@@ -306,7 +325,7 @@ var ColorPickerComponent = /** @class */ (function () {
     ColorPickerComponent.prototype.ngOnInit = function () {
         this.selectedColor$ = this.store
             .select('app')
-            .select('selectedColor');
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (app) { return app.selectedColor; }));
     };
     ColorPickerComponent.prototype.handleChange = function (color) {
         this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_2__["SelectColor"](color));
@@ -417,7 +436,7 @@ module.exports = ".masthead {\n  display: flex;\n  align-items: center;\n  justi
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MastheadComponent", function() { return MastheadComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -456,7 +475,7 @@ var MastheadComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptionsBarComponent", function() { return OptionsBarComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -508,7 +527,7 @@ module.exports = ":host {\n  display: flex;\n  height: 100%;\n  width: 100%; }\n
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PanelComponent", function() { return PanelComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -552,7 +571,7 @@ var PanelComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PolylineComponent", function() { return PolylineComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _tools_shapes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tools/shapes */ "./src/app/modules/tools/shapes/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -567,7 +586,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var PolylineComponent = /** @class */ (function () {
     function PolylineComponent() {
+        this.hoverer = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
+    PolylineComponent.prototype.handleMouseEvent = function (state) {
+        this.hoverer.emit({ id: this.polyline.id, state: state });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('hover'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], PolylineComponent.prototype, "hoverer", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('appPolyline'),
         __metadata("design:type", _tools_shapes__WEBPACK_IMPORTED_MODULE_1__["PolylineShape"])
@@ -575,7 +602,8 @@ var PolylineComponent = /** @class */ (function () {
     PolylineComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: '[appPolyline]',
-            template: "\n    <svg:polyline\n      [attr.points]=\"polyline.toString()\"\n      [attr.fill]=\"polyline.fill\"\n      [attr.stroke]=\"polyline.stroke\"\n      [attr.stroke-width]=\"polyline.strokeWidth\"\n    />\n  ",
+            template: "\n    <svg:polyline\n      [attr.points]=\"polyline.toString()\"\n      [attr.fill]=\"polyline.fill\"\n      [attr.stroke]=\"polyline.stroke\"\n      [attr.stroke-width]=\"polyline.strokeWidth\"\n      (mouseenter)=\"handleMouseEvent(true)\"\n      (mouseleave)=\"handleMouseEvent(false)\"\n    />\n  ",
+            styles: ["\n    polyline {\n      pointer-events: all;\n    }\n  "],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
         })
     ], PolylineComponent);
@@ -596,7 +624,7 @@ var PolylineComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RectComponent", function() { return RectComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shapes_rect_rect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @shapes/rect/rect */ "./src/app/modules/tools/shapes/rect/rect.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -611,15 +639,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var RectComponent = /** @class */ (function () {
     function RectComponent() {
+        this.hoverer = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
+    RectComponent.prototype.handleMouseEvent = function (state) {
+        this.hoverer.emit({ id: this.rect.id, state: state });
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('appRect'),
         __metadata("design:type", _shapes_rect_rect__WEBPACK_IMPORTED_MODULE_1__["RectShape"])
     ], RectComponent.prototype, "rect", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])('hover'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], RectComponent.prototype, "hoverer", void 0);
     RectComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: '[appRect]',
-            template: "\n    <svg:rect\n      [attr.x]=\"rect.x\"\n      [attr.y]=\"rect.y\"\n      [attr.width]=\"rect.width\"\n      [attr.height]=\"rect.height\"\n      [attr.fill]=\"rect.fill\"\n      [attr.stroke]=\"rect.stroke\"\n      [attr.rx]=\"rect.rx\"\n      [attr.ry]=\"rect.ry\"\n      [attr.stroke-width]=\"rect.strokeWidth\"\n    />\n  ",
+            template: "\n    <svg:rect\n      [attr.x]=\"rect.x\"\n      [attr.y]=\"rect.y\"\n      [attr.width]=\"rect.width\"\n      [attr.height]=\"rect.height\"\n      [attr.fill]=\"rect.fill\"\n      [attr.stroke]=\"rect.stroke\"\n      [attr.rx]=\"rect.rx\"\n      [attr.ry]=\"rect.ry\"\n      [attr.stroke-width]=\"rect.strokeWidth\"\n      (mouseenter)=\"handleMouseEvent(true)\"\n      (mouseleave)=\"handleMouseEvent(false)\"\n    />\n  ",
+            styles: ["\n    rect {\n      pointer-events: all;\n    }\n  "],
             changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
         })
     ], RectComponent);
@@ -640,8 +677,8 @@ var RectComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SvgIconComponent", function() { return SvgIconComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/esm5/http.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -721,8 +758,8 @@ module.exports = ".tool-item {\n  width: 20px;\n  height: 20px;\n  margin-bottom
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToolbarItemComponent", function() { return ToolbarItemComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/esm5/animations.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -810,12 +847,12 @@ module.exports = ".toolbar-list {\n  display: flex;\n  justify-content: space-ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToolbarComponent", function() { return ToolbarComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
 /* harmony import */ var _tools_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tools/tools */ "./src/app/modules/tools/tools.ts");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
-/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/_esm5/Subject.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm5/Subject.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -845,8 +882,7 @@ var ToolbarComponent = /** @class */ (function () {
         var _this = this;
         this.store
             .select('app')
-            .select('selectedTool')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.destroy$))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (app) { return app.selectedTool; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this.destroy$))
             .subscribe(function (tool) { return _this.selectedTool = tool; });
     };
     ToolbarComponent.prototype.isSelected = function (tool) {
@@ -887,7 +923,7 @@ var ToolbarComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return UsersComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -924,8 +960,10 @@ var UsersComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CursorableDirective", function() { return CursorableDirective; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/_esm5/Observable.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm5/Observable.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _modules_tools_types_tools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../modules/tools/types/tools */ "./src/app/modules/tools/types/tools.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -937,29 +975,44 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var CursorableDirective = /** @class */ (function () {
-    function CursorableDirective(elementRef, renderer) {
-        this.elementRef = elementRef;
-        this.renderer = renderer;
+    function CursorableDirective(elRef, r) {
+        this.elRef = elRef;
+        this.r = r;
+        this.svg = this.elRef.nativeElement;
     }
     CursorableDirective.prototype.ngOnInit = function () {
         var _this = this;
-        this.toolChanges
-            .subscribe(function (tool) {
-            if (_this.selectedTool) {
-                _this.renderer.removeClass(_this.elementRef.nativeElement, "cursor__" + _this.selectedTool.name);
+        this.hoveredShape$ = this.appChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (app) { return app.hoveredShape; }));
+        this.selectedTool$ = this.appChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (app) { return app.selectedTool; }));
+        this.selectedTool$
+            .subscribe(function (selectedTool) {
+            if (_this.previousTool) {
+                _this.r.removeClass(_this.svg, "cursor__" + _this.previousTool.name);
             }
-            if (!tool) {
+            if (!selectedTool) {
                 return;
             }
-            _this.renderer.addClass(_this.elementRef.nativeElement, "cursor__" + tool.name);
-            _this.selectedTool = tool;
+            _this.r.addClass(_this.svg, "cursor__" + selectedTool.name);
+            _this.previousTool = selectedTool;
+        });
+        // TODO: move this logic into separate class tool
+        this.hoveredShape$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["withLatestFrom"])(this.selectedTool$))
+            .subscribe(function (_a) {
+            var shape = _a[0], selectedTool = _a[1];
+            if (selectedTool && (selectedTool.name !== _modules_tools_types_tools__WEBPACK_IMPORTED_MODULE_3__["Tools"].Hand) || !shape) {
+                return _this.r.removeClass(_this.svg, "hovered");
+            }
+            return _this.r.addClass(_this.svg, "hovered");
         });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('appCursorable'),
         __metadata("design:type", rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"])
-    ], CursorableDirective.prototype, "toolChanges", void 0);
+    ], CursorableDirective.prototype, "appChanges", void 0);
     CursorableDirective = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
             selector: '[appCursorable]'
@@ -984,11 +1037,11 @@ var CursorableDirective = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MouseServiceDirective", function() { return MouseServiceDirective; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var rxjs_observable_fromEvent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/observable/fromEvent */ "./node_modules/rxjs/_esm5/observable/fromEvent.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_observable_fromEvent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/observable/fromEvent */ "./node_modules/rxjs-compat/_esm5/observable/fromEvent.js");
 /* harmony import */ var _math_point2d__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @math/point2d */ "./src/app/math/point2d.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators.js");
-/* harmony import */ var rxjs_observable_merge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/observable/merge */ "./node_modules/rxjs/_esm5/observable/merge.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_observable_merge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/observable/merge */ "./node_modules/rxjs-compat/_esm5/observable/merge.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1093,6 +1146,73 @@ var Point2D = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modules/tools/components/control-tool/control-tool.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/modules/tools/components/control-tool/control-tool.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: ControlToolComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ControlToolComponent", function() { return ControlToolComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _directives_mouse_mouse_service_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @directives/mouse/mouse-service.directive */ "./src/app/directives/mouse/mouse-service.directive.ts");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm5/Subject.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @services/canvas/canvas.service */ "./src/app/services/canvas/canvas.service.ts");
+/* harmony import */ var rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/observable/of */ "./node_modules/rxjs-compat/_esm5/observable/of.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ControlToolComponent = /** @class */ (function () {
+    function ControlToolComponent(canvasService, mouseService) {
+        var _this = this;
+        this.canvasService = canvasService;
+        this.mouseService = mouseService;
+        this.destroy$ = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.handleMouseDown = function (p) {
+            Object(rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__["of"])(p)
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(_this.destroy$))
+                .subscribe();
+        };
+    }
+    ControlToolComponent.prototype.ngOnInit = function () {
+        this.mouseService.onMouseDown()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this.destroy$))
+            .subscribe(this.handleMouseDown);
+    };
+    ControlToolComponent.prototype.ngOnDestroy = function () {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
+    };
+    ControlToolComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-control-tool',
+            template: ""
+        }),
+        __metadata("design:paramtypes", [_services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_4__["CanvasService"],
+            _directives_mouse_mouse_service_directive__WEBPACK_IMPORTED_MODULE_1__["MouseServiceDirective"]])
+    ], ControlToolComponent);
+    return ControlToolComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/tools/components/drawing-tool/drawing-tool.component.ts":
 /*!*********************************************************************************!*\
   !*** ./src/app/modules/tools/components/drawing-tool/drawing-tool.component.ts ***!
@@ -1103,12 +1223,12 @@ var Point2D = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DrawingToolComponent", function() { return DrawingToolComponent; });
-/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/_esm5/Subject.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm5/Subject.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shapes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @shapes */ "./src/app/modules/tools/shapes/index.ts");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
-/* harmony import */ var rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/observable/of */ "./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/observable/of */ "./node_modules/rxjs-compat/_esm5/observable/of.js");
 /* harmony import */ var _services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @services/canvas/canvas.service */ "./src/app/services/canvas/canvas.service.ts");
 /* harmony import */ var _directives_mouse_mouse_service_directive__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @directives/mouse/mouse-service.directive */ "./src/app/directives/mouse/mouse-service.directive.ts");
 /* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
@@ -1144,17 +1264,17 @@ var DrawingToolComponent = /** @class */ (function () {
             Object(rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__["of"])(p)
                 .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["mergeMap"])(function () { return _this.mouseService.onMouseMove(); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(_this.mouseService.onEnd()), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["withLatestFrom"])(_this.canvasService.canvasShapes$))
                 .subscribe(_this.polylineObserver(polyline));
-            _this.canvasService.render(circle);
-            _this.flushShape(circle);
+            _this.canvasService.add(circle);
+            _this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_8__["CreateShape"](circle));
         };
     }
     DrawingToolComponent.prototype.ngOnInit = function () {
         this.selectedColor$ = this.store
             .select('app')
-            .select('selectedColor');
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (app) { return app.selectedColor; }));
         this.thickness$ = this.store
             .select('app')
-            .select('thickness');
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (app) { return app.thickness; }));
         this.mouseService.onMouseDown()
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["withLatestFrom"])(this.thickness$, this.selectedColor$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["takeUntil"])(this.destroy$))
             .subscribe(this.handleMouseDown);
@@ -1165,7 +1285,7 @@ var DrawingToolComponent = /** @class */ (function () {
             next: function (_a) {
                 var pt = _a[0], canvasShapes = _a[1];
                 if (!canvasShapes.includes(polyline)) {
-                    _this.canvasService.render(polyline);
+                    _this.canvasService.add(polyline);
                 }
                 polyline.append(pt);
             },
@@ -1173,13 +1293,9 @@ var DrawingToolComponent = /** @class */ (function () {
                 if (!_this.shouldPolylineCreate(polyline)) {
                     return;
                 }
-                _this.flushShape(polyline);
+                _this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_8__["CreateShape"](polyline));
             }
         };
-    };
-    DrawingToolComponent.prototype.flushShape = function (shape) {
-        this.canvasService.complete(shape);
-        this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_8__["CreateShape"](shape));
     };
     DrawingToolComponent.prototype.shouldPolylineCreate = function (polyline) {
         return polyline.length() > 1;
@@ -1214,15 +1330,15 @@ var DrawingToolComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeometryToolComponent", function() { return GeometryToolComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _directives_mouse_mouse_service_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @directives/mouse/mouse-service.directive */ "./src/app/directives/mouse/mouse-service.directive.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators.js");
-/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm5/Subject.js");
 /* harmony import */ var _shapes_rect_rect__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @shapes/rect/rect */ "./src/app/modules/tools/shapes/rect/rect.ts");
-/* harmony import */ var rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/observable/of */ "./node_modules/rxjs/_esm5/observable/of.js");
+/* harmony import */ var rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/observable/of */ "./node_modules/rxjs-compat/_esm5/observable/of.js");
 /* harmony import */ var _services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @services/canvas/canvas.service */ "./src/app/services/canvas/canvas.service.ts");
 /* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _tools_types_tools__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @tools/types/tools */ "./src/app/modules/tools/types/tools.ts");
 /* harmony import */ var _shapes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @shapes */ "./src/app/modules/tools/shapes/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -1257,13 +1373,13 @@ var GeometryToolComponent = /** @class */ (function () {
             var shape = _this.createShape(start, selectedTool);
             Object(rxjs_observable_of__WEBPACK_IMPORTED_MODULE_5__["of"])(start)
                 .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["mergeMap"])(function () { return _this.mouseService.onMouseMove(); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(_this.mouseService.onMouseUp())).subscribe(_this.rectObserver(start, shape));
-            _this.canvasService.render(shape);
+            _this.canvasService.add(shape);
         };
     }
     GeometryToolComponent.prototype.ngOnInit = function () {
         this.selectedTool$ = this.store
             .select('app')
-            .select('selectedTool');
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (app) { return app.selectedTool; }));
         this.mouseService.onMouseDown()
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["withLatestFrom"])(this.selectedTool$), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.destroy$))
             .subscribe(this.handleMouseDown);
@@ -1275,13 +1391,9 @@ var GeometryToolComponent = /** @class */ (function () {
                 rect.transform(start, end);
             },
             complete: function () {
-                _this.flushShape(rect);
+                _this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_7__["CreateShape"](rect));
             }
         };
-    };
-    GeometryToolComponent.prototype.flushShape = function (shape) {
-        this.canvasService.complete(shape);
-        this.store.dispatch(new _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_7__["CreateShape"](shape));
     };
     GeometryToolComponent.prototype.createShape = function (start, selectedTool) {
         switch (selectedTool.name) {
@@ -1309,6 +1421,47 @@ var GeometryToolComponent = /** @class */ (function () {
             _services_canvas_canvas_service__WEBPACK_IMPORTED_MODULE_6__["CanvasService"]])
     ], GeometryToolComponent);
     return GeometryToolComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/tools/components/pointer-tool/pointer-tool.component.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/app/modules/tools/components/pointer-tool/pointer-tool.component.ts ***!
+  \*********************************************************************************/
+/*! exports provided: PointerToolComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PointerToolComponent", function() { return PointerToolComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PointerToolComponent = /** @class */ (function () {
+    function PointerToolComponent() {
+    }
+    PointerToolComponent.prototype.ngOnInit = function () {
+    };
+    PointerToolComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-pointer-tool',
+            template: "\n    <p>\n      pointer-tool works!\n    </p>\n  ",
+            styles: []
+        }),
+        __metadata("design:paramtypes", [])
+    ], PointerToolComponent);
+    return PointerToolComponent;
 }());
 
 
@@ -1369,6 +1522,9 @@ var CircleShape = /** @class */ (function (_super) {
         var radius = this.getRadius(start, end);
         this.r = radius;
         this.moveTo(midpoint);
+    };
+    CircleShape.prototype.isOver = function (p) {
+        return false;
     };
     return CircleShape;
 }(_shapes_shape__WEBPACK_IMPORTED_MODULE_0__["Shape"]));
@@ -1454,6 +1610,9 @@ var PolylineShape = /** @class */ (function (_super) {
         return this.points.length;
     };
     PolylineShape.prototype.transform = function () {
+    };
+    PolylineShape.prototype.isOver = function (p) {
+        return false;
     };
     return PolylineShape;
 }(_shape__WEBPACK_IMPORTED_MODULE_0__["Shape"]));
@@ -1548,6 +1707,9 @@ var RectShape = /** @class */ (function (_super) {
         this.width = width;
         this.height = height;
     };
+    RectShape.prototype.isOver = function (p) {
+        return false;
+    };
     return RectShape;
 }(_shapes_shape__WEBPACK_IMPORTED_MODULE_0__["Shape"]));
 
@@ -1570,6 +1732,9 @@ var Shape = /** @class */ (function () {
         this.stroke = 'black';
         this.rendered = false;
         this.editing = true;
+        this.hovered = false;
+        this.id = crypto.getRandomValues(new Uint32Array(2))
+            .toString().replace(',', '');
     }
     Shape.prototype.ofType = function (type) {
         return this.type === type;
@@ -1591,18 +1756,22 @@ var Shape = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToolsModule", function() { return ToolsModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/esm5/common.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/esm5/animations.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _tools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tools */ "./src/app/modules/tools/tools.ts");
 /* harmony import */ var _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/drawing-tool/drawing-tool.component */ "./src/app/modules/tools/components/drawing-tool/drawing-tool.component.ts");
 /* harmony import */ var _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/geometry-tool/geometry-tool.component */ "./src/app/modules/tools/components/geometry-tool/geometry-tool.component.ts");
+/* harmony import */ var _components_control_tool_control_tool_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/control-tool/control-tool.component */ "./src/app/modules/tools/components/control-tool/control-tool.component.ts");
+/* harmony import */ var _components_pointer_tool_pointer_tool_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pointer-tool/pointer-tool.component */ "./src/app/modules/tools/components/pointer-tool/pointer-tool.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -1616,7 +1785,9 @@ var ToolsModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             entryComponents: [
                 _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_4__["DrawingToolComponent"],
-                _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_5__["GeometryToolComponent"]
+                _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_5__["GeometryToolComponent"],
+                _components_control_tool_control_tool_component__WEBPACK_IMPORTED_MODULE_6__["ControlToolComponent"],
+                _components_pointer_tool_pointer_tool_component__WEBPACK_IMPORTED_MODULE_7__["PointerToolComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -1624,7 +1795,9 @@ var ToolsModule = /** @class */ (function () {
             ],
             declarations: [
                 _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_4__["DrawingToolComponent"],
-                _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_5__["GeometryToolComponent"]
+                _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_5__["GeometryToolComponent"],
+                _components_control_tool_control_tool_component__WEBPACK_IMPORTED_MODULE_6__["ControlToolComponent"],
+                _components_pointer_tool_pointer_tool_component__WEBPACK_IMPORTED_MODULE_7__["PointerToolComponent"]
             ],
             providers: [
                 {
@@ -1651,38 +1824,54 @@ var ToolsModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tools", function() { return tools; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOOLS_TOKEN", function() { return TOOLS_TOKEN; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/drawing-tool/drawing-tool.component */ "./src/app/modules/tools/components/drawing-tool/drawing-tool.component.ts");
 /* harmony import */ var _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/geometry-tool/geometry-tool.component */ "./src/app/modules/tools/components/geometry-tool/geometry-tool.component.ts");
-/* harmony import */ var _types_tools__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./types/tools */ "./src/app/modules/tools/types/tools.ts");
+/* harmony import */ var _components_control_tool_control_tool_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/control-tool/control-tool.component */ "./src/app/modules/tools/components/control-tool/control-tool.component.ts");
+/* harmony import */ var _components_pointer_tool_pointer_tool_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pointer-tool/pointer-tool.component */ "./src/app/modules/tools/components/pointer-tool/pointer-tool.component.ts");
+/* harmony import */ var _types_tools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./types/tools */ "./src/app/modules/tools/types/tools.ts");
+
+
 
 
 
 
 var tools = [
     {
-        name: _types_tools__WEBPACK_IMPORTED_MODULE_3__["Tools"].Pencil,
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Pointer,
+        component: _components_pointer_tool_pointer_tool_component__WEBPACK_IMPORTED_MODULE_4__["PointerToolComponent"],
+        type: 'none',
+        imageUrl: 'assets/icons/pointer.svg'
+    },
+    {
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Pencil,
         component: _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_1__["DrawingToolComponent"],
-        shapeType: 'polyline',
+        type: 'polyline',
         imageUrl: 'assets/icons/pencil.svg'
     },
     {
-        name: _types_tools__WEBPACK_IMPORTED_MODULE_3__["Tools"].Brush,
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Brush,
         component: _components_drawing_tool_drawing_tool_component__WEBPACK_IMPORTED_MODULE_1__["DrawingToolComponent"],
-        shapeType: 'polyline',
+        type: 'polyline',
         imageUrl: 'assets/icons/brush.svg'
     },
     {
-        name: _types_tools__WEBPACK_IMPORTED_MODULE_3__["Tools"].Rect,
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Rect,
         component: _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_2__["GeometryToolComponent"],
-        shapeType: 'rect',
+        type: 'rect',
         imageUrl: 'assets/icons/rect.svg'
     },
     {
-        name: _types_tools__WEBPACK_IMPORTED_MODULE_3__["Tools"].Circle,
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Circle,
         component: _components_geometry_tool_geometry_tool_component__WEBPACK_IMPORTED_MODULE_2__["GeometryToolComponent"],
-        shapeType: 'circle',
+        type: 'circle',
         imageUrl: 'assets/icons/circle.svg'
+    },
+    {
+        name: _types_tools__WEBPACK_IMPORTED_MODULE_5__["Tools"].Hand,
+        component: _components_control_tool_control_tool_component__WEBPACK_IMPORTED_MODULE_3__["ControlToolComponent"],
+        type: 'none',
+        imageUrl: 'assets/icons/hand.svg'
     }
 ];
 var TOOLS_TOKEN = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('tools');
@@ -1702,10 +1891,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Tools", function() { return Tools; });
 var Tools;
 (function (Tools) {
+    Tools["Pointer"] = "pointer";
     Tools["Pencil"] = "pencil";
     Tools["Brush"] = "brush";
     Tools["Rect"] = "rect";
     Tools["Circle"] = "circle";
+    Tools["Hand"] = "hand";
 })(Tools || (Tools = {}));
 
 
@@ -1721,10 +1912,12 @@ var Tools;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CanvasService", function() { return CanvasService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
-/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs/_esm5/Subject.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Subject */ "./node_modules/rxjs-compat/_esm5/Subject.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ramda */ "./node_modules/ramda/es/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1738,31 +1931,54 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var CanvasService = /** @class */ (function () {
     function CanvasService(store) {
         var _this = this;
         this.store = store;
         this.canvasHandler = new rxjs_Subject__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
-        this.render = function (shape) {
+        this.add = function (shape) {
             _this.canvasHandler.next(function (shapeStore) { return shapeStore.concat(shape); });
         };
-        this.storeChanges$ = this.store
+        this.allStoreShapes$ = this.store
             .select('app')
-            .select('shapes');
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (app) { return app.shapes; }));
         this.canvasShapes$ = this.canvasHandler
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["scan"])(function (shapes, fn) { return fn(shapes); }, []), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (shapes) {
-            console.log(shapes);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["share"])());
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["scan"])(function (shapes, fn) { return fn(shapes); }, []), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])([]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["share"])());
+        this.newStoreShapes$ = this.allStoreShapes$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["pairwise"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_a) {
+            var previous = _a[0], next = _a[1];
+            return Object(ramda__WEBPACK_IMPORTED_MODULE_4__["difference"])(next, previous);
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (shapes) { return Object(ramda__WEBPACK_IMPORTED_MODULE_4__["length"])(shapes); }));
         this.polylines$ = this.getShapes$('polyline');
         this.circles$ = this.getShapes$('circle');
         this.rects$ = this.getShapes$('rect');
+        Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["combineLatest"])(this.canvasShapes$, this.newStoreShapes$)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (_a) {
+            var canvasShapes = _a[0], newStoreShapes = _a[1];
+            return Object(ramda__WEBPACK_IMPORTED_MODULE_4__["difference"])(newStoreShapes, canvasShapes);
+        }))
+            .subscribe(function (shapes) { return shapes.forEach(_this.add); });
+        // const randomNumber = (min: number, max: number): number => {
+        //   return Math.floor((Math.random() * (max - min + 1))) + min;
+        // };
+        // const randomPoint = (): Point2D => {
+        //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
+        // };
+        // const randomCircle = (): CircleShape => {
+        //   return new CircleShape(randomPoint(), randomNumber(2, 10));
+        // };
+        // timer(1000, 1000)
+        //   .pipe(
+        //     tap(() => {
+        //       this.store.dispatch(new AppActions.CreateShape(randomCircle()));
+        //     })
+        //   ).subscribe();
     }
     CanvasService.prototype.getShapes$ = function (type) {
         return this.canvasShapes$
             .pipe(this.filterBy((function (shape) { return shape.ofType(type); })));
-    };
-    CanvasService.prototype.complete = function (shape) {
-        shape.editing = false;
     };
     CanvasService.prototype.filterBy = function (fn) {
         return function (source$) {
@@ -1786,7 +2002,7 @@ var CanvasService = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./src/app/store/actions/app.actions.ts ***!
   \**********************************************/
-/*! exports provided: SELECT_COLOR, SELECT_TOOL, CREATE_SHAPE, CHANGE_THICKNESS, SelectColor, SelectTool, CreateShape, ChangeThickness */
+/*! exports provided: SELECT_COLOR, SELECT_TOOL, CREATE_SHAPE, CHANGE_HOVER_STATE, BLUR_SHAPE, CHANGE_THICKNESS, SelectColor, SelectTool, CreateShape, ChangeHoverState, ChangeThickness */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1794,14 +2010,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_COLOR", function() { return SELECT_COLOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_TOOL", function() { return SELECT_TOOL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_SHAPE", function() { return CREATE_SHAPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_HOVER_STATE", function() { return CHANGE_HOVER_STATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BLUR_SHAPE", function() { return BLUR_SHAPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_THICKNESS", function() { return CHANGE_THICKNESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectColor", function() { return SelectColor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectTool", function() { return SelectTool; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateShape", function() { return CreateShape; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangeHoverState", function() { return ChangeHoverState; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangeThickness", function() { return ChangeThickness; });
 var SELECT_COLOR = '[Tools] Select color';
 var SELECT_TOOL = '[Tools] Select tool';
 var CREATE_SHAPE = '[Canvas] Create shape';
+var CHANGE_HOVER_STATE = '[Canvas] Change hover state';
+var BLUR_SHAPE = '[Canvas] Blur shape';
 var CHANGE_THICKNESS = '[Adjustments] Change thickness';
 var SelectColor = /** @class */ (function () {
     function SelectColor(payload) {
@@ -1827,6 +2048,14 @@ var CreateShape = /** @class */ (function () {
     return CreateShape;
 }());
 
+var ChangeHoverState = /** @class */ (function () {
+    function ChangeHoverState(payload) {
+        this.payload = payload;
+        this.type = CHANGE_HOVER_STATE;
+    }
+    return ChangeHoverState;
+}());
+
 var ChangeThickness = /** @class */ (function () {
     function ChangeThickness(payload) {
         this.payload = payload;
@@ -1849,10 +2078,12 @@ var ChangeThickness = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppStoreModule", function() { return AppStoreModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/@ngrx/store.es5.js");
-/* harmony import */ var _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store-devtools */ "./node_modules/@ngrx/store-devtools/@ngrx/store-devtools.es5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _ngrx_store_devtools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store-devtools */ "./node_modules/@ngrx/store-devtools/fesm5/store-devtools.js");
 /* harmony import */ var _reducers_app_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers/app.reducer */ "./src/app/store/reducers/app.reducer.ts");
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/effects */ "./node_modules/@ngrx/effects/fesm5/effects.js");
+/* harmony import */ var _effects_app_effects__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./effects/app.effects */ "./src/app/store/effects/app.effects.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1863,12 +2094,17 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var AppStoreModule = /** @class */ (function () {
     function AppStoreModule() {
     }
     AppStoreModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
+                _ngrx_effects__WEBPACK_IMPORTED_MODULE_4__["EffectsModule"].forRoot([
+                    _effects_app_effects__WEBPACK_IMPORTED_MODULE_5__["AppEffects"]
+                ]),
                 _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["StoreModule"].forRoot({
                     app: _reducers_app_reducer__WEBPACK_IMPORTED_MODULE_3__["appReducer"]
                 }),
@@ -1879,6 +2115,56 @@ var AppStoreModule = /** @class */ (function () {
         })
     ], AppStoreModule);
     return AppStoreModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/store/effects/app.effects.ts":
+/*!**********************************************!*\
+  !*** ./src/app/store/effects/app.effects.ts ***!
+  \**********************************************/
+/*! exports provided: AppEffects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppEffects", function() { return AppEffects; });
+/* harmony import */ var _ngrx_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ngrx/effects */ "./node_modules/@ngrx/effects/fesm5/effects.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @store/actions/app.actions */ "./src/app/store/actions/app.actions.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var AppEffects = /** @class */ (function () {
+    function AppEffects(actions$) {
+        this.actions$ = actions$;
+        this.createShape$ = this.actions$
+            .pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["ofType"])(_store_actions_app_actions__WEBPACK_IMPORTED_MODULE_4__["CREATE_SHAPE"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (action) { return action.payload.editing = false; }));
+    }
+    __decorate([
+        Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["Effect"])({ dispatch: false }),
+        __metadata("design:type", rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"])
+    ], AppEffects.prototype, "createShape$", void 0);
+    AppEffects = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        __metadata("design:paramtypes", [_ngrx_effects__WEBPACK_IMPORTED_MODULE_0__["Actions"]])
+    ], AppEffects);
+    return AppEffects;
 }());
 
 
@@ -1908,6 +2194,7 @@ var __assign = (undefined && undefined.__assign) || Object.assign || function(t)
 var defaultState = {
     selectedTool: null,
     selectedColor: '#000000',
+    hoveredShape: null,
     thickness: 2,
     fontSize: 13,
     shapes: []
@@ -1922,9 +2209,15 @@ function appReducer(state, action) {
             return __assign({}, state, { selectedColor: action.payload });
         }
         case _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_0__["CREATE_SHAPE"]: {
+            action.payload.editing = false;
             return __assign({}, state, { shapes: state.shapes.concat([
                     action.payload
                 ]) });
+        }
+        case _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_0__["CHANGE_HOVER_STATE"]: {
+            var shape = state.shapes.find(function (item) { return item.id === action.payload.id; });
+            var hoveredShape = action.payload.state ? shape : null;
+            return __assign({}, state, { hoveredShape: hoveredShape });
         }
         case _store_actions_app_actions__WEBPACK_IMPORTED_MODULE_0__["CHANGE_THICKNESS"]: {
             return __assign({}, state, { thickness: action.payload });
@@ -1967,8 +2260,8 @@ var environment = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
 /* harmony import */ var _app_app_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environments/environment */ "./src/environments/environment.ts");
 
