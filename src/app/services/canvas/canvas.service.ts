@@ -16,7 +16,7 @@ import { difference, length } from 'ramda';
 @Injectable()
 export class CanvasService {
   private canvasHandler: Subject<Function> = new Subject<Function>();
-  
+
   private canvasShapes$: Observable<Shape[]>;
   private allStoreShapes$: Observable<Shape[]>;
   private newStoreShapes$: Observable<Shape[]>;
