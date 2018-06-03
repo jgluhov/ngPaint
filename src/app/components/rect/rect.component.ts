@@ -21,8 +21,8 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
       [attr.rx]="rect.rx"
       [attr.ry]="rect.ry"
       [attr.stroke-width]="rect.strokeWidth"
-      (mouseenter)="handleMouseEnter()"
-      (mouseleave)="handleMouseLeave()"
+      (mouseenter)="handleMouseEvent(true)"
+      (mouseleave)="handleMouseEvent(false)"
     />
   `,
   styles: [`
@@ -36,15 +36,7 @@ export class RectComponent {
   @Input('appRect') rect: RectShape;
   @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
 
-  handleMouseEnter(): void {
-    this.hoverer.emit({ id: this.rect.id, state: true });
-  }
-
-  handleMouseLeave(): void {
-    this.hoverer.emit({ id: this.rect.id, state: false });
-  }
-
-  constructor() {
-    console.log('rect');
+  handleMouseEvent(state: boolean): void {
+    this.hoverer.emit({ id: this.rect.id, state: state });
   }
 }

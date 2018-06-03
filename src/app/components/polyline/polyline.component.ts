@@ -17,8 +17,8 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
       [attr.fill]="polyline.fill"
       [attr.stroke]="polyline.stroke"
       [attr.stroke-width]="polyline.strokeWidth"
-      (mouseenter)="handleMouseEnter()"
-      (mouseleave)="handleMouseLeave()"
+      (mouseenter)="handleMouseEvent(true)"
+      (mouseleave)="handleMouseEvent(false)"
     />
   `,
   styles: [`
@@ -32,15 +32,7 @@ export class PolylineComponent {
   @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
   @Input('appPolyline') polyline: PolylineShape;
 
-  handleMouseEnter(): void {
-    this.hoverer.emit({ id: this.polyline.id, state: true });
-  }
-
-  handleMouseLeave(): void {
-    this.hoverer.emit({ id: this.polyline.id, state: false });
-  }
-
-  constructor() {
-    console.log('polyline');
+  handleMouseEvent(state: boolean): void {
+    this.hoverer.emit({ id: this.polyline.id, state });
   }
 }

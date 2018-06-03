@@ -14,6 +14,7 @@ export interface App {
 const defaultState: App = {
   selectedTool: null,
   selectedColor: '#000000',
+  hoveredShape: null,
   thickness: 2,
   fontSize: 13,
   shapes: []

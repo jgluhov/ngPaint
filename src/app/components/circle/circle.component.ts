@@ -19,8 +19,8 @@ import { ChangeHoverStatePayload } from '../../store/actions/app.actions';
       [attr.fill]="circle.fill"
       [attr.stroke]="circle.stroke"
       [attr.stroke-width]="circle.strokeWidth"
-      (mouseenter)="handleMouseEnter()"
-      (mouseleave)="handleMouseLeave()"
+      (mouseenter)="handleMouseEvent(true)"
+      (mouseleave)="handleMouseEvent(false)"
     />
   `,
   styles: [`
@@ -34,15 +34,7 @@ export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
   @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
 
-  handleMouseEnter(): void {
-    this.hoverer.emit({ id: this.circle.id, state: true });
-  }
-
-  handleMouseLeave(): void {
-    this.hoverer.emit({ id: this.circle.id, state: false });
-  }
-
-  constructor() {
-    console.log('create circle');
+  handleMouseEnter(state: boolean): void {
+    this.hoverer.emit({ id: this.circle.id, state });
   }
 }
