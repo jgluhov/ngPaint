@@ -5,17 +5,14 @@ import { Shape } from '@tools/shapes/shape';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { Subject } from 'rxjs/Subject';
-import { scan, filter, map, share, pairwise, withLatestFrom, startWith, switchMap } from 'rxjs/operators';
+import { scan, filter, map, share, pairwise } from 'rxjs/operators';
 import { PolylineShape } from '@tools/shapes';
 import { OperatorFunction } from 'rxjs/interfaces';
 import { CircleShape } from '@shapes/circle/circle';
 import { RectShape } from '@shapes/rect/rect';
 import { App } from '@store/reducers/app.reducer';
-import { of } from 'rxjs/observable/of';
 import { difference, length } from 'ramda';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import * as AppActions from '@store/actions/app.actions';
-import { Point2D } from '@math/point2d';
+
 @Injectable()
 export class CanvasService {
   private canvasHandler: Subject<Function> = new Subject<Function>();
