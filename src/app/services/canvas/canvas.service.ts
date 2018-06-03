@@ -43,13 +43,12 @@ export class CanvasService {
         filter((shapes: Shape[]) => length(shapes))
       );
 
-    this.newbies$.subscribe((shapes: Shape[]) => {
-      shapes.forEach(this.add);
-    });
-
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
+
+    this.newbies$
+      .subscribe((shapes: Shape[]) => shapes.forEach(this.add));
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {
