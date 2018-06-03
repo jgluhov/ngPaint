@@ -16,17 +16,17 @@ import { difference, length } from 'ramda';
 @Injectable()
 export class CanvasService {
   private canvasHandler: Subject<Function> = new Subject<Function>();
-  private storeShapes$: Observable<Shape[]>;
-  private newbies$: Observable<Shape[]>;
-
+  
   private canvasShapes$: Observable<Shape[]>;
-  private shapes$: Observable<Shape[]>;
+  private allStoreShapes$: Observable<Shape[]>;
+  private newStoreShapes$: Observable<Shape[]>;
+
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
   public rects$: Observable<RectShape[]>;
 
   constructor(private store: Store<AppState>) {
-    this.storeShapes$ = this.store
+    this.allStoreShapes$ = this.store
       .select('app')
       .pipe(map((app: App) => app.shapes));
 
@@ -36,7 +36,7 @@ export class CanvasService {
         share()
       );
 
-    this.newbies$ = this.storeShapes$
+    this.newStoreShapes$ = this.allStoreShapes$
       .pipe(
         pairwise(),
         map(([previous, next]: [Shape[], Shape[]]) => difference(next, previous)),
@@ -47,7 +47,7 @@ export class CanvasService {
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
 
-    this.newbies$
+    this.newStoreShapes$
       .subscribe((shapes: Shape[]) => shapes.forEach(this.add));
   }
 
