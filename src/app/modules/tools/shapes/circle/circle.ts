@@ -38,7 +38,12 @@ export class CircleShape extends Shape {
     this.moveTo(midpoint);
   }
 
-  isOver(p: Point2D): boolean {
-    return false;
+  get stroke(): string {
+    return  this.parent ?
+      this.parent.stroke : this._stroke;
+  }
+
+  set stroke(stroke: string) {
+    this._stroke = stroke;
   }
 }

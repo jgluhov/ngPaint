@@ -9,9 +9,11 @@ export class PolylineShape extends Shape {
   constructor(
     private points: Point2D[] = [],
     public strokeWidth: number,
-    public stroke: string
+    stroke: string
   ) {
     super();
+
+    this._stroke = stroke;
   }
 
   public toString(): string {
@@ -29,9 +31,5 @@ export class PolylineShape extends Shape {
   }
 
   public transform(): void {
-  }
-
-  public isOver(p: Point2D): boolean {
-    return false;
   }
 }

@@ -48,6 +48,7 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
     case AppActions.CHANGE_HOVER_STATE: {
       const shape = state.shapes.find((item: Shape) => item.id === action.payload.id);
       const hoveredShape = action.payload.state ? shape : null;
+      shape.hovered = action.payload.state;
 
       return {
         ...state,

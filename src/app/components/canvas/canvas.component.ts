@@ -28,6 +28,7 @@ import { Tools } from '@tools/types/tools';
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
   selectedTool$: Observable<Tool>;
+  selectedTool: Tool;
   app$: Observable<App>;
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
@@ -44,13 +45,17 @@ export class CanvasComponent implements OnInit {
 
     this.selectedTool$ = this.store
       .select('app')
-      .pipe(map((app: App) => app.selectedTool));
+      .pipe(map((app: App) => this.selectedTool = app.selectedTool));
 
     this.selectedTool$
       .subscribe(this.loadComponent);
   }
 
   handleHoverChange = (evt: AppActions.ChangeHoverStatePayload): void => {
+    if (this.selectedTool.name !== Tools.Hand) {
+      return;
+    }
+
     this.store.dispatch(new AppActions.ChangeHoverState({ id: evt.id, state: evt.state }));
   }
 

@@ -50,6 +50,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ): void => {
     const circle = new CircleShape(p, thickness / 2, selectedColor);
     const polyline = new PolylineShape([p], thickness, selectedColor);
+    polyline.setChild(circle);
+    circle.setParent(polyline);
 
     of(p)
       .pipe(
