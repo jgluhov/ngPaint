@@ -5,14 +5,12 @@ import { TOOLS_TOKEN, tools } from './tools';
 import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
 import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
 import { ControlToolComponent } from './components/control-tool/control-tool.component';
-import { PointerToolComponent } from './components/pointer-tool/pointer-tool.component';
 
 @NgModule({
   entryComponents: [
     DrawingToolComponent,
     GeometryToolComponent,
-    ControlToolComponent,
-    PointerToolComponent
+    ControlToolComponent
   ],
   imports: [
     CommonModule,
@@ -21,8 +19,7 @@ import { PointerToolComponent } from './components/pointer-tool/pointer-tool.com
   declarations: [
     DrawingToolComponent,
     GeometryToolComponent,
-    ControlToolComponent,
-    PointerToolComponent
+    ControlToolComponent
   ],
   providers: [
     {

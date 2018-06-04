@@ -50,6 +50,8 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       const hoveredShape = action.payload.state ? shape : null;
       shape.hovered = action.payload.state;
 
+      console.log('hoveredShape', hoveredShape);
+
       return {
         ...state,
         hoveredShape
