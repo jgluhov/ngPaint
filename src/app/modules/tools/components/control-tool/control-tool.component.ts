@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom, map, tap } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom, map, tap, filter } from 'rxjs/operators';
 import { Point2D } from '@math/point2d';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { of } from 'rxjs/observable/of';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@store/app-state';
 import { App } from '@store/reducers/app.reducer';
 import { PartialObserver } from 'rxjs/Observer';
+import * as AppActions from '@store/actions/app.actions';
 
 @Component({
   selector: 'app-control-tool',
@@ -35,9 +36,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     this.mouseService.onMouseDown()
       .pipe(
         withLatestFrom(this.hoveredShape$),
-        tap(([start, hoveredShape]: [Point2D, Shape]) => {
-          console.log(hoveredShape);
-        }),
+        filter(([start, hoveredShape]: [Point2D, Shape]) => !!hoveredShape),
         takeUntil(this.destroy$)
       )
       .subscribe(this.handleMouseDown);
@@ -46,21 +45,28 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   handleMouseDown = ([start, hoveredShape]: [Point2D, Shape]): void => {
     of(start)
       .pipe(
+        tap(() => {
+          this.store.dispatch(new AppActions.ChangeEditingState({
+            id: hoveredShape.id,
+            state: true
+          }));
+        }),
         mergeMap(() => this.mouseService.onMouseMove()),
         takeUntil(this.mouseService.onMouseUp())
       )
       .subscribe(this.handleDrag(start, hoveredShape));
   }
 
-  handleDrag = (start: Point2D, shape: Shape): PartialObserver<Point2D> => {
-    shape.editing = true;
-
+  handleDrag = (start: Point2D, hoveredShape: Shape): PartialObserver<Point2D> => {
     return {
-      next: (end: Point2D): void => {
-        console.log(end);
+      next: (point: Point2D): void => {
+        hoveredShape.moveTo(point);
       },
       complete: (): void => {
-        shape.editing = false;
+        this.store.dispatch(new AppActions.ChangeEditingState({
+          id: hoveredShape.id,
+          state: false
+        }));
       }
     };
   }

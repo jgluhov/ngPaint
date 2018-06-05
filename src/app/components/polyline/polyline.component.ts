@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { PolylineShape, Shape } from '@tools/shapes';
 import { CanvasService } from '@services/canvas/canvas.service';
-import { ChangeHoverStatePayload } from '@store/actions/app.actions';
+import { ChangeStatePayload } from '@store/actions/app.actions';
 
 @Component({
   selector: '[appPolyline]',
@@ -29,7 +29,7 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PolylineComponent {
-  @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
+  @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
   @Input('appPolyline') polyline: PolylineShape;
 
   handleMouseEvent(state: boolean): void {

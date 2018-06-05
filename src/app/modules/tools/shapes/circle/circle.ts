@@ -23,13 +23,6 @@ export class CircleShape extends Shape {
     return Point2D.size(difference.divideBy(2));
   }
 
-  moveTo(p: Point2D): this {
-    this.cx = p.x;
-    this.cy = p.y;
-
-    return this;
-  }
-
   transform(start: Point2D, end: Point2D): void {
     const midpoint = Point2D.getMidpoint(start, end);
     const radius = this.getRadius(start, end);
@@ -45,5 +38,12 @@ export class CircleShape extends Shape {
 
   set stroke(stroke: string) {
     this._stroke = stroke;
+  }
+
+  public moveTo(point: Point2D): this {
+    this.cx = point.x;
+    this.cy = point.y;
+
+    return this;
   }
 }

@@ -5,7 +5,8 @@ import { Shape } from '@tools/shapes/shape';
 export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
 export const CREATE_SHAPE = '[Canvas] Create shape';
-export const CHANGE_HOVER_STATE = '[Canvas] Change hover state';
+export const CHANGE_HOVERED_STATE = '[Shape] Change hovered state';
+export const CHANGE_EDITING_STATE = '[Shape] Change editing state';
 export const BLUR_SHAPE = '[Canvas] Blur shape';
 export const CHANGE_THICKNESS = '[Adjustments] Change thickness';
 
@@ -27,14 +28,22 @@ export class CreateShape implements Action {
   constructor(public payload: Shape) {}
 }
 
-export interface ChangeHoverStatePayload {
+export interface ChangeStatePayload {
   id: string;
   state: boolean;
 }
-export class ChangeHoverState implements Action {
-  readonly type = CHANGE_HOVER_STATE;
 
-  constructor(public payload: ChangeHoverStatePayload) {}
+export class ChangeHoveredState implements Action {
+  readonly type = CHANGE_HOVERED_STATE;
+
+  constructor(public payload: ChangeStatePayload) {}
+}
+
+export class ChangeEditingState implements Action {
+  readonly type = CHANGE_EDITING_STATE;
+
+  constructor(public payload: ChangeStatePayload) {
+  }
 }
 
 export class ChangeThickness implements Action {
@@ -43,4 +52,10 @@ export class ChangeThickness implements Action {
   constructor(public payload: number) {}
 }
 
-export type All = SelectColor | SelectTool | CreateShape | ChangeThickness | ChangeHoverState;
+export type All =
+  SelectColor |
+  SelectTool |
+  CreateShape |
+  ChangeThickness |
+  ChangeHoveredState |
+  ChangeEditingState;

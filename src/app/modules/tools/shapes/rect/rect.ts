@@ -72,7 +72,10 @@ export class RectShape extends Shape {
     this.height = height;
   }
 
-  isOver(p: Point2D): boolean {
-    return false;
+  public moveTo(point: Point2D): this {
+    this.x = point.x - (point.x - this.x);
+    this.y = point.y - (point.y - this.y);
+
+    return this;
   }
 }

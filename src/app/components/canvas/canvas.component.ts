@@ -51,12 +51,12 @@ export class CanvasComponent implements OnInit {
       .subscribe(this.loadComponent);
   }
 
-  handleHoverChange = (evt: AppActions.ChangeHoverStatePayload): void => {
+  handleHoverChange = (evt: AppActions.ChangeStatePayload): void => {
     if (this.selectedTool.name !== Tools.Hand) {
       return;
     }
 
-    this.store.dispatch(new AppActions.ChangeHoverState({ id: evt.id, state: evt.state }));
+    this.store.dispatch(new AppActions.ChangeHoveredState({ id: evt.id, state: evt.state }));
   }
 
   loadComponent = (tool: Tool): void => {

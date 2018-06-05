@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { RectShape } from '@shapes/rect/rect';
-import { ChangeHoverStatePayload } from '@store/actions/app.actions';
+import { ChangeStatePayload } from '@store/actions/app.actions';
 
 @Component({
   selector: '[appRect]',
@@ -34,7 +34,7 @@ import { ChangeHoverStatePayload } from '@store/actions/app.actions';
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;
-  @Output('hover') hoverer: EventEmitter<ChangeHoverStatePayload> = new EventEmitter<ChangeHoverStatePayload>();
+  @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
 
   handleMouseEvent(state: boolean): void {
     this.hoverer.emit({ id: this.rect.id, state: state });

@@ -32,4 +32,9 @@ export class PolylineShape extends Shape {
 
   public transform(): void {
   }
+
+  public moveTo(): this {
+
+    return this;
+  }
 }
