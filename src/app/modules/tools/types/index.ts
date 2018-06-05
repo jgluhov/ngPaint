@@ -1,8 +1,11 @@
 import { Tool } from './tool';
-import { Tools } from './tools';
+import { ToolTypes } from './tool-types';
 import { ToolGroups } from './tool-groups';
+import { SVGShapes } from './svg-shapes';
+
 export {
   Tool,
-  Tools,
-  ToolGroups
+  ToolTypes,
+  ToolGroups,
+  SVGShapes
 };

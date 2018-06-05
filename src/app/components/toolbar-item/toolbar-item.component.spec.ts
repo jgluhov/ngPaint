@@ -5,7 +5,7 @@ import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ToolGroups } from '@tools/types';
+import { ToolGroups, ToolTypes } from '@tools/types';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -41,7 +41,7 @@ describe('ToolItemComponent', () => {
     fixture = TestBed.createComponent(ToolbarItemComponent);
     component = fixture.componentInstance;
     component.tool = {
-      name: 'pencil',
+      type: ToolTypes.Pencil,
       group: ToolGroups.Default,
       shape: 'polyline',
       imageUrl: ''

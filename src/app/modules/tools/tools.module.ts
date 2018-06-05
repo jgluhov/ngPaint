@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TOOLS_TOKEN, tools } from './tools';
+import { TOOL_LIST_TOKEN, toolList } from './tool-list';
 import {
   DrawingToolComponent,
   GeometryToolComponent,
@@ -28,7 +28,7 @@ import {
   ],
   providers: [
     {
-      provide: TOOLS_TOKEN, useValue: tools
+      provide: TOOL_LIST_TOKEN, useValue: toolList
     }
   ]
 })

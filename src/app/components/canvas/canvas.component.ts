@@ -6,20 +6,22 @@ import {
   ComponentFactoryResolver,
   ElementRef,
   ReflectiveInjector,
-  Injector
+  Injector,
+  Type
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { Observable, of, map, switchMap } from '@rx';
-import { Tool, Tools } from '@tools/types';
+import { Tool, ToolTypes } from '@tools/types';
 import { CanvasService } from '@services';
 import { AppState, App, AppActions } from '@store';
 import { Shape } from '@shapes';
 import { ToolGroups } from '../../modules/tools/types/tool-groups';
-import { PointerToolComponent } from '../../modules/tools/components/pointer-tool/pointer-tool.component';
-import { DrawingToolComponent } from '../../modules/tools/components/drawing-tool/drawing-tool.component';
-import { GeometryToolComponent } from '../../modules/tools/components/geometry-tool/geometry-tool.component';
-import { Type } from '@angular/core';
+import {
+  PointerToolComponent,
+  DrawingToolComponent,
+  GeometryToolComponent
+} from '@tools/components';
 
 @Component({
   selector: 'app-canvas',
@@ -54,7 +56,7 @@ export class CanvasComponent implements OnInit {
   }
 
   handleHoverChange = (evt: AppActions.ChangeStatePayload): void => {
-    if (this.selectedTool.name !== Tools.Hand) {
+    if (this.selectedTool.type !== ToolTypes.Hand) {
       return;
     }
 

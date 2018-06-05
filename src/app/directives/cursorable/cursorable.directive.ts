@@ -10,10 +10,9 @@ import {
   map,
   withLatestFrom
 } from '@rx';
-import { Tool, Tools } from '@tools/types';
+import { Tool, ToolTypes } from '@tools/types';
 import { App, AppState, AppActions } from '@store';
 import { Shape } from '@shapes';
-
 @Directive({
   selector: '[appCursorable]'
 })
@@ -37,14 +36,14 @@ export class CursorableDirective implements OnInit {
     this.selectedTool$
       .subscribe((selectedTool: Tool) => {
         if (this.previousTool) {
-          this.r.removeClass(this.svg, `cursor__${this.previousTool.name}`);
+          this.r.removeClass(this.svg, `cursor__${this.previousTool.type}`);
         }
 
         if (!selectedTool) {
           return;
         }
 
-        this.r.addClass(this.svg, `cursor__${selectedTool.name}`);
+        this.r.addClass(this.svg, `cursor__${selectedTool.type}`);
         this.previousTool = selectedTool;
       });
 
@@ -52,7 +51,7 @@ export class CursorableDirective implements OnInit {
     this.hoveredShape$
       .pipe(withLatestFrom(this.selectedTool$))
       .subscribe(([shape, selectedTool]: [Shape, Tool]) => {
-        if (selectedTool && (selectedTool.name !== Tools.Hand) || !shape) {
+        if (selectedTool && (selectedTool.type !== ToolTypes.Hand) || !shape) {
           return this.r.removeClass(this.svg, `hovered`);
         }
 

@@ -18,7 +18,7 @@ import {
 } from '@shapes';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService } from '@services';
-import { Tool, Tools } from '@tools/types';
+import { Tool, ToolTypes } from '@tools/types';
 import { App, AppActions, AppState } from '@store';
 @Component({
   selector: 'app-geometry-tool',
@@ -72,10 +72,10 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
 
   createShape(start: Point2D, selectedTool: Tool): Shape {
     switch (selectedTool.shape) {
-      case Tools.Rect: {
+      case ToolTypes.Rect: {
         return new RectShape(start.x, start.y);
       }
-      case Tools.Circle: {
+      case ToolTypes.Circle: {
         return new CircleShape(start);
       }
       default:

@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppActions, AppState, App } from '@store';
-import { TOOLS_TOKEN } from '@tools/tools';
-import { Tool } from '@tools/types';
+import { TOOL_LIST_TOKEN } from '@tools';
+import { Tool, ToolTypes } from '@tools/types';
 import { Observable, Subject, takeUntil, map } from '@rx';
+import { ToolList } from '@tools/tool-list';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,7 +18,7 @@ import { Observable, Subject, takeUntil, map } from '@rx';
     <app-panel [panelTitle]="title">
       <div class="toolbar-list">
         <app-toolbar-item
-          *ngFor="let tool of tools"
+          *ngFor="let tool of toolList"
           [tool]="tool"
           [selected]="isSelected(tool)"
           (select)="handleSelect($event)">
@@ -34,7 +35,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    @Inject(TOOLS_TOKEN) public tools: Tool[],
+    @Inject(TOOL_LIST_TOKEN) public toolList: ToolList,
     private store: Store<AppState>
   ) {}
 
@@ -55,7 +56,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   handleSelect(tool: Tool): void {
     this.store.dispatch(new AppActions.SelectTool(tool));
 
-    const thickness = tool.name === 'pencil' ? 2 : 10;
+    const thickness = tool.type === ToolTypes.Pencil ? 2 : 10;
     this.store.dispatch(new AppActions.ChangeThickness(thickness));
   }
 
