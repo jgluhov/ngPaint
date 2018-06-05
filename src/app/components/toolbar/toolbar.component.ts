@@ -5,16 +5,11 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
-import * as AppActions from '@store/actions/app.actions';
-import { TOOLS_TOKEN } from '@tools/tools';
-import { Tool } from '@tools/types/tool';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil, map } from 'rxjs/operators';
-import { SelectTool } from '../../store/actions/app.actions';
-import { App } from '../../store/reducers/app.reducer';
+import { AppActions, AppState, App } from '@store';
+import { TOOLS_TOKEN } from '@tools/tools';
+import { Tool } from '@tools/types';
+import { Observable, Subject, takeUntil, map } from '@rx';
 
 @Component({
   selector: 'app-toolbar',

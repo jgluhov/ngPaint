@@ -1,33 +1,23 @@
 import { Injectable } from '@angular/core';
 import { difference, length } from 'ramda';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { timer } from 'rxjs/observable/timer';
-import { Subject } from 'rxjs/Subject';
+import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
+import { App, AppActions, AppState } from '@store';
 import {
+  Subject,
+  Observable,
+  from,
+  combineLatest,
+  timer,
   scan,
   filter,
   map,
   share,
   pairwise,
   tap,
-  startWith
-} from 'rxjs/operators';
-import { OperatorFunction } from 'rxjs/interfaces';
-import {
-  Shape,
-  CircleShape,
-  RectShape,
-  PolylineShape
-} from '@shapes';
-import { AppState } from '@store/app-state';
-import { App } from '@store/reducers/app.reducer';
-
-
-import * as AppActions from '@store/actions/app.actions';
-import { Point2D } from '@math/point2d';
+  startWith,
+  OperatorFunction
+} from '@rx';
 
 @Injectable()
 export class CanvasService {

@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TOOLS_TOKEN, tools } from './tools';
-import { DrawingToolComponent } from './components/drawing-tool/drawing-tool.component';
-import { GeometryToolComponent } from './components/geometry-tool/geometry-tool.component';
-import { ControlToolComponent } from './components/control-tool/control-tool.component';
-import { PointerToolComponent } from './components/pointer-tool/pointer-tool.component';
+import {
+  DrawingToolComponent,
+  GeometryToolComponent,
+  ControlToolComponent,
+  PointerToolComponent
+} from './components';
 
 @NgModule({
   entryComponents: [

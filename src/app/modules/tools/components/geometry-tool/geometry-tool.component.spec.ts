@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ElementRef } from '@angular/core';
+import { MouseServiceDirective } from '@directives';
+import { CanvasService } from '@services';
+import { AppStoreModule } from '@store';
 
 import { GeometryToolComponent } from './geometry-tool.component';
-import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { ElementRef } from '@angular/core';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { AppStoreModule } from '@store/app-store.module';
 
 describe('GeometryToolComponent', () => {
   let component: GeometryToolComponent;

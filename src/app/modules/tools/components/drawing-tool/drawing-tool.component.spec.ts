@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ElementRef } from '@angular/core';
+import { MouseServiceDirective } from '@directives';
+import { CanvasService } from '@services';
+import { AppStoreModule } from '@store';
 import { DrawingToolComponent } from './drawing-tool.component';
-import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { AppStoreModule } from '@store/app-store.module';
 
 describe('DrawingToolComponent', () => {
   let component: DrawingToolComponent;
@@ -11,6 +11,7 @@ describe('DrawingToolComponent', () => {
 
   beforeEach(async(() => {
     const svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
+
     TestBed.configureTestingModule({
       imports: [
         AppStoreModule

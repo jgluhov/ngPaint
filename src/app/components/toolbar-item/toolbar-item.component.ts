@@ -4,8 +4,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Tool } from '@tools/types/tool';
-import { Observable } from 'rxjs/Observable';
+import { Tool } from '@tools/types';
+import { Observable } from '@rx';
 import {
   trigger,
   state,

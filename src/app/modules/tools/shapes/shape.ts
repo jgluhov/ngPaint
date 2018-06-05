@@ -1,4 +1,4 @@
-import { Point2D } from '@math/point2d';
+import { Point2D } from '@math';
 
 export abstract class Shape {
   public id: string;

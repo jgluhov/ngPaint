@@ -5,8 +5,8 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-import { RectShape } from '@shapes/rect/rect-shape';
-import { ChangeStatePayload } from '@store/actions/app.actions';
+import { RectShape } from '@shapes';
+import { ChangeStatePayload } from '@store';
 
 @Component({
   selector: '[appRect]',

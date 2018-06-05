@@ -5,14 +5,14 @@ import {
   Renderer2,
   ElementRef
 } from '@angular/core';
-import { AppState } from '@store/app-state';
-import { Observable } from 'rxjs/Observable';
-import { Tool } from '@tools/types/tool';
-import { SelectTool } from '@store/actions/app.actions';
-import { App } from '@store/reducers/app.reducer';
-import { map, withLatestFrom } from 'rxjs/operators';
-import { Shape } from '@tools';
-import { Tools } from '../../modules/tools/types/tools';
+import {
+  Observable,
+  map,
+  withLatestFrom
+} from '@rx';
+import { Tool, Tools } from '@tools/types';
+import { App, AppState, AppActions } from '@store';
+import { Shape } from '@shapes';
 
 @Directive({
   selector: '[appCursorable]'

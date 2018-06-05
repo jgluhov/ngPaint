@@ -1,18 +1,21 @@
-import { Observable } from 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom, map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Point2D } from '@math/point2d';
-import { Shape, CircleShape, PolylineShape } from '@shapes';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { of } from 'rxjs/observable/of';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { PartialObserver } from 'rxjs/Observer';
-import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import * as AppActions from '@store/actions/app.actions';
-import { App } from '@store/reducers/app.reducer';
+import { Point2D } from '@math';
+import { Shape, CircleShape, PolylineShape } from '@shapes';
+import { App, AppState, AppActions } from '@store';
+import { CanvasService } from '@services';
+import { MouseServiceDirective } from '@directives';
+import {
+  Observable,
+  fromEvent,
+  Subject,
+  takeUntil,
+  mergeMap,
+  withLatestFrom,
+  map,
+  of,
+  PartialObserver
+} from '@rx';
 
 @Component({
   selector: 'app-drawing-tool',

@@ -1,21 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { takeUntil, mergeMap, withLatestFrom, map } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
-import { Point2D } from '@math/point2d';
-import { RectShape, CircleShape } from '@shapes';
-import { of } from 'rxjs/observable/of';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { PartialObserver } from 'rxjs/Observer';
-import * as AppActions from '@store/actions/app.actions';
-import { Shape } from '@shapes/shape';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { Observable } from 'rxjs/Observable';
-import { Tool } from '@tools/types/tool';
-import { Tools } from '@tools/types/tools';
-import { App } from '@store/reducers/app.reducer';
-
+import {
+  takeUntil,
+  mergeMap,
+  withLatestFrom,
+  map,
+  Subject,
+  of,
+  PartialObserver,
+  Observable
+} from '@rx';
+import { Point2D } from '@math';
+import {
+  Shape,
+  RectShape,
+  CircleShape
+} from '@shapes';
+import { MouseServiceDirective } from '@directives';
+import { CanvasService } from '@services';
+import { Tool, Tools } from '@tools/types';
+import { App, AppActions, AppState } from '@store';
 @Component({
   selector: 'app-geometry-tool',
   template: ''

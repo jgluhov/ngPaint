@@ -1,5 +1,5 @@
 import { Shape } from '@shapes/shape';
-import { Point2D } from '@math/point2d';
+import { Point2D } from '@math';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { Http, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
 import { SvgIconComponent } from './svg-icon.component';

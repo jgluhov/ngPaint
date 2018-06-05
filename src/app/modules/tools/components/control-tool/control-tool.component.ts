@@ -1,17 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom, map, tap, filter } from 'rxjs/operators';
-import { Point2D } from '@math/point2d';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
-import { Shape } from '@tools';
+import { MouseServiceDirective } from '@directives';
+import { Point2D } from '@math';
+import { CanvasService } from '@services';
+import { Shape } from '@shapes';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { App } from '@store/reducers/app.reducer';
-import { PartialObserver } from 'rxjs/Observer';
-import * as AppActions from '@store/actions/app.actions';
+import { AppState, App, AppActions } from '@store';
+import { Subject,
+  takeUntil,
+  mergeMap,
+  withLatestFrom,
+  map,
+  tap,
+  filter,
+  of,
+  Observable,
+  PartialObserver
+} from '@rx';
 
 @Component({
   selector: 'app-control-tool',

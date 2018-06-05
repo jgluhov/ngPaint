@@ -5,9 +5,9 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { PolylineShape, Shape } from '@tools/shapes';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { ChangeStatePayload } from '@store/actions/app.actions';
+import { PolylineShape, Shape } from '@shapes';
+import { CanvasService } from '@services';
+import { ChangeStatePayload } from '@store';
 
 @Component({
   selector: '[appPolyline]',

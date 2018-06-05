@@ -1,5 +1,5 @@
 import { Shape } from './shape';
-import { Point2D } from '@math/point2d';
+import { Point2D } from '@math';
 
 export class PolylineShape extends Shape {
   public readonly type = 'polyline';

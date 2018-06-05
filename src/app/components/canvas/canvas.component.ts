@@ -7,18 +7,13 @@ import {
   ElementRef,
   ReflectiveInjector
 } from '@angular/core';
-import { AppState } from '@store/app-state';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Tool } from '@tools/types/tool';
-import { of } from 'rxjs/observable/of';
-import { CanvasService } from '@services/canvas/canvas.service';
-import { map, switchMap } from 'rxjs/operators';
-import { App } from '@store/reducers/app.reducer';
-import { Shape } from '@shapes/shape';
-import * as AppActions from '@store/actions/app.actions';
 import { ofType } from '@ngrx/effects';
-import { Tools } from '@tools/types/tools';
+import { Observable, of, map, switchMap } from '@rx';
+import { Tool, Tools } from '@tools/types';
+import { CanvasService } from '@services';
+import { AppState, App, AppActions } from '@store';
+import { Shape } from '@shapes';
 
 @Component({
   selector: 'app-canvas',

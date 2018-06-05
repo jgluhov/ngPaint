@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '@store/app-state';
-import { Observable } from 'rxjs/Observable';
-import * as AppActions from '@store/actions/app.actions';
-import { SelectColor, SelectTool } from '../../store/actions/app.actions';
-import { App } from '../../store/reducers/app.reducer';
-import { map } from 'rxjs/operators';
+import { App, AppState, AppActions } from '@store';
+import { Observable, map } from '@rx';
 
 @Component({
   selector: 'app-color-picker',

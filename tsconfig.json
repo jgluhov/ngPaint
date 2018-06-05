@@ -50,8 +50,17 @@
       "@store/*": [
         "app/store/*"
       ],
+      "@store": [
+        "app/store"
+      ],
       "@math/*": [
         "app/math/*"
+      ],
+      "@math": [
+        "app/math"
+      ],
+      "@rx": [
+        "app/libs/rx"
       ]
     }
   }
