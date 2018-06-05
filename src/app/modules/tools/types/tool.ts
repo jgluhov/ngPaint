@@ -1,8 +1,8 @@
-import { Type } from '@angular/core';
+import { ToolGroups } from '@tools/types';
 
 export interface Tool {
   name: string;
-  component: Type<any>;
-  type: string;
+  group: ToolGroups;
+  shape: string;
   imageUrl: string;
 }

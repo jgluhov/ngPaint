@@ -1,47 +1,41 @@
 import { InjectionToken } from '@angular/core';
-import { Tool, Tools } from './types';
-import {
-  DrawingToolComponent,
-  GeometryToolComponent,
-  ControlToolComponent,
-  PointerToolComponent
-} from './components';
+import { Tool, Tools, ToolGroups } from './types';
 
 export const tools: Tool[] = [
   {
     name: Tools.Pointer,
-    component: PointerToolComponent,
-    type: 'none',
+    group: ToolGroups.Default,
+    shape: 'none',
     imageUrl: 'assets/icons/pointer.svg'
   },
   {
     name: Tools.Pencil,
-    component: DrawingToolComponent,
-    type: 'polyline',
+    group: ToolGroups.Drawing,
+    shape: 'polyline',
     imageUrl: 'assets/icons/pencil.svg'
   },
   {
     name: Tools.Brush,
-    component: DrawingToolComponent,
-    type: 'polyline',
+    group: ToolGroups.Drawing,
+    shape: 'polyline',
     imageUrl: 'assets/icons/brush.svg'
   },
   {
     name: Tools.Rect,
-    component: GeometryToolComponent,
-    type: 'rect',
+    group: ToolGroups.Geomentry,
+    shape: 'rect',
     imageUrl: 'assets/icons/rect.svg'
   },
   {
     name: Tools.Circle,
-    component: GeometryToolComponent,
-    type: 'circle',
+    group: ToolGroups.Geomentry,
+    shape: 'circle',
     imageUrl: 'assets/icons/circle.svg'
   },
   {
     name: Tools.Hand,
-    component: ControlToolComponent,
-    type: 'none',
+    group: ToolGroups.Control,
+    shape: 'none',
     imageUrl: 'assets/icons/hand.svg'
   }
 ];

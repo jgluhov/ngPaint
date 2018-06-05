@@ -5,7 +5,8 @@ import {
   ViewContainerRef,
   ComponentFactoryResolver,
   ElementRef,
-  ReflectiveInjector
+  ReflectiveInjector,
+  Injector
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -14,6 +15,11 @@ import { Tool, Tools } from '@tools/types';
 import { CanvasService } from '@services';
 import { AppState, App, AppActions } from '@store';
 import { Shape } from '@shapes';
+import { ToolGroups } from '../../modules/tools/types/tool-groups';
+import { PointerToolComponent } from '../../modules/tools/components/pointer-tool/pointer-tool.component';
+import { DrawingToolComponent } from '../../modules/tools/components/drawing-tool/drawing-tool.component';
+import { GeometryToolComponent } from '../../modules/tools/components/geometry-tool/geometry-tool.component';
+import { Type } from '@angular/core';
 
 @Component({
   selector: 'app-canvas',
@@ -32,7 +38,8 @@ export class CanvasComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
-    public canvasService: CanvasService
+    public canvasService: CanvasService,
+    public injector: Injector
   ) { }
 
   ngOnInit(): void {
@@ -62,8 +69,21 @@ export class CanvasComponent implements OnInit {
     }
 
     const componentFactory = this.componentFactoryResolver
-      .resolveComponentFactory(tool.component);
+      .resolveComponentFactory(this.getComponentByGroup(tool.group));
 
     const componentRef = this.vcr.createComponent(componentFactory);
+  }
+
+  getComponentByGroup(group: ToolGroups): Type<any> {
+    switch (group) {
+      case ToolGroups.Default:
+        return PointerToolComponent;
+      case ToolGroups.Drawing:
+        return DrawingToolComponent;
+      case ToolGroups.Geomentry:
+        return GeometryToolComponent;
+      default:
+        return PointerToolComponent;
+    }
   }
 }

@@ -71,7 +71,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   }
 
   createShape(start: Point2D, selectedTool: Tool): Shape {
-    switch (selectedTool.name) {
+    switch (selectedTool.shape) {
       case Tools.Rect: {
         return new RectShape(start.x, start.y);
       }

@@ -13,7 +13,8 @@ import {
   entryComponents: [
     DrawingToolComponent,
     GeometryToolComponent,
-    ControlToolComponent
+    ControlToolComponent,
+    PointerToolComponent
   ],
   imports: [
     CommonModule,
