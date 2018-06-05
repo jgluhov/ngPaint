@@ -34,7 +34,7 @@ export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
   @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
 
-  handleMouseEnter(state: boolean): void {
+  handleMouseEvent(state: boolean): void {
     this.hoverer.emit({ id: this.circle.id, state });
   }
 }
