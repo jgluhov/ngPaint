@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseServiceDirective } from '@directives/mouse/mouse-service.directive';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, mergeMap, withLatestFrom, map } from 'rxjs/operators';
+import { takeUntil, mergeMap, withLatestFrom, map, tap } from 'rxjs/operators';
 import { Point2D } from '@math/point2d';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { of } from 'rxjs/observable/of';
@@ -35,6 +35,9 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     this.mouseService.onMouseDown()
       .pipe(
         withLatestFrom(this.hoveredShape$),
+        tap(([start, hoveredShape]: [Point2D, Shape]) => {
+          console.log(hoveredShape);
+        }),
         takeUntil(this.destroy$)
       )
       .subscribe(this.handleMouseDown);
@@ -50,9 +53,14 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   }
 
   handleDrag = (start: Point2D, shape: Shape): PartialObserver<Point2D> => {
+    shape.editing = true;
+
     return {
       next: (end: Point2D): void => {
         console.log(end);
+      },
+      complete: (): void => {
+        shape.editing = false;
       }
     };
   }
