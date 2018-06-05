@@ -1,4 +1,4 @@
-import { RectShape } from './rect';
+import { RectShape } from './rect-shape';
 
 describe('RectShape', () => {
   let rect: RectShape;

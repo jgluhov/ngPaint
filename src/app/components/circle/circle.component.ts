@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
-import { CircleShape } from '@shapes/circle/circle';
+import { CircleShape } from '@shapes';
 import { ChangeStatePayload } from '@store/actions/app.actions';
 
 @Component({

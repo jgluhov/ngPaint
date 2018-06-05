@@ -1,9 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-
 import { CanvasService } from './canvas.service';
 import { AppStoreModule } from '@store/app-store.module';
 
-describe('ShapeService', () => {
+describe('CanvasService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [

@@ -1,4 +1,4 @@
-import { CircleShape } from './circle';
+import { CircleShape } from './circle-shape';
 import { Point2D } from '@math/point2d';
 
 describe('CircleShape', () => {
