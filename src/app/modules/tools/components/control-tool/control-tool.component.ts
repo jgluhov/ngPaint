@@ -14,7 +14,9 @@ import { Subject,
   filter,
   of,
   Observable,
-  PartialObserver
+  PartialObserver,
+  startWith,
+  pairwise
 } from '@rx';
 
 @Component({
@@ -55,16 +57,21 @@ export class ControlToolComponent implements OnInit, OnDestroy {
             state: true
           }));
         }),
-        mergeMap(() => this.mouseService.onMouseMove()),
+        mergeMap(() => this.mouseService.onMouseMove().pipe(
+          startWith(start),
+          pairwise(),
+          map(([prev, next]: [Point2D, Point2D]) => Point2D.getDifference(prev, next)),
+          filter((move: Point2D) => move.x !== 0 && move.y !== 0)
+        )),
         takeUntil(this.mouseService.onMouseUp())
       )
-      .subscribe(this.handleDrag(start, hoveredShape));
+      .subscribe(this.handleDrag(hoveredShape));
   }
 
-  handleDrag = (start: Point2D, hoveredShape: Shape): PartialObserver<Point2D> => {
+  handleDrag = (hoveredShape: Shape): PartialObserver<Point2D> => {
     return {
-      next: (point: Point2D): void => {
-        hoveredShape.moveTo(point);
+      next: (move: Point2D): void => {
+        hoveredShape.move(move);
       },
       complete: (): void => {
         this.store.dispatch(new AppActions.ChangeEditingState({

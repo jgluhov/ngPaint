@@ -1,10 +1,11 @@
 import { RectShape } from './rect-shape';
+import { Point2D } from '@math';
 
 describe('RectShape', () => {
   let rect: RectShape;
 
   beforeEach(() => {
-    rect = new RectShape();
+    rect = new RectShape(0, 0, 100, 100);
   });
 
   describe('#getBoundingRect()', () => {
@@ -80,6 +81,48 @@ describe('RectShape', () => {
         });
       });
     });
+  });
+
+  describe('#move()', () => {
+
+    describe('when user just click on rect', () => {
+      it('should not move at all', () => {
+        rect.move(new Point2D(0, 0));
+
+        expect(rect.x).toBe(0);
+        expect(rect.y).toBe(0);
+      });
+    });
+
+    describe('when we drag rect by the down side', () => {
+      describe('move it to the right side', () => {
+        it('should the rect be moved to the right side by 10', () => {
+          rect.move(new Point2D(10, 0));
+
+          expect(rect.x).toBe(10);
+          expect(rect.y).toBe(0);
+        });
+      });
+
+      describe('move it to the left side', () => {
+        it('should the rect be moved to the left side by 10', () => {
+          rect.move(new Point2D(-10, 0));
+
+          expect(rect.x).toBe(-10);
+          expect(rect.y).toBe(0);
+        });
+      });
+
+      describe('move it to the south west side', () => {
+        it('should the rect be moved to the south west side correctly', () => {
+          rect.move(new Point2D(10, 10));
+
+          expect(rect.x).toBe(10);
+          expect(rect.y).toBe(10);
+        });
+      });
+    });
+
   });
 
 });

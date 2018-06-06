@@ -47,4 +47,9 @@ export class CircleShape extends Shape {
 
     return this;
   }
+
+  public move(vector: Point2D): this {
+
+    return this;
+  }
 }

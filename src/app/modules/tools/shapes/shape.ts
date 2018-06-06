@@ -37,4 +37,5 @@ export abstract class Shape {
 
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;
+  abstract move(point: Point2D): this;
 }

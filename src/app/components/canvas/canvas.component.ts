@@ -17,6 +17,7 @@ import { CanvasService } from '@services';
 import { AppState, App, AppActions } from '@store';
 import { Shape } from '@shapes';
 import { ToolGroups } from '../../modules/tools/types/tool-groups';
+import { ControlToolComponent } from '../../modules/tools/components/control-tool/control-tool.component';
 import {
   PointerToolComponent,
   DrawingToolComponent,
@@ -84,6 +85,8 @@ export class CanvasComponent implements OnInit {
         return DrawingToolComponent;
       case ToolGroups.Geomentry:
         return GeometryToolComponent;
+      case ToolGroups.Control:
+        return ControlToolComponent;
       default:
         return PointerToolComponent;
     }

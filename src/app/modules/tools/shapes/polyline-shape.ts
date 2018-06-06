@@ -37,4 +37,8 @@ export class PolylineShape extends Shape {
 
     return this;
   }
+
+  public move(): this {
+    return this;
+  }
 }
