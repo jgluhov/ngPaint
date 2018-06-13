@@ -18,6 +18,7 @@ import { Subject,
   startWith,
   pairwise
 } from '@rx';
+import { ShapeStates } from '@tools/types/shape-states';
 
 @Component({
   selector: 'app-control-tool',
@@ -52,10 +53,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     of(start)
       .pipe(
         tap(() => {
-          this.store.dispatch(new AppActions.ChangeEditingState({
-            id: hoveredShape.id,
-            state: true
-          }));
+          this.canvasService.changeState(hoveredShape.id, ShapeStates.EDITING);
         }),
         mergeMap(() => this.mouseService.onMouseMove().pipe(
           startWith(start),
@@ -74,10 +72,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
         hoveredShape.move(move);
       },
       complete: (): void => {
-        this.store.dispatch(new AppActions.ChangeEditingState({
-          id: hoveredShape.id,
-          state: false
-        }));
+        this.canvasService.changeState(hoveredShape.id, ShapeStates.STABLE);
       }
     };
   }

@@ -16,6 +16,7 @@ import {
   of,
   PartialObserver
 } from '@rx';
+import { ShapeStates } from '@tools/types/shape-states';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -53,8 +54,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ): void => {
     const circle = new CircleShape(p, thickness / 2, selectedColor);
     const polyline = new PolylineShape([p], thickness, selectedColor);
-    polyline.setChild(circle);
-    circle.setParent(polyline);
+
+    Shape.relate(polyline, circle);
 
     of(p)
       .pipe(
@@ -77,17 +78,18 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         polyline.append(pt);
       },
       complete: (): void => {
-        if (!this.shouldPolylineCreate(polyline)) {
+        if (!this.shouldBeCreated(polyline)) {
           return;
         }
 
+        this.canvasService.changeState(polyline.id, ShapeStates.STABLE);
         this.store.dispatch(new AppActions.CreateShape(polyline));
       }
     };
   }
 
-  shouldPolylineCreate(polyline: PolylineShape): boolean {
-    return polyline.length() > 1;
+  shouldBeCreated(shape: PolylineShape): boolean {
+    return shape.length() > 1;
   }
 
   ngOnDestroy(): void {

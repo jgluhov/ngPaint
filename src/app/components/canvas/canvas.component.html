@@ -21,8 +21,11 @@
 
       <g id="polylines">
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
-          <g [appPolyline]="polyline" *ngIf="!polyline.editing" (hover)="handleHoverChange($event)"></g>
-          <polyline *ngIf="polyline.editing"
+          <g *ngIf="polyline.isStable()"
+            [appPolyline]="polyline"
+            (hover)="handleHoverChange($event)">
+          </g>
+          <polyline *ngIf="polyline.isEditing()"
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"
             [attr.stroke]="polyline.stroke"
@@ -32,8 +35,10 @@
 
       <g id="circles">
         <ng-container *ngFor="let circle of canvasService.circles$ | async">
-          <g [appCircle]="circle" *ngIf="!circle.editing"></g>
-          <circle
+          <g *ngIf="circle.isStable()"
+            [appCircle]="circle">
+          </g>
+          <circle *ngIf="circle.isEditing()"
             [attr.cx]="circle.cx"
             [attr.cy]="circle.cy"
             [attr.r]="circle.r"
@@ -46,8 +51,11 @@
 
       <g id="rects">
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
-          <g [appRect]="rect" *ngIf="!rect.editing" (hover)="handleHoverChange($event)"></g>
-          <rect
+          <g *ngIf="rect.isStable()"
+            [appRect]="rect"
+            (hover)="handleHoverChange($event)">
+          </g>
+          <rect *ngIf="rect.isEditing()"
             [attr.x]="rect.x"
             [attr.y]="rect.y"
             [attr.width]="rect.width"

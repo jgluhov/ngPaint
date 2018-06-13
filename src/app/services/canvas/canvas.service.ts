@@ -3,6 +3,7 @@ import { difference, length } from 'ramda';
 import { Store } from '@ngrx/store';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
 import { App, AppActions, AppState } from '@store';
+import { ShapeStates } from '@tools/types/shape-states';
 import {
   Subject,
   Observable,
@@ -90,6 +91,16 @@ export class CanvasService {
 
   add = (shape: Shape): void => {
     this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
+  }
+
+  changeState = (id: string, state: ShapeStates): void => {
+    this.canvasHandler.next((shapeStore: Shape[]) => {
+      const shape = shapeStore.find((item: Shape) => item.id === id);
+      shape.state = state;
+      shape.children.forEach((child: Shape) => child.state = state);
+
+      return shapeStore;
+    });
   }
 
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {

@@ -30,7 +30,9 @@ import { RectComponent } from './components/rect/rect.component';
     ToolsModule,
     FormsModule
   ],
-  providers: [CanvasService],
+  providers: [
+    CanvasService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

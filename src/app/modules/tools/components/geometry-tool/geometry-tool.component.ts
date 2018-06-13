@@ -20,6 +20,7 @@ import { MouseServiceDirective } from '@directives';
 import { CanvasService } from '@services';
 import { Tool, ToolTypes } from '@tools/types';
 import { App, AppActions, AppState } from '@store';
+import { ShapeStates } from '../../types/shape-states';
 @Component({
   selector: 'app-geometry-tool',
   template: ''
@@ -65,6 +66,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
         rect.transform(start, end);
       },
       complete: (): void => {
+        this.canvasService.changeState(rect.id, ShapeStates.STABLE);
         this.store.dispatch(new AppActions.CreateShape(rect));
       }
     };

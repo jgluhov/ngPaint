@@ -1,14 +1,23 @@
 import { Point2D } from '@math';
+import { ShapeStates } from '@tools/types/shape-states';
 
 export abstract class Shape {
-  public id: string;
+  public readonly id: string;
   public readonly type: string;
   public _stroke = 'black';
   public rendered = false;
   public editing = true;
   public hovered = false;
   public parent: Shape = null;
-  public child: Shape = null;
+  public state: ShapeStates = ShapeStates.EDITING;
+  public children: Shape[] = [];
+
+  static relate(parent: Shape, ...children: Shape[]): void {
+    children.forEach((child: Shape) => {
+      parent.addChild(child);
+      child.setParent(parent);
+    });
+  }
 
   public ofType(type: string): boolean {
     return this.type === type;
@@ -19,12 +28,24 @@ export abstract class Shape {
       .toString().replace(',', '');
   }
 
-  public setChild(shape: Shape): void {
-    this.child = shape;
+  public addChild = (shape: Shape): void => {
+    this.children.push(shape);
   }
 
-  public setParent(shape: Shape): void {
+  public setParent = (shape: Shape): void => {
     this.parent = shape;
+  }
+
+  public isStable(): boolean {
+    return this.state === ShapeStates.STABLE;
+  }
+
+  public isEditing(): boolean {
+    return this.state === ShapeStates.EDITING;
+  }
+
+  public isHovered(): boolean {
+    return this.state === ShapeStates.HOVERED;
   }
 
   get stroke(): string {
