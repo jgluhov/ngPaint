@@ -18,8 +18,8 @@ import { ShapeStates } from '@tools/types/shape-states';
       [attr.fill]="polyline.fill"
       [attr.stroke]="polyline.stroke"
       [attr.stroke-width]="polyline.strokeWidth"
-      (mouseenter)="handleMouseEvent(true)"
-      (mouseleave)="handleMouseEvent(false)"
+      (mouseenter)="handleMouseEnter()"
+      (mouseleave)="handleMouseLeave()"
     />
   `,
   styles: [`
@@ -30,11 +30,14 @@ import { ShapeStates } from '@tools/types/shape-states';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PolylineComponent {
-  @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
   @Input('appPolyline') polyline: PolylineShape;
+  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStates}>();
 
-  handleMouseEvent(isHovered: boolean): void {
-    const state = isHovered ? ShapeStates.HOVERED : ShapeStates.STABLE;
-    this.hoverer.emit({ id: this.polyline.id, state });
+  handleMouseEnter(): void {
+    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStates.HOVERED });
+  }
+
+  handleMouseLeave(): void {
+    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStates.STABLE });
   }
 }

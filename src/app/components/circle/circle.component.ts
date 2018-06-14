@@ -20,8 +20,8 @@ import { ShapeStates } from '../../modules/tools/types/shape-states';
       [attr.fill]="circle.fill"
       [attr.stroke]="circle.stroke"
       [attr.stroke-width]="circle.strokeWidth"
-      (mouseenter)="handleMouseEvent(true)"
-      (mouseleave)="handleMouseEvent(false)"
+      (mouseenter)="handleMouseEnter()"
+      (mouseleave)="handleMouseLeave()"
     />
   `,
   styles: [`
@@ -33,12 +33,13 @@ import { ShapeStates } from '../../modules/tools/types/shape-states';
 })
 export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
-  @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
+  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStates}>();
 
-  handleMouseEvent(isHovered: boolean): void {
-    const state = isHovered ?
-      ShapeStates.HOVERED : ShapeStates.STABLE;
+  handleMouseEnter(): void {
+    this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStates.HOVERED });
+  }
 
-    this.hoverer.emit({ id: this.circle.id, state });
+  handleMouseLeave(): void {
+    this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStates.STABLE });
   }
 }

@@ -41,4 +41,12 @@ export class PolylineShape extends Shape {
   public move(): this {
     return this;
   }
+
+  get stroke(): string {
+    return this.isHovered() ? 'red' : this._stroke;
+  }
+
+  set stroke(stroke: string) {
+    this._stroke = stroke;
+  }
 }

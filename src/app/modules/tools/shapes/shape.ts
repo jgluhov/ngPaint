@@ -44,10 +44,7 @@ export abstract class Shape {
     this._stroke = stroke;
   }
 
-  public isStable = (): boolean => {
-    return this.state === ShapeStates.STABLE || this.state === ShapeStates.HOVERED;
-  }
-
+  public isStable = (): boolean => this.state === ShapeStates.STABLE;
   public isEditing = (): boolean => this.state === ShapeStates.EDITING;
   public isHovered = (): boolean => this.state === ShapeStates.HOVERED;
 

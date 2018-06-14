@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { Observable, of, map, switchMap } from '@rx';
+import { Observable, of, map, switchMap, Subject, merge } from '@rx';
 import { Tool, ToolTypes } from '@tools/types';
 import { CanvasService } from '@services';
 import { AppState, App, AppActions } from '@store';
@@ -24,6 +24,8 @@ import {
   GeometryToolComponent
 } from '@tools/components';
 import { ShapeStates } from '@tools/types/shape-states';
+import { CursorTypes } from '../../modules/tools/types/cursor-types';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-canvas',
@@ -32,7 +34,8 @@ import { ShapeStates } from '@tools/types/shape-states';
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
-  cursor$: Observable<string>;
+  currentCursor$: Observable<string>;
+  cursorChanger$: Subject<CursorTypes> = new Subject<CursorTypes>();
   selectedTool$: Observable<Tool>;
   selectedTool: Tool;
   app$: Observable<App>;
@@ -53,8 +56,19 @@ export class CanvasComponent implements OnInit {
     this.selectedTool$ = this.app$
       .pipe(map((app: App) => this.selectedTool = app.selectedTool));
 
-    this.cursor$ = this.app$
-      .pipe(map((app: App) => app.cursor));
+    this.currentCursor$ = merge(
+      this.app$.pipe(
+        map((app: App) => app.cursor),
+        distinctUntilChanged()
+      ),
+      this.cursorChanger$
+    );
+
+    this.currentCursor$
+      .pipe(distinctUntilChanged())
+      .subscribe((cursor: string) => {
+        console.log(cursor);
+      });
 
     this.selectedTool$
       .subscribe(this.loadComponent);
@@ -65,7 +79,14 @@ export class CanvasComponent implements OnInit {
       return;
     }
 
+    const cursor = evt.state === ShapeStates.HOVERED ?
+      CursorTypes.Hand : CursorTypes.Default;
+
+    this.cursorChanger$.next(cursor);
     this.canvasService.changeState(evt.id, evt.state);
+    this.store.dispatch(
+      new AppActions.ChangeHoveredShape({ id: evt.id, state: evt.state })
+    );
   }
 
   loadComponent = (tool: Tool): void => {

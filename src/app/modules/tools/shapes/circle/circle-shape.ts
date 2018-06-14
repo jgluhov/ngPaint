@@ -1,5 +1,6 @@
 import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
+import { ShapeStates } from '@tools/types/shape-states';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';
@@ -33,8 +34,12 @@ export class CircleShape extends Shape {
   }
 
   get stroke(): string {
-    return  this.parent ?
-      this.parent.stroke : this._stroke;
+    if (this.parent) {
+      console.log('parent', this.parent.stroke);
+      return this.parent.stroke;
+    }
+
+    return this.isHovered() ? 'red' : this._stroke;
   }
 
   set stroke(stroke: string) {

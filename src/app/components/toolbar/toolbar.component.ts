@@ -55,7 +55,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   handleSelect(tool: Tool): void {
     this.store.dispatch(new AppActions.SelectTool(tool));
-    this.store.dispatch(new AppActions.ChangeCursor(this.selectedTool.cursor));
 
     const thickness = tool.type === ToolTypes.Pencil ? 2 : 10;
     this.store.dispatch(new AppActions.ChangeThickness(thickness));

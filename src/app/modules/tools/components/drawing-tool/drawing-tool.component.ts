@@ -66,6 +66,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .subscribe(this.polylineObserver(polyline));
 
     this.canvasService.add(circle);
+    this.canvasService.changeState(circle.id, ShapeStates.STABLE);
     this.store.dispatch(new AppActions.CreateShape(circle));
   }
 
