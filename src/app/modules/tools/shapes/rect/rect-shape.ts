@@ -65,10 +65,10 @@ export class RectShape extends Shape {
   transform(start: Point2D, end: Point2D): void {
 
     const { x, y, width, height }: BoundingRect = this.getBoundingRect(start, end);
+    const p = new Point2D(x, y);
 
-    this.moveTo(new Point2D(x, y));
-    this.width = width;
-    this.height = height;
+    this.moveTo(p);
+    this.setSize(width, height);
   }
 
   public moveTo(point: Point2D): this {
@@ -82,6 +82,13 @@ export class RectShape extends Shape {
 
     this.x += vector.x;
     this.y += vector.y;
+
+    return this;
+  }
+
+  private setSize(width: number, height: number): this {
+    this.width = width;
+    this.height = height;
 
     return this;
   }

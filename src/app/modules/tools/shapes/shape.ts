@@ -8,7 +8,7 @@ export abstract class Shape {
   public rendered = false;
   public editing = true;
   public hovered = false;
-  public parent: Shape = null;
+  public parent: Shape;
   public state: ShapeStates = ShapeStates.EDITING;
   public children: Shape[] = [];
 
@@ -28,33 +28,28 @@ export abstract class Shape {
       .toString().replace(',', '');
   }
 
-  public addChild = (shape: Shape): void => {
+  private addChild = (shape: Shape): void => {
     this.children.push(shape);
   }
 
-  public setParent = (shape: Shape): void => {
+  private setParent = (shape: Shape): void => {
     this.parent = shape;
   }
 
-  public isStable(): boolean {
-    return this.state === ShapeStates.STABLE;
-  }
-
-  public isEditing(): boolean {
-    return this.state === ShapeStates.EDITING;
-  }
-
-  public isHovered(): boolean {
-    return this.state === ShapeStates.HOVERED;
-  }
-
   get stroke(): string {
-    return this.hovered ? 'red' : this._stroke;
+    return this.isHovered() ? 'red' : this._stroke;
   }
 
   set stroke(stroke: string) {
     this._stroke = stroke;
   }
+
+  public isStable = (): boolean => {
+    return this.state === ShapeStates.STABLE || this.state === ShapeStates.HOVERED;
+  }
+
+  public isEditing = (): boolean => this.state === ShapeStates.EDITING;
+  public isHovered = (): boolean => this.state === ShapeStates.HOVERED;
 
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;

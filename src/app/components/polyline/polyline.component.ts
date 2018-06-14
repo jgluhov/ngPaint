@@ -8,6 +8,7 @@ import {
 import { PolylineShape, Shape } from '@shapes';
 import { CanvasService } from '@services';
 import { ChangeStatePayload } from '@store';
+import { ShapeStates } from '@tools/types/shape-states';
 
 @Component({
   selector: '[appPolyline]',
@@ -32,7 +33,8 @@ export class PolylineComponent {
   @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
   @Input('appPolyline') polyline: PolylineShape;
 
-  handleMouseEvent(state: boolean): void {
+  handleMouseEvent(isHovered: boolean): void {
+    const state = isHovered ? ShapeStates.HOVERED : ShapeStates.STABLE;
     this.hoverer.emit({ id: this.polyline.id, state });
   }
 }

@@ -30,11 +30,11 @@ export class PolylineShape extends Shape {
     return this.points.length;
   }
 
-  public transform(): void {
+  public transform(): this {
+    return this;
   }
 
   public moveTo(): this {
-
     return this;
   }
 

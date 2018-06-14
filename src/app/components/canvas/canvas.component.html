@@ -5,7 +5,7 @@
       width="14000"
       height="14000"
       #svg
-      [appCursorable]="app$"
+      [appCursorable]="cursor$ | async"
       appMouseService
     >
       <defs>
@@ -23,7 +23,7 @@
         <ng-container *ngFor="let polyline of canvasService.polylines$ | async">
           <g *ngIf="polyline.isStable()"
             [appPolyline]="polyline"
-            (hover)="handleHoverChange($event)">
+            (shapeStateChange)="handleShapeStateChange($event)">
           </g>
           <polyline *ngIf="polyline.isEditing()"
             [attr.points]="polyline.toString()"
@@ -36,7 +36,8 @@
       <g id="circles">
         <ng-container *ngFor="let circle of canvasService.circles$ | async">
           <g *ngIf="circle.isStable()"
-            [appCircle]="circle">
+            [appCircle]="circle"
+            (shapeStateChange)="handleShapeStateChange($event)">
           </g>
           <circle *ngIf="circle.isEditing()"
             [attr.cx]="circle.cx"
@@ -53,7 +54,7 @@
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
           <g *ngIf="rect.isStable()"
             [appRect]="rect"
-            (hover)="handleHoverChange($event)">
+            (shapeStateChange)="handleShapeStateChange($event)">
           </g>
           <rect *ngIf="rect.isEditing()"
             [attr.x]="rect.x"

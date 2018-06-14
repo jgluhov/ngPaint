@@ -9,6 +9,7 @@ export interface App {
   thickness: number;
   fontSize: number;
   shapes: Shape[];
+  cursor: string;
 }
 
 const defaultState: App = {
@@ -17,7 +18,8 @@ const defaultState: App = {
   hoveredShape: null,
   thickness: 2,
   fontSize: 13,
-  shapes: []
+  shapes: [],
+  cursor: ''
 };
 
 export function appReducer(state: App = defaultState, action: AppActions.All): App {
@@ -35,8 +37,6 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       };
     }
     case AppActions.CREATE_SHAPE: {
-      action.payload.editing = false;
-
       return {
         ...state,
         shapes: [
@@ -45,14 +45,19 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
         ]
       };
     }
-    case AppActions.CHANGE_HOVERED_STATE: {
+    case AppActions.CHANGE_HOVERED_SHAPE: {
       const shape = state.shapes.find((item: Shape) => item.id === action.payload.id);
       const hoveredShape = action.payload.state ? shape : null;
-      shape.hovered = action.payload.state;
 
       return {
         ...state,
         hoveredShape
+      };
+    }
+    case AppActions.CHANGE_CURSOR: {
+      return {
+        ...state,
+        cursor: action.payload
       };
     }
     case AppActions.CHANGE_THICKNESS: {

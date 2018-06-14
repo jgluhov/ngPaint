@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CircleShape } from '@shapes';
 import { ChangeStatePayload } from '@store/actions/app.actions';
+import { ShapeStates } from '../../modules/tools/types/shape-states';
 
 @Component({
   selector: '[appCircle]',
@@ -34,7 +35,10 @@ export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
   @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
 
-  handleMouseEvent(state: boolean): void {
+  handleMouseEvent(isHovered: boolean): void {
+    const state = isHovered ?
+      ShapeStates.HOVERED : ShapeStates.STABLE;
+
     this.hoverer.emit({ id: this.circle.id, state });
   }
 }

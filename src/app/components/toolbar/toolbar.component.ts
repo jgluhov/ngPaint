@@ -5,7 +5,7 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { AppActions, AppState, App } from '@store';
 import { TOOL_LIST_TOKEN } from '@tools';
 import { Tool, ToolTypes } from '@tools/types';
@@ -55,6 +55,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   handleSelect(tool: Tool): void {
     this.store.dispatch(new AppActions.SelectTool(tool));
+    this.store.dispatch(new AppActions.ChangeCursor(this.selectedTool.cursor));
 
     const thickness = tool.type === ToolTypes.Pencil ? 2 : 10;
     this.store.dispatch(new AppActions.ChangeThickness(thickness));

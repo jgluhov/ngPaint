@@ -23,6 +23,7 @@ import {
   DrawingToolComponent,
   GeometryToolComponent
 } from '@tools/components';
+import { ShapeStates } from '@tools/types/shape-states';
 
 @Component({
   selector: 'app-canvas',
@@ -31,6 +32,7 @@ import {
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
+  cursor$: Observable<string>;
   selectedTool$: Observable<Tool>;
   selectedTool: Tool;
   app$: Observable<App>;
@@ -48,20 +50,22 @@ export class CanvasComponent implements OnInit {
   ngOnInit(): void {
     this.app$ = this.store.select('app');
 
-    this.selectedTool$ = this.store
-      .select('app')
+    this.selectedTool$ = this.app$
       .pipe(map((app: App) => this.selectedTool = app.selectedTool));
+
+    this.cursor$ = this.app$
+      .pipe(map((app: App) => app.cursor));
 
     this.selectedTool$
       .subscribe(this.loadComponent);
   }
 
-  handleHoverChange = (evt: AppActions.ChangeStatePayload): void => {
+  handleShapeStateChange = (evt: {id: string; state: ShapeStates}): void => {
     if (this.selectedTool.type !== ToolTypes.Hand) {
       return;
     }
 
-    this.store.dispatch(new AppActions.ChangeHoveredState({ id: evt.id, state: evt.state }));
+    this.canvasService.changeState(evt.id, evt.state);
   }
 
   loadComponent = (tool: Tool): void => {

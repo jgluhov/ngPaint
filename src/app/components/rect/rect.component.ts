@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { RectShape } from '@shapes';
 import { ChangeStatePayload } from '@store';
+import { ShapeStates } from '../../modules/tools/types/shape-states';
 
 @Component({
   selector: '[appRect]',
@@ -21,8 +22,8 @@ import { ChangeStatePayload } from '@store';
       [attr.rx]="rect.rx"
       [attr.ry]="rect.ry"
       [attr.stroke-width]="rect.strokeWidth"
-      (mouseenter)="handleMouseEvent(true)"
-      (mouseleave)="handleMouseEvent(false)"
+      (mouseenter)="handleMouseEnter()"
+      (mouseleave)="handleMouseLeave()"
     />
   `,
   styles: [`
@@ -34,9 +35,13 @@ import { ChangeStatePayload } from '@store';
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;
-  @Output('hover') hoverer: EventEmitter<ChangeStatePayload> = new EventEmitter<ChangeStatePayload>();
+  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStates}>();
 
-  handleMouseEvent(state: boolean): void {
-    this.hoverer.emit({ id: this.rect.id, state: state });
+  handleMouseEnter(): void {
+    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStates.HOVERED });
+  }
+
+  handleMouseLeave(): void {
+    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStates.STABLE });
   }
 }

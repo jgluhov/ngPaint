@@ -7,21 +7,19 @@
 
 .cursor {
   &__pencil {
-    cursor: url("../../../assets/icons/pencil.png") 0 15, auto;
+    cursor: url("../../../assets/icons/cursors/pencil.png") 0 15, auto;
   }
 
-  &__brush {
-    cursor: url("../../../assets/icons/brush.png") 8 8, auto;
+  &__circle {
+    cursor: url("../../../assets/icons/cursors/circle.png") 8 8, auto;
   }
 
-  &__rect {
-    cursor: crosshair;
+  &__crosshair {
+    cursor: url("../../../assets/icons/cursors/crosshair.png") 8 8, auto;
   }
 
   &__hand {
-    &.hovered {
-      cursor: url("../../../assets/icons/pointer.png") 8 7, auto;
-    }
+    cursor: url("../../../assets/icons/cursors/hand.png") 8 7, auto;
   }
 }
 
