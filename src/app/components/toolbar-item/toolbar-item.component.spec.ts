@@ -6,6 +6,7 @@ import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
 import { ToolGroups, ToolTypes } from '@tools/types';
+import { CursorTypes } from '@tools/types/cursor-types';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -44,6 +45,7 @@ describe('ToolItemComponent', () => {
       type: ToolTypes.Pencil,
       group: ToolGroups.Default,
       shape: 'polyline',
+      cursor: CursorTypes.Default,
       imageUrl: ''
     };
     fixture.detectChanges();

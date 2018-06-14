@@ -1,4 +1,5 @@
 @import '../../../sass/variables.scss';
+@import '../../../sass/assets.scss';
 
 #grid > line {
   stroke: lighten($color-ash, 50);
@@ -7,19 +8,19 @@
 
 .cursor {
   &__pencil {
-    cursor: url("../../../assets/icons/cursors/pencil.png") 0 15, auto;
+    cursor: url($cursor-pencil-path) 0 15, auto;
   }
 
   &__circle {
-    cursor: url("../../../assets/icons/cursors/circle.png") 8 8, auto;
+    cursor: url($cursor-circle-path) 8 8, auto;
   }
 
   &__crosshair {
-    cursor: url("../../../assets/icons/cursors/crosshair.png") 8 8, auto;
+    cursor: url($cursor-crosshair-path) 8 8, auto;
   }
 
   &__hand {
-    cursor: url("../../../assets/icons/cursors/hand.png") 8 7, auto;
+    cursor: url($cursor-hand-path) 8 7, auto;
   }
 }
 
