@@ -9,7 +9,6 @@ export interface App {
   thickness: number;
   fontSize: number;
   shapes: Shape[];
-  cursor: string;
 }
 
 const defaultState: App = {
@@ -18,8 +17,7 @@ const defaultState: App = {
   hoveredShape: null,
   thickness: 2,
   fontSize: 13,
-  shapes: [],
-  cursor: ''
+  shapes: []
 };
 
 export function appReducer(state: App = defaultState, action: AppActions.All): App {
@@ -52,12 +50,6 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       return {
         ...state,
         hoveredShape
-      };
-    }
-    case AppActions.CHANGE_CURSOR: {
-      return {
-        ...state,
-        cursor: action.payload
       };
     }
     case AppActions.CHANGE_THICKNESS: {

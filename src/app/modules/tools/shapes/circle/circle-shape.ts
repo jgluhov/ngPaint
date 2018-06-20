@@ -35,7 +35,6 @@ export class CircleShape extends Shape {
 
   get stroke(): string {
     if (this.parent) {
-      console.log('parent', this.parent.stroke);
       return this.parent.stroke;
     }
 

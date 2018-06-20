@@ -8,7 +8,6 @@ export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
 export const CREATE_SHAPE = '[Canvas] Create shape';
 export const CHANGE_HOVERED_SHAPE = '[Shape] Change hovered shape';
-export const CHANGE_CURSOR = '[Canvas] Change cursor';
 export const CHANGE_THICKNESS = '[Adjustments] Change thickness';
 
 export class SelectColor implements Action {
@@ -27,12 +26,6 @@ export class CreateShape implements Action {
   readonly type = CREATE_SHAPE;
 
   constructor(public payload: Shape) {}
-}
-
-export class ChangeCursor implements Action {
-  readonly type = CHANGE_CURSOR;
-
-  constructor(public payload: CursorTypes) {}
 }
 
 export interface ChangeStatePayload {
@@ -57,5 +50,4 @@ export type All =
   SelectTool |
   CreateShape |
   ChangeThickness |
-  ChangeHoveredShape |
-  ChangeCursor;
+  ChangeHoveredShape;

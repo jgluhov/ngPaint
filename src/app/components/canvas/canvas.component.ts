@@ -26,6 +26,7 @@ import {
 import { ShapeStates } from '@tools/types/shape-states';
 import { CursorTypes } from '../../modules/tools/types/cursor-types';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { GuiService } from '../../services/gui/gui.service';
 
 @Component({
   selector: 'app-canvas',
@@ -47,7 +48,8 @@ export class CanvasComponent implements OnInit {
     private store: Store<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
     public canvasService: CanvasService,
-    public injector: Injector
+    public injector: Injector,
+    public guiService: GuiService
   ) { }
 
   ngOnInit(): void {
@@ -55,20 +57,6 @@ export class CanvasComponent implements OnInit {
 
     this.selectedTool$ = this.app$
       .pipe(map((app: App) => this.selectedTool = app.selectedTool));
-
-    this.currentCursor$ = merge(
-      this.app$.pipe(
-        map((app: App) => app.cursor),
-        distinctUntilChanged()
-      ),
-      this.cursorChanger$
-    );
-
-    this.currentCursor$
-      .pipe(distinctUntilChanged())
-      .subscribe((cursor: string) => {
-        console.log(cursor);
-      });
 
     this.selectedTool$
       .subscribe(this.loadComponent);

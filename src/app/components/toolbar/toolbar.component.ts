@@ -11,6 +11,7 @@ import { TOOL_LIST_TOKEN } from '@tools';
 import { Tool, ToolTypes } from '@tools/types';
 import { Observable, Subject, takeUntil, map } from '@rx';
 import { ToolList } from '@tools/tool-list';
+import { GuiService } from '../../services/gui/gui.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -36,7 +37,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(TOOL_LIST_TOKEN) public toolList: ToolList,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private guiService: GuiService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   handleSelect(tool: Tool): void {
+    this.guiService.setCursor(tool.cursor);
     this.store.dispatch(new AppActions.SelectTool(tool));
 
     const thickness = tool.type === ToolTypes.Pencil ? 2 : 10;
