@@ -17,6 +17,7 @@ import {
   PartialObserver
 } from '@rx';
 import { ShapeStates } from '@tools/types/shape-states';
+import { GuiService } from '../../../../services/gui/gui.service';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -29,7 +30,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private mouseService: MouseServiceDirective,
-    private canvasService: CanvasService
+    private canvasService: CanvasService,
+    private guiService: GuiService
   ) {}
 
   ngOnInit(): void {
@@ -37,13 +39,9 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .select('app')
       .pipe(map((app: App) => app.selectedColor));
 
-    this.thickness$ = this.store
-      .select('app')
-      .pipe(map((app: App) => app.thickness));
-
     this.mouseService.onMouseDown()
       .pipe(
-        withLatestFrom(this.thickness$, this.selectedColor$),
+        withLatestFrom(this.guiService.thickness$, this.selectedColor$),
         takeUntil(this.destroy$)
       )
       .subscribe(this.handleMouseDown);
@@ -61,7 +59,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap(() => this.mouseService.onMouseMove()),
         takeUntil(this.mouseService.onEnd()),
-        withLatestFrom(this.canvasService.canvasShapes$)
+        withLatestFrom(this.canvasService.shapes$)
       )
       .subscribe(this.polylineObserver(polyline));
 

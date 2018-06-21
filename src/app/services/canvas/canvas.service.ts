@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
 import { App, AppActions, AppState } from '@store';
 import { ShapeStates } from '@tools/types/shape-states';
+import { Observable } from 'rxjs/Observable';
 import {
   Subject,
-  Observable,
   from,
   combineLatest,
   timer,
@@ -22,51 +22,24 @@ import {
 
 @Injectable()
 export class CanvasService {
-  private canvasHandler: Subject<Function> = new Subject<Function>();
+  private shapeHandler$: Subject<Function> = new Subject<Function>();
+  public shapes$: Observable<Shape[]>;
 
-  private allStoreShapes$: Observable<Shape[]>;
-  private newStoreShapes$: Observable<Shape[]>;
-
-  public canvasShapes$: Observable<Shape[]>;
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
   public rects$: Observable<RectShape[]>;
 
   constructor(private store: Store<AppState>) {
-    this.allStoreShapes$ = this.store
-      .select('app')
-      .pipe(map((app: App) => app.shapes));
-
-    this.canvasShapes$ = this.canvasHandler
+    this.shapes$ = this.shapeHandler$
       .pipe(
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
         startWith([]),
         share()
       );
 
-    this.newStoreShapes$ = this.allStoreShapes$
-      .pipe(
-        pairwise(),
-        map(([previous, next]: [Shape[], Shape[]]) => {
-          return difference(next, previous);
-        }),
-        filter((shapes: Shape[]) => length(shapes))
-      );
-
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
-
-    combineLatest(this.canvasShapes$, this.newStoreShapes$)
-      .pipe(
-        map(([canvasShapes, newStoreShapes]: [Shape[], Shape[]]) => {
-          return difference(newStoreShapes, canvasShapes);
-        }))
-      .subscribe((shapes: Shape[]) => shapes.forEach(this.add));
-
-    // const randomNumber = (min: number, max: number): number => {
-    //   return Math.floor((Math.random() * (max - min + 1))) + min;
-    // };
 
     // const randomPoint = (): Point2D => {
     //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
@@ -85,16 +58,16 @@ export class CanvasService {
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {
-    return <Observable<T[]>>this.canvasShapes$
+    return <Observable<T[]>>this.shapes$
       .pipe(this.filterBy(((shape: T): boolean => shape.ofType(type))));
   }
 
   add = (shape: Shape): void => {
-    this.canvasHandler.next((shapeStore: Shape[]) => shapeStore.concat(shape));
+    this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
   changeState = (id: string, state: ShapeStates): void => {
-    this.canvasHandler.next((shapeStore: Shape[]) => {
+    this.shapeHandler$.next((shapeStore: Shape[]) => {
       const shape = shapeStore.find((item: Shape) => item.id === id);
       shape.state = state;
       shape.children.forEach((child: Shape) => child.state = state);

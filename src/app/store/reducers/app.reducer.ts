@@ -6,7 +6,6 @@ export interface App {
   selectedTool: Tool;
   selectedColor: string;
   hoveredShape: Shape;
-  thickness: number;
   fontSize: number;
   shapes: Shape[];
 }
@@ -15,7 +14,6 @@ const defaultState: App = {
   selectedTool: null,
   selectedColor: '#000000',
   hoveredShape: null,
-  thickness: 2,
   fontSize: 13,
   shapes: []
 };
@@ -50,12 +48,6 @@ export function appReducer(state: App = defaultState, action: AppActions.All): A
       return {
         ...state,
         hoveredShape
-      };
-    }
-    case AppActions.CHANGE_THICKNESS: {
-      return {
-        ...state,
-        thickness: action.payload
       };
     }
     default:

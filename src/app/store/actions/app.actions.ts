@@ -8,7 +8,6 @@ export const SELECT_COLOR = '[Tools] Select color';
 export const SELECT_TOOL = '[Tools] Select tool';
 export const CREATE_SHAPE = '[Canvas] Create shape';
 export const CHANGE_HOVERED_SHAPE = '[Shape] Change hovered shape';
-export const CHANGE_THICKNESS = '[Adjustments] Change thickness';
 
 export class SelectColor implements Action {
   readonly type = SELECT_COLOR;
@@ -39,15 +38,8 @@ export class ChangeHoveredShape implements Action {
   constructor(public payload: ChangeStatePayload) {}
 }
 
-export class ChangeThickness implements Action {
-  readonly type = CHANGE_THICKNESS;
-
-  constructor(public payload: number) {}
-}
-
 export type All =
   SelectColor |
   SelectTool |
   CreateShape |
-  ChangeThickness |
   ChangeHoveredShape;

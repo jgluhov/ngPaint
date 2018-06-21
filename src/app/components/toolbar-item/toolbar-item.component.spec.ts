@@ -5,7 +5,7 @@ import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ToolGroups, ToolTypes } from '@tools/types';
+import { ToolGroups, ToolTypes, ThicknessLines } from '@tools/types';
 import { CursorTypes } from '@tools/types/cursor-types';
 
 describe('ToolItemComponent', () => {
@@ -46,7 +46,8 @@ describe('ToolItemComponent', () => {
       group: ToolGroups.Default,
       shape: 'polyline',
       cursor: CursorTypes.Default,
-      imageUrl: ''
+      imageUrl: '',
+      thickness: ThicknessLines.FAT
     };
     fixture.detectChanges();
   });
