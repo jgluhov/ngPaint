@@ -4,8 +4,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { Tool } from '@tools/types';
-import { Observable } from '@rx';
+import { Observable } from 'rxjs/Observable';
+import { IToolListItem } from '../../modules/tools/interfaces/tool-list-item.interface';
 import {
   trigger,
   state,
@@ -39,8 +39,8 @@ import {
 })
 export class ToolbarItemComponent {
   toolState = 'inactive';
-  @Output() select: EventEmitter<Tool> = new EventEmitter<Tool>();
-  @Input() tool: Tool;
+  @Output() select: EventEmitter<IToolListItem> = new EventEmitter<IToolListItem>();
+  @Input() tool: IToolListItem;
   @Input()
   set selected(isSelected: boolean) {
     this.toolState = isSelected ? 'active' : 'inactive';

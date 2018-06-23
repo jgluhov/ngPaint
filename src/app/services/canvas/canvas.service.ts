@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { difference, length } from 'ramda';
-import { Store } from '@ngrx/store';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
-import { App, AppActions, AppState } from '@store';
-import { ShapeStates } from '@tools/types/shape-states';
 import { Observable } from 'rxjs/Observable';
+import { ShapeStateEnum } from '@tools/enums';
 import {
   Subject,
   from,
@@ -23,14 +21,14 @@ import {
 @Injectable()
 export class CanvasService {
   private shapeHandler$: Subject<Function> = new Subject<Function>();
-  public shapes$: Observable<Shape[]>;
+  public shapeStore$: Observable<Shape[]>;
 
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
   public rects$: Observable<RectShape[]>;
 
-  constructor(private store: Store<AppState>) {
-    this.shapes$ = this.shapeHandler$
+  constructor() {
+    this.shapeStore$ = this.shapeHandler$
       .pipe(
         scan((shapes: Shape[], fn: Function) => fn(shapes), []),
         startWith([]),
@@ -58,7 +56,7 @@ export class CanvasService {
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {
-    return <Observable<T[]>>this.shapes$
+    return <Observable<T[]>>this.shapeStore$
       .pipe(this.filterBy(((shape: T): boolean => shape.ofType(type))));
   }
 
@@ -66,7 +64,7 @@ export class CanvasService {
     this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
-  changeState = (id: string, state: ShapeStates): void => {
+  changeState = (id: string, state: ShapeStateEnum): void => {
     this.shapeHandler$.next((shapeStore: Shape[]) => {
       const shape = shapeStore.find((item: Shape) => item.id === id);
       shape.state = state;

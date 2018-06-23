@@ -1,15 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { CanvasService } from './canvas.service';
-import { AppStoreModule } from '@store/app-store.module';
+import { GuiService } from '@services/gui/gui.service';
 
 describe('CanvasService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppStoreModule
-      ],
       providers: [
-        CanvasService
+        CanvasService,
+        GuiService
       ]
     });
   });

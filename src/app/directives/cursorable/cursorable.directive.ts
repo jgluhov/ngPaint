@@ -1,5 +1,4 @@
 import { GuiService } from '../../services/gui/gui.service';
-import { CursorTypes } from '../../modules/tools/types/cursor-types';
 import {
   Directive,
   Input,
@@ -7,6 +6,7 @@ import {
   ElementRef,
   OnInit
 } from '@angular/core';
+import { ToolCursorEnum } from '@tools/enums';
 @Directive({
   selector: '[appCursorable]'
 })
@@ -28,8 +28,8 @@ export class CursorableDirective implements OnInit {
       .subscribe(this.handleChangeCursor);
   }
 
-  handleChangeCursor = (cursorType: CursorTypes): void => {
-    this.r.removeClass(this.svg, `${this.prefix}__${cursorType}`);
-    this.r.addClass(this.svg, `${this.prefix}__${cursorType}`);
+  handleChangeCursor = (toolCursor: ToolCursorEnum): void => {
+    this.r.removeClass(this.svg, `${this.prefix}__${toolCursor}`);
+    this.r.addClass(this.svg, `${this.prefix}__${toolCursor}`);
   }
 }

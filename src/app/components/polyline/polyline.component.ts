@@ -5,10 +5,9 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { PolylineShape, Shape } from '@shapes';
+import { PolylineShape } from '@shapes';
 import { CanvasService } from '@services';
-import { ChangeStatePayload } from '@store';
-import { ShapeStates } from '@tools/types/shape-states';
+import { ShapeStateEnum } from '@tools/enums';
 
 @Component({
   selector: '[appPolyline]',
@@ -31,13 +30,13 @@ import { ShapeStates } from '@tools/types/shape-states';
 })
 export class PolylineComponent {
   @Input('appPolyline') polyline: PolylineShape;
-  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStates}>();
+  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStateEnum}>();
 
   handleMouseEnter(): void {
-    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStates.HOVERED });
+    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.HOVERED });
   }
 
   handleMouseLeave(): void {
-    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStates.STABLE });
+    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.STABLE });
   }
 }

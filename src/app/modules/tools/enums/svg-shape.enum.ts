@@ -1,4 +1,4 @@
-export enum SVGShapes {
+export enum SVGShapeEnum {
   None = 'None',
   Polyline = 'polyline',
   Circle = 'circle',

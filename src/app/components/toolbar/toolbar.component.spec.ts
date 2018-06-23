@@ -6,7 +6,6 @@ import { ToolbarItemComponent } from '@components/toolbar-item/toolbar-item.comp
 import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { PanelComponent } from '@components/panel/panel.component';
 import { ToolsModule } from '@tools';
-import { AppStoreModule } from '@store/app-store.module';
 
 describe('ToolbarComponent', () => {
   let component: ToolbarComponent;
@@ -21,8 +20,7 @@ describe('ToolbarComponent', () => {
         SvgIconComponent
       ],
       imports: [
-        ToolsModule,
-        AppStoreModule
+        ToolsModule
       ],
       providers: [
         MockBackend,

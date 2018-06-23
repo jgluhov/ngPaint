@@ -1,4 +1,4 @@
-export enum ToolTypes {
+export enum ToolTypeEnum {
   Pointer = 'pointer',
   Pencil = 'pencil',
   Brush = 'brush',

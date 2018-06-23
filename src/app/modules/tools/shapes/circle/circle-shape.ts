@@ -1,6 +1,6 @@
 import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
-import { ShapeStates } from '@tools/types/shape-states';
+import { ShapeStateEnum } from '@tools/enums';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';

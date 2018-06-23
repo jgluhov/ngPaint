@@ -1,4 +1,4 @@
-export enum ToolGroups {
+export enum ToolGroupEnum {
   Default = 'Default',
   Drawing = 'Drawing',
   Geomentry = 'Geometry',

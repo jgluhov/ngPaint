@@ -5,14 +5,11 @@ import {
   HostListener,
   OnDestroy
 } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
-import { AppActions, AppState, App } from '@store';
 import { TOOL_LIST_TOKEN } from '@tools';
-import { Tool, ToolTypes } from '@tools/types';
 import { Observable, Subject, takeUntil, map } from '@rx';
-import { ToolList } from '@tools/tool-list';
-import { GuiService } from '../../services/gui/gui.service';
-
+import { GuiService } from '@services/gui/gui.service';
+import { IToolList } from '@tools/interfaces/tool-list.interface';
+import { IToolListItem } from '@tools/interfaces';
 @Component({
   selector: 'app-toolbar',
   template: `
@@ -29,36 +26,21 @@ import { GuiService } from '../../services/gui/gui.service';
   `,
   styleUrls: [ './toolbar.component.scss' ]
 })
-export class ToolbarComponent implements OnInit, OnDestroy {
+export class ToolbarComponent implements OnDestroy {
   title = 'Tools';
-  selectedTool: Tool;
-  selectedTool$: Observable<Tool>;
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    @Inject(TOOL_LIST_TOKEN) public toolList: ToolList,
-    private store: Store<AppState>,
+    @Inject(TOOL_LIST_TOKEN) public toolList: IToolList,
     private guiService: GuiService
   ) {}
 
-  ngOnInit(): void {
-    this.store
-      .select('app')
-      .pipe(
-        map((app: App) => app.selectedTool),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((tool: Tool) => this.selectedTool = tool);
+  isSelected(tool: IToolListItem): boolean {
+    return this.guiService.isCurrentTool(tool);
   }
 
-  isSelected(tool: Tool): boolean {
-    return this.selectedTool === tool;
-  }
-
-  handleSelect(tool: Tool): void {
-    this.guiService.setCursor(tool.cursor);
-    this.guiService.setThickness(tool.thickness);
-    this.store.dispatch(new AppActions.SelectTool(tool));
+  handleSelect(tool: IToolListItem): void {
+    this.guiService.setTool(tool);
   }
 
   ngOnDestroy(): void {

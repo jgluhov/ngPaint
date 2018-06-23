@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
 import {
   takeUntil,
   mergeMap,
@@ -18,38 +17,34 @@ import {
 } from '@shapes';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService } from '@services';
-import { Tool, ToolTypes } from '@tools/types';
-import { App, AppActions, AppState } from '@store';
-import { ShapeStates } from '../../types/shape-states';
+import { GuiService } from '@services/gui/gui.service';
+import {
+  ShapeStateEnum,
+  ToolTypeEnum,
+  SVGShapeEnum} from '@tools/enums';
+import { IToolList, IToolListItem } from '@tools/interfaces';
 @Component({
   selector: 'app-geometry-tool',
   template: ''
 })
 export class GeometryToolComponent implements OnInit, OnDestroy {
-  private selectedTool$: Observable<Tool>;
+  private selectedTool$: Observable<IToolListItem>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
-    private store: Store<AppState>,
     private mouseService: MouseServiceDirective,
-    private canvasService: CanvasService
+    private canvasService: CanvasService,
+    private guiService: GuiService
   ) { }
 
   ngOnInit(): void {
-    this.selectedTool$ = this.store
-      .select('app')
-      .pipe(map((app: App) => app.selectedTool));
-
     this.mouseService.onMouseDown()
-      .pipe(
-        withLatestFrom(this.selectedTool$),
-        takeUntil(this.destroy$)
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.handleMouseDown);
-
   }
 
-  handleMouseDown = ([start, selectedTool]: [Point2D, Tool]): void => {
-    const shape: Shape = this.createShape(start, selectedTool);
+  handleMouseDown = (start: Point2D): void => {
+    const shape: Shape = this.createShape(start);
 
     of(start)
       .pipe(
@@ -66,22 +61,18 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
         rect.transform(start, end);
       },
       complete: (): void => {
-        this.canvasService.changeState(rect.id, ShapeStates.STABLE);
-        this.store.dispatch(new AppActions.CreateShape(rect));
+        this.canvasService.changeState(rect.id, ShapeStateEnum.STABLE);
       }
     };
   }
 
-  createShape(start: Point2D, selectedTool: Tool): Shape {
-    switch (selectedTool.shape) {
-      case ToolTypes.Rect: {
-        return new RectShape(start.x, start.y);
-      }
-      case ToolTypes.Circle: {
-        return new CircleShape(start);
-      }
-      default:
-        return;
+  createShape(start: Point2D): Shape {
+    if (this.guiService.isCurrentShape(SVGShapeEnum.Rect)) {
+      return new RectShape(start.x, start.y);
+    }
+
+    if (this.guiService.isCurrentShape(SVGShapeEnum.Circle)) {
+      return new CircleShape(start);
     }
   }
 

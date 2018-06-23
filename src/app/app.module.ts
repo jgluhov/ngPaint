@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { AppStoreModule } from '@store/app-store.module';
 import { AppComponent } from './app.component';
 import { ToolsModule } from '@tools/tools.module';
 import { CursorableDirective } from './directives/cursorable/cursorable.directive';
@@ -26,7 +25,6 @@ import { RectComponent } from './components/rect/rect.component';
   imports: [
     BrowserModule,
     HttpModule,
-    AppStoreModule,
     ToolsModule,
     FormsModule
   ],

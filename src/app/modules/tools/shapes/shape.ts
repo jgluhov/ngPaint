@@ -1,5 +1,5 @@
 import { Point2D } from '@math';
-import { ShapeStates } from '@tools/types/shape-states';
+import { ShapeStateEnum } from '@tools/enums';
 
 export abstract class Shape {
   public readonly id: string;
@@ -9,7 +9,7 @@ export abstract class Shape {
   public editing = true;
   public hovered = false;
   public parent: Shape;
-  public state: ShapeStates = ShapeStates.EDITING;
+  public state = ShapeStateEnum.EDITING;
   public children: Shape[] = [];
 
   static relate(parent: Shape, ...children: Shape[]): void {
@@ -44,9 +44,9 @@ export abstract class Shape {
     this._stroke = stroke;
   }
 
-  public isStable = (): boolean => this.state === ShapeStates.STABLE;
-  public isEditing = (): boolean => this.state === ShapeStates.EDITING;
-  public isHovered = (): boolean => this.state === ShapeStates.HOVERED;
+  public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
+  public isEditing = (): boolean => this.state === ShapeStateEnum.EDITING;
+  public isHovered = (): boolean => this.state === ShapeStateEnum.HOVERED;
 
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;

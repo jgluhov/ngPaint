@@ -1,4 +1,4 @@
-export enum ShapeStates {
+export enum ShapeStateEnum {
   STABLE = 'stable',
   EDITING = 'editing',
   HOVERED = 'hovered'

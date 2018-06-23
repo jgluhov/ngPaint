@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Point2D } from '@math';
 import { Shape, CircleShape, PolylineShape } from '@shapes';
-import { App, AppState, AppActions } from '@store';
 import { CanvasService } from '@services';
 import { MouseServiceDirective } from '@directives';
 import {
@@ -16,8 +14,8 @@ import {
   of,
   PartialObserver
 } from '@rx';
-import { ShapeStates } from '@tools/types/shape-states';
-import { GuiService } from '../../../../services/gui/gui.service';
+import { GuiService } from '@services/gui/gui.service';
+import { ShapeStateEnum } from '../../enums/shape-state.enum';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -28,16 +26,15 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   private thickness$: Observable<number>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
-    private store: Store<AppState>,
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService,
     private guiService: GuiService
   ) {}
 
   ngOnInit(): void {
-    this.selectedColor$ = this.store
-      .select('app')
-      .pipe(map((app: App) => app.selectedColor));
+    // this.selectedColor$ = this.store
+    //   .select('app')
+    //   .pipe(map((app: App) => app.selectedColor));
 
     this.mouseService.onMouseDown()
       .pipe(
@@ -59,13 +56,12 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .pipe(
         mergeMap(() => this.mouseService.onMouseMove()),
         takeUntil(this.mouseService.onEnd()),
-        withLatestFrom(this.canvasService.shapes$)
+        withLatestFrom(this.canvasService.shapeStore$)
       )
       .subscribe(this.polylineObserver(polyline));
 
     this.canvasService.add(circle);
-    this.canvasService.changeState(circle.id, ShapeStates.STABLE);
-    this.store.dispatch(new AppActions.CreateShape(circle));
+    this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
   }
 
   polylineObserver(polyline: PolylineShape): PartialObserver<[Point2D, Shape[]]> {
@@ -81,8 +77,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
           return;
         }
 
-        this.canvasService.changeState(polyline.id, ShapeStates.STABLE);
-        this.store.dispatch(new AppActions.CreateShape(polyline));
+        this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
       }
     };
   }

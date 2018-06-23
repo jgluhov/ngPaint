@@ -1,59 +1,62 @@
 import { InjectionToken } from '@angular/core';
-import { Tool, ToolGroups, ToolTypes, ThicknessLines } from './types';
-import { SVGShapes } from './types/svg-shapes';
-import { CursorTypes } from '@tools/types/cursor-types';
+import { IToolList } from '@tools/interfaces';
+import {
+  ToolTypeEnum,
+  ToolGroupEnum,
+  SVGShapeEnum,
+  ToolCursorEnum,
+  ToolThicknessEnum
+} from '@tools/enums';
 
-export type ToolList = Tool[];
-
-export const toolList: Tool[] = [
+export const toolList: IToolList = [
   {
-    type: ToolTypes.Pointer,
-    group: ToolGroups.Default,
-    shape: SVGShapes.None,
-    cursor: CursorTypes.Default,
+    type: ToolTypeEnum.Pointer,
+    group: ToolGroupEnum.Default,
+    shape: SVGShapeEnum.None,
+    cursor: ToolCursorEnum.Default,
     imageUrl: 'assets/icons/pointer.svg',
-    thickness: ThicknessLines.THIN
+    thickness: ToolThicknessEnum.THIN
   },
   {
-    type: ToolTypes.Pencil,
-    group: ToolGroups.Drawing,
-    shape: SVGShapes.Polyline,
-    cursor: CursorTypes.Pencil,
+    type: ToolTypeEnum.Pencil,
+    group: ToolGroupEnum.Drawing,
+    shape: SVGShapeEnum.Polyline,
+    cursor: ToolCursorEnum.Pencil,
     imageUrl: 'assets/icons/pencil.svg',
-    thickness: ThicknessLines.THIN
+    thickness: ToolThicknessEnum.THIN
   },
   {
-    type: ToolTypes.Brush,
-    group: ToolGroups.Drawing,
-    shape: SVGShapes.Polyline,
-    cursor: CursorTypes.Circle,
+    type: ToolTypeEnum.Brush,
+    group: ToolGroupEnum.Drawing,
+    shape: SVGShapeEnum.Polyline,
+    cursor: ToolCursorEnum.Circle,
     imageUrl: 'assets/icons/brush.svg',
-    thickness: ThicknessLines.FAT
+    thickness: ToolThicknessEnum.FAT
   },
   {
-    type: ToolTypes.Rect,
-    group: ToolGroups.Geomentry,
-    shape: SVGShapes.Rect,
-    cursor: CursorTypes.Crosshair,
+    type: ToolTypeEnum.Rect,
+    group: ToolGroupEnum.Geomentry,
+    shape: SVGShapeEnum.Rect,
+    cursor: ToolCursorEnum.Crosshair,
     imageUrl: 'assets/icons/rect.svg',
-    thickness: ThicknessLines.THIN
+    thickness: ToolThicknessEnum.THIN
   },
   {
-    type: ToolTypes.Circle,
-    group: ToolGroups.Geomentry,
-    shape: SVGShapes.Circle,
-    cursor: CursorTypes.Crosshair,
+    type: ToolTypeEnum.Circle,
+    group: ToolGroupEnum.Geomentry,
+    shape: SVGShapeEnum.Circle,
+    cursor: ToolCursorEnum.Crosshair,
     imageUrl: 'assets/icons/circle.svg',
-    thickness: ThicknessLines.THIN
+    thickness: ToolThicknessEnum.THIN
   },
   {
-    type: ToolTypes.Hand,
-    group: ToolGroups.Control,
-    shape: SVGShapes.None,
-    cursor: CursorTypes.Default,
+    type: ToolTypeEnum.Hand,
+    group: ToolGroupEnum.Control,
+    shape: SVGShapeEnum.None,
+    cursor: ToolCursorEnum.Default,
     imageUrl: 'assets/icons/hand.svg',
-    thickness: ThicknessLines.THIN
+    thickness: ToolThicknessEnum.THIN
   }
 ];
 
-export const TOOL_LIST_TOKEN = new InjectionToken<Tool[]>('toolList');
+export const TOOL_LIST_TOKEN = new InjectionToken<IToolList>('toolList');

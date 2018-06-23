@@ -3,8 +3,7 @@ import { MouseServiceDirective } from '@directives';
 import { Point2D } from '@math';
 import { CanvasService } from '@services';
 import { Shape } from '@shapes';
-import { Store } from '@ngrx/store';
-import { AppState, App, AppActions } from '@store';
+import { ShapeStateEnum } from '@tools/enums';
 import { Subject,
   takeUntil,
   mergeMap,
@@ -18,7 +17,6 @@ import { Subject,
   startWith,
   pairwise
 } from '@rx';
-import { ShapeStates } from '@tools/types/shape-states';
 
 @Component({
   selector: 'app-control-tool',
@@ -29,17 +27,11 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   private hoveredShape$: Observable<Shape>;
 
   constructor(
-    private store: Store<AppState>,
     private canvasService: CanvasService,
     private mouseService: MouseServiceDirective
   ) { }
 
   ngOnInit(): void {
-    this.hoveredShape$ = this.store.select('app')
-      .pipe(
-        map((app: App) => app.hoveredShape)
-      );
-
     this.mouseService.onMouseDown()
       .pipe(
         withLatestFrom(this.hoveredShape$),
@@ -53,7 +45,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     of(start)
       .pipe(
         tap(() => {
-          this.canvasService.changeState(hoveredShape.id, ShapeStates.EDITING);
+          this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.EDITING);
         }),
         mergeMap(() => this.mouseService.onMouseMove().pipe(
           startWith(start),
@@ -72,7 +64,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
         hoveredShape.move(move);
       },
       complete: (): void => {
-        this.canvasService.changeState(hoveredShape.id, ShapeStates.STABLE);
+        this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.STABLE);
       }
     };
   }

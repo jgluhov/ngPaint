@@ -5,8 +5,8 @@ import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ToolGroups, ToolTypes, ThicknessLines } from '@tools/types';
-import { CursorTypes } from '@tools/types/cursor-types';
+import { ToolCursorEnum, ToolThicknessEnum, ToolGroupEnum } from '@tools/enums';
+import { ToolTypeEnum } from '../../modules/tools/enums/tool-type.enum';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -42,12 +42,12 @@ describe('ToolItemComponent', () => {
     fixture = TestBed.createComponent(ToolbarItemComponent);
     component = fixture.componentInstance;
     component.tool = {
-      type: ToolTypes.Pencil,
-      group: ToolGroups.Default,
+      type: ToolTypeEnum.Pencil,
+      group: ToolGroupEnum.Default,
       shape: 'polyline',
-      cursor: CursorTypes.Default,
+      cursor: ToolCursorEnum.Default,
       imageUrl: '',
-      thickness: ThicknessLines.FAT
+      thickness: ToolThicknessEnum.FAT
     };
     fixture.detectChanges();
   });

@@ -6,8 +6,7 @@ import {
   Output
 } from '@angular/core';
 import { RectShape } from '@shapes';
-import { ChangeStatePayload } from '@store';
-import { ShapeStates } from '../../modules/tools/types/shape-states';
+import { ShapeStateEnum } from '@tools/enums';
 
 @Component({
   selector: '[appRect]',
@@ -35,13 +34,13 @@ import { ShapeStates } from '../../modules/tools/types/shape-states';
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;
-  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStates}>();
+  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStateEnum}>();
 
   handleMouseEnter(): void {
-    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStates.HOVERED });
+    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStateEnum.HOVERED });
   }
 
   handleMouseLeave(): void {
-    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStates.STABLE });
+    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStateEnum.STABLE });
   }
 }

@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 
 import { PanelComponent } from '@components';
 import { ColorPickerComponent } from '@components/color-picker/color-picker.component';
-import { AppStoreModule } from '@store/app-store.module';
 
 import { OptionsBarComponent } from './options-bar.component';
 
@@ -19,8 +18,7 @@ describe('OptionsBarComponent', () => {
         ColorPickerComponent
       ],
       imports: [
-        FormsModule,
-        AppStoreModule
+        FormsModule
       ]
     })
     .compileComponents();

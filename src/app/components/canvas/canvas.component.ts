@@ -9,24 +9,22 @@ import {
   Injector,
   Type
 } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { Observable, of, map, switchMap, Subject, merge } from '@rx';
-import { Tool, ToolTypes } from '@tools/types';
 import { CanvasService } from '@services';
-import { AppState, App, AppActions } from '@store';
 import { Shape } from '@shapes';
-import { ToolGroups } from '../../modules/tools/types/tool-groups';
 import { ControlToolComponent } from '../../modules/tools/components/control-tool/control-tool.component';
 import {
   PointerToolComponent,
   DrawingToolComponent,
   GeometryToolComponent
 } from '@tools/components';
-import { ShapeStates } from '@tools/types/shape-states';
-import { CursorTypes } from '../../modules/tools/types/cursor-types';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { GuiService } from '../../services/gui/gui.service';
+import { ToolCursorEnum, ToolTypeEnum } from '@tools/enums';
+import { ShapeStateEnum } from '../../modules/tools/enums/shape-state.enum';
+import { IToolListItem } from '@tools/interfaces';
+import { ToolGroupEnum } from '../../modules/tools/enums/tool-group.enum';
 
 @Component({
   selector: 'app-canvas',
@@ -36,16 +34,12 @@ import { GuiService } from '../../services/gui/gui.service';
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
   currentCursor$: Observable<string>;
-  cursorChanger$: Subject<CursorTypes> = new Subject<CursorTypes>();
-  selectedTool$: Observable<Tool>;
-  selectedTool: Tool;
-  app$: Observable<App>;
+  cursorChanger$: Subject<ToolCursorEnum> = new Subject<ToolCursorEnum>();
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;
 
   constructor(
-    private store: Store<AppState>,
     private componentFactoryResolver: ComponentFactoryResolver,
     public canvasService: CanvasService,
     public injector: Injector,
@@ -53,31 +47,23 @@ export class CanvasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.app$ = this.store.select('app');
-
-    this.selectedTool$ = this.app$
-      .pipe(map((app: App) => this.selectedTool = app.selectedTool));
-
-    this.selectedTool$
+    this.guiService.tool$
       .subscribe(this.loadComponent);
   }
 
-  handleShapeStateChange = (evt: {id: string; state: ShapeStates}): void => {
-    if (this.selectedTool.type !== ToolTypes.Hand) {
+  handleShapeStateChange = (evt: {id: string; state: ShapeStateEnum}): void => {
+    if (this.guiService.isCurrentToolType(ToolTypeEnum.Hand)) {
       return;
     }
 
-    const cursor = evt.state === ShapeStates.HOVERED ?
-      CursorTypes.Hand : CursorTypes.Default;
+    const cursor = evt.state === ShapeStateEnum.HOVERED ?
+      ToolCursorEnum.Hand : ToolCursorEnum.Default;
 
     this.cursorChanger$.next(cursor);
     this.canvasService.changeState(evt.id, evt.state);
-    this.store.dispatch(
-      new AppActions.ChangeHoveredShape({ id: evt.id, state: evt.state })
-    );
   }
 
-  loadComponent = (tool: Tool): void => {
+  loadComponent = (tool: IToolListItem): void => {
     this.vcr.clear();
 
     if (!tool) {
@@ -90,15 +76,15 @@ export class CanvasComponent implements OnInit {
     const componentRef = this.vcr.createComponent(componentFactory);
   }
 
-  getComponentByGroup(group: ToolGroups): Type<any> {
+  getComponentByGroup(group: ToolGroupEnum): Type<any> {
     switch (group) {
-      case ToolGroups.Default:
+      case ToolGroupEnum.Default:
         return PointerToolComponent;
-      case ToolGroups.Drawing:
+      case ToolGroupEnum.Drawing:
         return DrawingToolComponent;
-      case ToolGroups.Geomentry:
+      case ToolGroupEnum.Geomentry:
         return GeometryToolComponent;
-      case ToolGroups.Control:
+      case ToolGroupEnum.Control:
         return ControlToolComponent;
       default:
         return PointerToolComponent;
