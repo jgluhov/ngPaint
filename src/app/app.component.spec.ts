@@ -7,6 +7,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
   }));

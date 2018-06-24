@@ -36,33 +36,33 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     //   .select('app')
     //   .pipe(map((app: App) => app.selectedColor));
 
-    this.mouseService.onMouseDown()
-      .pipe(
-        withLatestFrom(this.guiService.thickness$, this.selectedColor$),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(this.handleMouseDown);
+    // this.mouseService.onMouseDown()
+    //   .pipe(
+    //     withLatestFrom(this.guiService.thickness$, this.selectedColor$),
+    //     takeUntil(this.destroy$)
+    //   )
+    //   .subscribe(this.handleMouseDown);
   }
 
-  handleMouseDown = (
-    [p, thickness, selectedColor]: [Point2D, number, string]
-  ): void => {
-    const circle = new CircleShape(p, thickness / 2, selectedColor);
-    const polyline = new PolylineShape([p], thickness, selectedColor);
+  // handleMouseDown = (
+  //   [p, thickness, selectedColor]: [Point2D, number, string]
+  // ): void => {
+  //   const circle = new CircleShape(p, thickness / 2, selectedColor);
+  //   const polyline = new PolylineShape([p], thickness, selectedColor);
 
-    Shape.relate(polyline, circle);
+  //   Shape.relate(polyline, circle);
 
-    of(p)
-      .pipe(
-        mergeMap(() => this.mouseService.onMouseMove()),
-        takeUntil(this.mouseService.onEnd()),
-        withLatestFrom(this.canvasService.shapeStore$)
-      )
-      .subscribe(this.polylineObserver(polyline));
+  //   of(p)
+  //     .pipe(
+  //       mergeMap(() => this.mouseService.onMouseMove()),
+  //       takeUntil(this.mouseService.onEnd()),
+  //       withLatestFrom(this.canvasService.shapeStore$)
+  //     )
+  //     .subscribe(this.polylineObserver(polyline));
 
-    this.canvasService.add(circle);
-    this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
-  }
+  //   this.canvasService.add(circle);
+  //   this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
+  // }
 
   polylineObserver(polyline: PolylineShape): PartialObserver<[Point2D, Shape[]]> {
     return {

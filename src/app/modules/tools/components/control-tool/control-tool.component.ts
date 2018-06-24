@@ -34,18 +34,18 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mouseService.onMouseDown()
       .pipe(
-        withLatestFrom(this.hoveredShape$),
-        filter(([start, hoveredShape]: [Point2D, Shape]) => !!hoveredShape),
+        // withLatestFrom(this.hoveredShape$),
+        // filter(([start, hoveredShape]: [Point2D, Shape]) => !!hoveredShape),
         takeUntil(this.destroy$)
       )
       .subscribe(this.handleMouseDown);
   }
 
-  handleMouseDown = ([start, hoveredShape]: [Point2D, Shape]): void => {
+  handleMouseDown = (start: Point2D): void => {
     of(start)
       .pipe(
         tap(() => {
-          this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.EDITING);
+          this.canvasService.changeState('32', ShapeStateEnum.EDITING);
         }),
         mergeMap(() => this.mouseService.onMouseMove().pipe(
           startWith(start),
@@ -54,20 +54,20 @@ export class ControlToolComponent implements OnInit, OnDestroy {
           filter((move: Point2D) => move.x !== 0 && move.y !== 0)
         )),
         takeUntil(this.mouseService.onMouseUp())
-      )
-      .subscribe(this.handleDrag(hoveredShape));
+      );
+      // .subscribe(this.handleDrag(   ));
   }
 
-  handleDrag = (hoveredShape: Shape): PartialObserver<Point2D> => {
-    return {
-      next: (move: Point2D): void => {
-        hoveredShape.move(move);
-      },
-      complete: (): void => {
-        this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.STABLE);
-      }
-    };
-  }
+  // handleDrag = (hoveredShape: Shape): PartialObserver<Point2D> => {
+  //   return {
+  //     next: (move: Point2D): void => {
+  //       hoveredShape.move(move);
+  //     },
+  //     complete: (): void => {
+  //       this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.STABLE);
+  //     }
+  //   };
+  // }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);

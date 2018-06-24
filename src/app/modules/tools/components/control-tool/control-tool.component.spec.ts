@@ -16,7 +16,7 @@ describe('ControlToolComponent', () => {
       declarations: [ ControlToolComponent ],
       providers: [
         CanvasService,
-        GuiService
+        GuiService,
         {
           provide: MouseServiceDirective,
           useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef)

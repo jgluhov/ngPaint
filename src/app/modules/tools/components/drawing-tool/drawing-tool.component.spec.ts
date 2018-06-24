@@ -4,6 +4,8 @@ import { MouseServiceDirective } from '@directives';
 import { CanvasService } from '@services';
 import { DrawingToolComponent } from './drawing-tool.component';
 import { GuiService } from '../../../../services/gui/gui.service';
+import { TOOL_LIST_TOKEN } from '@tools';
+import { toolList } from '@tools/tool-list';
 
 describe('DrawingToolComponent', () => {
   let component: DrawingToolComponent;
@@ -19,6 +21,10 @@ describe('DrawingToolComponent', () => {
       providers: [
         CanvasService,
         GuiService,
+        {
+          provide: TOOL_LIST_TOKEN,
+          useValue: toolList
+        },
         {
           provide: MouseServiceDirective,
           useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef)

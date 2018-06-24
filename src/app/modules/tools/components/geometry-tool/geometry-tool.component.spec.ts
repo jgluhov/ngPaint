@@ -5,6 +5,7 @@ import { CanvasService } from '@services';
 
 import { GeometryToolComponent } from './geometry-tool.component';
 import { GuiService } from '@services/gui/gui.service';
+import { TOOL_LIST_TOKEN, toolList } from '@tools';
 
 describe('GeometryToolComponent', () => {
   let component: GeometryToolComponent;
@@ -17,6 +18,10 @@ describe('GeometryToolComponent', () => {
       providers: [
         CanvasService,
         GuiService,
+        {
+          provide: TOOL_LIST_TOKEN,
+          useValue: toolList
+        },
         {
           provide: MouseServiceDirective,
           useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef)

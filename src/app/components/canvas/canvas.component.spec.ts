@@ -6,6 +6,7 @@ import { CanvasService } from '@services/canvas/canvas.service';
 import { PolylineComponent } from '@components/polyline/polyline.component';
 import { CircleComponent } from '../circle/circle.component';
 import { RectComponent } from '../rect/rect.component';
+import { toolList, TOOL_LIST_TOKEN } from '@tools';
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -22,7 +23,8 @@ describe('CanvasComponent', () => {
         RectComponent
       ],
       providers: [
-        CanvasService
+        CanvasService,
+        { provide: TOOL_LIST_TOKEN, useValue: toolList }
       ]
     })
     .compileComponents();
