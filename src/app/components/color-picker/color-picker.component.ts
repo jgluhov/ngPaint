@@ -1,35 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { Observable, map } from '@rx';
+import { Component, OnInit } from '@angular/core';
+import { GuiService } from '@services/gui/gui.service';
 
 @Component({
   selector: 'app-color-picker',
   template: `
     <input type="color"
       #colorPicker
-      (click)="handleOpen()"
-      [ngModel]="selectedColor$ | async"
+      [ngModel]="currentColor"
       (ngModelChange)="handleChange($event)">
   `,
   styles: []
 })
 export class ColorPickerComponent implements OnInit {
-  selectedColor$: Observable<string>;
-  @ViewChild('colorPicker') colorPicker: ElementRef;
-  constructor(
-    private renderer: Renderer2
-  ) { }
+  currentColor: string;
+  constructor(private guiService: GuiService) {
+  }
 
   ngOnInit(): void {
-    // this.selectedColor$ = this.store
-    //   .select('app')
-    //   .pipe(map((app: App) => app.selectedColor));
+    this.currentColor = this.guiService.currentColor;
   }
 
   handleChange(color: string): void {
-    // this.store.dispatch(new AppActions.SelectColor(color));
-  }
-
-  handleOpen(): void {
-    // this.store.dispatch(new AppActions.SelectTool(null));
+    this.guiService.setColor(color);
   }
 }

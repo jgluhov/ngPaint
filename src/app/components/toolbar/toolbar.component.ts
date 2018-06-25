@@ -1,15 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  HostListener,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { TOOL_LIST_TOKEN } from '@tools';
-import { Observable, Subject, takeUntil, map } from '@rx';
 import { GuiService } from '@services/gui/gui.service';
 import { IToolList } from '@tools/interfaces/tool-list.interface';
 import { IToolListItem } from '@tools/interfaces';
+
 @Component({
   selector: 'app-toolbar',
   template: `
@@ -26,14 +20,17 @@ import { IToolListItem } from '@tools/interfaces';
   `,
   styleUrls: [ './toolbar.component.scss' ]
 })
-export class ToolbarComponent implements OnDestroy {
+export class ToolbarComponent implements OnInit {
   title = 'Tools';
-  destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     @Inject(TOOL_LIST_TOKEN) public toolList: IToolList,
     private guiService: GuiService
   ) {}
+
+  ngOnInit(): void {
+    this.guiService.setTool(this.toolList[0]);
+  }
 
   isSelected(tool: IToolListItem): boolean {
     return this.guiService.isCurrentTool(tool);
@@ -41,10 +38,5 @@ export class ToolbarComponent implements OnDestroy {
 
   handleSelect(tool: IToolListItem): void {
     this.guiService.setTool(tool);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
   }
 }

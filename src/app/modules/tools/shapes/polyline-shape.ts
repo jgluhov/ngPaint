@@ -2,18 +2,18 @@ import { Shape } from './shape';
 import { Point2D } from '@math';
 
 export class PolylineShape extends Shape {
-  public readonly type = 'polyline';
-  public fill = 'none';
-  public strokeLinecap = 'round';
+  readonly type = 'polyline';
+  fill = 'none';
+  strokeLinecap = 'round';
+  points: Point2D[] = [];
+  strokeWidth: number;
 
-  constructor(
-    private points: Point2D[] = [],
-    public strokeWidth: number,
-    stroke: string
-  ) {
+  constructor(start: Point2D, thickness: number, color: string) {
     super();
 
-    this._stroke = stroke;
+    this.append(start);
+    this.strokeWidth = thickness;
+    this._stroke = color;
   }
 
   public toString(): string {
@@ -40,6 +40,10 @@ export class PolylineShape extends Shape {
 
   public move(): this {
     return this;
+  }
+
+  public isCorrect(): boolean {
+    return this.points.length > 2;
   }
 
   get stroke(): string {

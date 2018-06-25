@@ -7,8 +7,12 @@
 }
 
 .cursor {
+  &__default {
+    cursor: url($cursor-default-path) 0 15, auto;
+  }
+
   &__pencil {
-    cursor: url($cursor-pencil-path) 0 15, auto;
+    cursor: url($cursor-pencil-path) 3 18, auto;
   }
 
   &__circle {

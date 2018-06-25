@@ -1,29 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@math';
+import { last } from 'ramda';
 import { Shape, CircleShape, PolylineShape } from '@shapes';
-import { CanvasService } from '@services';
 import { MouseServiceDirective } from '@directives';
-import {
-  Observable,
-  fromEvent,
-  Subject,
-  takeUntil,
-  mergeMap,
-  withLatestFrom,
-  map,
-  of,
-  PartialObserver
-} from '@rx';
-import { GuiService } from '@services/gui/gui.service';
-import { ShapeStateEnum } from '../../enums/shape-state.enum';
+import { CanvasService, GuiService } from '@services';
+import { ShapeStateEnum } from '@tools/enums/shape-state.enum';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-drawing-tool',
   template: ''
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
-  private selectedColor$: Observable<string>;
-  private thickness$: Observable<number>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private mouseService: MouseServiceDirective,
@@ -32,58 +22,56 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.selectedColor$ = this.store
-    //   .select('app')
-    //   .pipe(map((app: App) => app.selectedColor));
-
-    // this.mouseService.onMouseDown()
-    //   .pipe(
-    //     withLatestFrom(this.guiService.thickness$, this.selectedColor$),
-    //     takeUntil(this.destroy$)
-    //   )
-    //   .subscribe(this.handleMouseDown);
+    this.mouseService.onMouseDown()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(this.handlePress);
   }
 
-  // handleMouseDown = (
-  //   [p, thickness, selectedColor]: [Point2D, number, string]
-  // ): void => {
-  //   const circle = new CircleShape(p, thickness / 2, selectedColor);
-  //   const polyline = new PolylineShape([p], thickness, selectedColor);
+  handlePress = (start: Point2D): void => {
+    const polyline = this.createPolyline(start);
+    this.drawCircle(start);
 
-  //   Shape.relate(polyline, circle);
+    const drawing$ = of(start)
+      .pipe(
+        tap(() => this.canvasService.add(polyline)),
+        mergeMap(() => this.mouseService.onMouseMove()),
+        takeUntil(this.mouseService.onEnd())
+      );
 
-  //   of(p)
-  //     .pipe(
-  //       mergeMap(() => this.mouseService.onMouseMove()),
-  //       takeUntil(this.mouseService.onEnd()),
-  //       withLatestFrom(this.canvasService.shapeStore$)
-  //     )
-  //     .subscribe(this.polylineObserver(polyline));
-
-  //   this.canvasService.add(circle);
-  //   this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
-  // }
-
-  polylineObserver(polyline: PolylineShape): PartialObserver<[Point2D, Shape[]]> {
-    return {
-      next: ([pt, canvasShapes]: [Point2D, Shape[]]): void => {
-        if (!canvasShapes.includes(polyline)) {
-          this.canvasService.add(polyline);
+    drawing$.subscribe(
+      (point: Point2D) => polyline.append(point),
+      null,
+      () => {
+        if (polyline.isCorrect()) {
+          this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
+        } else {
+          this.canvasService.remove(polyline.id);
         }
-        polyline.append(pt);
-      },
-      complete: (): void => {
-        if (!this.shouldBeCreated(polyline)) {
-          return;
-        }
-
-        this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
       }
-    };
+    );
   }
 
-  shouldBeCreated(shape: PolylineShape): boolean {
-    return shape.length() > 1;
+  createPolyline(start: Point2D): PolylineShape {
+    return new PolylineShape(
+      start,
+      this.guiService.currentThickness,
+      this.guiService.currentColor
+    );
+  }
+
+  createCircle(start: Point2D): CircleShape {
+    return new CircleShape(
+      start,
+      this.guiService.currentThickness / 3,
+      this.guiService.currentThickness / 2,
+      this.guiService.currentColor
+    );
+  }
+
+  drawCircle(start: Point2D): void {
+    const circle = this.createCircle(start);
+    this.canvasService.add(circle);
+    this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
   }
 
   ngOnDestroy(): void {

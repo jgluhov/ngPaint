@@ -23,6 +23,7 @@ import {
   ToolTypeEnum,
   SVGShapeEnum} from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
+import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-geometry-tool',
   template: ''
@@ -46,33 +47,39 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   handleMouseDown = (start: Point2D): void => {
     const shape: Shape = this.createShape(start);
 
-    of(start)
+    const drawing$ = of(start)
       .pipe(
+        tap(() => this.canvasService.add(shape)),
         mergeMap(() => this.mouseService.onMouseMove()),
-        takeUntil(this.mouseService.onMouseUp())
-      ).subscribe(this.rectObserver(start, shape));
+        takeUntil(this.mouseService.onEnd())
+      );
 
-    this.canvasService.add(shape);
-  }
-
-  rectObserver(start: Point2D, rect: Shape): PartialObserver<Point2D> {
-    return {
-      next: (end: Point2D): void => {
-        rect.transform(start, end);
+    drawing$.subscribe(
+      (point: Point2D) => {
+        shape.transform(start, point);
       },
-      complete: (): void => {
-        this.canvasService.changeState(rect.id, ShapeStateEnum.STABLE);
-      }
-    };
+      null,
+      () => {
+        this.canvasService.changeState(shape.id, ShapeStateEnum.STABLE);
+      });
   }
 
   createShape(start: Point2D): Shape {
     if (this.guiService.isCurrentShape(SVGShapeEnum.Rect)) {
-      return new RectShape(start.x, start.y);
+      return new RectShape(
+        start,
+        this.guiService.currentThickness,
+        this.guiService.currentColor
+      );
     }
 
     if (this.guiService.isCurrentShape(SVGShapeEnum.Circle)) {
-      return new CircleShape(start);
+      return new CircleShape(
+        start,
+        0,
+        this.guiService.currentThickness,
+        this.guiService.currentColor
+      );
     }
   }
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CircleShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
+import { GuiService } from '../../services/gui/gui.service';
 
 @Component({
   selector: '[appCircle]',
@@ -32,13 +33,14 @@ import { ShapeStateEnum } from '@tools/enums';
 })
 export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
-  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStateEnum}>();
+
+  constructor(private guiService: GuiService) {}
 
   handleMouseEnter(): void {
-    this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.HOVERED });
+    // this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.HOVERED });
   }
 
   handleMouseLeave(): void {
-    this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.STABLE });
+    // this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.STABLE });
   }
 }

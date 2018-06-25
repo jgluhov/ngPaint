@@ -3,7 +3,8 @@ import {
   Input,
   ChangeDetectionStrategy,
   Output,
-  EventEmitter
+  EventEmitter,
+  DoCheck
 } from '@angular/core';
 import { PolylineShape } from '@shapes';
 import { CanvasService } from '@services';
@@ -17,6 +18,7 @@ import { ShapeStateEnum } from '@tools/enums';
       [attr.fill]="polyline.fill"
       [attr.stroke]="polyline.stroke"
       [attr.stroke-width]="polyline.strokeWidth"
+      [attr.stroke-linecap]="polyline.strokeLinecap"
       (mouseenter)="handleMouseEnter()"
       (mouseleave)="handleMouseLeave()"
     />
@@ -33,10 +35,10 @@ export class PolylineComponent {
   @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStateEnum}>();
 
   handleMouseEnter(): void {
-    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.HOVERED });
+    // this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.HOVERED });
   }
 
   handleMouseLeave(): void {
-    this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.STABLE });
+    // this.shapeStateChange.emit({ id: this.polyline.id, state: ShapeStateEnum.STABLE });
   }
 }

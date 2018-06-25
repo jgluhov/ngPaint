@@ -5,7 +5,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IToolListItem } from '../../modules/tools/interfaces/tool-list-item.interface';
+import { IToolListItem } from '@tools/interfaces/tool-list-item.interface';
 import {
   trigger,
   state,

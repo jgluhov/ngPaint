@@ -1,20 +1,26 @@
 import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
 import { ShapeStateEnum } from '@tools/enums';
+import { TOOL_DEFAULT_COLOR } from '@tools/tool-options';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';
   cx: number;
   cy: number;
+  strokeWidth: number;
+  fill = 'none';
 
   constructor(
-    private center: Point2D,
+    center: Point2D,
     public r: number = 0,
-    public fill: string = 'none',
-    public strokeWidth: number = 2
+    thickness: number = 2,
+    color: string = TOOL_DEFAULT_COLOR
   ) {
     super();
 
+    this._stroke = color;
+    this.fill = color;
+    this.strokeWidth = thickness;
     this.cx = center.x;
     this.cy = center.y;
   }
@@ -55,5 +61,9 @@ export class CircleShape extends Shape {
   public move(vector: Point2D): this {
 
     return this;
+  }
+
+  public isCorrect(): boolean {
+    return true;
   }
 }

@@ -1,5 +1,6 @@
 import { Point2D } from '@math/point2d';
 import { Shape } from '@shapes/shape';
+import { TOOL_DEFAULT_COLOR } from '@tools/tool-options';
 
 export interface BoundingRect {
   x: number;
@@ -10,18 +11,26 @@ export interface BoundingRect {
 
 export class RectShape extends Shape {
   public readonly type = 'rect';
+  x = 0;
+  y = 0;
+  fill = 'none';
+  strokeWidth;
+  width = 0;
+  height = 0;
+  rx = 2;
+  ry = 2;
 
   constructor(
-    public x: number = 0,
-    public y: number = 0,
-    public width: number = 0,
-    public height: number = 0,
-    public rx: number = 2,
-    public ry: number = 2,
-    public fill: string = 'none',
-    public strokeWidth: number = 2
+    start: Point2D,
+    thickness: number = 2,
+    color: string = TOOL_DEFAULT_COLOR
   ) {
     super();
+
+    this.x = start.x;
+    this.y = start.y;
+    this.strokeWidth = thickness;
+    this.stroke = color;
   }
 
   getBoundingRect(start: Point2D, end: Point2D): BoundingRect {
@@ -91,5 +100,9 @@ export class RectShape extends Shape {
     this.height = height;
 
     return this;
+  }
+
+  public isCorrect(): boolean {
+    return true;
   }
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { difference, length } from 'ramda';
+import { difference, equals } from 'ramda';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
 import { Observable } from 'rxjs/Observable';
 import { ShapeStateEnum } from '@tools/enums';
+import { distinctUntilChanged } from 'rxjs/operators';
 import {
   Subject,
   from,
@@ -22,6 +23,7 @@ import {
 export class CanvasService {
   private shapeHandler$: Subject<Function> = new Subject<Function>();
   public shapeStore$: Observable<Shape[]>;
+  public shapes$;
 
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
@@ -37,7 +39,11 @@ export class CanvasService {
 
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
-    this.rects$ = this.getShapes$('rect');
+    // this.rects$ = this.getShapes$('rect');
+
+    this.polylines$.subscribe((shapes: Shape[]) => {
+      console.log('Polylines: ', shapes);
+    });
 
     // const randomPoint = (): Point2D => {
     //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
@@ -57,18 +63,27 @@ export class CanvasService {
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {
     return <Observable<T[]>>this.shapeStore$
-      .pipe(this.filterBy(((shape: T): boolean => shape.ofType(type))));
+      .pipe(
+        this.filterBy(((shape: T): boolean => shape.ofType(type))),
+        distinctUntilChanged((a: Shape[], b: Shape[]) => equals(a, b))
+      );
   }
 
   add = (shape: Shape): void => {
     this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
+  remove = (id: string): void => {
+    this.shapeHandler$.next((shapes: Shape[]) => shapes.filter((shape: Shape) => shape.id !== id));
+  }
+
   changeState = (id: string, state: ShapeStateEnum): void => {
     this.shapeHandler$.next((shapeStore: Shape[]) => {
       const shape = shapeStore.find((item: Shape) => item.id === id);
-      shape.state = state;
-      shape.children.forEach((child: Shape) => child.state = state);
+
+      if (shape) {
+        shape.setState(state);
+      }
 
       return shapeStore;
     });
@@ -77,9 +92,7 @@ export class CanvasService {
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
     return (source$: Observable<Shape[]>): Observable<Shape[]> => {
       return source$.pipe(
-        map((shapes: Shape[]) => {
-          return shapes.filter((shape: Shape) => fn(shape));
-        })
+        map((shapes: Shape[]) => shapes.filter((shape: Shape) => fn(shape)))
       );
     };
   }

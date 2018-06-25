@@ -1,4 +1,4 @@
-import { GuiService } from '../../services/gui/gui.service';
+import { GuiService } from '@services/gui/gui.service';
 import {
   Directive,
   Input,
@@ -24,12 +24,11 @@ export class CursorableDirective implements OnInit {
   }
 
   ngOnInit(): void {
-    this.guiService.cursor$
-      .subscribe(this.handleChangeCursor);
+    this.guiService.cursor$.subscribe(this.handleChangeCursor);
   }
 
   handleChangeCursor = (toolCursor: ToolCursorEnum): void => {
-    this.r.removeClass(this.svg, `${this.prefix}__${toolCursor}`);
+    this.r.removeAttribute(this.svg, 'class');
     this.r.addClass(this.svg, `${this.prefix}__${toolCursor}`);
   }
 }

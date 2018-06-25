@@ -5,7 +5,7 @@ describe('RectShape', () => {
   let rect: RectShape;
 
   beforeEach(() => {
-    rect = new RectShape(0, 0, 100, 100);
+    rect = new RectShape(new Point2D(0, 0));
   });
 
   describe('#getBoundingRect()', () => {

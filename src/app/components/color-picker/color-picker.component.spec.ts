@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ColorPickerComponent } from './color-picker.component';
+import { GuiService } from '@services/gui/gui.service';
 
 describe('ColorPickerComponent', () => {
   let component: ColorPickerComponent;
@@ -11,7 +12,10 @@ describe('ColorPickerComponent', () => {
       imports: [
         FormsModule
       ],
-      declarations: [ ColorPickerComponent ]
+      declarations: [ ColorPickerComponent ],
+      providers: [
+        GuiService
+      ]
     })
     .compileComponents();
   }));

@@ -10,14 +10,6 @@ export abstract class Shape {
   public hovered = false;
   public parent: Shape;
   public state = ShapeStateEnum.EDITING;
-  public children: Shape[] = [];
-
-  static relate(parent: Shape, ...children: Shape[]): void {
-    children.forEach((child: Shape) => {
-      parent.addChild(child);
-      child.setParent(parent);
-    });
-  }
 
   public ofType(type: string): boolean {
     return this.type === type;
@@ -28,20 +20,18 @@ export abstract class Shape {
       .toString().replace(',', '');
   }
 
-  private addChild = (shape: Shape): void => {
-    this.children.push(shape);
-  }
-
-  private setParent = (shape: Shape): void => {
-    this.parent = shape;
-  }
-
   get stroke(): string {
     return this.isHovered() ? 'red' : this._stroke;
   }
 
   set stroke(stroke: string) {
     this._stroke = stroke;
+  }
+
+  setState(state: ShapeStateEnum): this {
+    this.state = state;
+
+    return this;
   }
 
   public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
@@ -51,4 +41,5 @@ export abstract class Shape {
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;
   abstract move(point: Point2D): this;
+  abstract isCorrect(): boolean;
 }

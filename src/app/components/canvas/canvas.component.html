@@ -50,7 +50,7 @@
         </ng-container>
       </g>
 
-      <g id="rects">
+      <!-- <g id="rects">
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
           <g *ngIf="rect.isStable()"
             [appRect]="rect"
@@ -68,7 +68,7 @@
             [attr.stroke-width]="rect.strokeWidth"
           />
         </ng-container>
-      </g>
+      </g> -->
 
       <ng-container #vcr></ng-container>
     </svg>

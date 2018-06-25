@@ -5,6 +5,7 @@ import { PanelComponent } from '@components';
 import { ColorPickerComponent } from '@components/color-picker/color-picker.component';
 
 import { OptionsBarComponent } from './options-bar.component';
+import { GuiService } from '@services/gui/gui.service';
 
 describe('OptionsBarComponent', () => {
   let component: OptionsBarComponent;
@@ -19,6 +20,9 @@ describe('OptionsBarComponent', () => {
       ],
       imports: [
         FormsModule
+      ],
+      providers: [
+        GuiService
       ]
     })
     .compileComponents();
