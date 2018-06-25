@@ -39,7 +39,7 @@ export class CanvasService {
 
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
-    // this.rects$ = this.getShapes$('rect');
+    this.rects$ = this.getShapes$('rect');
 
     this.polylines$.subscribe((shapes: Shape[]) => {
       console.log('Polylines: ', shapes);
