@@ -52,7 +52,7 @@
 
       <g id="rects">
         <ng-container *ngFor="let rect of canvasService.rects$ | async">
-          <g *ngIf="rect.isStable()"
+          <g *ngIf="!rect.isEditing()"
             [appRect]="rect"
             (shapeStateChange)="handleShapeStateChange($event)">
           </g>

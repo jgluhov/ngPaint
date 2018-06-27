@@ -29,7 +29,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
 
   handlePress = (start: Point2D): void => {
     const polyline = this.createPolyline(start);
-    this.drawCircle(start);
+    const circle = this.createCircle(start);
+    this.drawCircle(circle);
 
     const drawing$ = of(start)
       .pipe(
@@ -43,6 +44,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       null,
       () => {
         if (polyline.isCorrect()) {
+          this.canvasService.remove(circle.id);
           this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
         } else {
           this.canvasService.remove(polyline.id);
@@ -68,8 +70,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     );
   }
 
-  drawCircle(start: Point2D): void {
-    const circle = this.createCircle(start);
+  drawCircle(circle: CircleShape): void {
     this.canvasService.add(circle);
     this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
   }

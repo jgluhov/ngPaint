@@ -9,6 +9,7 @@ export class CircleShape extends Shape {
   cy: number;
   strokeWidth: number;
   fill = 'none';
+  stroke;
 
   constructor(
     center: Point2D,
@@ -18,8 +19,7 @@ export class CircleShape extends Shape {
   ) {
     super();
 
-    this._stroke = color;
-    this.fill = color;
+    this.stroke = color;
     this.strokeWidth = thickness;
     this.cx = center.x;
     this.cy = center.y;
@@ -37,18 +37,6 @@ export class CircleShape extends Shape {
 
     this.r = radius;
     this.moveTo(midpoint);
-  }
-
-  get stroke(): string {
-    if (this.parent) {
-      return this.parent.stroke;
-    }
-
-    return this.isHovered() ? 'red' : this._stroke;
-  }
-
-  set stroke(stroke: string) {
-    this._stroke = stroke;
   }
 
   public moveTo(point: Point2D): this {

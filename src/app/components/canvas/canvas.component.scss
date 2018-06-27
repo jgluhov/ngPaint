@@ -6,6 +6,10 @@
   stroke-width: 1px;
 }
 
+#grid g:hover rect {
+  stroke: red;
+}
+
 .cursor {
   &__default {
     cursor: url($cursor-default-path) 0 15, auto;
@@ -16,7 +20,7 @@
   }
 
   &__circle {
-    cursor: url($cursor-circle-path) 8 8, auto;
+    cursor: url($cursor-circle-path) 8.8 8.3, auto;
   }
 
   &__crosshair {
@@ -24,7 +28,7 @@
   }
 
   &__hand {
-    cursor: url($cursor-hand-path) 8 7, auto;
+    cursor: url($cursor-hand-path) 8 15, auto;
   }
 }
 

@@ -52,14 +52,14 @@ export class CanvasComponent implements OnInit {
   }
 
   handleShapeStateChange = (evt: {id: string; state: ShapeStateEnum}): void => {
-    if (this.guiService.isCurrentToolType(ToolTypeEnum.Hand)) {
+    if (!this.guiService.isCurrentToolType(ToolTypeEnum.Hand)) {
       return;
     }
 
     const cursor = evt.state === ShapeStateEnum.HOVERED ?
       ToolCursorEnum.Hand : ToolCursorEnum.Default;
 
-    this.cursorChanger$.next(cursor);
+    this.guiService.setCursor(cursor);
     this.canvasService.changeState(evt.id, evt.state);
   }
 

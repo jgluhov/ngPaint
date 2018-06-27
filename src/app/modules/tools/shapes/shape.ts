@@ -4,7 +4,6 @@ import { ShapeStateEnum } from '@tools/enums';
 export abstract class Shape {
   public readonly id: string;
   public readonly type: string;
-  public _stroke = 'black';
   public rendered = false;
   public editing = true;
   public hovered = false;
@@ -18,14 +17,6 @@ export abstract class Shape {
   constructor() {
     this.id = crypto.getRandomValues(new Uint32Array(2))
       .toString().replace(',', '');
-  }
-
-  get stroke(): string {
-    return this.isHovered() ? 'red' : this._stroke;
-  }
-
-  set stroke(stroke: string) {
-    this._stroke = stroke;
   }
 
   setState(state: ShapeStateEnum): this {

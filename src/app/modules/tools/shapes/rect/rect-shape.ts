@@ -19,6 +19,7 @@ export class RectShape extends Shape {
   height = 0;
   rx = 2;
   ry = 2;
+  stroke;
 
   constructor(
     start: Point2D,

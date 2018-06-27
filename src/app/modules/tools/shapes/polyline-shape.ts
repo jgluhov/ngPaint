@@ -7,13 +7,14 @@ export class PolylineShape extends Shape {
   strokeLinecap = 'round';
   points: Point2D[] = [];
   strokeWidth: number;
+  stroke: string;
 
   constructor(start: Point2D, thickness: number, color: string) {
     super();
 
     this.append(start);
     this.strokeWidth = thickness;
-    this._stroke = color;
+    this.stroke = color;
   }
 
   public toString(): string {
@@ -44,13 +45,5 @@ export class PolylineShape extends Shape {
 
   public isCorrect(): boolean {
     return this.points.length > 2;
-  }
-
-  get stroke(): string {
-    return this.isHovered() ? 'red' : this._stroke;
-  }
-
-  set stroke(stroke: string) {
-    this._stroke = stroke;
   }
 }
