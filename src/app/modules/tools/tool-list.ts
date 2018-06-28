@@ -53,7 +53,7 @@ export const toolList: IToolList = [
     type: ToolTypeEnum.Hand,
     group: ToolGroupEnum.Control,
     shape: SVGShapeEnum.None,
-    cursor: ToolCursorEnum.Default,
+    cursor: ToolCursorEnum.Hand,
     imageUrl: 'assets/icons/hand.svg',
     thickness: ToolThicknessEnum.THIN
   }

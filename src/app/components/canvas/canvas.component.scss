@@ -6,8 +6,12 @@
   stroke-width: 1px;
 }
 
-#grid g:hover rect {
-  stroke: red;
+#svg {
+  &.cursor__hand {
+    g > rect:hover {
+      stroke: red;
+    }
+  }
 }
 
 .cursor {

@@ -3,7 +3,8 @@ import {
   Input,
   ChangeDetectionStrategy,
   EventEmitter,
-  Output
+  Output,
+  ViewEncapsulation
 } from '@angular/core';
 import { RectShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
@@ -25,12 +26,8 @@ import { ShapeStateEnum } from '@tools/enums';
       (mouseleave)="handleMouseLeave()"
     />
   `,
-  styles: [`
-    rect {
-      pointer-events: all;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;

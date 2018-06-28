@@ -7,7 +7,8 @@ import {
   ElementRef,
   ReflectiveInjector,
   Injector,
-  Type
+  Type,
+  ViewEncapsulation
 } from '@angular/core';
 import { ofType } from '@ngrx/effects';
 import { Observable, of, map, switchMap, Subject, merge } from '@rx';
@@ -29,7 +30,8 @@ import { ToolGroupEnum } from '../../modules/tools/enums/tool-group.enum';
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: [ './canvas.component.scss' ]
+  styleUrls: [ './canvas.component.scss' ],
+  encapsulation: ViewEncapsulation.None
 })
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
@@ -56,10 +58,6 @@ export class CanvasComponent implements OnInit {
       return;
     }
 
-    const cursor = evt.state === ShapeStateEnum.HOVERED ?
-      ToolCursorEnum.Hand : ToolCursorEnum.Default;
-
-    this.guiService.setCursor(cursor);
     this.canvasService.changeState(evt.id, evt.state);
   }
 
