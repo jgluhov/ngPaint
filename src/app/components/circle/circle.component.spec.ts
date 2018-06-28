@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CircleComponent } from './circle.component';
+import { CanvasService } from '@services';
 
 describe('CircleComponent', () => {
   let component: CircleComponent;
@@ -8,7 +9,10 @@ describe('CircleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CircleComponent ]
+      declarations: [ CircleComponent ],
+      providers: [
+        CanvasService
+      ]
     })
     .compileComponents();
   }));

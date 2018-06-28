@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PolylineComponent } from './polyline.component';
+import { CanvasService } from '@services/canvas/canvas.service';
 
 describe('ToolItemComponent', () => {
   let component: PolylineComponent;
@@ -9,6 +10,9 @@ describe('ToolItemComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PolylineComponent
+      ],
+      providers: [
+        CanvasService
       ]
     })
     .compileComponents();

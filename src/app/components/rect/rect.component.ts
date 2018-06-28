@@ -2,12 +2,11 @@ import {
   Component,
   Input,
   ChangeDetectionStrategy,
-  EventEmitter,
-  Output,
   ViewEncapsulation
 } from '@angular/core';
 import { RectShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
+import { CanvasService } from '@services';
 
 @Component({
   selector: '[appRect]',
@@ -31,13 +30,13 @@ import { ShapeStateEnum } from '@tools/enums';
 })
 export class RectComponent {
   @Input('appRect') rect: RectShape;
-  @Output('shapeStateChange') shapeStateChange = new EventEmitter<{id: string; state: ShapeStateEnum}>();
+  constructor(private canvasService: CanvasService) {}
 
   handleMouseEnter(): void {
-    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStateEnum.HOVERED });
+    this.canvasService.hoveredShape$.next(this.rect);
   }
 
   handleMouseLeave(): void {
-    this.shapeStateChange.emit({ id: this.rect.id, state: ShapeStateEnum.STABLE });
+    this.canvasService.hoveredShape$.next(null);
   }
 }

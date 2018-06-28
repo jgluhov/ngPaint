@@ -29,22 +29,6 @@ export class GuiService {
     this.thickness$ = this.thicknessHandler$.asObservable();
     this.tool$ = this.toolHandler$.asObservable();
     this.color$ = this.colorHandler$.asObservable();
-
-    this.color$.subscribe((color: string) => {
-      console.log('color changed', color);
-    });
-
-    this.thickness$.subscribe((thickness: ToolThicknessEnum) => {
-      console.log('thickness changed', thickness);
-    });
-
-    this.tool$.subscribe((tool: IToolListItem) => {
-      console.log('tool changed', tool);
-    });
-
-    this.cursor$.subscribe((cursor: ToolCursorEnum) => {
-      console.log('cursor changed', cursor);
-    });
   }
 
   public setCursor(cursor: ToolCursorEnum): void {
@@ -60,8 +44,6 @@ export class GuiService {
   }
 
   public setTool(tool: IToolListItem): void {
-    console.log('set tool');
-
     this.setCursor(tool.cursor);
     this.setThickness(tool.thickness);
     this.toolHandler$.next(tool);

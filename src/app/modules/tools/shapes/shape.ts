@@ -33,4 +33,6 @@ export abstract class Shape {
   abstract moveTo(point: Point2D): this;
   abstract move(point: Point2D): this;
   abstract isCorrect(): boolean;
+  abstract get x(): number;
+  abstract get y(): number;
 }

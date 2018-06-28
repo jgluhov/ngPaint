@@ -3,7 +3,8 @@ import { difference, equals } from 'ramda';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
 import { Observable } from 'rxjs/Observable';
 import { ShapeStateEnum } from '@tools/enums';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, first } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import {
   Subject,
   from,
@@ -24,6 +25,7 @@ export class CanvasService {
   private shapeHandler$: Subject<Function> = new Subject<Function>();
   public shapeStore$: Observable<Shape[]>;
   public shapes$;
+  public hoveredShape$: BehaviorSubject<Shape> = new BehaviorSubject(null);
 
   public polylines$: Observable<PolylineShape[]>;
   public circles$: Observable<CircleShape[]>;
@@ -41,9 +43,7 @@ export class CanvasService {
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
 
-    this.polylines$.subscribe((shapes: Shape[]) => {
-      console.log('Polylines: ', shapes);
-    });
+    this.hoveredShape$.subscribe((shape: Shape) => console.log('hoveredShape:', shape));
 
     // const randomPoint = (): Point2D => {
     //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
@@ -95,5 +95,9 @@ export class CanvasService {
         map((shapes: Shape[]) => shapes.filter((shape: Shape) => fn(shape)))
       );
     };
+  }
+
+  public get hoveredShape(): Shape {
+    return this.hoveredShape$.value;
   }
 }

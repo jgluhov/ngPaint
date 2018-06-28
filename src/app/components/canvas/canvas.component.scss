@@ -8,7 +8,9 @@
 
 #svg {
   &.cursor__hand {
-    g > rect:hover {
+    g > rect:hover,
+    g > circle:hover,
+    g > polyline:hover {
       stroke: red;
     }
   }

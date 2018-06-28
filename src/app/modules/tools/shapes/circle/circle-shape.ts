@@ -54,4 +54,12 @@ export class CircleShape extends Shape {
   public isCorrect(): boolean {
     return true;
   }
+
+  public get x(): number {
+    return this.cx;
+  }
+
+  public get y(): number {
+    return this.cy;
+  }
 }

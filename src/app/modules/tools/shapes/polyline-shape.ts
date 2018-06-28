@@ -46,4 +46,12 @@ export class PolylineShape extends Shape {
   public isCorrect(): boolean {
     return this.points.length > 2;
   }
+
+  public get x(): number {
+    return 0;
+  }
+
+  public get y(): number {
+    return 0;
+  }
 }

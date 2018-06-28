@@ -4,11 +4,13 @@ import {
   ChangeDetectionStrategy,
   HostListener,
   EventEmitter,
-  Output
+  Output,
+  ViewEncapsulation
 } from '@angular/core';
 import { CircleShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
 import { GuiService } from '../../services/gui/gui.service';
+import { CanvasService } from '@services';
 
 @Component({
   selector: '[appCircle]',
@@ -24,23 +26,18 @@ import { GuiService } from '../../services/gui/gui.service';
       (mouseleave)="handleMouseLeave()"
     />
   `,
-  styles: [`
-    circle {
-      pointer-events: all;
-    }
-  `],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class CircleComponent {
   @Input('appCircle') circle: CircleShape;
-
-  constructor(private guiService: GuiService) {}
+  constructor(private canvasService: CanvasService) {}
 
   handleMouseEnter(): void {
-    // this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.HOVERED });
+    this.canvasService.hoveredShape$.next(this.circle);
   }
 
   handleMouseLeave(): void {
-    // this.shapeStateChange.emit({ id: this.circle.id, state: ShapeStateEnum.STABLE });
+    this.canvasService.hoveredShape$.next(null);
   }
 }
