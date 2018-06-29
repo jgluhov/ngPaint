@@ -29,7 +29,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
         tap(() => {
           this.canvasService.changeState(
             this.canvasService.hoveredShape.id,
-            ShapeStateEnum.EDITING
+            ShapeStateEnum.DRAGGING
           );
         }),
         mergeMap((start: Point2D) => {

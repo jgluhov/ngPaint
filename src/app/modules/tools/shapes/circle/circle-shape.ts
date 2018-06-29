@@ -1,7 +1,9 @@
 import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
-import { ShapeStateEnum } from '@tools/enums';
-import { TOOL_DEFAULT_COLOR } from '@tools/tool-options';
+import {
+  SHAPE_DEFAULT_COLOR,
+  SHAPE_HOVER_COLOR
+} from '@tools/tool-options';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';
@@ -9,13 +11,13 @@ export class CircleShape extends Shape {
   cy: number;
   strokeWidth: number;
   fill = 'none';
-  stroke;
+  _stroke;
 
   constructor(
     center: Point2D,
     public r: number = 0,
     thickness: number = 2,
-    color: string = TOOL_DEFAULT_COLOR
+    color: string = SHAPE_DEFAULT_COLOR
   ) {
     super();
 
@@ -44,6 +46,15 @@ export class CircleShape extends Shape {
     this.cy = point.y;
 
     return this;
+  }
+
+  get stroke(): string {
+    return this.isDragging() ?
+      SHAPE_HOVER_COLOR : SHAPE_DEFAULT_COLOR;
+  }
+
+  set stroke(color: string) {
+    this._stroke = color;
   }
 
   public move(vector: Point2D): this {

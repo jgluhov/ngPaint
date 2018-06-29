@@ -27,7 +27,7 @@ export abstract class Shape {
 
   public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
   public isEditing = (): boolean => this.state === ShapeStateEnum.EDITING;
-  public isHovered = (): boolean => this.state === ShapeStateEnum.HOVERED;
+  public isDragging = (): boolean => this.state === ShapeStateEnum.DRAGGING;
 
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;

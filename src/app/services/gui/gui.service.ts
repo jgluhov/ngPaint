@@ -9,7 +9,7 @@ import {
 } from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
 import { Shape } from '@tools/shapes';
-import { TOOL_DEFAULT_COLOR } from '@tools/tool-options';
+import { SHAPE_DEFAULT_COLOR } from '@tools/tool-options';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class GuiService {
   private cursorHandler$: BehaviorSubject<ToolCursorEnum> = new BehaviorSubject<ToolCursorEnum>(null);
   private thicknessHandler$: BehaviorSubject<ToolThicknessEnum> = new BehaviorSubject<ToolThicknessEnum>(null);
   private toolHandler$: BehaviorSubject<IToolListItem> = new BehaviorSubject<IToolListItem>(null);
-  private colorHandler$: BehaviorSubject<string> = new BehaviorSubject<string>(TOOL_DEFAULT_COLOR);
+  private colorHandler$: BehaviorSubject<string> = new BehaviorSubject<string>(SHAPE_DEFAULT_COLOR);
   cursor$: Observable<ToolCursorEnum>;
   thickness$: Observable<ToolThicknessEnum>;
   tool$: Observable<IToolListItem>;

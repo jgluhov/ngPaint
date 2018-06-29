@@ -1,6 +1,6 @@
 import { Point2D } from '@math/point2d';
 import { Shape } from '@shapes/shape';
-import { TOOL_DEFAULT_COLOR } from '@tools/tool-options';
+import { SHAPE_DEFAULT_COLOR, SHAPE_HOVER_COLOR } from '@tools/tool-options';
 
 export interface BoundingRect {
   x: number;
@@ -19,12 +19,12 @@ export class RectShape extends Shape {
   height = 0;
   rx = 2;
   ry = 2;
-  stroke;
+  _stroke;
 
   constructor(
     start: Point2D,
     thickness: number = 2,
-    color: string = TOOL_DEFAULT_COLOR
+    color: string = SHAPE_DEFAULT_COLOR
   ) {
     super();
 
@@ -79,6 +79,15 @@ export class RectShape extends Shape {
 
     this.moveTo(p);
     this.setSize(width, height);
+  }
+
+  get stroke(): string {
+    return this.isDragging() ?
+      SHAPE_HOVER_COLOR : SHAPE_DEFAULT_COLOR;
+  }
+
+  set stroke(color: string) {
+    this._stroke = color;
   }
 
   public moveTo(point: Point2D): this {
