@@ -54,21 +54,15 @@ export class PolylineShape extends Shape {
   }
 
   public createDragHandler(start: Point2D): DragHandler {
-    const points = this.points.map((point: Point2D) => new Point2D(point.x, point.y));
-
-    console.log('initial points', points);
+    const points = this.points
+      .map((point: Point2D) => new Point2D(point.x, point.y));
 
     return (end: Point2D): void => {
       const move = Point2D.subtract(start, end);
 
-      // console.log('this.points before', this.points);
-      console.log('move', move);
-
       this.points = points.map((point: Point2D) => {
         return new Point2D(point.x + move.x, point.y + move.y);
       });
-
-      // console.log('this.points after', this.points);
     };
   }
 

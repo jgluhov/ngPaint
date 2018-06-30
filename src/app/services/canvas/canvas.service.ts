@@ -17,7 +17,7 @@ import {
 export class CanvasService {
   private shapeHandler$: Subject<Function> = new Subject<Function>();
   public shapeStore$: Observable<Shape[]>;
-  public shapes$;
+  public shapes$: Observable<Shape[]>;
   public hoveredShape$: BehaviorSubject<Shape> = new BehaviorSubject(null);
 
   public polylines$: Observable<PolylineShape[]>;
