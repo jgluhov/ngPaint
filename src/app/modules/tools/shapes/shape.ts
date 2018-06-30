@@ -1,6 +1,8 @@
 import { Point2D } from '@math';
 import { ShapeStateEnum } from '@tools/enums';
 
+export type DragHandler = (point: Point2D) => void;
+
 export abstract class Shape {
   public readonly id: string;
   public readonly type: string;
@@ -31,8 +33,9 @@ export abstract class Shape {
 
   abstract transform(start: Point2D, end: Point2D): void;
   abstract moveTo(point: Point2D): this;
-  abstract move(point: Point2D): this;
+  abstract createDragHandler(point: Point2D): DragHandler;
   abstract isCorrect(): boolean;
+  abstract getStartXY(point: Point2D): Point2D;
   abstract get x(): number;
   abstract get y(): number;
 }

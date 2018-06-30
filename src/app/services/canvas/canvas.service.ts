@@ -43,6 +43,8 @@ export class CanvasService {
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
 
+    this.polylines$.subscribe(console.log);
+
     this.hoveredShape$.subscribe((shape: Shape) => console.log('hoveredShape:', shape));
 
     // const randomPoint = (): Point2D => {

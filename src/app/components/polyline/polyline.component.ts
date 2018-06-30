@@ -29,7 +29,10 @@ import { ShapeStateEnum } from '@tools/enums';
 })
 export class PolylineComponent {
   @Input('appPolyline') polyline: PolylineShape;
-  constructor(private canvasService: CanvasService) {}
+
+  constructor(private canvasService: CanvasService) {
+
+  }
 
   handleMouseEnter(): void {
     this.canvasService.hoveredShape$.next(this.polyline);

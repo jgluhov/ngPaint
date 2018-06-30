@@ -1,5 +1,6 @@
 import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
+import { DragHandler } from '../shape';
 import {
   SHAPE_DEFAULT_COLOR,
   SHAPE_HOVER_COLOR
@@ -41,11 +42,25 @@ export class CircleShape extends Shape {
     this.moveTo(midpoint);
   }
 
-  public moveTo(point: Point2D): this {
-    this.cx = point.x;
-    this.cy = point.y;
+  public moveTo(to: Point2D): this {
+    this.cx = to.x;
+    this.cy = to.y;
 
     return this;
+  }
+
+  public getStartXY(start: Point2D): Point2D {
+    return new Point2D(start.x - this.x, start.y - this.y);
+  }
+
+  public createDragHandler(start: Point2D): DragHandler {
+    const xStartX = start.x - this.x;
+    const xStartY = start.y - this.y;
+
+    return (end: Point2D): void => {
+      this.x = end.x - xStartX;
+      this.y = end.y - xStartY;
+    };
   }
 
   get stroke(): string {
@@ -57,11 +72,6 @@ export class CircleShape extends Shape {
     this._stroke = color;
   }
 
-  public move(vector: Point2D): this {
-
-    return this;
-  }
-
   public isCorrect(): boolean {
     return true;
   }
@@ -70,7 +80,15 @@ export class CircleShape extends Shape {
     return this.cx;
   }
 
+  public set x(value: number) {
+    this.cx = value;
+  }
+
   public get y(): number {
     return this.cy;
+  }
+
+  public set y(value: number) {
+    this.cy = value;
   }
 }

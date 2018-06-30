@@ -1,5 +1,5 @@
 import { Point2D } from '@math/point2d';
-import { Shape } from '@shapes/shape';
+import { Shape, DragHandler } from '@shapes/shape';
 import { SHAPE_DEFAULT_COLOR, SHAPE_HOVER_COLOR } from '@tools/tool-options';
 
 export interface BoundingRect {
@@ -90,19 +90,25 @@ export class RectShape extends Shape {
     this._stroke = color;
   }
 
-  public moveTo(point: Point2D): this {
-    this.x = point.x;
-    this.y = point.y;
+  public moveTo(to: Point2D): this {
+    this.x = to.x;
+    this.y = to.y;
 
     return this;
   }
 
-  public move(vector: Point2D): this {
+  public createDragHandler(start: Point2D): DragHandler {
+    const xStartX = start.x - this.x;
+    const xStartY = start.y - this.y;
 
-    this.x += vector.x;
-    this.y += vector.y;
+    return (end: Point2D): void => {
+      this.x = end.x - xStartX;
+      this.y = end.y - xStartY;
+    };
+  }
 
-    return this;
+  public getStartXY(start: Point2D): Point2D {
+    return new Point2D(start.x - this.x, start.y - this.y);
   }
 
   private setSize(width: number, height: number): this {

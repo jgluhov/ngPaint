@@ -25,13 +25,13 @@
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"
             [attr.stroke]="polyline.stroke"
+            [attr.stroke-linecap]="polyline.strokeLinecap"
             [attr.stroke-width]="polyline.strokeWidth"/>
         </ng-container>
       </g>
       <g id="circles">
         <ng-container *ngFor="let circle of canvasService.circles$ | async">
-          <g *ngIf="circle.isStable()" [appCircle]="circle">
-          </g>
+          <g *ngIf="circle.isStable()" [appCircle]="circle"></g>
           <circle *ngIf="!circle.isStable()"
             [attr.cx]="circle.cx"
             [attr.cy]="circle.cy"

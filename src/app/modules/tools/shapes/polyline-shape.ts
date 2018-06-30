@@ -1,4 +1,4 @@
-import { Shape } from './shape';
+import { Shape, DragHandler } from './shape';
 import { Point2D } from '@math';
 
 export class PolylineShape extends Shape {
@@ -35,7 +35,8 @@ export class PolylineShape extends Shape {
     return this;
   }
 
-  public moveTo(): this {
+  public moveTo(to: Point2D): this {
+
     return this;
   }
 
@@ -45,6 +46,16 @@ export class PolylineShape extends Shape {
 
   public isCorrect(): boolean {
     return this.points.length > 2;
+  }
+
+  public getStartXY(start: Point2D): Point2D {
+    return new Point2D(start.x, start.y);
+  }
+
+  public createDragHandler(start: Point2D): DragHandler {
+    return (point: Point2D): void => {
+
+    };
   }
 
   public get x(): number {
