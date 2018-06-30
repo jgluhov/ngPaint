@@ -5,27 +5,25 @@ import {
   ViewContainerRef,
   ComponentFactoryResolver,
   ElementRef,
-  ReflectiveInjector,
   Injector,
-  Type,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Type
 } from '@angular/core';
-import { ofType } from '@ngrx/effects';
-import { Observable, of, map, switchMap, Subject, merge } from '@rx';
-import { CanvasService } from '@services';
-import { Shape } from '@shapes';
-import { ControlToolComponent } from '../../modules/tools/components/control-tool/control-tool.component';
+import { Observable, Subject } from 'rxjs';
+import { CanvasService, GuiService } from '@services';
+import { ControlToolComponent } from '@tools/components/control-tool/control-tool.component';
 import {
   PointerToolComponent,
   DrawingToolComponent,
   GeometryToolComponent
 } from '@tools/components';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { GuiService } from '../../services/gui/gui.service';
-import { ToolCursorEnum, ToolTypeEnum } from '@tools/enums';
-import { ShapeStateEnum } from '../../modules/tools/enums/shape-state.enum';
+import {
+  ToolCursorEnum,
+  ToolTypeEnum,
+  ShapeStateEnum,
+  ToolGroupEnum
+} from '@tools/enums';
 import { IToolListItem } from '@tools/interfaces';
-import { ToolGroupEnum } from '../../modules/tools/enums/tool-group.enum';
 
 @Component({
   selector: 'app-canvas',

@@ -6,21 +6,20 @@ import { GuiService } from '@services/gui/gui.service';
   template: `
     <input type="color"
       #colorPicker
-      [ngModel]="currentColor"
+      [ngModel]="color"
       (ngModelChange)="handleChange($event)">
-  `,
-  styles: []
+  `
 })
 export class ColorPickerComponent implements OnInit {
-  currentColor: string;
+  color: string;
   constructor(private guiService: GuiService) {
   }
 
   ngOnInit(): void {
-    this.currentColor = this.guiService.currentStroke;
+    this.color = this.guiService.currentStroke;
   }
 
   handleChange(color: string): void {
-    this.guiService.setColor(color);
+    this.guiService.setStroke(color);
   }
 }

@@ -9,13 +9,9 @@ describe('ColorPickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
+      imports: [ FormsModule ],
       declarations: [ ColorPickerComponent ],
-      providers: [
-        GuiService
-      ]
+      providers: [ GuiService ]
     })
     .compileComponents();
   }));
@@ -28,5 +24,10 @@ describe('ColorPickerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  afterEach(() => {
+    component = null;
+    fixture = null;
   });
 });

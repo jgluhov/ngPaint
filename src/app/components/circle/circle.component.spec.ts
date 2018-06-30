@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CircleComponent } from './circle.component';
 import { CanvasService } from '@services';
 

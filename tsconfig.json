@@ -58,9 +58,6 @@
       ],
       "@math": [
         "app/math"
-      ],
-      "@rx": [
-        "app/libs/rx"
       ]
     }
   }

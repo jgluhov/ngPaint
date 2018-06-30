@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Observable, Subject } from '@rx';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   ToolCursorEnum,
   ToolTypeEnum,
@@ -38,7 +37,7 @@ export class GuiService {
     this.strokeWidthHandler$.next(strokeWidth);
   }
 
-  public setColor(color: string): void {
+  public setStroke(color: string): void {
     this.strokeHandler$.next(color);
   }
 

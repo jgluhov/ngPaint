@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
-import { difference, equals } from 'ramda';
+import { equals } from 'ramda';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
-import { Observable } from 'rxjs/Observable';
 import { ShapeStateEnum } from '@tools/enums';
-import { distinctUntilChanged, first } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, from, Observable, OperatorFunction } from 'rxjs';
 import {
-  Subject,
-  from,
-  combineLatest,
-  timer,
+  distinctUntilChanged,
   scan,
   filter,
   map,
   share,
-  pairwise,
   tap,
-  startWith,
-  OperatorFunction
-} from '@rx';
+  startWith
+} from 'rxjs/operators';
 
 @Injectable()
 export class CanvasService {
@@ -42,21 +35,6 @@ export class CanvasService {
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
-
-    // const randomPoint = (): Point2D => {
-    //   return new Point2D(randomNumber(50, 500), randomNumber(50, 500));
-    // };
-
-    // const randomCircle = (): CircleShape => {
-    //   return new CircleShape(randomPoint(), randomNumber(2, 10));
-    // };
-
-    // timer(1000, 1000)
-    //   .pipe(
-    //     tap(() => {
-    //       this.store.dispatch(new AppActions.CreateShape(randomCircle()));
-    //     })
-    //   ).subscribe();
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {

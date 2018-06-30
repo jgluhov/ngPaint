@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 import { CircleShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
-import { GuiService } from '../../services/gui/gui.service';
-import { CanvasService } from '@services';
+import { CanvasService, GuiService } from '@services';
 
 @Component({
   selector: '[appCircle]',

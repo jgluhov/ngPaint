@@ -1,29 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  takeUntil,
-  mergeMap,
-  withLatestFrom,
-  map,
-  Subject,
-  of,
-  PartialObserver,
-  Observable
-} from '@rx';
+import { Subject, of, PartialObserver, Observable } from 'rxjs';
+import { tap, mergeMap, takeUntil } from 'rxjs/operators';
 import { Point2D } from '@math';
-import {
-  Shape,
-  RectShape,
-  CircleShape
-} from '@shapes';
+import { Shape, RectShape, CircleShape } from '@shapes';
 import { MouseServiceDirective } from '@directives';
-import { CanvasService } from '@services';
-import { GuiService } from '@services/gui/gui.service';
+import { CanvasService, GuiService } from '@services';
 import {
   ShapeStateEnum,
   ToolTypeEnum,
-  SVGShapeEnum} from '@tools/enums';
+  SVGShapeEnum
+} from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
-import { tap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-geometry-tool',
   template: ''
