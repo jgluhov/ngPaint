@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron:macos": "electron-packager . --platform=darwin --overwrite"
+    "electron:macos": "electron-packager . --platform=darwin --overwrite",
+    "server": "ts-node ./server"
   },
   "private": true,
   "dependencies": {
