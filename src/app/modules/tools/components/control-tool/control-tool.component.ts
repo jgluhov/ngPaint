@@ -26,26 +26,19 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     this.mouseService.onMouseDown()
       .pipe(
         switchMap((start: Point2D) => this.canvasService.hoveredShape ? of(start) : empty()),
-        tap(() => {
-          this.canvasService.changeState(
-            this.canvasService.hoveredShape.id,
-            ShapeStateEnum.DRAGGING
-          );
-        }),
         mergeMap((start: Point2D) => {
+          const hoveredShape = this.canvasService.hoveredShape;
 
-          const dragHandler = this.canvasService.hoveredShape.createDragHandler(start);
+          this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.DRAGGING);
+          const dragHandler = hoveredShape.createDragHandler(start);
 
           return this.mouseService.onMouseMove()
             .pipe(
               tap((point: Point2D) => dragHandler(point)),
               takeUntil(this.mouseService.onEnd()),
-              finalize(() => {
-                this.canvasService.changeState(
-                  this.canvasService.hoveredShape.id,
-                  ShapeStateEnum.STABLE
-                );
-              })
+              finalize(() =>
+                this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.STABLE)
+              )
             );
         }),
         takeUntil(this.destroy$)

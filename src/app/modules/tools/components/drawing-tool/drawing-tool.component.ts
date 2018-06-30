@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@math';
-import { last } from 'ramda';
-import { Shape, CircleShape, PolylineShape } from '@shapes';
+import { CircleShape, PolylineShape } from '@shapes';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService, GuiService } from '@services';
 import { ShapeStateEnum } from '@tools/enums/shape-state.enum';
@@ -28,7 +27,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   }
 
   handlePress = (start: Point2D): void => {
-    const polyline = this.createPolyline(start);
+    const polyline = this.createPolyline([start]);
     const circle = this.createCircle(start);
     this.drawCircle(circle);
 
@@ -53,9 +52,9 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     );
   }
 
-  createPolyline(start: Point2D): PolylineShape {
+  createPolyline(points: Point2D[]): PolylineShape {
     return new PolylineShape(
-      start,
+      points,
       this.guiService.currentThickness,
       this.guiService.currentColor
     );

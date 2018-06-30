@@ -29,7 +29,7 @@ export class CircleShape extends Shape {
   }
 
   getRadius(start: Point2D, end: Point2D): number {
-    const difference = Point2D.getDifference(start, end);
+    const difference = Point2D.subtract(start, end);
 
     return Point2D.size(difference.divideBy(2));
   }
@@ -65,7 +65,7 @@ export class CircleShape extends Shape {
 
   get stroke(): string {
     return this.isDragging() ?
-      SHAPE_HOVER_COLOR : SHAPE_DEFAULT_COLOR;
+      SHAPE_HOVER_COLOR : this._stroke;
   }
 
   set stroke(color: string) {

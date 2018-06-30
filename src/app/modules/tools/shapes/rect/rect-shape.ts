@@ -83,7 +83,7 @@ export class RectShape extends Shape {
 
   get stroke(): string {
     return this.isDragging() ?
-      SHAPE_HOVER_COLOR : SHAPE_DEFAULT_COLOR;
+      SHAPE_HOVER_COLOR : this._stroke;
   }
 
   set stroke(color: string) {

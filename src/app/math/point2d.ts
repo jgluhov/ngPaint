@@ -4,10 +4,10 @@ export class Point2D {
   }
 
   static getMidpoint(p1: Point2D, p2: Point2D): Point2D {
-    return Point2D.getDifference(p1, p2).divideBy(2).add(p1);
+    return Point2D.subtract(p1, p2).divideBy(2).add(p1);
   }
 
-  static getDifference(p1: Point2D, p2: Point2D): Point2D {
+  static subtract(p1: Point2D, p2: Point2D): Point2D {
     return new Point2D(p2.x - p1.x, p2.y - p1.y);
   }
 

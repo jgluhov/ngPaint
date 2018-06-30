@@ -32,4 +32,11 @@ describe('CircleShape', () => {
       });
     });
   });
+
+  afterEach(() => {
+    point = null;
+    circle = null;
+    start = null;
+    end = null;
+  });
 });
