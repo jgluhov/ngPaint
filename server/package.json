@@ -6,8 +6,8 @@
   "author": "evglukhov",
   "license": "MIT",
   "scripts": {
-    "start": "./node_modules/.bin/webpack --mode=development --watch --progress --verbose",
-    "serve": "./node_modules/.bin/nodemon ./dist/ng-paint.server.js"
+    "start": "./node_modules/.bin/webpack --mode=development --watch --progress",
+    "serve": "./node_modules/.bin/nodemon ./dist/server.bundle.js"
   },
   "dependencies": {
     "@types/express": "^4.16.0",

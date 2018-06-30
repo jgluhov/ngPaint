@@ -6,36 +6,31 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'ng-paint.server.js'
+    filename: 'server.bundle.js'
   },
 
   resolve: {
     extensions: ['.js', '.ts'],
-    modules: [
-      path.resolve(__dirname, 'node_modules')
-    ]
   },
 
   target: 'node',
-  externals: [nodeExternals()],
+
+  externals: [
+    nodeExternals()
+  ],
 
   module: {
     rules: [
       {
         test: /\.ts$/,
         loader: 'ts-loader',
-        include: [
-          path.resolve(__dirname, 'src')
+        exclude: [
+          /node_modules/
         ],
         options: {
           configFile: path.resolve(__dirname, '../tsconfig.json')
         }
       }
     ]
-  },
-
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 300
   }
 }
