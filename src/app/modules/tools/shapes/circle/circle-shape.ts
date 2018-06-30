@@ -2,28 +2,26 @@ import { Shape } from '@shapes/shape';
 import { Point2D } from '@math';
 import { DragHandler } from '../shape';
 import {
-  SHAPE_DEFAULT_COLOR,
-  SHAPE_HOVER_COLOR
+  SHAPE_DEFAULT_STROKE,
+  SHAPE_HOVER_STROKE
 } from '@tools/tool-options';
 
 export class CircleShape extends Shape {
   public readonly type = 'circle';
-  cx: number;
-  cy: number;
-  strokeWidth: number;
-  fill = 'none';
+  cx;
+  cy;
+  r;
   _stroke;
 
   constructor(
-    center: Point2D,
-    public r: number = 0,
-    thickness: number = 2,
-    color: string = SHAPE_DEFAULT_COLOR
+    public center: Point2D,
+    stroke: string,
+    public strokeWidth: number,
+    public fill: string = 'none'
   ) {
     super();
 
-    this.stroke = color;
-    this.strokeWidth = thickness;
+    this.stroke = stroke;
     this.cx = center.x;
     this.cy = center.y;
   }
@@ -65,7 +63,7 @@ export class CircleShape extends Shape {
 
   get stroke(): string {
     return this.isDragging() ?
-      SHAPE_HOVER_COLOR : this._stroke;
+      SHAPE_HOVER_STROKE : this._stroke;
   }
 
   set stroke(color: string) {

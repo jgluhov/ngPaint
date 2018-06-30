@@ -1,6 +1,6 @@
 import { Shape, DragHandler } from '../shape';
 import { Point2D } from '@math';
-import { SHAPE_HOVER_COLOR } from '../../tool-options';
+import { SHAPE_HOVER_STROKE } from '@tools/tool-options';
 
 export class PolylineShape extends Shape {
   readonly type = 'polyline';
@@ -74,7 +74,7 @@ export class PolylineShape extends Shape {
 
   public get stroke(): string {
     return this.isDragging() ?
-      SHAPE_HOVER_COLOR : this._stroke;
+      SHAPE_HOVER_STROKE : this._stroke;
   }
 
   public set stroke(value: string) {

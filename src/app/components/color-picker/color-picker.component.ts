@@ -17,7 +17,7 @@ export class ColorPickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentColor = this.guiService.currentColor;
+    this.currentColor = this.guiService.currentStroke;
   }
 
   handleChange(color: string): void {

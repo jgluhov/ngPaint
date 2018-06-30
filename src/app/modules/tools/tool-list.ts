@@ -4,9 +4,13 @@ import {
   ToolTypeEnum,
   ToolGroupEnum,
   SVGShapeEnum,
-  ToolCursorEnum,
-  ToolThicknessEnum
+  ToolCursorEnum
 } from '@tools/enums';
+
+import {
+  SHAPE_DEFAULT_STROKE_WIDTH,
+  SHAPE_THICK_STROKE_WIDTH
+} from './tool-options';
 
 export const toolList: IToolList = [
   {
@@ -15,7 +19,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.None,
     cursor: ToolCursorEnum.Default,
     imageUrl: 'assets/icons/pointer.svg',
-    thickness: ToolThicknessEnum.THIN
+    strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
   },
   {
     type: ToolTypeEnum.Pencil,
@@ -23,7 +27,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.Polyline,
     cursor: ToolCursorEnum.Pencil,
     imageUrl: 'assets/icons/pencil.svg',
-    thickness: ToolThicknessEnum.THIN
+    strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
   },
   {
     type: ToolTypeEnum.Brush,
@@ -31,7 +35,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.Polyline,
     cursor: ToolCursorEnum.Circle,
     imageUrl: 'assets/icons/brush.svg',
-    thickness: ToolThicknessEnum.FAT
+    strokeWidth: SHAPE_THICK_STROKE_WIDTH
   },
   {
     type: ToolTypeEnum.Rect,
@@ -39,7 +43,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.Rect,
     cursor: ToolCursorEnum.Crosshair,
     imageUrl: 'assets/icons/rect.svg',
-    thickness: ToolThicknessEnum.THIN
+    strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
   },
   {
     type: ToolTypeEnum.Circle,
@@ -47,7 +51,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.Circle,
     cursor: ToolCursorEnum.Crosshair,
     imageUrl: 'assets/icons/circle.svg',
-    thickness: ToolThicknessEnum.THIN
+    strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
   },
   {
     type: ToolTypeEnum.Hand,
@@ -55,7 +59,7 @@ export const toolList: IToolList = [
     shape: SVGShapeEnum.None,
     cursor: ToolCursorEnum.Hand,
     imageUrl: 'assets/icons/hand.svg',
-    thickness: ToolThicknessEnum.THIN
+    strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
   }
 ];
 

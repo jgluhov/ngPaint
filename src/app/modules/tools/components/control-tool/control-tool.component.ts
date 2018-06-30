@@ -6,7 +6,6 @@ import { Shape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
 import { empty, of, Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
-import { map } from '@rx';
 import { merge } from 'rxjs/observable/merge';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Point2D } from '@math/point2d';
 import { Shape, DragHandler } from '@shapes/shape';
-import { SHAPE_DEFAULT_COLOR, SHAPE_HOVER_COLOR } from '@tools/tool-options';
+import { SHAPE_DEFAULT_STROKE, SHAPE_HOVER_STROKE, SHAPE_DEFAULT_STROKE_WIDTH } from '@tools/tool-options';
 
 export interface BoundingRect {
   x: number;
@@ -11,27 +11,25 @@ export interface BoundingRect {
 
 export class RectShape extends Shape {
   public readonly type = 'rect';
-  x = 0;
-  y = 0;
-  fill = 'none';
-  strokeWidth;
   width = 0;
   height = 0;
+  x = 0;
+  y = 0;
   rx = 2;
   ry = 2;
   _stroke;
 
   constructor(
     start: Point2D,
-    thickness: number = 2,
-    color: string = SHAPE_DEFAULT_COLOR
+    stroke: string = SHAPE_DEFAULT_STROKE,
+    public strokeWidth: number = SHAPE_DEFAULT_STROKE_WIDTH,
+    public fill: string = 'none'
   ) {
     super();
 
     this.x = start.x;
     this.y = start.y;
-    this.strokeWidth = thickness;
-    this.stroke = color;
+    this.stroke = stroke;
   }
 
   getBoundingRect(start: Point2D, end: Point2D): BoundingRect {
@@ -83,7 +81,7 @@ export class RectShape extends Shape {
 
   get stroke(): string {
     return this.isDragging() ?
-      SHAPE_HOVER_COLOR : this._stroke;
+      SHAPE_HOVER_STROKE : this._stroke;
   }
 
   set stroke(color: string) {

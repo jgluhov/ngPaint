@@ -55,17 +55,17 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   createPolyline(points: Point2D[]): PolylineShape {
     return new PolylineShape(
       points,
-      this.guiService.currentThickness,
-      this.guiService.currentColor
+      this.guiService.currentStrokeWidth,
+      this.guiService.currentStroke
     );
   }
 
-  createCircle(start: Point2D): CircleShape {
+  createCircle(center: Point2D): CircleShape {
     return new CircleShape(
-      start,
-      this.guiService.currentThickness / 3,
-      this.guiService.currentThickness / 2,
-      this.guiService.currentColor
+      center,
+      this.guiService.currentStroke,
+      this.guiService.currentStrokeWidth,
+      this.guiService.currentStroke
     );
   }
 

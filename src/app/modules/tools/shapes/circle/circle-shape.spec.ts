@@ -9,7 +9,7 @@ describe('CircleShape', () => {
 
   beforeEach(() => {
     point = new Point2D(0, 0);
-    circle = new CircleShape(point);
+    circle = new CircleShape(point, '', 0);
   });
 
   describe('#getRadius()', () => {

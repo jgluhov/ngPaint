@@ -55,30 +55,26 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
       );
 
     drawing$.subscribe(
-      (point: Point2D) => {
-        shape.transform(start, point);
-      },
+      (point: Point2D) => shape.transform(start, point),
       null,
-      () => {
-        this.canvasService.changeState(shape.id, ShapeStateEnum.STABLE);
-      });
+      () => this.canvasService.changeState(shape.id, ShapeStateEnum.STABLE));
   }
 
-  createShape(start: Point2D): Shape {
+  createShape(center: Point2D): Shape {
     if (this.guiService.isCurrentShape(SVGShapeEnum.Rect)) {
       return new RectShape(
-        start,
-        this.guiService.currentThickness,
-        this.guiService.currentColor
+        center,
+        this.guiService.currentStroke,
+        this.guiService.currentStrokeWidth
       );
     }
 
     if (this.guiService.isCurrentShape(SVGShapeEnum.Circle)) {
       return new CircleShape(
-        start,
-        0,
-        this.guiService.currentThickness,
-        this.guiService.currentColor
+        center,
+        this.guiService.currentStroke,
+        this.guiService.currentStrokeWidth,
+        this.guiService.currentStroke
       );
     }
   }

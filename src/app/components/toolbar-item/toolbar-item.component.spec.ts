@@ -5,8 +5,8 @@ import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ToolCursorEnum, ToolThicknessEnum, ToolGroupEnum } from '@tools/enums';
-import { ToolTypeEnum } from '../../modules/tools/enums/tool-type.enum';
+import { ToolCursorEnum, ToolGroupEnum, ToolTypeEnum } from '@tools/enums';
+import { SHAPE_DEFAULT_STROKE_WIDTH } from '@tools/tool-options';
 
 describe('ToolItemComponent', () => {
   let component: ToolbarItemComponent;
@@ -47,7 +47,7 @@ describe('ToolItemComponent', () => {
       shape: 'polyline',
       cursor: ToolCursorEnum.Default,
       imageUrl: '',
-      thickness: ToolThicknessEnum.FAT
+      strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
     };
     fixture.detectChanges();
   });

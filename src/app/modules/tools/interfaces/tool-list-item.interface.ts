@@ -1,8 +1,7 @@
 import {
   ToolTypeEnum,
   ToolGroupEnum,
-  ToolCursorEnum,
-  ToolThicknessEnum
+  ToolCursorEnum
 } from '../enums';
 
 export interface IToolListItem {
@@ -11,5 +10,5 @@ export interface IToolListItem {
   shape: string;
   imageUrl: string;
   cursor: ToolCursorEnum;
-  thickness: ToolThicknessEnum;
+  strokeWidth: number;
 }
