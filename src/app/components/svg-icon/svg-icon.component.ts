@@ -6,10 +6,16 @@ import {
   ElementRef
 } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-svg-icon',
   template: '<ng-content></ng-content>',
+  styles: [`
+    :host {
+      display: inline-block;
+    }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SvgIconComponent {
@@ -25,6 +31,10 @@ export class SvgIconComponent {
   ) {}
 
   load(imageUrl: string): void {
+    if (!imageUrl) {
+      return;
+    }
+
     this.http.get(imageUrl)
       .subscribe((response: Response) => {
         const element = <HTMLElement>this.elementRef.nativeElement;

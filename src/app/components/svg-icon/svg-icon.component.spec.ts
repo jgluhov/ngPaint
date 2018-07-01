@@ -43,18 +43,26 @@ describe('SvgIconComponent', () => {
   });
 
   describe('#load()', () => {
-    beforeEach(() => {
-      const response = new ResponseOptions({ body: '<svg id="pencil"></svg>'});
+    describe('when pass correct imageUrl', () => {
+      beforeEach(() => {
+        const response = new ResponseOptions({ body: '<svg id="pencil"></svg>'});
 
-      mockBackend.connections.subscribe((connection: MockConnection) => {
-        connection.mockRespond(new Response(response));
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          connection.mockRespond(new Response(response));
+        });
       });
-    });
 
-    it('should project response correctly', fakeAsync(() => {
-      component.load('pencil');
-      tick();
-      expect(nativeElement.querySelector('#pencil')).not.toBeNull();
-    }));
+      it('should project response correctly', fakeAsync(() => {
+        component.load('pencil');
+        tick();
+        expect(nativeElement.querySelector('#pencil')).not.toBeNull();
+      }));
+
+      it('should do nothing if param is incorrect', fakeAsync(() => {
+        component.load('');
+        tick();
+        expect(nativeElement.innerHTML).toBe('');
+      }));
+    });
   });
 });

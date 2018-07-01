@@ -16,7 +16,8 @@
   overflow: auto;
   width: 100%;
 
-  &__title {
+  &__header {
+    position: relative;
     font-weight: 600;
     cursor: default;
     margin-bottom: 10px;

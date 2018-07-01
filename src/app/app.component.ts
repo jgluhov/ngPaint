@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SocketService } from './services/socket/socket.service';
 import { SocketEventEnum } from '@server/socket.enums';
 
@@ -14,8 +14,11 @@ import { SocketEventEnum } from '@server/socket.enums';
     </div>
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private socketService: SocketService) {
+  }
+
+  ngOnInit(): void {
     this.socketService.init();
     this.socketService.start();
   }

@@ -42,6 +42,7 @@ export class PaintServer {
     });
 
     this.io.on('connection', (socket: io.Socket) => {
+
       socket.on(SocketUserActionEnum.JOIN, this.handleJoin);
     });
   }

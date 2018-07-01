@@ -7,7 +7,8 @@ import { IToolListItem } from '@tools/interfaces';
 @Component({
   selector: 'app-toolbar',
   template: `
-    <app-panel [panelTitle]="title">
+    <app-panel>
+      <header>{{title}}</header>
       <div class="toolbar-list">
         <app-toolbar-item
           *ngFor="let tool of toolList"

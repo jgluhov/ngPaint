@@ -4,8 +4,8 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-panel',
   template: `
     <div class="panel">
-      <div class="panel__title" *ngIf="panelTitle">
-          {{panelTitle}}
+      <div class="panel__header">
+        <ng-content select="header"></ng-content>
       </div>
       <div class="panel__content">
         <ng-content></ng-content>

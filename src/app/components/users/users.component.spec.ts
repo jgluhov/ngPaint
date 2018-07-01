@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersComponent } from './users.component';
 import { PanelComponent } from '@components/panel/panel.component';
+import { SvgIconComponent } from '@components';
+import { SocketService } from '@services';
+import { MockBackend } from '@angular/http/testing';
+import { BaseRequestOptions, Http } from '@angular/http';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -10,7 +14,21 @@ describe('UsersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PanelComponent,
-        UsersComponent
+        UsersComponent,
+        SvgIconComponent
+      ],
+      providers: [
+        SocketService,
+        MockBackend,
+        BaseRequestOptions,
+        {
+          provide: Http,
+          useFactory: (
+            backend: MockBackend,
+            options: BaseRequestOptions
+          ): Http => new Http(backend, options),
+          deps: [MockBackend, BaseRequestOptions]
+        }
       ]
     })
     .compileComponents();

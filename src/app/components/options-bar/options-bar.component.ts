@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-options-bar',
   template: `
-    <app-panel [panelTitle]="title">
+    <app-panel>
+      <header>{{title}}</header>
       <app-color-picker></app-color-picker>
     </app-panel>
   `
