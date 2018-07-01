@@ -1,6 +1,6 @@
-import { NgPaintServer } from './ng-paint.server';
+import { PaintServer } from './paint.server';
 
-const app = new NgPaintServer().getApp();
+const app = new PaintServer().getApp();
 
 export {
   app

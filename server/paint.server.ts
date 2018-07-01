@@ -1,16 +1,22 @@
 import * as express from 'express';
+import * as io from 'socket.io';
 import { Server, createServer } from 'http';
+import { User } from './models';
+import { SocketUserActionEnum } from './socket.enums';
 
-export class NgPaintServer {
+export class PaintServer {
   public static readonly PORT: number = 8080;
   private app: express.Application;
   private server: Server;
+  private io: SocketIO.Server;
   private port: number | string;
+  private users: User[];
 
   constructor() {
     this.createApp();
     this.config();
     this.createServer();
+    this.createSocket();
     this.listen();
   }
 
@@ -19,17 +25,29 @@ export class NgPaintServer {
   }
 
   private config(): void {
-    this.port = process.env.PORT || NgPaintServer.PORT;
+    this.port = process.env.PORT || PaintServer.PORT;
   }
 
   private createServer(): void {
     this.server = createServer(this.app);
   }
 
+  private createSocket(): void {
+    this.io = io(this.server);
+  }
+
   private listen(): void {
     this.server.listen(this.port, () => {
       console.log('Running server on port %s', this.port);
     });
+
+    this.io.on('connection', (socket: io.Socket) => {
+      socket.on(SocketUserActionEnum.JOIN, this.handleJoin);
+    });
+  }
+
+  private handleJoin = (username: string): void => {
+    console.log('add user', username);
   }
 
   public getApp(): express.Application {

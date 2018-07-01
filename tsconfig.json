@@ -17,6 +17,9 @@
     ],
     "baseUrl": "src",
     "paths": {
+      "socket.io-client": [
+        "../node_modules/socket.io-client/dist/socket.io.slim.js"
+      ],
       "@tools/*": [
         "app/modules/tools/*"
       ],
@@ -28,6 +31,12 @@
       ],
       "@tools": [
         "app/modules/tools"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@server/*": [
+        "../server/*"
       ],
       "@components/*": [
         "app/components/*"

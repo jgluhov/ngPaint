@@ -11,7 +11,6 @@ import { CanvasService } from '@services/canvas/canvas.service';
 import { PolylineComponent } from './components/polyline/polyline.component';
 import { CircleComponent } from './components/circle/circle.component';
 import { RectComponent } from './components/rect/rect.component';
-import { GuiService } from '@services/gui/gui.service';
 
 @NgModule({
   declarations: [
