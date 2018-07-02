@@ -5,12 +5,17 @@ import { SvgIconComponent } from '@components';
 import { SocketService } from '@services';
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, Http } from '@angular/http';
+import { of } from 'rxjs';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
-
+  let mockSocketService;
   beforeEach(async(() => {
+    mockSocketService = {
+      connectionState$: of()
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         PanelComponent,
@@ -18,7 +23,9 @@ describe('UsersComponent', () => {
         SvgIconComponent
       ],
       providers: [
-        SocketService,
+        {
+          provide: SocketService, useValue: mockSocketService
+        },
         MockBackend,
         BaseRequestOptions,
         {

@@ -6,43 +6,57 @@ import {
   SocketUserActionEnum,
   SocketActions
 } from '@server/socket.enums';
-import { mapTo, startWith, share } from 'rxjs/operators';
+import { mapTo, startWith, share, filter, tap } from 'rxjs/operators';
 import { SocketEventEnum } from '../../../../server/socket.enums';
 import { merge } from 'rxjs/observable/merge';
+import { UserService } from '../user/user.service';
+import { User } from '../../../../server/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
   private socket;
-  private connectionHandler$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  isConnected$;
+  public connectionState$;
 
-  constructor() {
-    this.isConnected$ = this.connectionHandler$.asObservable();
+  constructor(private userService: UserService) {
   }
 
   public init(): void {
     this.socket = io(environment.wsUrl);
+
+    this.connectionState$ = merge(
+      this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
+      this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
+    )
+    .pipe(
+      startWith(false),
+      share()
+    );
   }
 
   public start(): void {
-    const stateChanges$ = merge(
-      this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
-      this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
-    );
-
-    stateChanges$.subscribe(this.connectionHandler$);
-
-    this.onEvent(SocketUserActionEnum.JOIN)
+    this.onEvent(SocketUserActionEnum.JOINED)
       .subscribe(() => console.log('user joined'));
 
-    this.isConnected$.subscribe((state: boolean) => console.log(`connection state: ${state}`));
+    this.connectionState$
+      .subscribe((state: boolean) => console.log(`connection state change: ${state}`));
+
+    // Joining
+    this.connectionState$
+      .pipe(filter((isConnected: boolean) => isConnected))
+      .subscribe(() => {
+        this.userJoin(this.userService.username);
+      });
   }
 
   public onEvent<T>(action: SocketActions): Observable<T> {
     return Observable.create((observer: Observer<T>) => {
       this.socket.on(action, observer.next.bind(observer));
     });
+  }
+
+  public userJoin(username: string): void {
+    this.socket.emit(SocketUserActionEnum.JOIN, username);
   }
 }

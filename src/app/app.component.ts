@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from './services/socket/socket.service';
-import { SocketEventEnum } from '@server/socket.enums';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socketService.init();
-    this.socketService.start();
+    // this.socketService.init();
+    // this.socketService.start();
   }
 }

@@ -1,5 +1,6 @@
 export enum SocketUserActionEnum {
-  JOIN = 'user:join'
+  JOIN = 'user:join',
+  JOINED = 'user:joined'
 }
 
 export enum SocketEventEnum {

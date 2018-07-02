@@ -4,13 +4,15 @@ import { Server, createServer } from 'http';
 import { User } from './models';
 import { SocketUserActionEnum } from './socket.enums';
 
+type SocketListener = (...args: any[]) => void;
+
 export class PaintServer {
   public static readonly PORT: number = 8080;
   private app: express.Application;
   private server: Server;
   private io: SocketIO.Server;
   private port: number | string;
-  private users: User[];
+  private users: User[] = [];
 
   constructor() {
     this.createApp();
@@ -43,12 +45,18 @@ export class PaintServer {
 
     this.io.on('connection', (socket: io.Socket) => {
 
-      socket.on(SocketUserActionEnum.JOIN, this.handleJoin);
+      socket.on(SocketUserActionEnum.JOIN, this.handleUserJoin(socket));
     });
   }
 
-  private handleJoin = (username: string): void => {
-    console.log('add user', username);
+  private handleUserJoin = (socket: io.Socket): SocketListener =>
+    (username: string): void => {
+      const user = new User(username);
+      this.users.push(user);
+
+      socket.broadcast.emit(SocketUserActionEnum.JOINED, {
+        users: this.users
+      });
   }
 
   public getApp(): express.Application {

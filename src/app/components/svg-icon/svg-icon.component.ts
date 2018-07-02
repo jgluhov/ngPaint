@@ -6,16 +6,11 @@ import {
   ElementRef
 } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-svg-icon',
   template: '<ng-content></ng-content>',
-  styles: [`
-    :host {
-      display: inline-block;
-    }
-  `],
+  styleUrls: ['./svg-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SvgIconComponent {
