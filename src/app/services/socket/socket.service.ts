@@ -39,6 +39,9 @@ export class SocketService {
     this.onEvent(SocketUserActionEnum.JOINED)
       .subscribe(this.userService.add);
 
+    this.onEvent(SocketUserActionEnum.LEFT)
+      .subscribe(this.userService.remove);
+
     this.connectionState$
       .subscribe((state: boolean) => console.log(`connection state change: ${state}`));
 

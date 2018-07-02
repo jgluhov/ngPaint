@@ -2,7 +2,8 @@ import * as express from 'express';
 import * as io from 'socket.io';
 import { Server, createServer } from 'http';
 import { User } from './models';
-import { SocketUserActionEnum } from './socket.enums';
+import { SocketUserActionEnum, SocketEventEnum } from './socket.enums';
+import { removeAllListeners } from 'cluster';
 
 type SocketListener = (...args: any[]) => void;
 
@@ -46,15 +47,29 @@ export class PaintServer {
     this.io.on('connection', (socket: io.Socket) => {
 
       socket.on(SocketUserActionEnum.JOIN, this.handleUserJoin(socket));
+      socket.on(SocketEventEnum.DISCONNECT, this.handleUserDisconnect(socket));
     });
   }
 
   private handleUserJoin = (socket: io.Socket): SocketListener =>
     (user: User): void => {
       this.users.push(user);
+      socket.id = user.id;
 
       socket.broadcast.emit(SocketUserActionEnum.JOINED, { user });
+
+      console.log('User joined: ', this.users);
   }
+
+  private handleUserDisconnect = (socket: io.Socket): SocketListener =>
+    (): void => {
+      const foundUser = this.users.find((user: User) => user.id !== socket.id);
+      this.users = this.users.filter((item: User) => item.id !== foundUser.id);
+
+      socket.broadcast.emit(SocketUserActionEnum.LEFT, { user: foundUser });
+
+      console.log('User disconnected: ', this.users);
+    }
 
   public getApp(): express.Application {
     return this.app;
