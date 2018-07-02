@@ -50,13 +50,10 @@ export class PaintServer {
   }
 
   private handleUserJoin = (socket: io.Socket): SocketListener =>
-    (username: string): void => {
-      const user = new User(username);
+    (user: User): void => {
       this.users.push(user);
 
-      socket.broadcast.emit(SocketUserActionEnum.JOINED, {
-        users: this.users
-      });
+      socket.broadcast.emit(SocketUserActionEnum.JOINED, { user });
   }
 
   public getApp(): express.Application {

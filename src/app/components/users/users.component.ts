@@ -24,11 +24,11 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.socketService.connectionState$
-    //   .subscribe((isConnected: boolean) => {
-    //     this.imageUrl = isConnected ?
-    //       this.connectedUrl : this.disconnectedUrl;
-    //   });
+    this.socketService.connectionState$
+      .subscribe((isConnected: boolean) => {
+        this.imageUrl = isConnected ?
+          this.connectedUrl : this.disconnectedUrl;
+      });
   }
 
 }

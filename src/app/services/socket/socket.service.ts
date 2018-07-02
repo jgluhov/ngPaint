@@ -6,7 +6,7 @@ import {
   SocketUserActionEnum,
   SocketActions
 } from '@server/socket.enums';
-import { mapTo, startWith, share, filter, tap } from 'rxjs/operators';
+import { mapTo, startWith, share, filter, tap, map } from 'rxjs/operators';
 import { SocketEventEnum } from '../../../../server/socket.enums';
 import { merge } from 'rxjs/observable/merge';
 import { UserService } from '../user/user.service';
@@ -37,7 +37,7 @@ export class SocketService {
 
   public start(): void {
     this.onEvent(SocketUserActionEnum.JOINED)
-      .subscribe(() => console.log('user joined'));
+      .subscribe(this.userService.add);
 
     this.connectionState$
       .subscribe((state: boolean) => console.log(`connection state change: ${state}`));
@@ -45,9 +45,7 @@ export class SocketService {
     // Joining
     this.connectionState$
       .pipe(filter((isConnected: boolean) => isConnected))
-      .subscribe(() => {
-        this.userJoin(this.userService.username);
-      });
+      .subscribe(() => this.userJoin(this.userService.me));
   }
 
   public onEvent<T>(action: SocketActions): Observable<T> {
@@ -56,7 +54,7 @@ export class SocketService {
     });
   }
 
-  public userJoin(username: string): void {
-    this.socket.emit(SocketUserActionEnum.JOIN, username);
+  public userJoin(user: User): void {
+    this.socket.emit(SocketUserActionEnum.JOIN, user);
   }
 }
