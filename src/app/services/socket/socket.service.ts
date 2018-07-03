@@ -17,6 +17,7 @@ import { User } from '@server/models/user.model';
 export class SocketService {
   private socket;
   public connectionState$;
+  public connectionEstablished$;
 
   constructor(private userService: UserService) {
   }
@@ -36,18 +37,14 @@ export class SocketService {
 
   public start(): void {
     this.onEvent(SocketUserActionEnum.JOINED)
-      .subscribe(this.userService.add);
+      .subscribe(this.handleUserJoined);
 
     this.onEvent(SocketUserActionEnum.LEFT)
-      .subscribe(this.userService.remove);
+      .subscribe(this.handleUserLeft);
 
-    this.connectionState$
-      .subscribe((state: boolean) => console.log(`connection state change: ${state}`));
-
-    // Joining
     this.connectionState$
       .pipe(filter((isConnected: boolean) => isConnected))
-      .subscribe(() => this.userJoin(this.userService.me));
+      .subscribe(this.handleConnectionEstablished);
   }
 
   public onEvent<T>(action: SocketActions): Observable<T> {
@@ -56,7 +53,19 @@ export class SocketService {
     });
   }
 
-  public userJoin(user: User): void {
+  public join = (user: User): void => {
     this.socket.emit(SocketUserActionEnum.JOIN, user);
+  }
+
+  public handleUserLeft = (user: User): void => {
+    this.userService.remove(user);
+  }
+
+  public handleUserJoined = (user: User): void => {
+    this.userService.add(user);
+  }
+
+  public handleConnectionEstablished = (): void => {
+    this.join(this.userService.me);
   }
 }

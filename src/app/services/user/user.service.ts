@@ -22,8 +22,6 @@ export class UserService {
         scan((users: User[], fn: Function) => fn(users), [])
       );
 
-    this.add(this.me);
-
     this.users$.subscribe(
       (users: User[]) => {
         console.log('users: ', users);
@@ -31,7 +29,6 @@ export class UserService {
   }
 
   add = (user: User): void => {
-    console.log(user)
     this.usersHandler$.next((users: User[]) => users.concat(user));
   }
 

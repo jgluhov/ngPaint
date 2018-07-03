@@ -62,10 +62,10 @@ export class PaintServer {
 
   private handleUserDisconnect = (socket: io.Socket): SocketListener =>
     (): void => {
-      const foundUser = this.users.find((user: User) => user.id === socket.id);
-      this.users = this.users.filter((item: User) => item.id !== foundUser.id);
+      const leftUser = this.users.find((user: User) => user.id === socket.id);
+      this.users = this.users.filter((item: User) => item.id !== leftUser.id);
 
-      socket.broadcast.emit(SocketUserActionEnum.LEFT, { user: foundUser });
+      socket.broadcast.emit(SocketUserActionEnum.LEFT, leftUser);
 
       console.log('User disconnected: ', this.users);
     }
