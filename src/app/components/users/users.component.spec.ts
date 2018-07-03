@@ -6,6 +6,7 @@ import { SocketService } from '@services';
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, Http } from '@angular/http';
 import { of } from 'rxjs';
+import { UserComponent } from '@components/user/user.component';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -20,7 +21,8 @@ describe('UsersComponent', () => {
       declarations: [
         PanelComponent,
         UsersComponent,
-        SvgIconComponent
+        SvgIconComponent,
+        UserComponent
       ],
       providers: [
         {
