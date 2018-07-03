@@ -11,6 +11,7 @@ import { CanvasService } from '@services/canvas/canvas.service';
 import { PolylineComponent } from './components/polyline/polyline.component';
 import { CircleComponent } from './components/circle/circle.component';
 import { RectComponent } from './components/rect/rect.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RectComponent } from './components/rect/rect.component';
     ...commonComponents,
     PolylineComponent,
     CircleComponent,
-    RectComponent
+    RectComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

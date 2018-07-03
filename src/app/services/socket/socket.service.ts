@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '@env/environment';
-import { Observable, Observer, BehaviorSubject } from 'rxjs';
+import { Observable, Observer, BehaviorSubject, merge } from 'rxjs';
+import { mapTo, startWith, share, filter, tap, map } from 'rxjs/operators';
 import {
   SocketUserActionEnum,
-  SocketActions
+  SocketActions,
+  SocketEventEnum
 } from '@server/socket.enums';
-import { mapTo, startWith, share, filter, tap, map } from 'rxjs/operators';
-import { SocketEventEnum } from '../../../../server/socket.enums';
-import { merge } from 'rxjs/observable/merge';
-import { UserService } from '../user/user.service';
-import { User } from '../../../../server/models/user.model';
+import { UserService } from '@services/user/user.service';
+import { User } from '@server/models/user.model';
 
 @Injectable({
   providedIn: 'root'

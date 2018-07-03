@@ -1,5 +1,13 @@
 import { generateId } from '../helpers';
-export class User {
-  id = generateId();
-  constructor(public username: string) {}
+
+export interface User {
+  id: string;
+  name: string;
 }
+
+export const createUser = (name: string): User => {
+  return {
+    id: generateId(),
+    name
+  };
+};
