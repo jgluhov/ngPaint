@@ -1,0 +1,18 @@
+@import '../../../sass/assets.scss';
+@import '../../../sass/mixins.scss';
+
+.icon {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background-size: contain;
+  @include size(32);
+}
+
+.icon__socket-connected {
+  background-image: url($socket-connected-path);
+}
+
+.icon__socket-disconnected {
+  background-image: url($socket-disconnected-path);
+}

@@ -46,7 +46,7 @@ app-canvas {
   .container {
     grid-template:
       $header-height repeat(2, 1fr) /
-      $toolbar-width calc(80% - #{$toolbar-width + $grid-gap}) 20%;
+      $toolbar-width calc(80% - #{$toolbar-width}) 20%;
     grid-template-areas:
       "masthead masthead masthead"
       "toolbar canvas options-bar"

@@ -12,6 +12,7 @@ import { PolylineComponent } from './components/polyline/polyline.component';
 import { CircleComponent } from './components/circle/circle.component';
 import { RectComponent } from './components/rect/rect.component';
 import { UserComponent } from './components/user/user.component';
+import { SocketStateComponent } from './components/socket-state/socket-state.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserComponent } from './components/user/user.component';
     PolylineComponent,
     CircleComponent,
     RectComponent,
-    UserComponent
+    UserComponent,
+    SocketStateComponent
   ],
   imports: [
     BrowserModule,

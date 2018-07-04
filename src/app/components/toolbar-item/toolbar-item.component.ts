@@ -18,9 +18,7 @@ import {
   selector: 'app-toolbar-item',
   template: `
     <div class="tool-item" [@toolState]="toolState">
-      <app-svg-icon [imageUrl]="tool.imageUrl"
-        (mousedown)="handleSelect($event)">
-      </app-svg-icon>
+      <img [src]="tool.imageUrl" (mousedown)="handleSelect($event)" />
     </div>
   `,
   animations: [

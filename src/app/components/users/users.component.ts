@@ -9,7 +9,7 @@ import { User } from '@server/models/user.model';
     <app-panel>
       <header>
         {{this.title}}
-        <app-svg-icon [imageUrl]="imageUrl" class="socket-state-icon"></app-svg-icon>
+        <app-socket-state></app-socket-state>
       </header>
       <div class="user-list">
         <app-user *ngFor="let user of userService.users$ | async" [user]="user"></app-user>
@@ -23,7 +23,6 @@ export class UsersComponent implements OnInit {
   imageUrl;
   connectedUrl = 'assets/icons/socket-connected.svg';
   disconnectedUrl = 'assets/icons/socket-disconnected.svg';
-  isConnected$;
 
   constructor(
     public socketService: SocketService,
@@ -34,11 +33,5 @@ export class UsersComponent implements OnInit {
     this.userService.users$.subscribe((users: User[]) => {
       console.log(users);
     });
-
-    this.socketService.connectionState$
-      .subscribe((isConnected: boolean) => {
-        this.imageUrl = isConnected ?
-          this.connectedUrl : this.disconnectedUrl;
-      });
   }
 }

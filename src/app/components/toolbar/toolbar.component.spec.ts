@@ -3,7 +3,6 @@ import { MockBackend } from '@angular/http/testing';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { ToolbarComponent } from './toolbar.component';
 import { ToolbarItemComponent } from '@components/toolbar-item/toolbar-item.component';
-import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { PanelComponent } from '@components/panel/panel.component';
 import { ToolsModule } from '@tools';
 
@@ -16,8 +15,7 @@ describe('ToolbarComponent', () => {
       declarations: [
         PanelComponent,
         ToolbarComponent,
-        ToolbarItemComponent,
-        SvgIconComponent
+        ToolbarItemComponent
       ],
       imports: [
         ToolsModule

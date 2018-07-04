@@ -1,4 +1,14 @@
+@import '../../../sass/variables.scss';
+
 .socket-state-icon {
   position: absolute;
   right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.user-icon {
+  &.user-1 {
+    background-image: url()
+  }
 }

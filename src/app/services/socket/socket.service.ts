@@ -16,7 +16,8 @@ import { User } from '@server/models/user.model';
 })
 export class SocketService {
   private socket;
-  public connectionState$;
+  private socketState$;
+  public connectionState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public connectionEstablished$;
 
   constructor(private userService: UserService) {
@@ -24,33 +25,41 @@ export class SocketService {
 
   public init(): void {
     this.socket = io(environment.wsUrl);
-
-    this.connectionState$ = merge(
-      this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
-      this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
-    )
-    .pipe(
-      startWith(false),
-      share()
-    );
   }
 
   public start(): void {
+    this.socketState$ = this.getSocketState();
+
+    this.socketState$
+      .subscribe(this.connectionState$);
+
+    this.socketState$
+      .pipe(
+        filter((state: boolean) => state)
+      )
+      .subscribe(this.handleConnectionEstablished);
+
     this.onEvent(SocketUserActionEnum.JOINED)
       .subscribe(this.handleUserJoined);
 
     this.onEvent(SocketUserActionEnum.LEFT)
       .subscribe(this.handleUserLeft);
-
-    this.connectionState$
-      .pipe(filter((isConnected: boolean) => isConnected))
-      .subscribe(this.handleConnectionEstablished);
   }
 
   public onEvent<T>(action: SocketActions): Observable<T> {
     return Observable.create((observer: Observer<T>) => {
       this.socket.on(action, observer.next.bind(observer));
     });
+  }
+
+  public getSocketState(): Observable<boolean> {
+    return merge(
+      this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
+      this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
+    )
+    .pipe(
+      startWith(false)
+    );
   }
 
   public join = (user: User): void => {

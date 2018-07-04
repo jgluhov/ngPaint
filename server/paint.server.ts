@@ -7,7 +7,7 @@ import { SocketUserActionEnum, SocketEventEnum } from './socket.enums';
 type SocketListener = (...args: any[]) => void;
 
 export class PaintServer {
-  public static readonly PORT: number = 8080;
+  public static readonly PORT: number = 3000;
   private app: express.Application;
   private server: Server;
   private io: SocketIO.Server;
@@ -52,6 +52,7 @@ export class PaintServer {
 
   private handleUserJoin = (socket: io.Socket): SocketListener =>
     (user: User): void => {
+      user.address = socket.handshake.address;
       this.users.push(user);
       socket.id = user.id;
 

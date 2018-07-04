@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { ToolbarItemComponent } from '@components/toolbar-item/toolbar-item.component';
-import { SvgIconComponent } from '@components/svg-icon/svg-icon.component';
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
@@ -19,8 +18,7 @@ describe('ToolItemComponent', () => {
       ],
       declarations: [
         PanelComponent,
-        ToolbarItemComponent,
-        SvgIconComponent
+        ToolbarItemComponent
       ],
       providers: [
         MockBackend,
