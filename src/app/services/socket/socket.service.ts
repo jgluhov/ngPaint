@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { environment } from '@env/environment';
-import { Observable, Observer, BehaviorSubject, merge } from 'rxjs';
+import { Observable, Observer, BehaviorSubject, merge, fromEvent } from 'rxjs';
 import { mapTo, startWith, share, filter, tap, map } from 'rxjs/operators';
 import {
   SocketUserActionEnum,
@@ -16,34 +16,47 @@ import { User } from '@server/models/user.model';
 })
 export class SocketService {
   private socket;
-  private socketState$;
+  private disconnects$;
+  private connects$;
+  private state$;
   public connectionState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public connectionEstablished$;
 
   constructor(private userService: UserService) {
   }
 
-  public init(): void {
+  public connect(): void {
     this.socket = io(environment.wsUrl);
+
+    this.connects$ = fromEvent(this.socket, SocketEventEnum.CONNECT);
+    this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
+  }
+
+  public disconnect(): void {
+    this.socket.disconnect();
   }
 
   public start(): void {
-    this.socketState$ = this.getSocketState();
+    this.state$ = this.getState();
 
-    this.socketState$
+    fromEvent(this.socket, SocketUserActionEnum.JOINED)
+      .subscribe(this.handleUserJoined);
+
+    this.state$
       .subscribe(this.connectionState$);
 
-    this.socketState$
-      .pipe(
-        filter((state: boolean) => state)
-      )
-      .subscribe(this.handleConnectionEstablished);
+    this.state$
+      .pipe(filter((state: boolean) => state))
+      .subscribe(this.handleUserJoin);
 
     this.onEvent(SocketUserActionEnum.JOINED)
       .subscribe(this.handleUserJoined);
 
     this.onEvent(SocketUserActionEnum.LEFT)
       .subscribe(this.handleUserLeft);
+
+    this.onEvent(SocketEventEnum.CONNECT_ERROR)
+      .subscribe(this.handleConnectionError);
   }
 
   public onEvent<T>(action: SocketActions): Observable<T> {
@@ -52,7 +65,7 @@ export class SocketService {
     });
   }
 
-  public getSocketState(): Observable<boolean> {
+  public getState(): Observable<boolean> {
     return merge(
       this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
       this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
@@ -62,8 +75,8 @@ export class SocketService {
     );
   }
 
-  public join = (user: User): void => {
-    this.socket.emit(SocketUserActionEnum.JOIN, user);
+  public handleUserJoin = (): void => {
+    this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
   }
 
   public handleUserLeft = (user: User): void => {
@@ -74,7 +87,11 @@ export class SocketService {
     this.userService.add(user);
   }
 
-  public handleConnectionEstablished = (): void => {
-    this.join(this.userService.me);
+  public handleConnectionError = (): void => {
+    console.log('error');
+  }
+
+  public connectionState$(): Observable<boolean> {
+    return this.state$;
   }
 }

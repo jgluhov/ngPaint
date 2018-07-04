@@ -1,14 +1,34 @@
+@import '../../../sass/assets.scss';
+@import '../../../sass/mixins.scss';
+
 .user {
   display: flex;
   align-items: center;
 }
 
-.user__avatar {
-  width: 20px;
-  height: 20px;
+.user__name {
+  font-weight: bold;
   margin-right: 5px;
 }
 
-.user__name {
-  align-self: flex-end;
+.user__icon {
+  @include size(30);
+  margin-right: 10px;
+  background-size: contain;
+
+  &.user__icon--1 {
+    background-image: url($user-1-path);
+  }
+
+  &.user__icon--2 {
+    background-image: url($user-2-path);
+  }
+
+  &.user__icon--3 {
+    background-image: url($user-3-path);
+  }
+
+  &.user__icon--4 {
+    background-image: url($user-4-path);
+  }
 }

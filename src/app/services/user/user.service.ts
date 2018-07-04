@@ -35,4 +35,8 @@ export class UserService {
   remove = (user: User): void => {
     this.usersHandler$.next((users: User[]) => users.filter((u: User) => u.id !== user.id));
   }
+
+  isMe(user: User): boolean {
+    return this.me.id === user.id;
+  }
 }

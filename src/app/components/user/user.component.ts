@@ -6,28 +6,28 @@ import { UserService } from '../../services/user/user.service';
   selector: 'app-user',
   template: `
     <div class="user">
-      <img class="user__avatar" [src]="_user.imageUrl" />
-      <span class="user__name">{{_user.name}}</span>
-      <span *ngIf="">(you)</span>
+      <div class="user__icon {{userClass}}"></div>
+      <div class="user__name">{{user.name}}</div>
+      <span *ngIf="isMe()">(you)</span>
     </div>
   `,
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  _user: User;
+  @Input() user: User;
+  userClass: string;
+
   constructor(private userService: UserService) {
-  }
-  @Input() set user(user: User) {
-    this._user = user;
-    this._user.imageUrl = this.getRandomUserImageUrl();
+    this.userClass = this.getRandomUserClass();
   }
 
-  userImageUrl;
-
-  getRandomUserImageUrl(): string {
+  getRandomUserClass(): string {
     const randomIndex = Math.floor(Math.random() * 4) + 1;
 
-    return `assets/icons/users/man-${randomIndex}.svg`;
+    return `user__icon--${randomIndex}`;
   }
 
+  isMe(): boolean {
+    return this.userService.isMe(this.user);
+  }
 }

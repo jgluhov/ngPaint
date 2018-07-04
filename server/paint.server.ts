@@ -53,9 +53,9 @@ export class PaintServer {
   private handleUserJoin = (socket: io.Socket): SocketListener =>
     (user: User): void => {
       user.address = socket.handshake.address;
-      this.users.push(user);
       socket.id = user.id;
 
+      this.users.push(user);
       socket.broadcast.emit(SocketUserActionEnum.JOINED, user);
 
       console.log('User joined: ', this.users);

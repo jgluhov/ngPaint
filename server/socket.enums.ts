@@ -7,7 +7,7 @@ export enum SocketUserActionEnum {
 export enum SocketEventEnum {
   CONNECT = 'connect',
   DISCONNECT = 'disconnect',
-  ERROR = 'error'
+  CONNECT_ERROR = 'connect_error'
 }
 
 export type SocketActions = SocketEventEnum | SocketUserActionEnum;

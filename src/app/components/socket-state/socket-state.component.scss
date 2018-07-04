@@ -15,4 +15,12 @@
 
 .icon__socket-disconnected {
   background-image: url($socket-disconnected-path);
+  animation: blink 2s infinite ease-in-out;
+  opacity: 1;
+}
+
+@keyframes blink {
+  45% {
+    opacity: 0.4;
+  }
 }

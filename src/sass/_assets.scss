@@ -1,14 +1,17 @@
-$cursor-pencil-path: "../../../assets/icons/cursors/pencil.png";
-$cursor-circle-path: "../../../assets/icons/cursors/circle.png";
-$cursor-crosshair-path: "../../../assets/icons/cursors/crosshair.png";
-$cursor-hand-path: "../../../assets/icons/cursors/hand.png";
-$cursor-default-path: "../../../assets/icons/cursors/default.png";
 
-$user-1-path: "../../../assets/icons/users/user-1.svg";
-$user-2-path: "../../../assets/icons/users/user-2.svg";
-$user-3-path: "../../../assets/icons/users/user-3.svg";
-$user-4-path: "../../../assets/icons/users/user-4.svg";
+$icons-path: "../../../assets/icons";
 
-$socket-connected-path: "../../../assets/icons/socket/connected.png";
-$socket-disconnected-path: "../../../assets/icons/socket/disconnected.png";
+$cursor-pencil-path: "#{$icons-path}/cursors/pencil.png";
+$cursor-circle-path: "#{$icons-path}/cursors/circle.png";
+$cursor-crosshair-path: "#{$icons-path}/cursors/crosshair.png";
+$cursor-hand-path: "#{$icons-path}/cursors/hand.png";
+$cursor-default-path: "#{$icons-path}/cursors/default.png";
+
+$user-1-path: "#{$icons-path}/users/user-1.png";
+$user-2-path: "#{$icons-path}/users/user-2.png";
+$user-3-path: "#{$icons-path}/users/user-3.png";
+$user-4-path: "#{$icons-path}/users/user-4.png";
+
+$socket-connected-path: "#{$icons-path}/socket/connected.png";
+$socket-disconnected-path: "#{$icons-path}/socket/disconnected.png";
 
