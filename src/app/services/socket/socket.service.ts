@@ -18,7 +18,10 @@ export class SocketService {
   private socket;
   private disconnects$;
   private connects$;
+  private joins$;
+  private lefts$;
   private state$;
+  private errors$;
   public connectionEstablished$;
 
   constructor(private userService: UserService) {
@@ -29,68 +32,36 @@ export class SocketService {
 
     this.connects$ = fromEvent(this.socket, SocketEventEnum.CONNECT);
     this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
-  }
+    this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
+    this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
+    this.errors$ = fromEvent(this.socket, SocketEventEnum.CONNECT_ERROR);
 
-  public disconnect(): void {
-    this.socket.disconnect();
-  }
+    this.connects$.subscribe(() => {
+      this.userService.add(this.userService.me);
+      this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
+    });
 
-  public start(): void {
-    this.state$ = this.stateChanges();
+    this.disconnects$.subscribe(() => {
+      this.userService.clear();
+    });
 
-    fromEvent(this.socket, SocketUserActionEnum.JOINED)
-      .subscribe(this.handleUserJoined);
+    this.joins$.subscribe((user: User) => {
+      this.userService.add(user);
+    });
 
-    this.state$
-      .subscribe(this.connectionState$);
+    this.lefts$.subscribe((user: User) => {
+      this.userService.remove(user);
+    });
 
-    this.state$
-      .pipe(filter((state: boolean) => state))
-      .subscribe(this.handleUserJoin);
-
-    this.onEvent(SocketUserActionEnum.JOINED)
-      .subscribe(this.handleUserJoined);
-
-    this.onEvent(SocketUserActionEnum.LEFT)
-      .subscribe(this.handleUserLeft);
-
-    this.onEvent(SocketEventEnum.CONNECT_ERROR)
-      .subscribe(this.handleConnectionError);
-  }
-
-  public onEvent<T>(action: SocketActions): Observable<T> {
-    return Observable.create((observer: Observer<T>) => {
-      this.socket.on(action, observer.next.bind(observer));
+    this.errors$.subscribe(() => {
+      console.warn('Error handler');
     });
   }
 
   public stateChanges(): Observable<boolean> {
     return merge(
-      this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
-      this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
-    )
-    .pipe(
-      startWith(false)
+      this.connects$.pipe(mapTo(true)),
+      this.disconnects$.pipe(mapTo(false))
     );
-  }
-
-  public handleUserJoin = (): void => {
-    this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
-  }
-
-  public handleUserLeft = (user: User): void => {
-    this.userService.remove(user);
-  }
-
-  public handleUserJoined = (user: User): void => {
-    this.userService.add(user);
-  }
-
-  public handleConnectionError = (): void => {
-    console.log('error');
-  }
-
-  public connectionState$(): Observable<boolean> {
-    return this.state$;
   }
 }

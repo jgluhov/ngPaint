@@ -26,8 +26,6 @@ export class UserService {
       (users: User[]) => {
         console.log('users: ', users);
       });
-
-    this.add(this.me);
   }
 
   add = (user: User): void => {
@@ -36,6 +34,10 @@ export class UserService {
 
   remove = (user: User): void => {
     this.usersHandler$.next((users: User[]) => users.filter((u: User) => u.id !== user.id));
+  }
+
+  clear = (): void => {
+    this.usersHandler$.next((users: User[]) => []);
   }
 
   isMe(user: User): boolean {
