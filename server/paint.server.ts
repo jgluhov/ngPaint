@@ -44,7 +44,6 @@ export class PaintServer {
     });
 
     this.io.on('connection', (socket: io.Socket) => {
-
       socket.on(SocketUserActionEnum.JOIN, this.handleUserJoin(socket));
       socket.on(SocketEventEnum.DISCONNECT, this.handleUserDisconnect(socket));
     });
@@ -52,21 +51,19 @@ export class PaintServer {
 
   private handleUserJoin = (socket: io.Socket): SocketListener =>
     (user: User): void => {
-      user.address = socket.handshake.address;
-      socket.id = user.id;
-
+      user.socketId = socket.id;
       this.users.push(user);
       socket.broadcast.emit(SocketUserActionEnum.JOINED, user);
 
-      console.log('User joined: ', this.users);
+      console.log('User joined: ', user);
   }
 
   private handleUserDisconnect = (socket: io.Socket): SocketListener =>
     (): void => {
-      const leftUser = this.users.find((user: User) => user.id === socket.id);
-      this.users = this.users.filter((item: User) => item.id !== leftUser.id);
+      const foundUser = this.users.find((user: User) => user.socketId === socket.id);
+      this.users = this.users.filter((item: User) => item.id !== foundUser.id);
 
-      socket.broadcast.emit(SocketUserActionEnum.LEFT, leftUser);
+      socket.broadcast.emit(SocketUserActionEnum.LEFT, foundUser);
 
       console.log('User disconnected: ', this.users);
     }

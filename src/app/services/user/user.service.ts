@@ -26,6 +26,8 @@ export class UserService {
       (users: User[]) => {
         console.log('users: ', users);
       });
+
+    this.add(this.me);
   }
 
   add = (user: User): void => {

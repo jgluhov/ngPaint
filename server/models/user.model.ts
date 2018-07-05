@@ -2,8 +2,8 @@ import { generateId } from '../helpers';
 
 export interface User {
   id: string;
+  socketId?: string;
   name: string;
-  address?: string;
   imageUrl?: string;
 }
 

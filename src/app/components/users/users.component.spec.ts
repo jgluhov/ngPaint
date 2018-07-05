@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersComponent } from './users.component';
 import { PanelComponent } from '@components/panel/panel.component';
 import { SocketService } from '@services';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { UserComponent } from '@components/user/user.component';
 import { SocketStateComponent } from '../socket-state/socket-state.component';
 
@@ -12,7 +12,7 @@ describe('UsersComponent', () => {
   let mockSocketService;
   beforeEach(async(() => {
     mockSocketService = {
-      connectionState$: of()
+      stateChanges: (): Observable<boolean> => of(true)
     };
 
     TestBed.configureTestingModule({

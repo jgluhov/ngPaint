@@ -9,11 +9,11 @@ import { SocketService } from '@services';
   styleUrls: ['./socket-state.component.scss']
 })
 export class SocketStateComponent implements OnInit {
-  isConnected: boolean;
+  isConnected;
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
-    this.socketService.connectionState$
+    this.socketService.stateChanges()
       .subscribe((state: boolean) => this.isConnected = state);
   }
 

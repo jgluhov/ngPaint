@@ -1,14 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SocketStateComponent } from './socket-state.component';
+import { SocketService } from '../../services/socket/socket.service';
+import { of, Observable } from 'rxjs';
 
 describe('SocketStateComponent', () => {
   let component: SocketStateComponent;
   let fixture: ComponentFixture<SocketStateComponent>;
-
+  let mockSocketService;
   beforeEach(async(() => {
+
+    mockSocketService = {
+      stateChanges: (): Observable<boolean> => of(true)
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ SocketStateComponent ]
+      declarations: [ SocketStateComponent ],
+      providers: [
+        {
+          provide: SocketService, useValue: mockSocketService
+        }
+      ]
     })
     .compileComponents();
   }));

@@ -19,7 +19,6 @@ export class SocketService {
   private disconnects$;
   private connects$;
   private state$;
-  public connectionState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public connectionEstablished$;
 
   constructor(private userService: UserService) {
@@ -37,7 +36,7 @@ export class SocketService {
   }
 
   public start(): void {
-    this.state$ = this.getState();
+    this.state$ = this.stateChanges();
 
     fromEvent(this.socket, SocketUserActionEnum.JOINED)
       .subscribe(this.handleUserJoined);
@@ -65,7 +64,7 @@ export class SocketService {
     });
   }
 
-  public getState(): Observable<boolean> {
+  public stateChanges(): Observable<boolean> {
     return merge(
       this.onEvent(SocketEventEnum.CONNECT).pipe(mapTo(true)),
       this.onEvent(SocketEventEnum.DISCONNECT).pipe(mapTo(false))
