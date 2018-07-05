@@ -44,10 +44,18 @@ export class PaintServer {
     });
 
     this.io.on('connection', (socket: io.Socket) => {
+      socket.on(SocketUserActionEnum.ALL, this.handleUserAll(socket));
       socket.on(SocketUserActionEnum.JOIN, this.handleUserJoin(socket));
       socket.on(SocketEventEnum.DISCONNECT, this.handleUserDisconnect(socket));
     });
   }
+
+  private handleUserAll = (socket: io.Socket): SocketListener =>
+    (user: User): void => {
+      socket.emit(SocketUserActionEnum.ALL, this.users);
+
+      console.log('Users all', this.users);
+    }
 
   private handleUserJoin = (socket: io.Socket): SocketListener =>
     (user: User): void => {

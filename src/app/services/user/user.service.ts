@@ -28,8 +28,8 @@ export class UserService {
       });
   }
 
-  add = (user: User): void => {
-    this.usersHandler$.next((users: User[]) => users.concat(user));
+  add = (...newbies: User[]): void => {
+    this.usersHandler$.next((users: User[]) => users.concat(newbies));
   }
 
   remove = (user: User): void => {

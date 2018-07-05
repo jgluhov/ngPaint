@@ -22,6 +22,7 @@ export class SocketService {
   private lefts$;
   private state$;
   private errors$;
+  private all$;
   public connectionEstablished$;
 
   constructor(private userService: UserService) {
@@ -35,10 +36,15 @@ export class SocketService {
     this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
     this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
     this.errors$ = fromEvent(this.socket, SocketEventEnum.CONNECT_ERROR);
+    this.all$ = fromEvent(this.socket, SocketUserActionEnum.ALL);
 
     this.connects$.subscribe(() => {
-      this.userService.add(this.userService.me);
       this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
+      this.socket.emit(SocketUserActionEnum.ALL);
+    });
+
+    this.all$.subscribe((users: User[]) => {
+      this.userService.add(...users);
     });
 
     this.disconnects$.subscribe(() => {
