@@ -4,7 +4,7 @@ import { SocketService } from '@services';
 @Component({
   selector: 'app-socket-state',
   template: `
-    <div class="icon" [ngClass]="getClass()">
+    <div class="icon" [ngClass]="getClass()" (click)="handleClick()">
   `,
   styleUrls: ['./socket-state.component.scss']
 })
@@ -20,5 +20,9 @@ export class SocketStateComponent implements OnInit {
   getClass(): string {
     return this.isConnected ?
       'icon__socket-connected' : 'icon__socket-disconnected';
+  }
+
+  handleClick(): void {
+    this.socketService.disconnect();
   }
 }
