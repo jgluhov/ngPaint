@@ -64,10 +64,6 @@ export class SocketService {
     });
   }
 
-  public disconnect(): void {
-    this.socket.disconnect();
-  }
-
   public stateChanges(): Observable<boolean> {
     return merge(
       this.connects$.pipe(mapTo(true)),
