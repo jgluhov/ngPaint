@@ -1,7 +1,40 @@
 @import '../../../sass/variables.scss';
-@import '../../../sass/_mixins.scss';
+@import '../../../sass/mixins.scss';
+@import '../../../sass/assets.scss';
 
-.tool-item {
-  @include size($toolbar-item-size);
+:host {
   margin-bottom: 10px;
+}
+
+.tool__icon {
+  @include size($toolbar-item-size);
+  background-size: contain;
+}
+
+.tool__icon--pointer {
+  background-image: url($pointer-tool-icon-path);
+}
+
+.tool__icon--pencil {
+  background-image: url($pencil-tool-icon-path);
+}
+
+.tool__icon--brush {
+  background-image: url($brush-tool-icon-path);
+  background-position-y: 2px;
+}
+
+.tool__icon--rect {
+  background-image: url($rect-tool-icon-path);
+  transform: scale(0.9);
+}
+
+.tool__icon--circle {
+  background-image: url($circle-tool-icon-path);
+  transform: scale(0.9);
+}
+
+.tool__icon--hand {
+  background-image: url($hand-tool-icon-path);
+  transform: scale(1.5);
 }

@@ -4,7 +4,7 @@ import { ToolbarItemComponent } from '@components/toolbar-item/toolbar-item.comp
 import { Http, BaseRequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PanelComponent } from '@components/panel/panel.component';
-import { ToolCursorEnum, ToolGroupEnum, ToolTypeEnum } from '@tools/enums';
+import { ToolGroupEnum, ToolTypeEnum, SVGShapeEnum } from '@tools/enums';
 import { SHAPE_DEFAULT_STROKE_WIDTH } from '@tools/tool-options';
 
 describe('ToolItemComponent', () => {
@@ -42,9 +42,7 @@ describe('ToolItemComponent', () => {
     component.tool = {
       type: ToolTypeEnum.Pencil,
       group: ToolGroupEnum.Default,
-      shape: 'polyline',
-      cursor: ToolCursorEnum.Default,
-      imageUrl: '',
+      shape: SVGShapeEnum.Polyline,
       strokeWidth: SHAPE_DEFAULT_STROKE_WIDTH
     };
     fixture.detectChanges();

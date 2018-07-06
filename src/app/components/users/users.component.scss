@@ -1,2 +1,9 @@
 @import '../../../sass/variables.scss';
 
+.user-list--active {
+  opacity: 1;
+}
+
+.user-list--inactive {
+  opacity: 0.4;
+}

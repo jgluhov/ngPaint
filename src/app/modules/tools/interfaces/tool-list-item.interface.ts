@@ -1,14 +1,12 @@
+import { SVGShapeEnum } from '../enums/svg-shape.enum';
 import {
   ToolTypeEnum,
-  ToolGroupEnum,
-  ToolCursorEnum
+  ToolGroupEnum
 } from '../enums';
 
 export interface IToolListItem {
   type: ToolTypeEnum;
   group: ToolGroupEnum;
-  shape: string;
-  imageUrl: string;
-  cursor: ToolCursorEnum;
+  shape: SVGShapeEnum;
   strokeWidth: number;
 }

@@ -6,7 +6,6 @@ import {
   ElementRef,
   OnInit
 } from '@angular/core';
-import { ToolCursorEnum } from '@tools/enums';
 @Directive({
   selector: '[appCursorable]'
 })
@@ -27,8 +26,8 @@ export class CursorableDirective implements OnInit {
     this.guiService.cursor$.subscribe(this.handleChangeCursor);
   }
 
-  handleChangeCursor = (toolCursor: ToolCursorEnum): void => {
+  handleChangeCursor = (cursor: string): void => {
     this.r.removeAttribute(this.svg, 'class');
-    this.r.addClass(this.svg, `${this.prefix}__${toolCursor}`);
+    this.r.addClass(this.svg, `${this.prefix}__${cursor}`);
   }
 }

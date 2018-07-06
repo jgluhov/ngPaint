@@ -18,7 +18,6 @@ import {
   GeometryToolComponent
 } from '@tools/components';
 import {
-  ToolCursorEnum,
   ToolTypeEnum,
   ShapeStateEnum,
   ToolGroupEnum
@@ -34,7 +33,6 @@ import { IToolListItem } from '@tools/interfaces';
 export class CanvasComponent implements OnInit {
   title = 'Canvas';
   currentCursor$: Observable<string>;
-  cursorChanger$: Subject<ToolCursorEnum> = new Subject<ToolCursorEnum>();
 
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('svg') svgRef: ElementRef;

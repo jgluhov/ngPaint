@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
-  ToolCursorEnum,
   ToolTypeEnum,
   SVGShapeEnum
 } from '@tools/enums';
@@ -14,11 +13,11 @@ import { SHAPE_DEFAULT_STROKE } from '@tools/tool-options';
 })
 export class GuiService {
   private toolHandler$: BehaviorSubject<IToolListItem> = new BehaviorSubject<IToolListItem>(null);
-  private cursorHandler$: BehaviorSubject<ToolCursorEnum> = new BehaviorSubject<ToolCursorEnum>(null);
+  private cursorHandler$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private strokeWidthHandler$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private strokeHandler$: BehaviorSubject<string> = new BehaviorSubject<string>(SHAPE_DEFAULT_STROKE);
   tool$: Observable<IToolListItem>;
-  cursor$: Observable<ToolCursorEnum>;
+  cursor$: Observable<string>;
   strokeWidth$: Observable<number>;
   stroke$: Observable<string>;
 
@@ -29,7 +28,7 @@ export class GuiService {
     this.stroke$ = this.strokeHandler$.asObservable();
   }
 
-  public setCursor(cursor: ToolCursorEnum): void {
+  public setCursor(cursor: string): void {
     this.cursorHandler$.next(cursor);
   }
 
@@ -42,7 +41,7 @@ export class GuiService {
   }
 
   public setTool(tool: IToolListItem): void {
-    this.setCursor(tool.cursor);
+    this.setCursor(tool.type);
     this.setStrokeWidth(tool.strokeWidth);
     this.toolHandler$.next(tool);
   }

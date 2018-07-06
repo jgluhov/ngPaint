@@ -21,7 +21,6 @@ export class SocketService {
   private joins$;
   private lefts$;
   private state$;
-  private errors$;
   private all$;
   public connectionEstablished$;
 
@@ -35,7 +34,6 @@ export class SocketService {
     this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
     this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
     this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
-    this.errors$ = fromEvent(this.socket, SocketEventEnum.CONNECT_ERROR);
     this.all$ = fromEvent(this.socket, SocketUserActionEnum.ALL);
 
     this.connects$.subscribe(() => {
@@ -44,11 +42,8 @@ export class SocketService {
     });
 
     this.all$.subscribe((users: User[]) => {
-      this.userService.add(...users);
-    });
-
-    this.disconnects$.subscribe(() => {
       this.userService.clear();
+      this.userService.add(...users);
     });
 
     this.joins$.subscribe((user: User) => {
@@ -57,10 +52,6 @@ export class SocketService {
 
     this.lefts$.subscribe((user: User) => {
       this.userService.remove(user);
-    });
-
-    this.errors$.subscribe(() => {
-      console.warn('Error handler');
     });
   }
 

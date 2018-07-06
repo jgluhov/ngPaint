@@ -17,8 +17,8 @@ import {
 @Component({
   selector: 'app-toolbar-item',
   template: `
-    <div class="tool-item" [@toolState]="toolState">
-      <img [src]="tool.imageUrl" (mousedown)="handleSelect($event)" />
+    <div class="tool" [@toolState]="toolState">
+      <div class="tool__icon" [ngClass]="getIconClass()" (mousedown)="handleSelect($event)"></div>
     </div>
   `,
   animations: [
@@ -47,5 +47,9 @@ export class ToolbarItemComponent {
   handleSelect(evt: MouseEvent): void {
     evt.stopPropagation();
     this.select.emit(this.tool);
+  }
+
+  getIconClass(): string {
+    return `tool__icon--${this.tool.type}`;
   }
 }
