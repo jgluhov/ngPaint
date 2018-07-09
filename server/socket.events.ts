@@ -1,4 +1,4 @@
-export enum SocketUserActionEnum {
+export enum SocketCustomEventEnum {
   JOIN = 'user:join',
   JOINED = 'user:joined',
   LEFT = 'user:left',
@@ -9,13 +9,9 @@ export enum SocketUserActionEnum {
 
 export enum SocketEventEnum {
   CONNECT = 'connect',
+  CONNECTION = 'connection',
   DISCONNECT = 'disconnect',
   CONNECT_ERROR = 'connect_error'
 }
 
-export enum SocketStateEnum {
-  CONNECTED = 'connected',
-  DISCONNECTED = 'disconnected'
-}
-
-export type SocketActions = SocketEventEnum | SocketUserActionEnum;
+export type SocketEvents = SocketEventEnum | SocketCustomEventEnum;

@@ -2,15 +2,26 @@ import * as express from 'express';
 import * as io from 'socket.io';
 import { Server, createServer } from 'http';
 import { User } from './models/user.model';
-import { SocketUserActionEnum, SocketEventEnum } from './socket.enums';
+import {
+  SocketCustomEventEnum,
+  SocketEventEnum
+} from './socket.events';
+import { of, Observable, fromEvent } from 'rxjs';
+import { switchMap, map, mergeMap, mapTo } from 'rxjs/operators';
 
-type SocketListener = (...args: any[]) => void;
+type SocketIOListener = (...args: any[]) => void;
+type SocketIOServer = SocketIO.Server & NodeJS.EventEmitter;
+interface SocketIOAllSockets {
+  [id: string]: SocketIO.Socket;
+}
 
 export class PaintServer {
   public static readonly PORT: number = 3000;
   private app: express.Application;
   private server: Server;
-  private io: SocketIO.Server;
+  private io$;
+  private connection$: Observable<SocketIO.Socket>;
+  private disconnect$: Observable<SocketIO.Socket>;
   private port: number | string;
   private users: User[] = [];
 
@@ -35,7 +46,18 @@ export class PaintServer {
   }
 
   private createSocket(): void {
-    this.io = io(this.server);
+    this.io$ = of(io(this.server));
+
+    this.connection$ = this.io$
+      .pipe(
+        switchMap((server: SocketIOServer) => fromEvent(server, SocketEventEnum.CONNECTION))
+      );
+
+    this.disconnect$ = this.connection$
+      .pipe(
+        mergeMap((client: SocketIO.Socket) => fromEvent(client, SocketEventEnum.DISCONNECT)
+          .pipe(mapTo(client))
+      ));
   }
 
   private listen(): void {
@@ -43,38 +65,45 @@ export class PaintServer {
       console.log('Running server on port %s', this.port);
     });
 
-    this.io.on('connection', (socket: io.Socket) => {
-      socket.on(SocketUserActionEnum.ALL, this.handleUserAll(socket));
-      socket.on(SocketUserActionEnum.JOIN, this.handleUserJoin(socket));
-      socket.on(SocketEventEnum.DISCONNECT, this.handleUserDisconnect(socket));
+    this.connection$.subscribe((client: SocketIO.Socket) => {
+      const sockets = this.queryAllSockets(client);
+      console.log('connection');
+    });
+
+    this.disconnect$.subscribe(() => {
+      console.log('disconnect');
     });
   }
 
-  private handleUserAll = (socket: io.Socket): SocketListener =>
-    (user: User): void => {
-      socket.emit(SocketUserActionEnum.ALL, this.users);
+  // private handleUserAll = (socket: io.Socket): SocketListener =>
+  //   (user: User): void => {
+  //     socket.emit(SocketCustomEventEnum.ALL, this.users);
 
-      console.log('Users all', this.users);
-    }
+  //     console.log('Users all', this.users);
+  //   }
 
-  private handleUserJoin = (socket: io.Socket): SocketListener =>
-    (user: User): void => {
-      user.socketId = socket.id;
-      this.users.push(user);
-      socket.broadcast.emit(SocketUserActionEnum.JOINED, user);
+  // private handleUserJoin = (socket: io.Socket): SocketListener =>
+  //   (user: User): void => {
+  //     user.socketId = socket.id;
+  //     this.users.push(user);
+  //     socket.broadcast.emit(SocketCustomEventEnum.JOINED, user);
 
-      console.log('User joined: ', user);
+  //     console.log('User joined: ', user);
+  // }
+
+  // private handleUserDisconnect = (socket: io.Socket): SocketListener =>
+  //   (): void => {
+  //     const foundUser = this.users.find((user: User) => user.socketId === socket.id);
+  //     this.users = this.users.filter((item: User) => item.id !== foundUser.id);
+
+  //     socket.broadcast.emit(SocketCustomEventEnum.LEFT, foundUser);
+
+  //     console.log('User disconnected: ', this.users);
+  //   }
+
+  private queryAllSockets(socket: SocketIO.Socket): SocketIOAllSockets {
+    return socket.server.sockets.sockets;
   }
-
-  private handleUserDisconnect = (socket: io.Socket): SocketListener =>
-    (): void => {
-      const foundUser = this.users.find((user: User) => user.socketId === socket.id);
-      this.users = this.users.filter((item: User) => item.id !== foundUser.id);
-
-      socket.broadcast.emit(SocketUserActionEnum.LEFT, foundUser);
-
-      console.log('User disconnected: ', this.users);
-    }
 
   public getApp(): express.Application {
     return this.app;

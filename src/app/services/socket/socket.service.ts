@@ -4,14 +4,18 @@ import { environment } from '@env/environment';
 import { Observable, merge, fromEvent, of } from 'rxjs';
 import { mapTo, switchMap, map, mergeMap, takeUntil } from 'rxjs/operators';
 import {
-  SocketUserActionEnum,
-  SocketActions,
-  SocketEventEnum,
-  SocketStateEnum
-} from '@server/socket.enums';
+  SocketCustomEventEnum,
+  SocketEvents,
+  SocketEventEnum
+} from '@server/socket.events';
 import { UserService } from '@services/user/user.service';
 import { User } from '@server/models/user.model';
 import { Socket } from 'socket.io';
+
+export enum SocketStateEnum {
+  CONNECTED = 'connected',
+  DISCONNECTED = 'disconnected'
+}
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +25,6 @@ export class SocketService {
   private connect$;
   private disconnect$;
   private connectionState$;
-
-
-  private socket;
-  private disconnects$;
-  private connects$;
-  private joins$;
-  private lefts$;
-  private state$;
-  private all$;
-  public connectionEstablished$;
-
   constructor(private userService: UserService) {
   }
 
