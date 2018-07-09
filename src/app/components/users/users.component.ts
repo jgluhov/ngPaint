@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket/socket.service';
 import { UserService } from '../../services/user/user.service';
-import { User } from '@server/models/user.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -29,9 +27,9 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.socketService.stateChanges()
-      .subscribe((state: boolean) => {
-        this.connectionState = state;
+    this.socketService.getConnectionState()
+      .subscribe((connectionState: boolean) => {
+        this.connectionState = connectionState;
       });
   }
 

@@ -1,39 +1,23 @@
 
 // Icons
 $icons-path: "../../../assets/icons";
+$cursors-path: "#{$icons-path}/cursors";
+$tools-path: "#{$icons-path}/tools";
 
-$hand-path: "#{$icons-path}/tools/hand";
+// Tool icons
+$pointer-tool-icon-path: "#{$tools-path}/pointer.png";
+$pencil-tool-icon-path: "#{$tools-path}/pencil.png";
+$brush-tool-icon-path: "#{$tools-path}/brush.png";
+$rect-tool-icon-path: "#{$tools-path}/rect.png";
+$circle-tool-icon-path: "#{$tools-path}/circle.png";
+$hand-tool-icon-path: "#{$tools-path}/hand.png";
 
-// Pointer
-$pointer-path: "#{$icons-path}/tools/pointer";
-$pointer-tool-icon-path: "#{$pointer-path}/tool-pointer-icon.png";
-
-// Pencil
-$pencil-path: "#{$icons-path}/tools/pencil";
-$pencil-tool-icon-path: "#{$pencil-path}/tool-pencil-icon.png";
-$pencil-cursor-icon-path: "#{$pencil-path}/cursor-pencil-icon.png";
-
-// Brush
-$brush-path: "#{$icons-path}/tools/brush";
-$brush-tool-icon-path: "#{$brush-path}/tool-brush-icon.png";
-$brush-cursor-icon-path: "#{$brush-path}/cursor-brush-icon.png";
-
-// Rect
-$rect-path: "#{$icons-path}/tools/rect";
-$rect-tool-icon-path: "#{$rect-path}/tool-rect-icon.png";
-$rect-cursor-icon-path: "#{$rect-path}/cursor-rect-icon.png";
-
-// Circle
-$circle-path: "#{$icons-path}/tools/circle";
-$circle-tool-icon-path: "#{$circle-path}/tool-circle-icon.png";
-$circle-cursor-icon-path: "#{$circle-path}/cursor-circle-icon.png";
-
-// Hand
-$hand-path: "#{$icons-path}/tools/hand";
-$hand-tool-icon-path: "#{$hand-path}/tool-hand-1-icon.png";
-$hand-cursor-1-icon-path: "#{$hand-path}/cursor-hand-1-icon.png";
-$hand-cursor-2-icon-path: "#{$hand-path}/cursor-hand-2-icon.png";
-$hand-cursor-icon-path: $hand-cursor-1-icon-path;
+$pencil-cursor-icon-path: "#{$cursors-path}/pencil.png";
+$brush-cursor-icon-path: "#{$cursors-path}/circle.png";
+$rect-cursor-icon-path: "#{$cursors-path}/crosshair.png";
+$circle-cursor-icon-path: "#{$cursors-path}/crosshair.png";
+$hand-cursor-icon-path: "#{$cursors-path}/hand.png";
+$fist-cursor-icon-path: "#{$cursors-path}/fist.png";
 
 $user-1-path: "#{$icons-path}/users/user-1.png";
 $user-2-path: "#{$icons-path}/users/user-2.png";

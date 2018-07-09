@@ -1,20 +1,28 @@
-import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
+import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { Observable, Observer, BehaviorSubject, merge, fromEvent } from 'rxjs';
-import { mapTo, startWith, share, filter, tap, map } from 'rxjs/operators';
+import { Observable, merge, fromEvent, of } from 'rxjs';
+import { mapTo, switchMap, map, mergeMap, takeUntil } from 'rxjs/operators';
 import {
   SocketUserActionEnum,
   SocketActions,
-  SocketEventEnum
+  SocketEventEnum,
+  SocketStateEnum
 } from '@server/socket.enums';
 import { UserService } from '@services/user/user.service';
 import { User } from '@server/models/user.model';
+import { Socket } from 'socket.io';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
+  private socket$;
+  private connect$;
+  private disconnect$;
+  private connectionState$;
+
+
   private socket;
   private disconnects$;
   private connects$;
@@ -28,37 +36,60 @@ export class SocketService {
   }
 
   public connect(): void {
-    this.socket = io(environment.wsUrl);
+    this.socket$ = of(io.connect(environment.wsUrl));
 
-    this.connects$ = fromEvent(this.socket, SocketEventEnum.CONNECT);
-    this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
-    this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
-    this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
-    this.all$ = fromEvent(this.socket, SocketUserActionEnum.ALL);
+    this.connect$ = this.socket$.pipe(
+      switchMap((socket: Socket) =>
+        fromEvent(socket, SocketEventEnum.CONNECT)
+          .pipe(map(() => socket))
+      )
+    );
 
-    this.connects$.subscribe(() => {
-      this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
-      this.socket.emit(SocketUserActionEnum.ALL);
-    });
+    this.disconnect$ = this.socket$.pipe(
+      switchMap((socket: Socket) =>
+        fromEvent(socket, SocketEventEnum.DISCONNECT)
+      )
+    );
 
-    this.all$.subscribe((users: User[]) => {
-      this.userService.clear();
-      this.userService.add(...users);
-    });
+    this.connectionState$ = merge(
+      this.connect$.pipe(mapTo(SocketStateEnum.CONNECTED)),
+      this.disconnect$.pipe(mapTo(SocketStateEnum.DISCONNECTED))
+    );
 
-    this.joins$.subscribe((user: User) => {
-      this.userService.add(user);
-    });
+    // this.connects$ = fromEvent(this.socket, SocketEventEnum.CONNECT);
+    // this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
+    // this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
+    // this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
+    // this.all$ = fromEvent(this.socket, SocketUserActionEnum.ALL);
 
-    this.lefts$.subscribe((user: User) => {
-      this.userService.remove(user);
-    });
+    // this.connects$.subscribe(() => {
+    //   this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
+    //   this.socket.emit(SocketUserActionEnum.ALL);
+    // });
+
+    // this.all$.subscribe((users: User[]) => {
+    //   this.userService.clear();
+    //   this.userService.add(...users);
+    // });
+
+    // this.joins$.subscribe((user: User) => {
+    //   this.userService.add(user);
+    // });
+
+    // this.lefts$.subscribe((user: User) => {
+    //   this.userService.remove(user);
+    // });
   }
 
-  public stateChanges(): Observable<boolean> {
-    return merge(
-      this.connects$.pipe(mapTo(true)),
-      this.disconnects$.pipe(mapTo(false))
+  private listen(event: string): Observable<string> {
+    return this.connect$
+      .pipe(
+        mergeMap((socket: Socket) => fromEvent(socket, event)),
+        takeUntil(this.disconnect$)
     );
+  }
+
+  public getConnectionState(): Observable<boolean> {
+    return this.connectionState$;
   }
 }

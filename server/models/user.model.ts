@@ -1,10 +1,15 @@
 import { generateId } from '../helpers';
 
+export enum UserStates {
+  IDLE = 'idle',
+  DRAWING = 'drawing'
+}
+
 export interface User {
   id: string;
   socketId?: string;
   name: string;
-  imageUrl?: string;
+  state?: string;
 }
 
 export const createUser = (name: string): User => {

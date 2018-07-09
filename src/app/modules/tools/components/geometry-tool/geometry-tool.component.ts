@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, of, PartialObserver, Observable } from 'rxjs';
+import { Subject, of, Observable } from 'rxjs';
 import { tap, mergeMap, takeUntil } from 'rxjs/operators';
 import { Point2D } from '@math';
 import { Shape, RectShape, CircleShape } from '@shapes';
@@ -61,8 +61,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
       return new CircleShape(
         center,
         this.guiService.currentStroke,
-        this.guiService.currentStrokeWidth,
-        this.guiService.currentStroke
+        this.guiService.currentStrokeWidth
       );
     }
   }

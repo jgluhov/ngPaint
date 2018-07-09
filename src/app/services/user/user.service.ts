@@ -10,12 +10,12 @@ import { ReplaySubject } from 'rxjs';
 })
 export class UserService {
   users$: Observable<User[]>;
-  me: User;
+  private _me: User;
   private usersHandler$: ReplaySubject<Function> = new ReplaySubject<Function>(1);
   private users: User[] = [];
 
   constructor() {
-    this.me = createUser('jgluhov');
+    this._me = createUser('jgluhov');
 
     this.users$ = this.usersHandler$
       .pipe(
@@ -40,7 +40,7 @@ export class UserService {
     this.usersHandler$.next((users: User[]) => []);
   }
 
-  isMe(user: User): boolean {
-    return this.me.id === user.id;
+  get me(): User {
+    return this._me;
   }
 }

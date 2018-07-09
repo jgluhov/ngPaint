@@ -11,7 +11,7 @@ describe('SocketStateComponent', () => {
   beforeEach(async(() => {
 
     mockSocketService = {
-      stateChanges: (): Observable<boolean> => of(true)
+      getConnectionState: (): Observable<boolean> => of(true)
     };
 
     TestBed.configureTestingModule({

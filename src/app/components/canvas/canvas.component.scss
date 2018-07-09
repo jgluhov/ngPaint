@@ -36,5 +36,9 @@
   &__hand {
     cursor: url($hand-cursor-icon-path) 16 15, auto;
   }
+
+  &__fist {
+    cursor: url($fist-cursor-icon-path) 16 15, auto;
+  }
 }
 
