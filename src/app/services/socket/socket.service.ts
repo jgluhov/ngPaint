@@ -7,10 +7,15 @@ import {
   SocketCustomEventEnum,
   SocketEvents,
   SocketEventEnum
-} from '@server/socket.events';
+} from '@server/events';
 import { UserService } from '@services/user/user.service';
 import { User } from '@server/models/user.model';
 import { Socket } from 'socket.io';
+
+interface SocketSendFormat<T> {
+  socket: SocketIO.Socket;
+  data: T;
+}
 
 export enum SocketStateEnum {
   CONNECTED = 'connected',
@@ -49,37 +54,39 @@ export class SocketService {
       this.disconnect$.pipe(mapTo(SocketStateEnum.DISCONNECTED))
     );
 
-    // this.connects$ = fromEvent(this.socket, SocketEventEnum.CONNECT);
-    // this.disconnects$ = fromEvent(this.socket, SocketEventEnum.DISCONNECT);
-    // this.joins$ = fromEvent(this.socket, SocketUserActionEnum.JOINED);
-    // this.lefts$ = fromEvent(this.socket, SocketUserActionEnum.LEFT);
-    // this.all$ = fromEvent(this.socket, SocketUserActionEnum.ALL);
+    this.listen<User[]>(SocketCustomEventEnum.ALL_USERS)
+      .subscribe((users: User[]) => {
+        this.userService.clear();
+        this.userService.add(...users);
+      });
 
-    // this.connects$.subscribe(() => {
-    //   this.socket.emit(SocketUserActionEnum.JOIN, this.userService.me);
-    //   this.socket.emit(SocketUserActionEnum.ALL);
-    // });
+    this.listen<string>(SocketCustomEventEnum.USER_LEFT)
+      .subscribe((id: string) => {
+        this.userService.remove(id);
+      });
 
-    // this.all$.subscribe((users: User[]) => {
-    //   this.userService.clear();
-    //   this.userService.add(...users);
-    // });
-
-    // this.joins$.subscribe((user: User) => {
-    //   this.userService.add(user);
-    // });
-
-    // this.lefts$.subscribe((user: User) => {
-    //   this.userService.remove(user);
-    // });
+    this.send(of('jgluhov'), SocketCustomEventEnum.JOIN);
   }
 
-  private listen(event: string): Observable<string> {
+  private listen<T>(event: string): Observable<T> {
     return this.connect$
       .pipe(
         mergeMap((socket: Socket) => fromEvent(socket, event)),
         takeUntil(this.disconnect$)
     );
+  }
+
+  private send = <T>(data$: Observable<T>, event: string): void => {
+    this.connect$
+      .pipe(
+        mergeMap((socket: SocketIO.Socket) => data$
+          .pipe(
+            map(((data: T): SocketSendFormat<T> => ({socket, data}))),
+            takeUntil(this.disconnect$)
+          )
+        )
+      )
+      .subsribe(({socket, data}: SocketSendFormat<T>) => socket.emit(event, data));
   }
 
   public getConnectionState(): Observable<boolean> {

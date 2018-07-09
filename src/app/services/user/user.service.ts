@@ -32,8 +32,8 @@ export class UserService {
     this.usersHandler$.next((users: User[]) => users.concat(newbies));
   }
 
-  remove = (user: User): void => {
-    this.usersHandler$.next((users: User[]) => users.filter((u: User) => u.id !== user.id));
+  remove = (id: string): void => {
+    this.usersHandler$.next((users: User[]) => users.filter((u: User) => u.id !== id));
   }
 
   clear = (): void => {

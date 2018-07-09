@@ -1,6 +1,6 @@
-import { PaintServer } from './paint.server';
+import { HttpServer } from './http';
 
-const app = new PaintServer().getApp();
+const app = new HttpServer().getApp();
 
 export {
   app

@@ -1,20 +1,16 @@
-import { generateId } from '../helpers';
-
 export enum UserStates {
   IDLE = 'idle',
   DRAWING = 'drawing'
 }
 
 export interface User {
-  id: string;
-  socketId?: string;
-  name: string;
+  id?: string;
+  username: string;
   state?: string;
 }
 
-export const createUser = (name: string): User => {
+export const createUser = (username: string): User => {
   return {
-    id: generateId(),
-    name
+    username
   };
 };
