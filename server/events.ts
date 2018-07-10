@@ -1,6 +1,5 @@
 export enum SocketCustomEventEnum {
-  JOIN = 'user:join',
-  JOINED = 'user:joined',
+  SAVE_USERNAME = 'save username',
   USER_LEFT = 'user left',
   ALL_USERS = 'all users',
   START_DRAWING = 'user:start-drawing',

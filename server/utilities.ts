@@ -1,5 +1,5 @@
 import { User } from '@server/models/user.model';
-import { UserSocket } from '@server/paint.server';
+import { SocketIOClient } from './socket';
 
 const getSockets = (socket: SocketIO.Socket): SocketIO.Socket[] => {
   if (!socket) {
@@ -14,5 +14,5 @@ const getSockets = (socket: SocketIO.Socket): SocketIO.Socket[] => {
 export const getAllUsers = (socket: SocketIO.Socket): User[] => {
   const sockets = getSockets(socket);
 
-  return sockets.map(({id, username}: UserSocket) => ({id, username}));
+  return sockets.map(({id, username}: SocketIOClient) => ({id, username}));
 };

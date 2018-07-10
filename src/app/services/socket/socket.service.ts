@@ -65,7 +65,7 @@ export class SocketService {
         this.userService.remove(id);
       });
 
-    this.send(of('jgluhov'), SocketCustomEventEnum.JOIN);
+    this.send(of('jgluhov'), SocketCustomEventEnum.SAVE_USERNAME);
   }
 
   private listen<T>(event: string): Observable<T> {
@@ -79,14 +79,16 @@ export class SocketService {
   private send = <T>(data$: Observable<T>, event: string): void => {
     this.connect$
       .pipe(
-        mergeMap((socket: SocketIO.Socket) => data$
-          .pipe(
+        mergeMap((socket: SocketIO.Socket) => {
+          return data$.pipe(
             map(((data: T): SocketSendFormat<T> => ({socket, data}))),
             takeUntil(this.disconnect$)
-          )
-        )
+          );
+        })
       )
-      .subsribe(({socket, data}: SocketSendFormat<T>) => socket.emit(event, data));
+      .subscribe(({socket, data}: SocketSendFormat<T>) => {
+        socket.emit(event, data);
+      });
   }
 
   public getConnectionState(): Observable<boolean> {

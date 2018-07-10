@@ -7,8 +7,7 @@ import { UserService } from '../../services/user/user.service';
   template: `
     <div class="user">
       <div class="user__icon" [ngClass]="userClass"></div>
-      <div class="user__name">{{user.name}}</div>
-      <span *ngIf="showYou()">(you)</span>
+      <div class="user__name">{{user.username}}</div>
     </div>
   `,
   styleUrls: ['./user.component.scss']
@@ -27,11 +26,7 @@ export class UserComponent {
     return `user__icon--${randomIndex}`;
   }
 
-  showYou(): boolean {
-    return this.userService.me.id === this.user.id;
-  }
-
-  showDrawing(): boolean {
+  isDrawing(): boolean {
     return this.user.state === UserStates.DRAWING;
   }
 }

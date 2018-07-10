@@ -8,9 +8,3 @@ export interface User {
   username: string;
   state?: string;
 }
-
-export const createUser = (username: string): User => {
-  return {
-    username
-  };
-};
