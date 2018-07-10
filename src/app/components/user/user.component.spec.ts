@@ -16,7 +16,7 @@ describe('UserComponent', () => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
     component.user = {
-      username: 'some name'
+      id: '123'
     };
 
     fixture.detectChanges();

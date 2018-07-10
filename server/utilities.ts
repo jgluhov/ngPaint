@@ -1,17 +1,13 @@
 import { User } from '@server/models/user.model';
-import { SocketIOClient } from './socket';
+import { SocketIOClient, SocketIOServer } from './socket';
 
-const getSockets = (socket: SocketIO.Socket): SocketIO.Socket[] => {
-  if (!socket) {
-    return [];
-  }
+const getSockets = (server: SocketIOServer): SocketIOClient[] => {
+  const sockets = server.sockets.sockets;
 
-  const sockets = socket.server.sockets.sockets;
-
-  return Object.keys(sockets).map((key: string) => sockets[key]);
+  return Object.keys(sockets).map((key: string) => <SocketIOClient>sockets[key]);
 };
 
-export const getAllUsers = (socket: SocketIO.Socket): User[] => {
+export const getAllUsers = (socket: SocketIOServer): User[] => {
   const sockets = getSockets(socket);
 
   return sockets.map(({id, username}: SocketIOClient) => ({id, username}));

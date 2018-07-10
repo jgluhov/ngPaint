@@ -12,7 +12,7 @@ import { UserService } from '@services/user/user.service';
 import { User } from '@server/models/user.model';
 import { Socket } from 'socket.io';
 
-interface SocketSendFormat<T> {
+interface SocketIOMessage<T> {
   socket: SocketIO.Socket;
   data: T;
 }
@@ -54,18 +54,11 @@ export class SocketService {
       this.disconnect$.pipe(mapTo(SocketStateEnum.DISCONNECTED))
     );
 
-    this.listen<User[]>(SocketCustomEventEnum.ALL_USERS)
-      .subscribe((users: User[]) => {
-        this.userService.clear();
-        this.userService.add(...users);
-      });
+    this.listen(SocketCustomEventEnum.ALL_USERS).subscribe(this.handleAllUsers);
+    this.listen(SocketCustomEventEnum.USER_LEFT).subscribe(this.handleUserLeft);
+    this.listen(SocketCustomEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
 
-    this.listen<string>(SocketCustomEventEnum.USER_LEFT)
-      .subscribe((id: string) => {
-        this.userService.remove(id);
-      });
-
-    this.send(of('jgluhov'), SocketCustomEventEnum.SAVE_USERNAME);
+    this.send(this.userService.username$, SocketCustomEventEnum.SAVE_USERNAME);
   }
 
   private listen<T>(event: string): Observable<T> {
@@ -81,14 +74,27 @@ export class SocketService {
       .pipe(
         mergeMap((socket: SocketIO.Socket) => {
           return data$.pipe(
-            map(((data: T): SocketSendFormat<T> => ({socket, data}))),
+            map(((data: T): SocketIOMessage<T> => ({socket, data}))),
             takeUntil(this.disconnect$)
           );
         })
       )
-      .subscribe(({socket, data}: SocketSendFormat<T>) => {
+      .subscribe(({socket, data}: SocketIOMessage<T>) => {
         socket.emit(event, data);
       });
+  }
+
+  private handleAllUsers = (users: User[]): void => {
+    this.userService.clear();
+    this.userService.add(...users);
+  }
+
+  private handleUserLeft = (user: User): void => {
+    this.userService.remove(user.id);
+  }
+
+  private handleUserJoin = (user: User): void => {
+    this.userService.add(user);
   }
 
   public getConnectionState(): Observable<boolean> {
