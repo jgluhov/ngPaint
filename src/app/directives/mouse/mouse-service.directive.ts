@@ -1,6 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
+import { not } from 'ramda';
 import { Observable, fromEvent, merge, empty, Subject, BehaviorSubject, of } from 'rxjs';
-import { map, tap, mapTo, startWith, switchMap, first, filter, sample } from 'rxjs/operators';
+import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil } from 'rxjs/operators';
 import { Point2D } from '@math';
 
 @Directive({
@@ -19,7 +20,9 @@ export class MouseServiceDirective {
   public moves$: Observable<Point2D>;
   public ends$: Observable<Point2D>;
 
-  public wasMoving$: Observable<boolean>;
+  public withMoves$: Observable<boolean>;
+  public withoutMoves$: Observable<boolean>;
+  public dragging$: Observable<boolean>;
 
   constructor(private elRef: ElementRef) {
     this.mouseDowns$ = this.fromEvent('mousedown').pipe(map(this.mouseEventToCoordinate));
@@ -30,14 +33,21 @@ export class MouseServiceDirective {
     this.touchEnds$ = this.fromEvent('touchend').pipe(map(this.touchEventToCoordinate));
 
     this.starts$ = merge(this.mouseDowns$, this.touchStarts$).pipe(map(this.toSVGCoordinate));
-    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(map(this.toSVGCoordinate));
+    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(map(this.toSVGCoordinate), skip(1));
     this.ends$ = merge(this.mouseUps$, this.touchEnds$).pipe(map(this.toSVGCoordinate));
 
-    this.wasMoving$ = merge(
+    this.withMoves$ = merge(
       of(false),
       this.mouseMoves$.pipe(mapTo(true))
     )
     .pipe(sample(this.mouseUps$));
+
+    this.withoutMoves$ = this.withMoves$.pipe(filter(not));
+
+    this.dragging$ = merge(
+      of(false),
+      this.mouseMoves$.pipe(skip(1), mapTo(true))
+    );
   }
 
   fromEvent(name: string): Observable<MouseEvent> {

@@ -26,6 +26,7 @@ export abstract class Shape {
 
     return this;
   }
+  public isRendered = (): boolean => this.rendered;
 
   public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
   public isEditing = (): boolean => this.state === ShapeStateEnum.EDITING;

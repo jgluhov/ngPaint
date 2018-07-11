@@ -33,4 +33,8 @@ export class Point2D {
 
     return this;
   }
+
+  isCorrect(): boolean {
+    return this.x >= 0 && this.y >= 0;
+  }
 }

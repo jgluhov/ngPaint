@@ -45,8 +45,12 @@ export class CanvasService {
       );
   }
 
-  add = (shape: Shape): void => {
-    console.log('add');
+  add = (shape: Shape, forceStable: boolean = false): void => {
+    if (forceStable) {
+      shape.setState(ShapeStateEnum.STABLE);
+    }
+    shape.rendered = true;
+
     this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
@@ -54,7 +58,7 @@ export class CanvasService {
     this.shapeHandler$.next((shapes: Shape[]) => shapes.filter((shape: Shape) => shape.id !== id));
   }
 
-  changeState = (id: string, state: ShapeStateEnum): void => {
+  setState = (id: string, state: ShapeStateEnum): void => {
     this.shapeHandler$.next((shapeStore: Shape[]) => {
       const shape = shapeStore.find((item: Shape) => item.id === id);
 
@@ -66,16 +70,16 @@ export class CanvasService {
     });
   }
 
+  setStable(shape: Shape): void {
+    this.setState(shape.id, ShapeStateEnum.STABLE);
+  }
+
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
     return (source$: Observable<Shape[]>): Observable<Shape[]> => {
       return source$.pipe(
         map((shapes: Shape[]) => shapes.filter((shape: Shape) => fn(shape)))
       );
     };
-  }
-
-  addOnce(shape: Shape): () => void {
-    return R.once(() => this.add(shape));
   }
 
   public get hoveredShape(): Shape {

@@ -54,7 +54,7 @@ export class CanvasComponent implements OnInit {
       return;
     }
 
-    this.canvasService.changeState(evt.id, evt.state);
+    this.canvasService.setState(evt.id, evt.state);
   }
 
   loadComponent = (tool: IToolListItem): void => {

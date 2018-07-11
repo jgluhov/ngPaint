@@ -28,7 +28,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
         mergeMap((start: Point2D) => {
           const hoveredShape = this.canvasService.hoveredShape;
 
-          this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.DRAGGING);
+          this.canvasService.setState(hoveredShape.id, ShapeStateEnum.DRAGGING);
           const dragHandler = hoveredShape.createDragHandler(start);
 
           return this.mouseService.onMouseMove()
@@ -36,7 +36,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
               tap((point: Point2D) => dragHandler(point)),
               takeUntil(this.mouseService.onEnd()),
               finalize(() =>
-                this.canvasService.changeState(hoveredShape.id, ShapeStateEnum.STABLE)
+                this.canvasService.setState(hoveredShape.id, ShapeStateEnum.STABLE)
               )
             );
         }),

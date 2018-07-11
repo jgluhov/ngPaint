@@ -45,7 +45,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
     drawing$.subscribe(
       (point: Point2D) => shape.transform(start, point),
       null,
-      () => this.canvasService.changeState(shape.id, ShapeStateEnum.STABLE));
+      () => this.canvasService.setState(shape.id, ShapeStateEnum.STABLE));
   }
 
   createShape(center: Point2D): Shape {
