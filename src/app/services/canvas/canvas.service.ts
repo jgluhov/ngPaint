@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { equals } from 'ramda';
+import * as R from 'ramda';
 import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
 import { ShapeStateEnum } from '@tools/enums';
 import { BehaviorSubject, Subject, from, Observable, OperatorFunction } from 'rxjs';
@@ -41,11 +41,12 @@ export class CanvasService {
     return <Observable<T[]>>this.shapeStore$
       .pipe(
         this.filterBy(((shape: T): boolean => shape.ofType(type))),
-        distinctUntilChanged((a: Shape[], b: Shape[]) => equals(a, b))
+        distinctUntilChanged((a: Shape[], b: Shape[]) => R.equals(a, b))
       );
   }
 
   add = (shape: Shape): void => {
+    console.log('add');
     this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
@@ -71,6 +72,10 @@ export class CanvasService {
         map((shapes: Shape[]) => shapes.filter((shape: Shape) => fn(shape)))
       );
     };
+  }
+
+  addOnce(shape: Shape): () => void {
+    return R.once(() => this.add(shape));
   }
 
   public get hoveredShape(): Shape {

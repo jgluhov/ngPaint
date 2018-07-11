@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@math';
-import { CircleShape, PolylineShape } from '@shapes';
+import * as R from 'ramda';
+import { CircleShape, PolylineShape, Shape } from '@shapes';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService, GuiService } from '@services';
 import { ShapeStateEnum } from '@tools/enums/shape-state.enum';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { takeUntil, tap, mergeMap, switchMap, buffer, reduce, toArray, filter, mapTo, finalize, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { Observable, concat } from 'rxjs';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -14,6 +16,9 @@ import { of } from 'rxjs/observable/of';
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private drags$;
+  private drops$;
+
   constructor(
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService,
@@ -21,35 +26,41 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mouseService.onMouseDown()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.handlePress);
-  }
-
-  handlePress = (start: Point2D): void => {
-    const polyline = this.createPolyline([start]);
-    const circle = this.createCircle(start);
-    this.drawCircle(circle);
-
-    const drawing$ = of(start)
+    this.drags$ = this.mouseService.starts$
       .pipe(
-        tap(() => this.canvasService.add(polyline)),
-        mergeMap(() => this.mouseService.onMouseMove()),
-        takeUntil(this.mouseService.onEnd())
+        switchMap((start: Point2D) => {
+          const polyline = this.createPolyline([start]);
+
+          return this.mouseService.moves$
+            .pipe(
+              tap(this.canvasService.addOnce(polyline)),
+              tap(polyline.append),
+              finalize(() => {
+                this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
+              }),
+              takeUntil(this.mouseService.ends$)
+            );
+        })
       );
 
-    drawing$.subscribe(
-      (point: Point2D) => polyline.append(point),
-      null,
-      () => {
-        if (polyline.isCorrect()) {
-          this.canvasService.remove(circle.id);
-          this.canvasService.changeState(polyline.id, ShapeStateEnum.STABLE);
-        } else {
-          this.canvasService.remove(polyline.id);
-        }
-      }
-    );
+    this.drops$ = this.mouseService.starts$
+      .pipe(
+        switchMap((start: Point2D) => {
+          const circle = this.createCircle(start);
+
+          return this.mouseService.wasMoving$
+            .pipe(
+              filter(R.not),
+              tap(() => {
+                this.canvasService.add(circle);
+                this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
+              })
+            );
+        })
+      );
+
+    this.drops$.subscribe();
+    this.drags$.subscribe();
   }
 
   createPolyline(points: Point2D[]): PolylineShape {
@@ -67,11 +78,6 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       this.guiService.currentStrokeWidth,
       this.guiService.currentStroke
     );
-  }
-
-  drawCircle(circle: CircleShape): void {
-    this.canvasService.add(circle);
-    this.canvasService.changeState(circle.id, ShapeStateEnum.STABLE);
   }
 
   ngOnDestroy(): void {
