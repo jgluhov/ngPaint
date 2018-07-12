@@ -49,13 +49,14 @@ export class CanvasService {
     if (forceStable) {
       shape.setState(ShapeStateEnum.STABLE);
     }
-    shape.rendered = true;
 
     this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
   }
 
-  remove = (id: string): void => {
-    this.shapeHandler$.next((shapes: Shape[]) => shapes.filter((shape: Shape) => shape.id !== id));
+  remove = (removedShape: Shape): void => {
+    this.shapeHandler$.next((shapes: Shape[]) => {
+      return shapes.filter((shape: Shape) => shape.id !== removedShape.id);
+    });
   }
 
   setState = (id: string, state: ShapeStateEnum): void => {
@@ -70,7 +71,7 @@ export class CanvasService {
     });
   }
 
-  setStable(shape: Shape): void {
+  render(shape: Shape): void {
     this.setState(shape.id, ShapeStateEnum.STABLE);
   }
 

@@ -1,5 +1,5 @@
 import { Directive, ElementRef } from '@angular/core';
-import { not } from 'ramda';
+import { not, complement } from 'ramda';
 import { Observable, fromEvent, merge, empty, Subject, BehaviorSubject, of } from 'rxjs';
 import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil } from 'rxjs/operators';
 import { Point2D } from '@math';
@@ -33,21 +33,14 @@ export class MouseServiceDirective {
     this.touchEnds$ = this.fromEvent('touchend').pipe(map(this.touchEventToCoordinate));
 
     this.starts$ = merge(this.mouseDowns$, this.touchStarts$).pipe(map(this.toSVGCoordinate));
-    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(map(this.toSVGCoordinate), skip(1));
+    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(map(this.toSVGCoordinate));
     this.ends$ = merge(this.mouseUps$, this.touchEnds$).pipe(map(this.toSVGCoordinate));
 
     this.withMoves$ = merge(
       of(false),
-      this.mouseMoves$.pipe(mapTo(true))
+      this.mouseMoves$.pipe(mapTo(true), skip(1))
     )
-    .pipe(sample(this.mouseUps$));
-
-    this.withoutMoves$ = this.withMoves$.pipe(filter(not));
-
-    this.dragging$ = merge(
-      of(false),
-      this.mouseMoves$.pipe(skip(1), mapTo(true))
-    );
+    .pipe(sample(this.mouseUps$), filter(complement(not)));
   }
 
   fromEvent(name: string): Observable<MouseEvent> {

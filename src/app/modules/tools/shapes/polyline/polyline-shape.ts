@@ -6,26 +6,24 @@ export class PolylineShape extends Shape {
   readonly type = 'polyline';
   fill = 'none';
   strokeLinecap = 'round';
-  points: Point2D[] = [];
   strokeWidth: number;
   _stroke;
 
-  constructor(points: Point2D[], thickness: number, color: string) {
+  constructor(public points: Point2D[], thickness: number, color: string) {
     super();
 
-    points.forEach(this.append);
     this.strokeWidth = thickness;
     this.stroke = color;
+  }
+
+  public add = (point: Point2D): void => {
+    this.points.push(point);
   }
 
   public toString(): string {
     return this.points
       .map((point: Point2D) => `${point.x},${point.y}`)
       .join(' ');
-  }
-
-  public append = (p: Point2D): void => {
-    this.points.push(p);
   }
 
   public length(): number {

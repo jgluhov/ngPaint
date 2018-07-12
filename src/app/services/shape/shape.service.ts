@@ -12,13 +12,13 @@ export class ShapeService {
   constructor(private guiService: GuiService) {
   }
 
-  createPolyline(...points: Point2D[]): Shape {
+  createPolyline = (point: Point2D): Shape => {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
-    return new PolylineShape(points, currentStrokeWidth, currentStroke);
+    return new PolylineShape([point], currentStrokeWidth, currentStroke);
   }
 
-  createCircle(center: Point2D): Shape {
+  createCircle = (center: Point2D): Shape => {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
     return new CircleShape(center, currentStroke, currentStrokeWidth, currentStroke);
