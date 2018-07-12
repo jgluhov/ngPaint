@@ -5,7 +5,7 @@ import { PolylineShape, Shape, CircleShape } from '@shapes';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService, GuiService } from '@services';
 import { Subject } from 'rxjs/Subject';
-import { takeUntil, switchMap, map, take, finalize, tap, scan } from 'rxjs/operators';
+import { takeUntil, switchMap, map, take, finalize, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ShapeService } from '@services/shape/shape.service';
 
@@ -43,14 +43,14 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       .pipe(
         map(this.shapeService.createPolyline),
         switchMap((polyline: PolylineShape) => {
-          this.canvasService.add(polyline, false);
+          this.canvasService.add(polyline);
 
           return this.mouseService.moves$
             .pipe(
               tap(polyline.add),
               finalize(() => {
                 polyline.isCorrect() ?
-                  this.canvasService.render(polyline) :
+                  this.canvasService.setStable(polyline) :
                   this.canvasService.remove(polyline);
               }),
               takeUntil(this.mouseService.ends$)

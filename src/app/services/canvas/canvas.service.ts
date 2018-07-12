@@ -71,7 +71,7 @@ export class CanvasService {
     });
   }
 
-  render(shape: Shape): void {
+  setStable(shape: Shape): void {
     this.setState(shape.id, ShapeStateEnum.STABLE);
   }
 
