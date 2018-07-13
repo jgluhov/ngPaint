@@ -50,7 +50,9 @@ export class CanvasService {
       shape.setState(ShapeStateEnum.STABLE);
     }
 
-    this.shapeHandler$.next((shapes: Shape[]) => shapes.concat(shape));
+    this.shapeHandler$.next(
+      (shapes: Shape[]) => shapes.concat(shape)
+    );
   }
 
   remove = (removedShape: Shape): void => {

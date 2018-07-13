@@ -1,8 +1,16 @@
 import { Directive, ElementRef } from '@angular/core';
 import { not, complement } from 'ramda';
-import { Observable, fromEvent, merge, empty, Subject, BehaviorSubject, of } from 'rxjs';
-import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil } from 'rxjs/operators';
+import { Observable, fromEvent, merge, of } from 'rxjs';
+import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize } from 'rxjs/operators';
 import { Point2D } from '@math';
+import { Shape } from '@tools/shapes';
+
+export interface ListenOptions< {
+  create(start: Point2D): Shape;
+  start(shape: Shape): void;
+  next?(shape: Shape, point: Point2D): void;
+  complete(shape: Shape, withMoves: boolean): void;
+}
 
 @Directive({
   selector: '[appMouseService]'
@@ -60,6 +68,42 @@ export class MouseServiceDirective {
 
   isBtnPressed = (event: MouseEvent): boolean => {
     return event.buttons === 1;
+  }
+
+  listenDrags$({
+    create, start, next, complete
+  }: ListenOptions): Observable<Point2D> {
+    return this.starts$
+      .pipe(
+        switchMap((point: Point2D) => {
+          const shape = create(point);
+          start(shape);
+
+          return this.moves$
+            .pipe(
+              tap((p: Point2D) => next(shape, p)),
+              finalize(() => complete(shape, true))
+            );
+          }
+        ));
+  }
+
+  listenDrops$({
+    create, start, complete
+  }: ListenOptions): Observable<boolean> {
+    return this.starts$
+      .pipe(
+        switchMap((point: Point2D) => {
+          const shape = create(point);
+          start(shape);
+
+          return this.withMoves$
+            .pipe(
+              tap((withMoves: boolean) => complete(shape, withMoves))
+            );
+          }
+        )
+      );
   }
 
   onMouseUp(): Observable<Point2D> {

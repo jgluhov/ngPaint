@@ -26,39 +26,28 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.drops$ = this.mouseService.starts$
-      .pipe(
-        map(this.shapeService.createCircle),
-        switchMap((circle: CircleShape) => {
-          this.canvasService.add(circle, true);
+    this.drops$ = this.mouseService.listenDrops$({
+      create: this.shapeService.createCircle,
+      start: (shape: CircleShape): void => this.canvasService.add(shape, true),
+      complete: (shape: Shape, withMoves: boolean): void => {
+        if (withMoves) {
+          this.canvasService.remove(shape);
+        }
+      }
+    })
+    .pipe(takeUntil(this.destroy$));
 
-          return this.mouseService.withMoves$
-            .pipe(tap(() => this.canvasService.remove(circle)));
-          }
-        ),
-        takeUntil(this.destroy$)
-      );
-
-    this.drags$ = this.mouseService.starts$
-      .pipe(
-        map(this.shapeService.createPolyline),
-        switchMap((polyline: PolylineShape) => {
-          this.canvasService.add(polyline);
-
-          return this.mouseService.moves$
-            .pipe(
-              tap(polyline.add),
-              finalize(() => {
-                polyline.isCorrect() ?
-                  this.canvasService.setStable(polyline) :
-                  this.canvasService.remove(polyline);
-              }),
-              takeUntil(this.mouseService.ends$)
-            );
-          }
-        ),
-        takeUntil(this.destroy$)
-      );
+    this.drags$ = this.mouseService.listenDrags$({
+      create: (point: Point2D): Shape => this.shapeService.createPolyline(point),
+      start: (shape: Shape): void => this.canvasService.add(shape),
+      next: (shape: PolylineShape, point: Point2D): void => shape.add(point),
+      complete: (shape: PolylineShape): void => {
+        shape.isCorrect() ?
+          this.canvasService.setStable(shape) :
+          this.canvasService.remove(shape);
+      }
+    })
+    .pipe(takeUntil(this.destroy$));
 
     this.drags$.subscribe();
     this.drops$.subscribe();
