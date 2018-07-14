@@ -7,6 +7,7 @@ import { ShapeStateEnum } from '@tools/enums';
 import { empty, of, Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
+import { DragHandler } from '../../shapes/shape';
 
 @Component({
   selector: 'app-control-tool',
@@ -22,27 +23,40 @@ export class ControlToolComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.mouseService.onMouseDown()
-      .pipe(
-        switchMap((start: Point2D) => this.canvasService.hoveredShape ? of(start) : empty()),
-        mergeMap((start: Point2D) => {
-          const hoveredShape = this.canvasService.hoveredShape;
+    this.mouseService.listenDrags$({
+      create: (): Shape => this.canvasService.hoveredShape,
+      start: (shape: Shape, point: Point2D): DragHandler => {
+        this.canvasService.setDragging(shape);
 
-          this.canvasService.setState(hoveredShape.id, ShapeStateEnum.DRAGGING);
-          const dragHandler = hoveredShape.createDragHandler(start);
+        return shape.createDragHandler(point);
+      },
+      next: (shape: Shape, point: Point2D, handler: DragHandler): void => handler(point),
+      complete: (shape: Shape): void => this.canvasService.setStable(shape)
+    })
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
 
-          return this.mouseService.onMouseMove()
-            .pipe(
-              tap((point: Point2D) => dragHandler(point)),
-              takeUntil(this.mouseService.onEnd()),
-              finalize(() =>
-                this.canvasService.setState(hoveredShape.id, ShapeStateEnum.STABLE)
-              )
-            );
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
+    // this.mouseService.onMouseDown()
+    //   .pipe(
+    //     switchMap((start: Point2D) => this.canvasService.hoveredShape ? of(start) : empty()),
+    //     mergeMap((start: Point2D) => {
+    //       const hoveredShape = this.canvasService.hoveredShape;
+
+    //       this.canvasService.setState(hoveredShape.id, ShapeStateEnum.DRAGGING);
+    //       const dragHandler = hoveredShape.createDragHandler(start);
+
+    //       return this.mouseService.onMouseMove()
+    //         .pipe(
+    //           tap((point: Point2D) => dragHandler(point)),
+    //           takeUntil(this.mouseService.onEnd()),
+    //           finalize(() =>
+    //             this.canvasService.setState(hoveredShape.id, ShapeStateEnum.STABLE)
+    //           )
+    //         );
+    //     }),
+    //     takeUntil(this.destroy$)
+    //   )
+    //   .subscribe();
   }
 
   ngOnDestroy(): void {

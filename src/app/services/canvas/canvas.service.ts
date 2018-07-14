@@ -77,6 +77,10 @@ export class CanvasService {
     this.setState(shape.id, ShapeStateEnum.STABLE);
   }
 
+  setDragging(shape: Shape): void {
+    this.setState(shape.id, ShapeStateEnum.DRAGGING);
+  }
+
   filterBy(fn: Function): OperatorFunction<Shape[], Shape[]> {
     return (source$: Observable<Shape[]>): Observable<Shape[]> => {
       return source$.pipe(

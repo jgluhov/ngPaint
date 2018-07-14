@@ -15,8 +15,6 @@ import { ShapeService } from '@services/shape/shape.service';
 })
 export class DrawingToolComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<boolean>();
-  private drags$;
-  private drops$;
 
   constructor(
     private mouseService: MouseServiceDirective,
@@ -26,7 +24,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.drops$ = this.mouseService.listenDrops$({
+    this.mouseService.listenDrops$({
       create: this.shapeService.createCircle,
       start: (shape: CircleShape): void => this.canvasService.add(shape, true),
       complete: (shape: Shape, withMoves: boolean): void => {
@@ -35,9 +33,10 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         }
       }
     })
-    .pipe(takeUntil(this.destroy$));
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
 
-    this.drags$ = this.mouseService.listenDrags$({
+    this.mouseService.listenDrags$({
       create: (point: Point2D): Shape => this.shapeService.createPolyline(point),
       start: (shape: Shape): void => this.canvasService.add(shape),
       next: (shape: PolylineShape, point: Point2D): void => shape.add(point),
@@ -47,10 +46,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
           this.canvasService.remove(shape);
       }
     })
-    .pipe(takeUntil(this.destroy$));
-
-    this.drags$.subscribe();
-    this.drops$.subscribe();
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
   }
 
   ngOnDestroy(): void {

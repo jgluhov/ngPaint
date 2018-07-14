@@ -1,14 +1,15 @@
 import { Directive, ElementRef } from '@angular/core';
 import { not, complement } from 'ramda';
-import { Observable, fromEvent, merge, of } from 'rxjs';
-import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize } from 'rxjs/operators';
+import { Observable, fromEvent, merge, of, empty } from 'rxjs';
+import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize, throttleTime } from 'rxjs/operators';
 import { Point2D } from '@math';
 import { Shape } from '@tools/shapes';
+import { DragHandler } from '../../modules/tools/shapes/shape';
 
-export interface ListenOptions< {
+export interface ListenOptions {
   create(start: Point2D): Shape;
-  start(shape: Shape): void;
-  next?(shape: Shape, point: Point2D): void;
+  start(shape: Shape, point: Point2D): void | DragHandler;
+  next?(shape: Shape, point: Point2D, handler?: DragHandler | void): void;
   complete(shape: Shape, withMoves: boolean): void;
 }
 
@@ -41,7 +42,7 @@ export class MouseServiceDirective {
     this.touchEnds$ = this.fromEvent('touchend').pipe(map(this.touchEventToCoordinate));
 
     this.starts$ = merge(this.mouseDowns$, this.touchStarts$).pipe(map(this.toSVGCoordinate));
-    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(map(this.toSVGCoordinate));
+    this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(throttleTime(5), map(this.toSVGCoordinate));
     this.ends$ = merge(this.mouseUps$, this.touchEnds$).pipe(map(this.toSVGCoordinate));
 
     this.withMoves$ = merge(
@@ -77,11 +78,15 @@ export class MouseServiceDirective {
       .pipe(
         switchMap((point: Point2D) => {
           const shape = create(point);
-          start(shape);
+          if (!shape) {
+            return empty();
+          }
+
+          const handler = start(shape, point);
 
           return this.moves$
             .pipe(
-              tap((p: Point2D) => next(shape, p)),
+              tap((p: Point2D) => next(shape, p, handler)),
               finalize(() => complete(shape, true))
             );
           }
@@ -95,7 +100,7 @@ export class MouseServiceDirective {
       .pipe(
         switchMap((point: Point2D) => {
           const shape = create(point);
-          start(shape);
+          start(shape, point);
 
           return this.withMoves$
             .pipe(

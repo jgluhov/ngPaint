@@ -13,10 +13,10 @@ export class SocketStateComponent implements OnInit {
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
-    this.socketService.getConnectionState()
-      .subscribe((connectionState: boolean) => {
-        this.connectionState = connectionState;
-      });
+    // this.socketService.getConnectionState()
+    //   .subscribe((connectionState: boolean) => {
+    //     this.connectionState = connectionState;
+    //   });
   }
 
   getConnectionClass(): string {
