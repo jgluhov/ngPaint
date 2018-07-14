@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SocketService } from '../../services/socket/socket.service';
 import { UserService } from '../../services/user/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +9,7 @@ import { UserService } from '../../services/user/user.service';
     <app-panel>
       <header>
         {{this.title}}
-        <app-socket-state></app-socket-state>
+        <app-socket-state [state]="connectionState"></app-socket-state>
       </header>
       <div class="user-list" [ngClass]="getConnectionClass()">
         <app-user *ngFor="let user of userService.users$ | async" [user]="user"></app-user>
@@ -27,10 +28,10 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.socketService.getConnectionState()
-    //   .subscribe((connectionState: boolean) => {
-    //     this.connectionState = connectionState;
-    //   });
+    this.socketService.getConnectionState()
+      .subscribe((connectionState: boolean) => {
+        this.connectionState = connectionState;
+      });
   }
 
   getConnectionClass(): string {

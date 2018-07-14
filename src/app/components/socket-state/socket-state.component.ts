@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SocketService } from '@services';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-socket-state',
@@ -8,19 +7,11 @@ import { SocketService } from '@services';
   `,
   styleUrls: ['./socket-state.component.scss']
 })
-export class SocketStateComponent implements OnInit {
-  connectionState;
-  constructor(private socketService: SocketService) {}
-
-  ngOnInit(): void {
-    // this.socketService.getConnectionState()
-    //   .subscribe((connectionState: boolean) => {
-    //     this.connectionState = connectionState;
-    //   });
-  }
+export class SocketStateComponent {
+  @Input() state: boolean;
 
   getConnectionClass(): string {
-    return this.connectionState ?
+    return this.state ?
       'icon__socket-connected' : 'icon__socket-disconnected';
   }
 }
