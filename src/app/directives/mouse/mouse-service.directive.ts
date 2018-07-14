@@ -7,9 +7,9 @@ import { Shape } from '@tools/shapes';
 import { DragHandler } from '../../modules/tools/shapes/shape';
 
 export interface ListenOptions {
-  create(start: Point2D): Shape;
-  start(shape: Shape, point: Point2D): void | DragHandler;
-  next?(shape: Shape, point: Point2D, handler?: DragHandler | void): void;
+  create(pStart: Point2D): Shape;
+  start(shape: Shape, pStart: Point2D): void | DragHandler;
+  next?(shape: Shape, pStart: Point2D, pCurrent: Point2D, handler?: DragHandler | void): void;
   complete(shape: Shape, withMoves: boolean): void;
 }
 
@@ -76,17 +76,17 @@ export class MouseServiceDirective {
   }: ListenOptions): Observable<Point2D> {
     return this.starts$
       .pipe(
-        switchMap((point: Point2D) => {
-          const shape = create(point);
+        switchMap((pStart: Point2D) => {
+          const shape = create(pStart);
           if (!shape) {
             return empty();
           }
 
-          const handler = start(shape, point);
+          const handler = start(shape, pStart);
 
           return this.moves$
             .pipe(
-              tap((p: Point2D) => next(shape, p, handler)),
+              tap((pCurrent: Point2D) => next(shape, pStart, pCurrent, handler)),
               finalize(() => complete(shape, true))
             );
           }

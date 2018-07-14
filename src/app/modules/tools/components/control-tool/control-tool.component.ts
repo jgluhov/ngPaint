@@ -30,33 +30,13 @@ export class ControlToolComponent implements OnInit, OnDestroy {
 
         return shape.createDragHandler(point);
       },
-      next: (shape: Shape, point: Point2D, handler: DragHandler): void => handler(point),
+      next: (shape: Shape, pStart: Point2D, pCurrent: Point2D, handler: DragHandler): void => {
+        handler(pCurrent);
+      },
       complete: (shape: Shape): void => this.canvasService.setStable(shape)
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
-
-    // this.mouseService.onMouseDown()
-    //   .pipe(
-    //     switchMap((start: Point2D) => this.canvasService.hoveredShape ? of(start) : empty()),
-    //     mergeMap((start: Point2D) => {
-    //       const hoveredShape = this.canvasService.hoveredShape;
-
-    //       this.canvasService.setState(hoveredShape.id, ShapeStateEnum.DRAGGING);
-    //       const dragHandler = hoveredShape.createDragHandler(start);
-
-    //       return this.mouseService.onMouseMove()
-    //         .pipe(
-    //           tap((point: Point2D) => dragHandler(point)),
-    //           takeUntil(this.mouseService.onEnd()),
-    //           finalize(() =>
-    //             this.canvasService.setState(hoveredShape.id, ShapeStateEnum.STABLE)
-    //           )
-    //         );
-    //     }),
-    //     takeUntil(this.destroy$)
-    //   )
-    //   .subscribe();
   }
 
   ngOnDestroy(): void {

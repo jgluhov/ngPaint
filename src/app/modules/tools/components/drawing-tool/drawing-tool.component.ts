@@ -26,7 +26,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mouseService.listenDrops$({
       create: this.shapeService.createCircle,
-      start: (shape: CircleShape): void => this.canvasService.add(shape, true),
+      start: (shape: Shape): void => this.canvasService.add(shape, true),
       complete: (shape: Shape, withMoves: boolean): void => {
         if (withMoves) {
           this.canvasService.remove(shape);
@@ -37,9 +37,11 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     .subscribe();
 
     this.mouseService.listenDrags$({
-      create: (point: Point2D): Shape => this.shapeService.createPolyline(point),
-      start: (shape: Shape): void => this.canvasService.add(shape),
-      next: (shape: PolylineShape, point: Point2D): void => shape.add(point),
+      create: (pStart: Point2D): Shape => this.shapeService.createPolyline(pStart),
+      start: (shape: PolylineShape): void => this.canvasService.add(shape),
+      next: (shape: PolylineShape, pStart: Point2D, pCurrent: Point2D): void => {
+        shape.add(pCurrent);
+      },
       complete: (shape: PolylineShape): void => {
         shape.isCorrect() ?
           this.canvasService.setStable(shape) :

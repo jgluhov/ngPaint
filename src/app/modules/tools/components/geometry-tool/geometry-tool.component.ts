@@ -11,6 +11,7 @@ import {
   SVGShapeEnum
 } from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
+import { ShapeService } from '@services/shape/shape.service';
 
 @Component({
   selector: 'app-geometry-tool',
@@ -23,46 +24,30 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   constructor(
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService,
-    private guiService: GuiService
+    private guiService: GuiService,
+    private shapeService: ShapeService
   ) { }
 
   ngOnInit(): void {
-    this.mouseService.onMouseDown()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.handleMouseDown);
+    this.mouseService.listenDrags$({
+      create: (pStart: Point2D): Shape => this.createShape(pStart),
+      start: (shape: Shape): void => this.canvasService.add(shape),
+      next: (shape: Shape, pStart: Point2D, pCurrent: Point2D): void => {
+        shape.transform(pStart, pCurrent);
+      },
+      complete: (shape: Shape): void => this.canvasService.setStable(shape)
+    })
+    .pipe(takeUntil(this.destroy$))
+    .subscribe();
   }
 
-  handleMouseDown = (start: Point2D): void => {
-    const shape: Shape = this.createShape(start);
-
-    const drawing$ = of(start)
-      .pipe(
-        tap(() => this.canvasService.add(shape)),
-        mergeMap(() => this.mouseService.onMouseMove()),
-        takeUntil(this.mouseService.onEnd())
-      );
-
-    drawing$.subscribe(
-      (point: Point2D) => shape.transform(start, point),
-      null,
-      () => this.canvasService.setState(shape.id, ShapeStateEnum.STABLE));
-  }
-
-  createShape(center: Point2D): Shape {
+  createShape(point: Point2D): Shape {
     if (this.guiService.isCurrentShape(SVGShapeEnum.Rect)) {
-      return new RectShape(
-        center,
-        this.guiService.currentStroke,
-        this.guiService.currentStrokeWidth
-      );
+      return this.shapeService.createRect(point);
     }
 
     if (this.guiService.isCurrentShape(SVGShapeEnum.Circle)) {
-      return new CircleShape(
-        center,
-        this.guiService.currentStroke,
-        this.guiService.currentStrokeWidth
-      );
+      return this.shapeService.createCircle(point);
     }
   }
 

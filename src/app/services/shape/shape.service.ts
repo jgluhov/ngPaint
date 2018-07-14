@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GuiService } from '@services/gui/gui.service';
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
-import { PolylineShape, CircleShape } from '@shapes';
+import { PolylineShape, CircleShape, RectShape } from '@shapes';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,17 @@ export class ShapeService {
     return new PolylineShape([point], currentStrokeWidth, currentStroke);
   }
 
-  createCircle = (center: Point2D): Shape => {
+  createCircle = (center: Point2D, fill: boolean = false): Shape => {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
-    return new CircleShape(center, currentStroke, currentStrokeWidth, currentStroke);
+    const fillShape = fill ? currentStroke : 'none';
+
+    return new CircleShape(center, currentStroke, currentStrokeWidth, fillShape);
+  }
+
+  createRect = (edge: Point2D): Shape => {
+    const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
+
+    return new RectShape(edge, currentStroke, currentStrokeWidth);
   }
 }
