@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '@server/models/user.model';
+import { User, UserStates } from '@server/models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { scan } from 'rxjs/operators';
@@ -32,5 +32,14 @@ export class UserService {
 
   clear = (): void => {
     this.usersHandler$.next((users: User[]) => []);
+  }
+
+  changeState = (id: string, state: UserStates): void => {
+    this.usersHandler$.next((users: User[]) => {
+      const foundUser = users.find((user: User) => user.id === id);
+      foundUser.state = state;
+
+      return users;
+    });
   }
 }

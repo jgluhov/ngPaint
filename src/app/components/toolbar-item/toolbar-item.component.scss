@@ -2,8 +2,10 @@
 @import '../../../sass/mixins.scss';
 @import '../../../sass/assets.scss';
 
-:host {
-  margin-bottom: 10px;
+@media screen and (min-width: 961px) {
+  :host {
+    margin-bottom: 10px;
+  }
 }
 
 .tool__icon {

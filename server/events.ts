@@ -1,5 +1,6 @@
 export enum SocketCustomEventEnum {
   SAVE_USERNAME = 'save username',
+  CHANGE_STATE = 'change state',
   USER_JOIN = 'user join',
   USER_LEFT = 'user left',
   ALL_USERS = 'all users',

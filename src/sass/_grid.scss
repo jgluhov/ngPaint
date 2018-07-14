@@ -30,7 +30,7 @@ app-canvas {
 .container {
   grid-template:
     $header-height
-    repeat(3, minmax($section-height-sm, 10%))
+    repeat(3, 1fr)
     calc(70% - #{$header-height}) / 100%;
   grid-template-columns: 100%;
   grid-gap: 5px;

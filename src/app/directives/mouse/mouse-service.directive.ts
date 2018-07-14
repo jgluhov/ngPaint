@@ -5,6 +5,9 @@ import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, tak
 import { Point2D } from '@math';
 import { Shape } from '@tools/shapes';
 import { DragHandler } from '../../modules/tools/shapes/shape';
+import { UserStates } from '@server/models/user.model';
+import { SocketService } from '@services/socket/socket.service';
+import { SocketCustomEventEnum } from '@server/events';
 
 export interface ListenOptions {
   create(pStart: Point2D): Shape;
@@ -32,8 +35,14 @@ export class MouseServiceDirective {
   public withMoves$: Observable<boolean>;
   public withoutMoves$: Observable<boolean>;
   public dragging$: Observable<boolean>;
+  private startDrawing$: Observable<UserStates>;
+  private endDrawing$: Observable<UserStates>;
+  private drawingState$: Observable<UserStates>;
 
-  constructor(private elRef: ElementRef) {
+  constructor(
+    private elRef: ElementRef,
+    private socketService: SocketService
+  ) {
     this.mouseDowns$ = this.fromEvent('mousedown').pipe(map(this.mouseEventToCoordinate));
     this.mouseMoves$ = this.fromEvent('mousemove').pipe(filter(this.isBtnPressed), map(this.mouseEventToCoordinate));
     this.mouseUps$ = this.fromEvent('mouseup').pipe(map(this.mouseEventToCoordinate));
@@ -45,11 +54,20 @@ export class MouseServiceDirective {
     this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(throttleTime(5), map(this.toSVGCoordinate));
     this.ends$ = merge(this.mouseUps$, this.touchEnds$).pipe(map(this.toSVGCoordinate));
 
+    this.startDrawing$ = merge(this.mouseDowns$, this.touchStarts$).pipe(mapTo(UserStates.DRAWING));
+    this.endDrawing$ = merge(this.mouseUps$, this.touchEnds$).pipe(mapTo(UserStates.IDLE));
+    this.drawingState$ = merge(this.startDrawing$, this.endDrawing$);
+
     this.withMoves$ = merge(
       of(false),
       this.mouseMoves$.pipe(mapTo(true), skip(1))
     )
     .pipe(sample(this.mouseUps$), filter(complement(not)));
+
+    this.drawingState$
+      .subscribe((drawingState: UserStates) => {
+        this.socketService.send(of(drawingState), SocketCustomEventEnum.CHANGE_STATE);
+      });
   }
 
   fromEvent(name: string): Observable<MouseEvent> {

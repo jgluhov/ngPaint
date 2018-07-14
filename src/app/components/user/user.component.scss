@@ -31,4 +31,8 @@
   &.user__icon--4 {
     background-image: url($user-4-path);
   }
+
+  &.user__icon--drawing {
+    background-image: url($animated-pencil-path);
+  }
 }

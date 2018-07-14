@@ -7,6 +7,7 @@ import { SocketEventEnum, SocketCustomEventEnum } from './events';
 import { switchMap, mergeMap, mapTo, map, takeUntil } from 'rxjs/operators';
 import { User } from './models/user.model';
 import { getAllUsers } from './utilities';
+import { UserStates } from '@server/models/user.model';
 
 export type SocketIOServer = SocketIO.Server & NodeJS.EventEmitter;
 export type SocketIOClient = SocketIO.Socket & { username: string };
@@ -41,6 +42,7 @@ export class SocketServer {
       ));
 
     this.listen(SocketCustomEventEnum.SAVE_USERNAME).subscribe(this.handleSaveUsername);
+    this.listen(SocketCustomEventEnum.CHANGE_STATE).subscribe(this.handleChangeState);
     this.disconnect$.subscribe(this.handleUserLeft);
   }
 
@@ -64,6 +66,16 @@ export class SocketServer {
       id: client.id,
       username: data
     });
+  }
+
+  private handleChangeState = ({server, client, data}: SocketIOListener<UserStates>): void => {
+    const message = {
+      id: client.id,
+      state: data
+    };
+
+    client.emit(SocketCustomEventEnum.CHANGE_STATE, message);
+    client.broadcast.emit(SocketCustomEventEnum.CHANGE_STATE, message);
   }
 
   private handleUserLeft = (client: SocketIOClient): void => {

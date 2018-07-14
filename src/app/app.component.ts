@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SocketService } from './services/socket/socket.service';
 
 @Component({
@@ -13,11 +13,7 @@ import { SocketService } from './services/socket/socket.service';
     </div>
   `
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(private socketService: SocketService) {
-  }
-
-  ngOnInit(): void {
-    this.socketService.connect();
   }
 }
