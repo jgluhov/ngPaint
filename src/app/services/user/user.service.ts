@@ -3,14 +3,15 @@ import { User, UserStates } from '@server/models/user.model';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { scan } from 'rxjs/operators';
-import { ReplaySubject, of, BehaviorSubject } from 'rxjs';
+import { ReplaySubject, BehaviorSubject } from 'rxjs';
+import { name } from 'faker';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   users$: Observable<User[]>;
-  username$: BehaviorSubject<string> = new BehaviorSubject('jgluhov');
+  username$: BehaviorSubject<string> = new BehaviorSubject(name.findName());
   private usersHandler$: ReplaySubject<Function> = new ReplaySubject<Function>(1);
 
   constructor() {
@@ -18,8 +19,6 @@ export class UserService {
       .pipe(
         scan((users: User[], fn: Function) => fn(users), [])
       );
-
-    this.users$.subscribe((users: User[]) => console.log(users));
   }
 
   add = (...newbies: User[]): void => {

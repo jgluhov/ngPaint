@@ -9,7 +9,9 @@ import { UserService } from '../../services/user/user.service';
       <div class="user__icon" [ngClass]="userClass"></div>
       <div class="user__name">{{user.username}}</div>
       <span *ngIf="isMe()">(you)</span>
-      <span *ngIf="isDrawing()" class="user__icon user__icon--drawing"></span>
+      <span *ngIf="isDrawing()"
+        class="user__icon user__icon--drawing">
+      </span>
     </div>
   `,
   styleUrls: ['./user.component.scss']

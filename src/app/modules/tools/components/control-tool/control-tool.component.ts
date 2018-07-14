@@ -28,16 +28,12 @@ export class ControlToolComponent implements OnInit, OnDestroy {
       start: (shape: Shape, point: Point2D): DragHandler => {
         this.canvasService.setDragging(shape);
 
-        console.log('setDragging');
-
         return shape.createDragHandler(point);
       },
       next: (shape: Shape, pStart: Point2D, pCurrent: Point2D, handler: DragHandler): void => {
-        console.log('next drag');
         handler(pCurrent);
       },
       complete: (shape: Shape): void => {
-        console.log('complete drag');
         this.canvasService.setStable(shape);
       }
     })

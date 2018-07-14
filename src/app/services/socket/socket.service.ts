@@ -107,7 +107,6 @@ export class SocketService {
   }
 
   private handleStateChange = ({id, state}: SocketIOChangeState): void => {
-    console.log(state);
     this.userService.changeState(id, state);
   }
 
