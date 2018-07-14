@@ -8,6 +8,7 @@ import { UserService } from '../../services/user/user.service';
     <div class="user">
       <div class="user__icon" [ngClass]="userClass"></div>
       <div class="user__name">{{user.username}}</div>
+      <span *ngIf="isMe()">(you)</span>
     </div>
   `,
   styleUrls: ['./user.component.scss']
@@ -28,5 +29,9 @@ export class UserComponent {
 
   isDrawing(): boolean {
     return this.user.state === UserStates.DRAWING;
+  }
+
+  isMe(): boolean {
+    return this.user.me;
   }
 }

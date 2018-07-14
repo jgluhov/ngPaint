@@ -2,7 +2,7 @@ import * as io from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable, merge, fromEvent, of } from 'rxjs';
-import { mapTo, switchMap, map, mergeMap, takeUntil } from 'rxjs/operators';
+import { mapTo, switchMap, map, mergeMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import {
   SocketCustomEventEnum,
   SocketEvents,
@@ -54,7 +54,7 @@ export class SocketService {
       this.disconnect$.pipe(mapTo(SocketStateEnum.DISCONNECTED))
     );
 
-    this.listen(SocketCustomEventEnum.ALL_USERS).subscribe(this.handleAllUsers);
+    this.listen(SocketCustomEventEnum.ALL_USERS).pipe(withLatestFrom(this.socket$)).subscribe(this.handleAllUsers);
     this.listen(SocketCustomEventEnum.USER_LEFT).subscribe(this.handleUserLeft);
     this.listen(SocketCustomEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
 
@@ -84,7 +84,8 @@ export class SocketService {
       });
   }
 
-  private handleAllUsers = (users: User[]): void => {
+  private handleAllUsers = ([users, socket]: [User[], SocketIO.Socket]): void => {
+    this.identifying(socket, users);
     this.userService.clear();
     this.userService.add(...users);
   }
@@ -99,5 +100,11 @@ export class SocketService {
 
   public getConnectionState(): Observable<boolean> {
     return this.connectionState$;
+  }
+
+  public identifying(socket: SocketIO.Socket, users: User[]): void {
+    users.forEach((user: User) => {
+      user.me = user.id === socket.id;
+    })
   }
 }

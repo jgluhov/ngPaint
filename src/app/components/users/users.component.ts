@@ -38,5 +38,4 @@ export class UsersComponent implements OnInit {
     return this.connectionState ?
       'user-list--active' : 'user-list--inactive';
   }
-
 }

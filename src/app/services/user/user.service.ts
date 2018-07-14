@@ -12,7 +12,6 @@ export class UserService {
   users$: Observable<User[]>;
   username$: BehaviorSubject<string> = new BehaviorSubject('jgluhov');
   private usersHandler$: ReplaySubject<Function> = new ReplaySubject<Function>(1);
-  private users: User[] = [];
 
   constructor() {
     this.users$ = this.usersHandler$
