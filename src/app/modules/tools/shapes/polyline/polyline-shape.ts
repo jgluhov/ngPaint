@@ -1,18 +1,19 @@
 import { Shape, DragHandler } from '../shape';
 import { Point2D } from '@math';
-import { SHAPE_HOVER_STROKE } from '@tools/tool-options';
 
 export class PolylineShape extends Shape {
   readonly type = 'polyline';
   fill = 'none';
   strokeLinecap = 'round';
-  strokeWidth: number;
-  _stroke;
 
-  constructor(public points: Point2D[], thickness: number, color: string) {
+  constructor(
+    public points: Point2D[],
+    strokeWidth: number,
+    color: string
+  ) {
     super();
 
-    this.strokeWidth = thickness;
+    this.strokeWidth = strokeWidth;
     this.stroke = color;
   }
 
@@ -62,15 +63,6 @@ export class PolylineShape extends Shape {
         return new Point2D(point.x + move.x, point.y + move.y);
       });
     };
-  }
-
-  public get stroke(): string {
-    return this.isDragging() ?
-      SHAPE_HOVER_STROKE : this._stroke;
-  }
-
-  public set stroke(value: string) {
-    this._stroke = value;
   }
 
   public get x(): number {

@@ -105,6 +105,7 @@ export class MouseServiceDirective {
           return this.moves$
             .pipe(
               tap((pCurrent: Point2D) => next(shape, pStart, pCurrent, handler)),
+              takeUntil(this.ends$),
               finalize(() => complete(shape, true))
             );
           }

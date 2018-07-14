@@ -10,7 +10,6 @@ export class CircleShape extends Shape {
   public readonly type = 'circle';
   cx;
   cy;
-  _stroke;
 
   constructor(
     public center: Point2D,
@@ -59,15 +58,6 @@ export class CircleShape extends Shape {
       this.x = end.x - xStartX;
       this.y = end.y - xStartY;
     };
-  }
-
-  get stroke(): string {
-    return this.isDragging() ?
-      SHAPE_HOVER_STROKE : this._stroke;
-  }
-
-  set stroke(color: string) {
-    this._stroke = color;
   }
 
   public isCorrect(): boolean {
