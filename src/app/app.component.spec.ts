@@ -4,13 +4,18 @@ import { AppComponent } from './app.component';
 import { SocketService } from '@services';
 
 describe('AppComponent', () => {
+  let socketServiceMock;
   beforeEach(async(() => {
+    socketServiceMock = {};
+
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
       providers: [
-        SocketService
+        {
+          provide: SocketService, useValue: socketServiceMock
+        }
       ],
       schemas: [
         NO_ERRORS_SCHEMA

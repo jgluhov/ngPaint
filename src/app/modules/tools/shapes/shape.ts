@@ -48,17 +48,18 @@ export abstract class Shape {
     this._strokeWidth = strokeWidth;
   }
 
-  public isRendered = (): boolean => this.rendered;
+  public isCorrect(): boolean {
+    return true;
+  }
+
+  public transform(start: Point2D, end: Point2D): this {
+    return this;
+  }
 
   public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
-  public isEditing = (): boolean => this.state === ShapeStateEnum.EDITING;
   public isDragging = (): boolean => this.state === ShapeStateEnum.DRAGGING;
 
-  abstract transform(start: Point2D, end: Point2D): void;
-  abstract moveTo(point: Point2D): this;
   abstract createDragHandler(point: Point2D): DragHandler;
-  abstract isCorrect(): boolean;
-  abstract getStartXY(point: Point2D): Point2D;
   abstract get x(): number;
   abstract get y(): number;
 }

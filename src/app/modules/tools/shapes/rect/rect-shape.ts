@@ -70,18 +70,13 @@ export class RectShape extends Shape {
     }
   }
 
-  transform(start: Point2D, end: Point2D): void {
+  transform(start: Point2D, end: Point2D): this {
 
     const { x, y, width, height }: BoundingRect = this.getBoundingRect(start, end);
-    const p = new Point2D(x, y);
 
-    this.moveTo(p);
+    this.x = x;
+    this.y = y;
     this.setSize(width, height);
-  }
-
-  public moveTo(to: Point2D): this {
-    this.x = to.x;
-    this.y = to.y;
 
     return this;
   }
@@ -96,18 +91,10 @@ export class RectShape extends Shape {
     };
   }
 
-  public getStartXY(start: Point2D): Point2D {
-    return new Point2D(start.x - this.x, start.y - this.y);
-  }
-
   private setSize(width: number, height: number): this {
     this.width = width;
     this.height = height;
 
     return this;
-  }
-
-  public isCorrect(): boolean {
-    return true;
   }
 }

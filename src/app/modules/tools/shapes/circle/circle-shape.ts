@@ -31,23 +31,15 @@ export class CircleShape extends Shape {
     return Point2D.size(difference.divideBy(2));
   }
 
-  transform(start: Point2D, end: Point2D): void {
-    const midpoint = Point2D.getMidpoint(start, end);
+  transform(start: Point2D, end: Point2D): this {
+    const {x, y}: Point2D = Point2D.getMidpoint(start, end);
     const radius = this.getRadius(start, end);
 
     this.r = radius;
-    this.moveTo(midpoint);
-  }
-
-  public moveTo(to: Point2D): this {
-    this.cx = to.x;
-    this.cy = to.y;
+    this.cx = x;
+    this.cy = y;
 
     return this;
-  }
-
-  public getStartXY(start: Point2D): Point2D {
-    return new Point2D(start.x - this.x, start.y - this.y);
   }
 
   public createDragHandler(start: Point2D): DragHandler {
@@ -58,10 +50,6 @@ export class CircleShape extends Shape {
       this.x = end.x - xStartX;
       this.y = end.y - xStartY;
     };
-  }
-
-  public isCorrect(): boolean {
-    return true;
   }
 
   public get x(): number {

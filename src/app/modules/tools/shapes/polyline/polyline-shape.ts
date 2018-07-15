@@ -27,29 +27,8 @@ export class PolylineShape extends Shape {
       .join(' ');
   }
 
-  public length(): number {
-    return this.points.length;
-  }
-
-  public transform(): this {
-    return this;
-  }
-
-  public moveTo(to: Point2D): this {
-
-    return this;
-  }
-
-  public move(): this {
-    return this;
-  }
-
   public isCorrect(): boolean {
     return this.points.length > 2;
-  }
-
-  public getStartXY(start: Point2D): Point2D {
-    return new Point2D(start.x, start.y);
   }
 
   public createDragHandler(start: Point2D): DragHandler {

@@ -6,13 +6,19 @@ import { CanvasService } from '@services';
 import { GeometryToolComponent } from './geometry-tool.component';
 import { GuiService } from '@services/gui/gui.service';
 import { TOOL_LIST_TOKEN, toolList } from '@tools';
+import { of } from 'rxjs/observable/of';
 
 describe('GeometryToolComponent', () => {
   let component: GeometryToolComponent;
   let fixture: ComponentFixture<GeometryToolComponent>;
+  let socketServiceMock;
 
   beforeEach(async(() => {
     const svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
+    socketServiceMock = {
+      socket$: of(42),
+      send: (): void => {}
+    };
 
     TestBed.configureTestingModule({
       providers: [
@@ -24,7 +30,7 @@ describe('GeometryToolComponent', () => {
         },
         {
           provide: MouseServiceDirective,
-          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef)
+          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef, socketServiceMock)
         }
       ],
       declarations: [ GeometryToolComponent ]
