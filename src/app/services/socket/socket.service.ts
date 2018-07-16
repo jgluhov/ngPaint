@@ -41,9 +41,7 @@ export class SocketService {
   constructor(
     private userService: UserService,
     private canvasService: CanvasService
-  ) {
-    this.connect();
-  }
+  ) {}
 
   public connect(): void {
     this.socket$ = of(io.connect(environment.wsUrl));

@@ -6,7 +6,9 @@ import { SocketService } from '@services';
 describe('AppComponent', () => {
   let socketServiceMock;
   beforeEach(async(() => {
-    socketServiceMock = {};
+    socketServiceMock = {
+      connect: (): void => {}
+    };
 
     TestBed.configureTestingModule({
       declarations: [

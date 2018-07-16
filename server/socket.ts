@@ -61,7 +61,6 @@ export class SocketServer {
 
   private handleSaveUsername = ({server, client, data}: SocketIOListener<string>): void => {
     (<SocketIOClient>server.sockets.sockets[client.id]).username = data;
-
     client.emit(SocketCustomEventEnum.ALL_USERS, getAllUsers(server));
     client.broadcast.emit(SocketCustomEventEnum.USER_JOIN, {
       id: client.id,
