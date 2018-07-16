@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as R from 'ramda';
-import { Shape, CircleShape, RectShape, PolylineShape } from '@shapes';
-import { ShapeStateEnum } from '@tools/enums';
+import { Shape } from '@shapes/shape';
+import { CircleShape } from '@shapes/circle/circle-shape';
+import { RectShape } from '@shapes/rect/rect-shape';
+import { PolylineShape } from '@shapes/polyline/polyline-shape';
+import { ShapeStateEnum, SVGShapeEnum } from '@tools/enums';
 import { BehaviorSubject, Subject, from, Observable, OperatorFunction } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -55,6 +58,10 @@ export class CanvasService {
     );
   }
 
+  addRaw = (rawShape: Shape): void => {
+    console.log(this.composeShape(rawShape));
+  }
+
   remove = (removedShape: Shape): void => {
     this.shapeHandler$.next((shapes: Shape[]) => {
       return shapes.filter((shape: Shape) => shape.id !== removedShape.id);
@@ -91,5 +98,18 @@ export class CanvasService {
 
   public get hoveredShape(): Shape {
     return this.hoveredShape$.value;
+  }
+
+  composeShape(rawShape: Shape): Shape {
+    switch (rawShape.type) {
+      case SVGShapeEnum.Polyline:
+        return PolylineShape.composeShape(<PolylineShape>rawShape);
+      case SVGShapeEnum.Circle:
+        return CircleShape.composeShape(<CircleShape>rawShape);
+      case SVGShapeEnum.Rect:
+        return RectShape.composeShape(<RectShape>rawShape);
+      default:
+        return;
+    }
   }
 }

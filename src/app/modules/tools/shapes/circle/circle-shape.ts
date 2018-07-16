@@ -25,6 +25,16 @@ export class CircleShape extends Shape {
     this.cy = center.y;
   }
 
+  static composeShape(rawShape: CircleShape): CircleShape {
+    return new CircleShape(
+      new Point2D(rawShape.cx, rawShape.cy),
+      rawShape._stroke,
+      rawShape._strokeWidth,
+      rawShape.fill,
+      rawShape.r
+    );
+  }
+
   getRadius(start: Point2D, end: Point2D): number {
     const difference = Point2D.subtract(start, end);
 

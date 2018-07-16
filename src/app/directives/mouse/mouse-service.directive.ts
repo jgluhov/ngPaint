@@ -3,7 +3,7 @@ import { not, complement } from 'ramda';
 import { Observable, fromEvent, merge, of, empty } from 'rxjs';
 import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize, throttleTime } from 'rxjs/operators';
 import { Point2D } from '@math';
-import { Shape } from '@tools/shapes';
+import { Shape } from '@shapes/shape';
 import { DragHandler } from '../../modules/tools/shapes/shape';
 import { UserStates } from '@server/models/user.model';
 import { SocketService } from '@services/socket/socket.service';

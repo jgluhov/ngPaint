@@ -1,18 +1,17 @@
 import { Point2D } from '@math';
-import { ShapeStateEnum } from '@tools/enums';
+import { ShapeStateEnum, SVGShapeEnum } from '@tools/enums';
 import { SHAPE_HOVER_STROKE } from '../tool-options';
+import { PolylineShape } from '@shapes/polyline/polyline-shape';
+import { CircleShape } from '@shapes/circle/circle-shape';
+import { RectShape } from '@shapes/rect/rect-shape';
 
 export type DragHandler = (point: Point2D) => void;
 
 export abstract class Shape {
   public readonly id: string;
   public readonly type: string;
-  private _stroke;
-  private _strokeWidth;
-  public rendered = false;
-  public editing = true;
-  public hovered = false;
-  public parent: Shape;
+  protected _stroke;
+  protected _strokeWidth;
   public state = ShapeStateEnum.EDITING;
 
   public ofType(type: string): boolean {

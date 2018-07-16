@@ -2,7 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, of, Observable } from 'rxjs';
 import { tap, mergeMap, takeUntil } from 'rxjs/operators';
 import { Point2D } from '@math';
-import { Shape, RectShape, CircleShape } from '@shapes';
+import { Shape } from '@shapes/shape';
+import { RectShape } from '@shapes/rect/rect-shape';
+import { CircleShape } from '@shapes/circle/circle-shape';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService, GuiService } from '@services';
 import {

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { GuiService } from '@services/gui/gui.service';
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
-import { PolylineShape, CircleShape, RectShape } from '@shapes';
+import { PolylineShape } from '@shapes/polyline/polyline-shape';
+import { RectShape } from '@shapes/rect/rect-shape';
+import { CircleShape } from '@shapes/circle/circle-shape';
 
 @Injectable({
   providedIn: 'root'

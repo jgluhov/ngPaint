@@ -7,7 +7,7 @@ import {
   DoCheck,
   ViewEncapsulation
 } from '@angular/core';
-import { PolylineShape } from '@shapes';
+import { PolylineShape } from '@shapes/polyline/polyline-shape';
 import { CanvasService } from '@services';
 import { ShapeStateEnum } from '@tools/enums';
 

@@ -7,7 +7,7 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
-import { CircleShape } from '@shapes';
+import { CircleShape } from '@shapes/circle/circle-shape';
 import { ShapeStateEnum } from '@tools/enums';
 import { CanvasService, GuiService } from '@services';
 

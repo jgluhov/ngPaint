@@ -2,13 +2,12 @@ import { Observable } from 'rxjs/Observable';
 import { Server } from 'http';
 import * as io from 'socket.io';
 import { of } from 'rxjs/observable/of';
-import { fromEvent, merge } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { SocketEventEnum, SocketCustomEventEnum } from './events';
 import { switchMap, mergeMap, mapTo, map, takeUntil } from 'rxjs/operators';
-import { User } from './models/user.model';
 import { getAllUsers } from './utilities';
 import { UserStates } from '@server/models/user.model';
-import { Shape } from '@tools/shapes';
+import { Shape } from '@tools/shapes/shape';
 
 export type SocketIOServer = SocketIO.Server & NodeJS.EventEmitter;
 export type SocketIOClient = SocketIO.Socket & { username: string };
@@ -86,7 +85,6 @@ export class SocketServer {
       message: data
     };
 
-    client.emit(SocketCustomEventEnum.SHAPE_ADD, message);
     client.broadcast.emit(SocketCustomEventEnum.SHAPE_ADD, message);
   }
 

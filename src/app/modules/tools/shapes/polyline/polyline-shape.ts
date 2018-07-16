@@ -9,12 +9,20 @@ export class PolylineShape extends Shape {
   constructor(
     public points: Point2D[],
     strokeWidth: number,
-    color: string
+    stroke: string
   ) {
     super();
 
     this.strokeWidth = strokeWidth;
-    this.stroke = color;
+    this.stroke = stroke;
+  }
+
+  static composeShape(rawShape: PolylineShape): PolylineShape {
+    return new PolylineShape(
+      rawShape.points,
+      rawShape._strokeWidth,
+      rawShape._stroke
+    );
   }
 
   public add = (point: Point2D): void => {

@@ -113,7 +113,7 @@ export class SocketService {
   }
 
   private handleShapeAdd = ({id, message}: SocketIOMessage<Shape>): void => {
-    console.log(message);
+    this.canvasService.addRaw(message);
   }
 
   private handleStateChange = ({id, message}: SocketIOMessage<UserStates>): void => {

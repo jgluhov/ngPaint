@@ -32,6 +32,19 @@ export class RectShape extends Shape {
     this.strokeWidth = strokeWidth;
   }
 
+  static composeShape(rawShape: RectShape): RectShape {
+    const rect = new RectShape(
+      new Point2D(rawShape.x, rawShape.y),
+      rawShape._stroke,
+      rawShape._strokeWidth,
+      rawShape.fill
+    );
+
+    rect.setSize(rawShape.width, rawShape.height);
+
+    return rect;
+  }
+
   getBoundingRect(start: Point2D, end: Point2D): BoundingRect {
     if (start.x <= end.x && start.y <= end.y) {
       return {

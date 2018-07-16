@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation
 } from '@angular/core';
-import { RectShape } from '@shapes';
+import { RectShape } from '@shapes/rect/rect-shape';
 import { ShapeStateEnum } from '@tools/enums';
 import { CanvasService } from '@services';
 

@@ -5,7 +5,7 @@ import {
   SVGShapeEnum
 } from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
-import { Shape } from '@tools/shapes';
+import { Shape } from '@shapes/shape';
 import { SHAPE_DEFAULT_STROKE } from '@tools/tool-options';
 
 @Injectable({

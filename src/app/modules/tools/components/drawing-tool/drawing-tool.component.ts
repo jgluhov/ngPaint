@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Point2D } from '@math';
 import * as R from 'ramda';
-import { PolylineShape, Shape, CircleShape } from '@shapes';
+import { PolylineShape } from '@shapes/polyline/polyline-shape';
+import { Shape } from '@shapes/shape';
+import { CircleShape } from '@shapes/circle/circle-shape';
 import { MouseServiceDirective } from '@directives';
 import { CanvasService, GuiService } from '@services';
 import { Subject } from 'rxjs/Subject';
@@ -33,7 +35,6 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       complete: (shape: Shape, withoutMoves: boolean): void => {
         if (withoutMoves) {
           this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-          this.canvasService.setStable(shape);
         } else {
           this.canvasService.remove(shape);
         }

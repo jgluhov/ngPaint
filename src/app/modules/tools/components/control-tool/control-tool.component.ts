@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MouseServiceDirective } from '@directives';
 import { Point2D } from '@math';
 import { CanvasService } from '@services';
-import { Shape } from '@shapes';
+import { Shape } from '@shapes/shape';
 import { ShapeStateEnum } from '@tools/enums';
 import { empty, of, Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
