@@ -12,15 +12,17 @@ import { UserService } from '@services/user/user.service';
 import { User, UserStates } from '@server/models/user.model';
 import { Socket } from 'socket.io';
 import { Subject } from 'rxjs/Subject';
+import { Shape } from '../../modules/tools/shapes/shape';
+import { CanvasService } from '@services/canvas/canvas.service';
 
 interface SocketIOData<T> {
   socket: SocketIO.Socket;
   data: T;
 }
 
-interface SocketIOChangeState {
+interface SocketIOMessage<T> {
   id: string;
-  state: UserStates;
+  message: T;
 }
 
 export enum SocketStateEnum {
@@ -36,7 +38,10 @@ export class SocketService {
   private connection$: ReplaySubject<SocketIO.Socket> = new ReplaySubject(1);
   private disconnect$;
   private connectionState$;
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private canvasService: CanvasService
+  ) {
     this.connect();
   }
 
@@ -65,6 +70,7 @@ export class SocketService {
     this.listen(SocketCustomEventEnum.USER_LEFT).subscribe(this.handleUserLeft);
     this.listen(SocketCustomEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
     this.listen(SocketCustomEventEnum.CHANGE_STATE).subscribe(this.handleStateChange);
+    this.listen(SocketCustomEventEnum.SHAPE_ADD).subscribe(this.handleShapeAdd);
 
     this.send(this.userService.username$, SocketCustomEventEnum.SAVE_USERNAME);
   }
@@ -106,8 +112,12 @@ export class SocketService {
     this.userService.add(user);
   }
 
-  private handleStateChange = ({id, state}: SocketIOChangeState): void => {
-    this.userService.changeState(id, state);
+  private handleShapeAdd = ({id, message}: SocketIOMessage<Shape>): void => {
+    console.log(message);
+  }
+
+  private handleStateChange = ({id, message}: SocketIOMessage<UserStates>): void => {
+    this.userService.changeState(id, message);
   }
 
   public getConnectionState(): Observable<boolean> {

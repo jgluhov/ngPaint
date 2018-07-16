@@ -8,6 +8,8 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil, switchMap, map, take, finalize, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ShapeService } from '@services/shape/shape.service';
+import { SocketCustomEventEnum } from '../../../../../../server/events';
+import { SocketService } from '../../../../services/socket/socket.service';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -20,15 +22,19 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService,
     private guiService: GuiService,
-    private shapeService: ShapeService
+    private shapeService: ShapeService,
+    private socketService: SocketService
   ) {}
 
   ngOnInit(): void {
     this.mouseService.listenDrops$({
       create: this.shapeService.createCircle,
-      start: (shape: Shape): void => this.canvasService.add(shape, true),
-      complete: (shape: Shape, withMoves: boolean): void => {
-        if (withMoves) {
+      start: (shape: Shape): void => this.canvasService.add(shape),
+      complete: (shape: Shape, withoutMoves: boolean): void => {
+        if (withoutMoves) {
+          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+          this.canvasService.setStable(shape);
+        } else {
           this.canvasService.remove(shape);
         }
       }

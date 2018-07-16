@@ -13,7 +13,7 @@ export interface ListenOptions {
   create(pStart: Point2D): Shape;
   start(shape: Shape, pStart: Point2D): void | DragHandler;
   next?(shape: Shape, pStart: Point2D, pCurrent: Point2D, handler?: DragHandler | void): void;
-  complete(shape: Shape, withMoves: boolean): void;
+  complete(shape: Shape, withoutMoves: boolean): void;
 }
 
 @Directive({
@@ -58,9 +58,9 @@ export class MouseServiceDirective {
     this.endDrawing$ = merge(this.mouseUps$, this.touchEnds$).pipe(mapTo(UserStates.IDLE));
     this.drawingState$ = merge(this.startDrawing$, this.endDrawing$);
 
-    this.withMoves$ = merge(
-      of(false),
-      this.mouseMoves$.pipe(mapTo(true), skip(1))
+    this.withoutMoves$ = merge(
+      of(true),
+      this.mouseMoves$.pipe(mapTo(false), skip(1))
     )
     .pipe(sample(this.mouseUps$), filter(complement(not)));
 
@@ -106,7 +106,9 @@ export class MouseServiceDirective {
             .pipe(
               tap((pCurrent: Point2D) => next(shape, pStart, pCurrent, handler)),
               takeUntil(this.ends$),
-              finalize(() => complete(shape, true))
+              finalize(() => {
+                complete(shape, true);
+              })
             );
           }
         ));
@@ -121,9 +123,9 @@ export class MouseServiceDirective {
           const shape = create(point);
           start(shape, point);
 
-          return this.withMoves$
+          return this.withoutMoves$
             .pipe(
-              tap((withMoves: boolean) => complete(shape, withMoves))
+              tap((withoutMoves: boolean) => complete(shape, withoutMoves))
             );
           }
         )
