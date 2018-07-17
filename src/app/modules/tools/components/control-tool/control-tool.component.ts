@@ -8,6 +8,8 @@ import { empty, of, Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { DragHandler } from '../../shapes/shape';
+import { SocketCustomEventEnum } from '../../../../../../server/events';
+import { SocketService } from '../../../../services/socket/socket.service';
 
 @Component({
   selector: 'app-control-tool',
@@ -19,7 +21,8 @@ export class ControlToolComponent implements OnInit, OnDestroy {
 
   constructor(
     private canvasService: CanvasService,
-    private mouseService: MouseServiceDirective
+    private mouseService: MouseServiceDirective,
+    private socketService: SocketService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
       },
       complete: (shape: Shape): void => {
         this.canvasService.setStable(shape);
+        this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
       }
     })
     .pipe(takeUntil(this.destroy$))

@@ -14,6 +14,8 @@ import {
 } from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
 import { ShapeService } from '@services/shape/shape.service';
+import { SocketService } from '../../../../services/socket/socket.service';
+import { SocketCustomEventEnum } from '@server/events';
 
 @Component({
   selector: 'app-geometry-tool',
@@ -27,7 +29,8 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
     private mouseService: MouseServiceDirective,
     private canvasService: CanvasService,
     private guiService: GuiService,
-    private shapeService: ShapeService
+    private shapeService: ShapeService,
+    private socketService: SocketService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +40,10 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
       next: (shape: Shape, pStart: Point2D, pCurrent: Point2D): void => {
         shape.transform(pStart, pCurrent);
       },
-      complete: (shape: Shape): void => this.canvasService.setStable(shape)
+      complete: (shape: Shape): void => {
+        this.canvasService.setStable(shape);
+        this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+      }
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();

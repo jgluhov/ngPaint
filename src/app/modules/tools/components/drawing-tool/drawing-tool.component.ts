@@ -10,8 +10,8 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil, switchMap, map, take, finalize, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { ShapeService } from '@services/shape/shape.service';
-import { SocketCustomEventEnum } from '../../../../../../server/events';
-import { SocketService } from '../../../../services/socket/socket.service';
+import { SocketCustomEventEnum } from '@server/events';
+import { SocketService } from '@services/socket/socket.service';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -50,9 +50,12 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         shape.add(pCurrent);
       },
       complete: (shape: PolylineShape): void => {
-        shape.isCorrect() ?
-          this.canvasService.setStable(shape) :
+        if (shape.isCorrect()) {
+          this.canvasService.setStable(shape);
+          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+        } else {
           this.canvasService.remove(shape);
+        }
       }
     })
     .pipe(takeUntil(this.destroy$))
