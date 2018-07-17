@@ -58,10 +58,6 @@ export class CanvasService {
     );
   }
 
-  addRaw = (rawShape: Shape): void => {
-    console.log(this.composeShape(rawShape));
-  }
-
   remove = (removedShape: Shape): void => {
     this.shapeHandler$.next((shapes: Shape[]) => {
       return shapes.filter((shape: Shape) => shape.id !== removedShape.id);

@@ -110,8 +110,9 @@ export class SocketService {
     this.userService.add(user);
   }
 
-  private handleShapeAdd = ({id, message}: SocketIOMessage<Shape>): void => {
-    this.canvasService.addRaw(message);
+  private handleShapeAdd = ({id, message: shape}: SocketIOMessage<Shape>): void => {
+    const composedShape = this.canvasService.composeShape(shape);
+    this.canvasService.add(composedShape);
   }
 
   private handleStateChange = ({id, message}: SocketIOMessage<UserStates>): void => {
