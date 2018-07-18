@@ -13,26 +13,21 @@ export class CircleShape extends Shape {
 
   constructor(
     public center: Point2D,
-    stroke: string,
+    public stroke: string,
     public strokeWidth: number,
     public fill: string = 'none',
     public r: number = 1
   ) {
     super();
 
-    this.stroke = stroke;
     this.cx = center.x;
     this.cy = center.y;
   }
 
-  static composeShape(rawShape: CircleShape): CircleShape {
-    return new CircleShape(
-      new Point2D(rawShape.cx, rawShape.cy),
-      rawShape._stroke,
-      rawShape._strokeWidth,
-      rawShape.fill,
-      rawShape.r
-    );
+  static composeShape(rawShape: Object): CircleShape {
+    Object.setPrototypeOf(rawShape, CircleShape.prototype);
+
+    return <CircleShape>rawShape;
   }
 
   getRadius(start: Point2D, end: Point2D): number {
@@ -52,29 +47,13 @@ export class CircleShape extends Shape {
     return this;
   }
 
-  public createDragHandler(start: Point2D): DragHandler {
-    const xStartX = start.x - this.x;
-    const xStartY = start.y - this.y;
+  public getDragHandler(start: Point2D): DragHandler {
+    const xStartX = start.x - this.cx;
+    const xStartY = start.y - this.cy;
 
     return (end: Point2D): void => {
-      this.x = end.x - xStartX;
-      this.y = end.y - xStartY;
+      this.cx = end.x - xStartX;
+      this.cy = end.y - xStartY;
     };
-  }
-
-  public get x(): number {
-    return this.cx;
-  }
-
-  public set x(value: number) {
-    this.cx = value;
-  }
-
-  public get y(): number {
-    return this.cy;
-  }
-
-  public set y(value: number) {
-    this.cy = value;
   }
 }

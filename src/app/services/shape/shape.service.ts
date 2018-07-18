@@ -5,6 +5,7 @@ import { Shape } from '@shapes/shape';
 import { PolylineShape } from '@shapes/polyline/polyline-shape';
 import { RectShape } from '@shapes/rect/rect-shape';
 import { CircleShape } from '@shapes/circle/circle-shape';
+import { SVGShapeEnum } from '@tools/enums';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class ShapeService {
   constructor(private guiService: GuiService) {
   }
 
-  createPolyline = (point: Point2D): Shape => {
+  createPolyline = (pStart: Point2D): Shape => {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
-    return new PolylineShape([point], currentStrokeWidth, currentStroke);
+    return new PolylineShape([pStart], currentStrokeWidth, currentStroke);
   }
 
   createCircle = (center: Point2D, fill: boolean = false): Shape => {
@@ -32,5 +33,18 @@ export class ShapeService {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
     return new RectShape(edge, currentStroke, currentStrokeWidth);
+  }
+
+  composeShape(rawShape: Shape): Shape {
+    switch (rawShape.type) {
+      case SVGShapeEnum.Polyline:
+        return PolylineShape.composeShape(<PolylineShape>rawShape);
+      case SVGShapeEnum.Circle:
+        return CircleShape.composeShape(<CircleShape>rawShape);
+      case SVGShapeEnum.Rect:
+        return RectShape.composeShape(<RectShape>rawShape);
+      default:
+        return;
+    }
   }
 }

@@ -1,15 +1,14 @@
 import { Point2D } from '@math';
-import { ShapeStateEnum, SVGShapeEnum } from '@tools/enums';
+import { ShapeStateEnum } from '@tools/enums';
 import { SHAPE_HOVER_STROKE } from '../tool-options';
-import { PolylineShape } from '@shapes/polyline/polyline-shape';
-import { CircleShape } from '@shapes/circle/circle-shape';
-import { RectShape } from '@shapes/rect/rect-shape';
 
 export type DragHandler = (point: Point2D) => void;
 
 export abstract class Shape {
-  public readonly id: string;
+  public id: string;
   public readonly type: string;
+  protected stroke;
+  protected strokeWidth;
   protected _stroke;
   protected _strokeWidth;
   public state = ShapeStateEnum.EDITING;
@@ -18,33 +17,18 @@ export abstract class Shape {
     return this.type === type;
   }
 
-  constructor() {
-    this.id = crypto.getRandomValues(new Uint32Array(2))
-      .toString().replace(',', '');
-  }
-
   setState(state: ShapeStateEnum): this {
     this.state = state;
 
+    if (state === ShapeStateEnum.DRAGGING) {
+      this.stroke = SHAPE_HOVER_STROKE;
+      this.strokeWidth = this._strokeWidth * 1.5;
+    } else {
+      this.stroke = this._stroke;
+      this.strokeWidth = this._strokeWidth;
+    }
+
     return this;
-  }
-
-  get stroke(): string {
-    return this.isDragging() ?
-      SHAPE_HOVER_STROKE : this._stroke;
-  }
-
-  set stroke(color: string) {
-    this._stroke = color;
-  }
-
-  get strokeWidth(): number {
-    return this.isDragging() ?
-      this._strokeWidth * 1.5 : this._strokeWidth;
-  }
-
-  set strokeWidth(strokeWidth: number) {
-    this._strokeWidth = strokeWidth;
   }
 
   public isCorrect(): boolean {
@@ -55,10 +39,19 @@ export abstract class Shape {
     return this;
   }
 
-  public isStable = (): boolean => this.state === ShapeStateEnum.STABLE;
-  public isDragging = (): boolean => this.state === ShapeStateEnum.DRAGGING;
+  public done(): void {
+    this.id = crypto.getRandomValues(new Uint32Array(2))
+    .toString().replace(',', '');
+    this.state = ShapeStateEnum.STABLE;
+  }
 
-  abstract createDragHandler(point: Point2D): DragHandler;
-  abstract get x(): number;
-  abstract get y(): number;
+  public isStable(): boolean {
+    return this.state === ShapeStateEnum.STABLE;
+  }
+
+  public isDragging(): boolean {
+    return this.state === ShapeStateEnum.DRAGGING;
+  }
+
+  abstract getDragHandler(point: Point2D): DragHandler;
 }

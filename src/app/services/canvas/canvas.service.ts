@@ -48,11 +48,7 @@ export class CanvasService {
       );
   }
 
-  add = (shape: Shape, forceStable: boolean = false): void => {
-    if (forceStable) {
-      shape.setState(ShapeStateEnum.STABLE);
-    }
-
+  add = (shape: Shape): void => {
     this.shapeHandler$.next(
       (shapes: Shape[]) => shapes.concat(shape)
     );
@@ -80,6 +76,10 @@ export class CanvasService {
     this.setState(shape.id, ShapeStateEnum.STABLE);
   }
 
+  update(): void {
+    this.shapeHandler$.next((shapeStore: Shape[]) => shapeStore);
+  }
+
   setDragging(shape: Shape): void {
     this.setState(shape.id, ShapeStateEnum.DRAGGING);
   }
@@ -94,18 +94,5 @@ export class CanvasService {
 
   public get hoveredShape(): Shape {
     return this.hoveredShape$.value;
-  }
-
-  composeShape(rawShape: Shape): Shape {
-    switch (rawShape.type) {
-      case SVGShapeEnum.Polyline:
-        return PolylineShape.composeShape(<PolylineShape>rawShape);
-      case SVGShapeEnum.Circle:
-        return CircleShape.composeShape(<CircleShape>rawShape);
-      case SVGShapeEnum.Rect:
-        return RectShape.composeShape(<RectShape>rawShape);
-      default:
-        return;
-    }
   }
 }

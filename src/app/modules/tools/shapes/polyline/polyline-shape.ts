@@ -8,24 +8,22 @@ export class PolylineShape extends Shape {
 
   constructor(
     public points: Point2D[],
-    strokeWidth: number,
-    stroke: string
+    public strokeWidth: number,
+    public stroke: string
   ) {
     super();
 
-    this.strokeWidth = strokeWidth;
-    this.stroke = stroke;
+    this._strokeWidth = this.strokeWidth;
+    this._stroke = this.stroke;
   }
 
-  static composeShape(rawShape: PolylineShape): PolylineShape {
-    return new PolylineShape(
-      rawShape.points,
-      rawShape._strokeWidth,
-      rawShape._stroke
-    );
+  static composeShape(rawShape: Object): PolylineShape {
+    Object.setPrototypeOf(rawShape, PolylineShape.prototype);
+
+    return <PolylineShape>rawShape;
   }
 
-  public add = (point: Point2D): void => {
+  public addPoint = (point: Point2D): void => {
     this.points.push(point);
   }
 
@@ -39,7 +37,7 @@ export class PolylineShape extends Shape {
     return this.points.length > 2;
   }
 
-  public createDragHandler(start: Point2D): DragHandler {
+  public getDragHandler(start: Point2D): DragHandler {
     const points = this.points
       .map((point: Point2D) => new Point2D(point.x, point.y));
 
@@ -50,13 +48,5 @@ export class PolylineShape extends Shape {
         return new Point2D(point.x + move.x, point.y + move.y);
       });
     };
-  }
-
-  public get x(): number {
-    return 0;
-  }
-
-  public get y(): number {
-    return 0;
   }
 }

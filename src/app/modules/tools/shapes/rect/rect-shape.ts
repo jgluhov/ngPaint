@@ -20,29 +20,20 @@ export class RectShape extends Shape {
 
   constructor(
     start: Point2D,
-    stroke: string = SHAPE_DEFAULT_STROKE,
-    strokeWidth: number = SHAPE_DEFAULT_STROKE_WIDTH,
+    public stroke: string = SHAPE_DEFAULT_STROKE,
+    public strokeWidth: number = SHAPE_DEFAULT_STROKE_WIDTH,
     public fill: string = 'none'
   ) {
     super();
 
     this.x = start.x;
     this.y = start.y;
-    this.stroke = stroke;
-    this.strokeWidth = strokeWidth;
   }
 
-  static composeShape(rawShape: RectShape): RectShape {
-    const rect = new RectShape(
-      new Point2D(rawShape.x, rawShape.y),
-      rawShape._stroke,
-      rawShape._strokeWidth,
-      rawShape.fill
-    );
+  static composeShape(rawShape: Object): RectShape {
+    Object.setPrototypeOf(rawShape, RectShape.prototype);
 
-    rect.setSize(rawShape.width, rawShape.height);
-
-    return rect;
+    return <RectShape>rawShape;
   }
 
   getBoundingRect(start: Point2D, end: Point2D): BoundingRect {
@@ -94,7 +85,7 @@ export class RectShape extends Shape {
     return this;
   }
 
-  public createDragHandler(start: Point2D): DragHandler {
+  public getDragHandler(start: Point2D): DragHandler {
     const xStartX = start.x - this.x;
     const xStartY = start.y - this.y;
 

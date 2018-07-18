@@ -40,10 +40,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
       next: (shape: Shape, pStart: Point2D, pCurrent: Point2D): void => {
         shape.transform(pStart, pCurrent);
       },
-      complete: (shape: Shape): void => {
-        this.canvasService.setStable(shape);
-        this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-      }
+      complete: this.handleSuccess
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
@@ -57,6 +54,12 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
     if (this.guiService.isCurrentShape(SVGShapeEnum.Circle)) {
       return this.shapeService.createCircle(point);
     }
+  }
+
+  handleSuccess = (shape: Shape): void => {
+    shape.setState(ShapeStateEnum.STABLE);
+    this.canvasService.update();
+    this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
   }
 
   ngOnDestroy(): void {

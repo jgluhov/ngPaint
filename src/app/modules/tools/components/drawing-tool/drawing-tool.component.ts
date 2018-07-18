@@ -12,6 +12,7 @@ import { of } from 'rxjs/observable/of';
 import { ShapeService } from '@services/shape/shape.service';
 import { SocketCustomEventEnum } from '@server/events';
 import { SocketService } from '@services/socket/socket.service';
+import { ShapeStateEnum } from '@tools/enums';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -31,35 +32,41 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mouseService.listenDrops$({
       create: this.shapeService.createCircle,
-      start: (shape: Shape): void => this.canvasService.add(shape),
+      start: (shape: Shape, point: Point2D): void => {
+        shape.setState(ShapeStateEnum.STABLE);
+        this.canvasService.add(shape);
+      },
       complete: (shape: Shape, withoutMoves: boolean): void => {
-        if (withoutMoves) {
-          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-        } else {
-          this.canvasService.remove(shape);
-        }
+        withoutMoves ?
+          this.handleSuccess(shape) : this.handleFailed(shape);
       }
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
 
     this.mouseService.listenDrags$({
-      create: (pStart: Point2D): Shape => this.shapeService.createPolyline(pStart),
-      start: (shape: PolylineShape): void => this.canvasService.add(shape),
+      create: this.shapeService.createPolyline,
+      start:  (shape: Shape, point: Point2D): void => this.canvasService.add(shape),
       next: (shape: PolylineShape, pStart: Point2D, pCurrent: Point2D): void => {
-        shape.add(pCurrent);
+        shape.addPoint(pCurrent);
       },
       complete: (shape: PolylineShape): void => {
-        if (shape.isCorrect()) {
-          this.canvasService.setStable(shape);
-          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-        } else {
-          this.canvasService.remove(shape);
-        }
+        shape.isCorrect() ?
+          this.handleSuccess(shape) : this.handleFailed(shape);
       }
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
+  }
+
+  handleSuccess(shape: Shape): void {
+    shape.done();
+    this.canvasService.update();
+    this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+  }
+
+  handleFailed(shape: Shape): void {
+    this.canvasService.remove(shape);
   }
 
   ngOnDestroy(): void {

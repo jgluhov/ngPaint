@@ -14,6 +14,7 @@ import { Socket } from 'socket.io';
 import { Subject } from 'rxjs/Subject';
 import { Shape } from '../../modules/tools/shapes/shape';
 import { CanvasService } from '@services/canvas/canvas.service';
+import { ShapeService } from '../shape/shape.service';
 
 interface SocketIOData<T> {
   socket: SocketIO.Socket;
@@ -40,7 +41,8 @@ export class SocketService {
   private connectionState$;
   constructor(
     private userService: UserService,
-    private canvasService: CanvasService
+    private canvasService: CanvasService,
+    private shapeService: ShapeService
   ) {}
 
   public connect(): void {
@@ -111,7 +113,7 @@ export class SocketService {
   }
 
   private handleShapeAdd = ({id, message: shape}: SocketIOMessage<Shape>): void => {
-    const composedShape = this.canvasService.composeShape(shape);
+    const composedShape = this.shapeService.composeShape(shape);
     this.canvasService.add(composedShape);
   }
 

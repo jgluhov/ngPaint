@@ -21,7 +21,7 @@ describe('Polyline Shape: Spec', () => {
     let dragHandler;
     let end;
     beforeEach(() => {
-      dragHandler = polyline.createDragHandler(start);
+      dragHandler = polyline.getDragHandler(start);
     });
 
     describe('when user drags the shape along the axis', () => {

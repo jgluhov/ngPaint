@@ -1,7 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 import { not, complement } from 'ramda';
 import { Observable, fromEvent, merge, of, empty } from 'rxjs';
-import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize, throttleTime } from 'rxjs/operators';
+import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize, throttleTime, withLatestFrom } from 'rxjs/operators';
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
 import { DragHandler } from '../../modules/tools/shapes/shape';
@@ -125,7 +125,7 @@ export class MouseServiceDirective {
 
           return this.withoutMoves$
             .pipe(
-              tap((withoutMoves: boolean) => complete(shape, withoutMoves))
+              tap(() => complete(shape, true))
             );
           }
         )

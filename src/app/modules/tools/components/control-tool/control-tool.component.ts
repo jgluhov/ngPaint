@@ -29,12 +29,13 @@ export class ControlToolComponent implements OnInit, OnDestroy {
     this.mouseService.listenDrags$({
       create: (): Shape => this.canvasService.hoveredShape,
       start: (shape: Shape, point: Point2D): DragHandler => {
-        this.canvasService.setDragging(shape);
+        shape.setState(ShapeStateEnum.DRAGGING);
+        this.canvasService.update();
 
-        return shape.createDragHandler(point);
+        return shape.getDragHandler(point);
       },
-      next: (shape: Shape, pStart: Point2D, pCurrent: Point2D, handler: DragHandler): void => {
-        handler(pCurrent);
+      next: (shape: Shape, pStart: Point2D, pCurrent: Point2D, dragHandler: DragHandler): void => {
+        dragHandler(pCurrent);
       },
       complete: (shape: Shape): void => {
         this.canvasService.setStable(shape);
