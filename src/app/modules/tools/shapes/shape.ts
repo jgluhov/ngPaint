@@ -20,14 +20,6 @@ export abstract class Shape {
   setState(state: ShapeStateEnum): this {
     this.state = state;
 
-    if (state === ShapeStateEnum.DRAGGING) {
-      this.stroke = SHAPE_HOVER_STROKE;
-      this.strokeWidth = this._strokeWidth * 1.5;
-    } else {
-      this.stroke = this._stroke;
-      this.strokeWidth = this._strokeWidth;
-    }
-
     return this;
   }
 
@@ -39,10 +31,11 @@ export abstract class Shape {
     return this;
   }
 
-  public done(): void {
+  public seal(): this {
     this.id = crypto.getRandomValues(new Uint32Array(2))
-    .toString().replace(',', '');
-    this.state = ShapeStateEnum.STABLE;
+      .toString().replace(',', '');
+
+    return this;
   }
 
   public isStable(): boolean {

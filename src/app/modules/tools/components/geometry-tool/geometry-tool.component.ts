@@ -34,13 +34,22 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.mouseService.listenDrags$({
-      create: (pStart: Point2D): Shape => this.createShape(pStart),
-      start: (shape: Shape): void => this.canvasService.add(shape),
-      next: (shape: Shape, pStart: Point2D, pCurrent: Point2D): void => {
-        shape.transform(pStart, pCurrent);
-      },
-      complete: this.handleSuccess
+    this.mouseService.listenDragsV2((pStart: Point2D): Subject<Point2D> => {
+      const handler = new Subject<Point2D>();
+      const shape = this.createShape(pStart);
+
+      this.canvasService.add(shape);
+
+      handler.subscribe(
+        (pCurrent: Point2D) => shape.transform(pStart, pCurrent),
+        null,
+        () => {
+          shape.setState(ShapeStateEnum.STABLE);
+          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+        }
+      );
+
+      return handler;
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();

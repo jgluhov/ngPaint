@@ -1,13 +1,28 @@
 import { Directive, ElementRef } from '@angular/core';
 import { not, complement } from 'ramda';
 import { Observable, fromEvent, merge, of, empty } from 'rxjs';
-import { map, tap, mapTo, startWith, switchMap, first, filter, sample, skip, takeUntil, finalize, throttleTime, withLatestFrom } from 'rxjs/operators';
+import {
+  map,
+  tap,
+  mapTo,
+  startWith,
+  switchMap,
+  first,
+  filter,
+  sample,
+  skip,
+  takeUntil,
+  finalize,
+  throttleTime,
+  withLatestFrom
+} from 'rxjs/operators';
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
 import { DragHandler } from '../../modules/tools/shapes/shape';
 import { UserStates } from '@server/models/user.model';
 import { SocketService } from '@services/socket/socket.service';
 import { SocketCustomEventEnum } from '@server/events';
+import { Subject } from 'rxjs/Subject';
 
 export interface ListenOptions {
   create(pStart: Point2D): Shape;
@@ -15,6 +30,8 @@ export interface ListenOptions {
   next?(shape: Shape, pStart: Point2D, pCurrent: Point2D, handler?: DragHandler | void): void;
   complete(shape: Shape, withoutMoves: boolean): void;
 }
+
+export type IListenCallback = (point: Point2D) => Subject<boolean | Point2D>;
 
 @Directive({
   selector: '[appMouseService]'
@@ -62,7 +79,7 @@ export class MouseServiceDirective {
       of(true),
       this.mouseMoves$.pipe(mapTo(false), skip(1))
     )
-    .pipe(sample(this.mouseUps$), filter(complement(not)));
+    .pipe(sample(this.mouseUps$));
 
     this.drawingState$
       .subscribe((drawingState: UserStates) => {
@@ -87,6 +104,43 @@ export class MouseServiceDirective {
 
   isBtnPressed = (event: MouseEvent): boolean => {
     return event.buttons === 1;
+  }
+
+  listenDropsV2(fn: IListenCallback): Observable<boolean | Point2D> {
+    return this.starts$
+      .pipe(
+        switchMap((pStart: Point2D) => {
+          const handler = fn(pStart);
+
+          return this.withoutMoves$
+            .pipe(
+              tap((withoutMoves: boolean) => {
+                withoutMoves ?
+                  handler.next(withoutMoves) : handler.error(withoutMoves);
+
+                handler.complete();
+              })
+            );
+          }
+        )
+      );
+  }
+
+  listenDragsV2(fn: IListenCallback): Observable<boolean | Point2D> {
+    return this.starts$
+      .pipe(
+        switchMap((pStart: Point2D) => {
+          const handler = fn(pStart);
+
+          return this.moves$
+            .pipe(
+              tap((point: Point2D) => handler.next(point)),
+              takeUntil(this.ends$),
+              finalize(() => handler.complete())
+            );
+          }
+        )
+      );
   }
 
   listenDrags$({

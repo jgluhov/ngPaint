@@ -13,6 +13,7 @@ import { ShapeService } from '@services/shape/shape.service';
 import { SocketCustomEventEnum } from '@server/events';
 import { SocketService } from '@services/socket/socket.service';
 import { ShapeStateEnum } from '@tools/enums';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-drawing-tool',
@@ -30,38 +31,48 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.mouseService.listenDrops$({
-      create: this.shapeService.createCircle,
-      start: (shape: Shape, point: Point2D): void => {
-        shape.setState(ShapeStateEnum.STABLE);
-        this.canvasService.add(shape);
-      },
-      complete: (shape: Shape, withoutMoves: boolean): void => {
-        withoutMoves ?
-          this.handleSuccess(shape) : this.handleFailed(shape);
-      }
+
+    this.mouseService.listenDropsV2((pStart: Point2D): Subject<Point2D> => {
+      const handler = new Subject<Point2D>();
+      const circle = this.shapeService.createCircle(pStart, true)
+        .setState(ShapeStateEnum.STABLE)
+        .seal();
+
+      this.canvasService.add(circle);
+
+      handler.subscribe(
+        () => this.handleSuccess(circle),
+        () => this.handleFailed(circle)
+      );
+
+      return handler;
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
 
-    this.mouseService.listenDrags$({
-      create: this.shapeService.createPolyline,
-      start:  (shape: Shape, point: Point2D): void => this.canvasService.add(shape),
-      next: (shape: PolylineShape, pStart: Point2D, pCurrent: Point2D): void => {
-        shape.addPoint(pCurrent);
-      },
-      complete: (shape: PolylineShape): void => {
-        shape.isCorrect() ?
-          this.handleSuccess(shape) : this.handleFailed(shape);
-      }
+    this.mouseService.listenDragsV2((pStart: Point2D): Subject<Point2D> => {
+      const handler = new Subject<Point2D>();
+      const polyline = this.shapeService.createPolyline(pStart).seal();
+
+      this.canvasService.add(polyline);
+
+      handler.subscribe(
+        (point: Point2D) => polyline.addPoint(point),
+        null,
+        () => {
+          polyline.isCorrect() ?
+            this.handleSuccess(polyline) : this.handleFailed(polyline);
+        }
+      );
+
+      return handler;
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
   }
 
   handleSuccess(shape: Shape): void {
-    shape.done();
-    this.canvasService.update();
+    shape.setState(ShapeStateEnum.STABLE);
     this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
   }
 

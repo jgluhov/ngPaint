@@ -12,9 +12,6 @@ export class PolylineShape extends Shape {
     public stroke: string
   ) {
     super();
-
-    this._strokeWidth = this.strokeWidth;
-    this._stroke = this.stroke;
   }
 
   static composeShape(rawShape: Object): PolylineShape {

@@ -15,7 +15,7 @@ export class ShapeService {
   constructor(private guiService: GuiService) {
   }
 
-  createPolyline = (pStart: Point2D): Shape => {
+  createPolyline = (pStart: Point2D): PolylineShape => {
     const { currentStrokeWidth, currentStroke }: GuiService = this.guiService;
 
     return new PolylineShape([pStart], currentStrokeWidth, currentStroke);
