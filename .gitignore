@@ -46,4 +46,4 @@ testem.log
 Thumbs.db
 
 # Electron builds
-/native-timer-app-darwin-x64
+/ng-paint-darwin-x64

@@ -9,9 +9,9 @@ function createWindow() {
     height: 600,
     backgroundColor: '#ffffff',
     center: true,
-    resizable: false,
-    maximizable: false,
-    fullscreenable: false
+    resizable: true,
+    maximizable: true,
+    fullscreenable: true
   });
 
   win.loadURL(`file://${__dirname}/dist/index.html`);
