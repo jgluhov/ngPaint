@@ -10,12 +10,17 @@ describe('ControlToolComponent', () => {
   let component: ControlToolComponent;
   let fixture: ComponentFixture<ControlToolComponent>;
   let socketServiceMock;
+  let userServiceMock;
 
   beforeEach(async(() => {
     const svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
     socketServiceMock = {
       socket$: of(42),
       send: (): void => {}
+    };
+    userServiceMock = {
+      changeState: (): void => {},
+      users$: of({})
     };
     TestBed.configureTestingModule({
       declarations: [ ControlToolComponent ],
@@ -25,7 +30,7 @@ describe('ControlToolComponent', () => {
         SocketService,
         {
           provide: MouseServiceDirective,
-          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef, socketServiceMock)
+          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef, socketServiceMock, userServiceMock)
         }
       ]
     })

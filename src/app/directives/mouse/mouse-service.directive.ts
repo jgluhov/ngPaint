@@ -19,10 +19,11 @@ import {
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
 import { DragHandler } from '../../modules/tools/shapes/shape';
-import { UserStates } from '@server/models/user.model';
+import { UserStates, User } from '@server/models/user.model';
 import { SocketService } from '@services/socket/socket.service';
 import { SocketCustomEventEnum } from '@server/events';
 import { Subject } from 'rxjs/Subject';
+import { UserService } from '@services/user/user.service';
 
 export interface ListenOptions {
   create(pStart: Point2D): Shape;
@@ -58,7 +59,8 @@ export class MouseServiceDirective {
 
   constructor(
     private elRef: ElementRef,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private userService: UserService
   ) {
     this.mouseDowns$ = this.fromEvent('mousedown').pipe(map(this.mouseEventToCoordinate));
     this.mouseMoves$ = this.fromEvent('mousemove').pipe(filter(this.isBtnPressed), map(this.mouseEventToCoordinate));
@@ -81,9 +83,13 @@ export class MouseServiceDirective {
     )
     .pipe(sample(this.mouseUps$));
 
-    this.drawingState$
-      .subscribe((drawingState: UserStates) => {
-        this.socketService.send(of(drawingState), SocketCustomEventEnum.CHANGE_STATE);
+    this.drawingState$.pipe(
+      withLatestFrom(this.userService.users$)
+    )
+      .subscribe(([drawingState, users]: [UserStates, User[]]) => {
+        users.filter((user: User) => user.me).forEach((user: User) => {
+          this.userService.changeState(user.id, drawingState);
+        });
       });
   }
 
