@@ -3,13 +3,14 @@ import { MouseServiceDirective } from '@directives';
 import { Point2D } from '@math';
 import { CanvasService } from '@services';
 import { Shape } from '@shapes/shape';
+import { partial, bind } from 'ramda';
 import { ShapeStateEnum } from '@tools/enums';
 import { empty, of, Subject, Observable } from 'rxjs';
 import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { DragHandler } from '../../shapes/shape';
-import { SocketCustomEventEnum } from '../../../../../../server/events';
-import { SocketService } from '../../../../services/socket/socket.service';
+import { SocketCustomEventEnum } from '@server/events';
+import { SocketService } from '@services/socket/socket.service';
 
 @Component({
   selector: 'app-control-tool',
@@ -37,20 +38,23 @@ export class ControlToolComponent implements OnInit, OnDestroy {
       }
 
       shape.setState(ShapeStateEnum.DRAGGING);
+      const dragHandler = shape.getDragHandler(pStart);
 
       handler.subscribe(
-        shape.getDragHandler(pStart),
+        bind(dragHandler, shape),
         null,
-        () => {
-          shape.setState(ShapeStateEnum.STABLE);
-          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-        }
+        partial(this.handleSuccess, [shape])
       );
 
       return handler;
     })
     .pipe(takeUntil(this.destroy$))
     .subscribe();
+  }
+
+  handleSuccess = (shape: Shape): void => {
+    shape.setState(ShapeStateEnum.STABLE);
+    this.socketService.send(of(shape), SocketCustomEventEnum.SHAPE_CHANGE);
   }
 
   ngOnDestroy(): void {

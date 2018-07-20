@@ -13,6 +13,7 @@ describe('GeometryToolComponent', () => {
   let fixture: ComponentFixture<GeometryToolComponent>;
   let socketServiceMock;
   let userServiceMock;
+  let guiServiceMock;
 
   beforeEach(async(() => {
     const svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
@@ -24,6 +25,9 @@ describe('GeometryToolComponent', () => {
       changeState: (): void => {},
       users$: of({})
     };
+    guiServiceMock = {
+      tool$: of({})
+    };
     TestBed.configureTestingModule({
       providers: [
         CanvasService,
@@ -34,7 +38,12 @@ describe('GeometryToolComponent', () => {
         },
         {
           provide: MouseServiceDirective,
-          useFactory: (): MouseServiceDirective => new MouseServiceDirective(svgRef, socketServiceMock, userServiceMock)
+          useFactory: (): MouseServiceDirective => new MouseServiceDirective(
+            svgRef,
+            socketServiceMock,
+            userServiceMock,
+            guiServiceMock
+          )
         }
       ],
       declarations: [ GeometryToolComponent ]

@@ -57,7 +57,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       this.canvasService.add(polyline);
 
       handler.subscribe(
-        (point: Point2D) => polyline.addPoint(point),
+        polyline.addPoint.bind(polyline),
         null,
         () => {
           polyline.isCorrect() ?
@@ -73,7 +73,8 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
 
   handleSuccess(shape: Shape): void {
     shape.setState(ShapeStateEnum.STABLE);
-    this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+    this.canvasService.update();
+    this.socketService.send(of(shape), SocketCustomEventEnum.SHAPE_ADD);
   }
 
   handleFailed(shape: Shape): void {

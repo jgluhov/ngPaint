@@ -6,6 +6,7 @@ describe('Mouse Service Directive', () => {
   let svgRef = null;
   let socketServiceMock;
   let userServiceMock;
+  let guiServiceMock;
 
   beforeEach(() => {
     socketServiceMock = {
@@ -16,11 +17,14 @@ describe('Mouse Service Directive', () => {
       changeState: (): void => {},
       users$: of({})
     };
+    guiServiceMock = {
+      tool$: of({})
+    };
     svgRef = new ElementRef(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
   });
 
   it('should create an instance', () => {
-    const directive = new MouseServiceDirective(svgRef, socketServiceMock, userServiceMock);
+    const directive = new MouseServiceDirective(svgRef, socketServiceMock, userServiceMock, guiServiceMock);
     expect(directive).toBeTruthy();
   });
 });

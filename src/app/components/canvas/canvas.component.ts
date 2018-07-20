@@ -49,14 +49,6 @@ export class CanvasComponent implements OnInit {
       .subscribe(this.loadComponent);
   }
 
-  handleShapeStateChange = (evt: {id: string; state: ShapeStateEnum}): void => {
-    if (!this.guiService.isCurrentToolType(ToolTypeEnum.Hand)) {
-      return;
-    }
-
-    this.canvasService.setState(evt.id, evt.state);
-  }
-
   loadComponent = (tool: IToolListItem): void => {
     this.vcr.clear();
 

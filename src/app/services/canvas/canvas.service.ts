@@ -38,8 +38,6 @@ export class CanvasService {
     this.polylines$ = this.getShapes$('polyline');
     this.circles$ = this.getShapes$('circle');
     this.rects$ = this.getShapes$('rect');
-
-    this.shapeStore$.subscribe(console.log);
   }
 
   getShapes$<T extends Shape>(type: string): Observable<T[]> {
@@ -59,6 +57,12 @@ export class CanvasService {
   remove = (removedShape: Shape): void => {
     this.shapeHandler$.next((shapes: Shape[]) => {
       return shapes.filter((shape: Shape) => shape.id !== removedShape.id);
+    });
+  }
+
+  replace = (replacedShape: Shape): void => {
+    this.shapeHandler$.next((shapes: Shape[]) => {
+      return shapes.filter((shape: Shape) => shape.id !== replacedShape.id).concat(replacedShape);
     });
   }
 

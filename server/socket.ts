@@ -43,7 +43,8 @@ export class SocketServer {
 
     this.listen(SocketCustomEventEnum.SAVE_USERNAME).subscribe(this.handleSaveUsername);
     this.listen(SocketCustomEventEnum.CHANGE_STATE).subscribe(this.handleChangeState);
-    this.listen(SocketCustomEventEnum.SAVE_SHAPE).subscribe(this.handleSaveShape);
+    this.listen(SocketCustomEventEnum.SHAPE_ADD).subscribe(this.handleAddShape);
+    this.listen(SocketCustomEventEnum.SHAPE_CHANGE).subscribe(this.handleChangeShape);
     this.disconnect$.subscribe(this.handleUserLeft);
   }
 
@@ -78,13 +79,22 @@ export class SocketServer {
     client.broadcast.emit(SocketCustomEventEnum.CHANGE_STATE, message);
   }
 
-  private handleSaveShape = ({server, client, data}: SocketIOListener<Shape>): void => {
+  private handleAddShape = ({server, client, data}: SocketIOListener<Shape>): void => {
     const message = {
       id: client.id,
       message: data
     };
 
     client.broadcast.emit(SocketCustomEventEnum.SHAPE_ADD, message);
+  }
+
+  private handleChangeShape =  ({server, client, data}: SocketIOListener<Shape>): void => {
+    const message = {
+      id: client.id,
+      message: data
+    };
+
+    client.broadcast.emit(SocketCustomEventEnum.SHAPE_CHANGE, message);
   }
 
   private handleUserLeft = (client: SocketIOClient): void => {

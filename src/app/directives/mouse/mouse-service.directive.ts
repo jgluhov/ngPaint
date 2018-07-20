@@ -24,6 +24,9 @@ import { SocketService } from '@services/socket/socket.service';
 import { SocketCustomEventEnum } from '@server/events';
 import { Subject } from 'rxjs/Subject';
 import { UserService } from '@services/user/user.service';
+import { GuiService } from '@services';
+import { IToolListItem } from '@tools/interfaces';
+import { ToolTypeEnum } from '@tools/enums';
 
 export interface ListenOptions {
   create(pStart: Point2D): Shape;
@@ -60,7 +63,8 @@ export class MouseServiceDirective {
   constructor(
     private elRef: ElementRef,
     private socketService: SocketService,
-    private userService: UserService
+    private userService: UserService,
+    private guiService: GuiService
   ) {
     this.mouseDowns$ = this.fromEvent('mousedown').pipe(map(this.mouseEventToCoordinate));
     this.mouseMoves$ = this.fromEvent('mousemove').pipe(filter(this.isBtnPressed), map(this.mouseEventToCoordinate));
@@ -73,7 +77,11 @@ export class MouseServiceDirective {
     this.moves$ = merge(this.mouseMoves$, this.touchMoves$).pipe(throttleTime(5), map(this.toSVGCoordinate));
     this.ends$ = merge(this.mouseUps$, this.touchEnds$).pipe(map(this.toSVGCoordinate));
 
-    this.startDrawing$ = merge(this.mouseDowns$, this.touchStarts$).pipe(mapTo(UserStates.DRAWING));
+    this.startDrawing$ = merge(this.mouseDowns$, this.touchStarts$).pipe(
+      withLatestFrom(this.guiService.tool$),
+      filter(([point, tool]: [Point2D, IToolListItem]) => tool.type !== ToolTypeEnum.Pointer),
+      mapTo(UserStates.DRAWING)
+    );
     this.endDrawing$ = merge(this.mouseUps$, this.touchEnds$).pipe(mapTo(UserStates.IDLE));
     this.drawingState$ = merge(this.startDrawing$, this.endDrawing$);
 

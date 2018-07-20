@@ -71,6 +71,7 @@ export class SocketService {
     this.listen(SocketCustomEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
     this.listen(SocketCustomEventEnum.CHANGE_STATE).subscribe(this.handleStateChange);
     this.listen(SocketCustomEventEnum.SHAPE_ADD).subscribe(this.handleShapeAdd);
+    this.listen(SocketCustomEventEnum.SHAPE_CHANGE).subscribe(this.handleShapeChange);
 
     this.send(this.userService.username$, SocketCustomEventEnum.SAVE_USERNAME);
   }
@@ -115,6 +116,11 @@ export class SocketService {
   private handleShapeAdd = ({id, message: shape}: SocketIOMessage<Shape>): void => {
     const composedShape = this.shapeService.composeShape(shape);
     this.canvasService.add(composedShape);
+  }
+
+  private handleShapeChange = ({id, message: shape}: SocketIOMessage<Shape>): void => {
+    const composedShape = this.shapeService.composeShape(shape);
+    this.canvasService.replace(composedShape);
   }
 
   private handleStateChange = ({id, message}: SocketIOMessage<UserStates>): void => {

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, of, Observable } from 'rxjs';
 import { tap, mergeMap, takeUntil } from 'rxjs/operators';
+import { partial, bind } from 'ramda';
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
 import { RectShape } from '@shapes/rect/rect-shape';
@@ -41,12 +42,9 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
       this.canvasService.add(shape);
 
       handler.subscribe(
-        (pCurrent: Point2D) => shape.transform(pStart, pCurrent),
+        bind(partial(shape.transform, [pStart]), shape),
         null,
-        () => {
-          shape.setState(ShapeStateEnum.STABLE);
-          this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
-        }
+        partial(this.handleSuccess, [shape])
       );
 
       return handler;
@@ -68,7 +66,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   handleSuccess = (shape: Shape): void => {
     shape.setState(ShapeStateEnum.STABLE);
     this.canvasService.update();
-    this.socketService.send(of(shape), SocketCustomEventEnum.SAVE_SHAPE);
+    this.socketService.send(of(shape), SocketCustomEventEnum.SHAPE_ADD);
   }
 
   ngOnDestroy(): void {
