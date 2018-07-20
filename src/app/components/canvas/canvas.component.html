@@ -25,9 +25,9 @@
           <polyline *ngIf="!polyline.isStable()"
             [attr.points]="polyline.toString()"
             [attr.fill]="polyline.fill"
-            [attr.stroke]="polyline.stroke"
+            [attr.stroke]="polyline.getStroke()"
             [attr.stroke-linecap]="polyline.strokeLinecap"
-            [attr.stroke-width]="polyline.strokeWidth"/>
+            [attr.stroke-width]="polyline.getStrokeWidth()"/>
         </ng-container>
       </g>
       <g id="circles">
@@ -38,8 +38,8 @@
             [attr.cy]="circle.cy"
             [attr.r]="circle.r"
             [attr.fill]="circle.fill"
-            [attr.stroke]="circle.stroke"
-            [attr.stroke-width]="circle.strokeWidth"
+            [attr.stroke]="circle.getStroke()"
+            [attr.stroke-width]="circle.getStrokeWidth()"
           />
         </ng-container>
       </g>
@@ -52,10 +52,10 @@
             [attr.width]="rect.width"
             [attr.height]="rect.height"
             [attr.fill]="rect.fill"
-            [attr.stroke]="rect.stroke"
+            [attr.stroke]="rect.getStroke()"
             [attr.rx]="rect.rx"
             [attr.ry]="rect.ry"
-            [attr.stroke-width]="rect.strokeWidth"
+            [attr.stroke-width]="rect.getStrokeWidth()"
           />
         </ng-container>
       </g>

@@ -9,8 +9,6 @@ export abstract class Shape {
   public readonly type: string;
   protected stroke;
   protected strokeWidth;
-  protected _stroke;
-  protected _strokeWidth;
   public state = ShapeStateEnum.EDITING;
 
   public ofType(type: string): boolean {
@@ -36,6 +34,16 @@ export abstract class Shape {
       .toString().replace(',', '');
 
     return this;
+  }
+
+  public getStroke(): string {
+    return this.isDragging() ?
+      SHAPE_HOVER_STROKE : this.stroke;
+  }
+
+  public getStrokeWidth(): number {
+    return this.isDragging() ?
+      this.strokeWidth * 1.5 : this.strokeWidth;
   }
 
   public isStable(): boolean {
