@@ -2853,7 +2853,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
     production: false,
-    wsUrl: 'http://localhost:8080'
+    wsUrl: 'https://ng-paint-server.herokuapp.com'
 };
 
 
