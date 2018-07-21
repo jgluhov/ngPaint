@@ -37,10 +37,9 @@ export class ControlToolComponent implements OnInit, OnDestroy {
       }
 
       shape.setState(ShapeStateEnum.DRAGGING);
-      const dragHandler = shape.getDragHandler(pStart);
 
       handler.subscribe(
-        bind(dragHandler, shape),
+        bind(shape.getDragHandler(pStart), shape),
         null,
         partial(this.handleSuccess, [shape])
       );
