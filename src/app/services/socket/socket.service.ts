@@ -2,19 +2,16 @@ import * as io from 'socket.io-client';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable, merge, fromEvent, of, ReplaySubject } from 'rxjs';
-import { mapTo, switchMap, map, mergeMap, takeUntil, withLatestFrom, tap } from 'rxjs/operators';
-import {
-  SocketCustomEventEnum,
-  SocketEvents,
-  SocketEventEnum
-} from '@server/events';
+import { mapTo, switchMap, map, mergeMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { UserService } from '@services/user/user.service';
-import { User, UserStates } from '@server/models/user.model';
 import { Socket } from 'socket.io';
 import { Subject } from 'rxjs/Subject';
 import { Shape } from '../../modules/tools/shapes/shape';
 import { CanvasService } from '@services/canvas/canvas.service';
 import { ShapeService } from '../shape/shape.service';
+import { User } from '@interfaces/user.interface';
+import { UserStates } from '@enums/user-states.enum';
+import { SocketEventEnum } from '@enums/socket-event.enum';
 
 interface SocketIOData<T> {
   socket: SocketIO.Socket;
@@ -66,14 +63,14 @@ export class SocketService {
       this.disconnect$.pipe(mapTo(SocketStateEnum.DISCONNECTED))
     );
 
-    this.listen(SocketCustomEventEnum.ALL_USERS).pipe(withLatestFrom(this.socket$)).subscribe(this.handleAllUsers);
-    this.listen(SocketCustomEventEnum.USER_LEFT).subscribe(this.handleUserLeft);
-    this.listen(SocketCustomEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
-    this.listen(SocketCustomEventEnum.CHANGE_STATE).subscribe(this.handleStateChange);
-    this.listen(SocketCustomEventEnum.SHAPE_ADD).subscribe(this.handleShapeAdd);
-    this.listen(SocketCustomEventEnum.SHAPE_CHANGE).subscribe(this.handleShapeChange);
+    this.listen(SocketEventEnum.ALL_USERS).pipe(withLatestFrom(this.socket$)).subscribe(this.handleAllUsers);
+    this.listen(SocketEventEnum.USER_LEFT).subscribe(this.handleUserLeft);
+    this.listen(SocketEventEnum.USER_JOIN).subscribe(this.handleUserJoin);
+    this.listen(SocketEventEnum.CHANGE_STATE).subscribe(this.handleStateChange);
+    this.listen(SocketEventEnum.SHAPE_ADD).subscribe(this.handleShapeAdd);
+    this.listen(SocketEventEnum.SHAPE_CHANGE).subscribe(this.handleShapeChange);
 
-    this.send(this.userService.username$, SocketCustomEventEnum.SAVE_USERNAME);
+    this.send(this.userService.username$, SocketEventEnum.SAVE_USERNAME);
   }
 
   private listen<T>(event: string): Observable<T> {

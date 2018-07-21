@@ -15,8 +15,8 @@ import {
 } from '@tools/enums';
 import { IToolList, IToolListItem } from '@tools/interfaces';
 import { ShapeService } from '@services/shape/shape.service';
-import { SocketService } from '../../../../services/socket/socket.service';
-import { SocketCustomEventEnum } from '@server/events';
+import { SocketService } from '@services/socket/socket.service';
+import { SocketEventEnum } from '@enums/socket-event.enum';
 
 @Component({
   selector: 'app-geometry-tool',
@@ -66,7 +66,7 @@ export class GeometryToolComponent implements OnInit, OnDestroy {
   handleSuccess = (shape: Shape): void => {
     shape.setState(ShapeStateEnum.STABLE);
     this.canvasService.update();
-    this.socketService.send(of(shape), SocketCustomEventEnum.SHAPE_ADD);
+    this.socketService.send(of(shape), SocketEventEnum.SHAPE_ADD);
   }
 
   ngOnDestroy(): void {

@@ -19,14 +19,14 @@ import {
 import { Point2D } from '@math';
 import { Shape } from '@shapes/shape';
 import { DragHandler } from '../../modules/tools/shapes/shape';
-import { UserStates, User } from '@server/models/user.model';
+import { User } from '@interfaces/user.interface';
 import { SocketService } from '@services/socket/socket.service';
-import { SocketCustomEventEnum } from '@server/events';
 import { Subject } from 'rxjs/Subject';
 import { UserService } from '@services/user/user.service';
 import { GuiService } from '@services';
 import { IToolListItem } from '@tools/interfaces';
 import { ToolTypeEnum } from '@tools/enums';
+import { UserStates } from '@enums/user-states.enum';
 
 export interface ListenOptions {
   create(pStart: Point2D): Shape;

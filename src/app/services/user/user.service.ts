@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User, UserStates } from '@server/models/user.model';
+import { User } from '@interfaces/user.interface';
+import { UserStates } from '@enums/user-states.enum';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { scan } from 'rxjs/operators';

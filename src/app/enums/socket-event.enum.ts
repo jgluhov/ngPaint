@@ -1,4 +1,4 @@
-export enum SocketCustomEventEnum {
+export enum SocketEventEnum {
   SAVE_USERNAME = 'save username',
   CHANGE_STATE = 'change state',
   SHAPE_CHANGE = 'change shape',
@@ -6,15 +6,11 @@ export enum SocketCustomEventEnum {
   USER_JOIN = 'user join',
   USER_LEFT = 'user left',
   ALL_USERS = 'all users',
-  START_DRAWING = 'user:start-drawing',
-  STOP_DRAWING = 'user:start-drawing'
-}
+  START_DRAWING = 'user starts drawing',
+  STOP_DRAWING = 'user stop drawing',
 
-export enum SocketEventEnum {
   CONNECT = 'connect',
   CONNECTION = 'connection',
   DISCONNECT = 'disconnect',
   CONNECT_ERROR = 'connect_error'
 }
-
-export type SocketEvents = SocketEventEnum | SocketCustomEventEnum;

@@ -35,8 +35,11 @@
       "@env/*": [
         "environments/*"
       ],
-      "@server/*": [
-        "../server/*"
+      "@interfaces/*": [
+        "app/interfaces/*"
+      ],
+      "@enums/*": [
+        "app/enums/*"
       ],
       "@components/*": [
         "app/components/*"
@@ -55,12 +58,6 @@
       ],
       "@services": [
         "app/services"
-      ],
-      "@store/*": [
-        "app/store/*"
-      ],
-      "@store": [
-        "app/store"
       ],
       "@math/*": [
         "app/math/*"

@@ -5,12 +5,11 @@ import { CanvasService } from '@services';
 import { Shape } from '@shapes/shape';
 import { partial, bind } from 'ramda';
 import { ShapeStateEnum } from '@tools/enums';
-import { empty, of, Subject, Observable } from 'rxjs';
-import { switchMap, takeUntil, tap, mergeMap, finalize } from 'rxjs/operators';
+import { of, Subject, Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
-import { DragHandler } from '../../shapes/shape';
-import { SocketCustomEventEnum } from '@server/events';
 import { SocketService } from '@services/socket/socket.service';
+import { SocketEventEnum } from '@enums/socket-event.enum';
 
 @Component({
   selector: 'app-control-tool',
@@ -54,7 +53,7 @@ export class ControlToolComponent implements OnInit, OnDestroy {
 
   handleSuccess = (shape: Shape): void => {
     shape.setState(ShapeStateEnum.STABLE);
-    this.socketService.send(of(shape), SocketCustomEventEnum.SHAPE_CHANGE);
+    this.socketService.send(of(shape), SocketEventEnum.SHAPE_CHANGE);
   }
 
   ngOnDestroy(): void {

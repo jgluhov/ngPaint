@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { User, UserStates } from '@server/models/user.model';
-import { UserService } from '../../services/user/user.service';
+import { User } from '@interfaces/user.interface';
+import { UserStates } from '@enums/user-states.enum';
+import { UserService } from '@services/user/user.service';
 
 @Component({
   selector: 'app-user',
